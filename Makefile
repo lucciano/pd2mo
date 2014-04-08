@@ -1,5 +1,5 @@
-CPPLIBS=-lboost_unit_test_framework 
-CPPFLAGS=
+CPPLIBS=-lboost_unit_test_framework -lpdppt -lQtGui -lQtCore -lmocc
+CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc
 all: test
 clean:
 	rm test/*.o
