@@ -1,0 +1,36 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = qss/qss_integrator.h
+    Parameters = "QSS3","1e-6","1e-3","0"
+   }
+  Simulator
+   {
+    Path = qss/qss_wsum.h
+    Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00
+   }
+  Simulator
+   {
+    Path = sources\constant_sci.h
+    Parameters = "1"
+   }
+  Simulator
+   {
+    Path = sinks/gnuplot.h
+    Parameters = 1.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'First output'","","","",""
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (1,0);(0,0)
+    (2,0);(1,0)
+    (0,0);(3,0)
+    (0,0);(1,1)
+   }
+ }
