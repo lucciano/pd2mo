@@ -86,7 +86,113 @@ BOOST_AUTO_TEST_CASE( uno) {
 				foreach(declit, decl){
 					if(current_element(declit)->modification()){
 					m = current_element(declit)->modification();
-					cout << m->modificationType() << endl;
+					cout << "Modification type ";
+					switch (m->modificationType()){
+						case MODNONE: 
+							cout << "MODNONE" << endl;
+							break;
+						case MODEQUAL: {
+							cout << "MODEQUAL" << endl;
+							AST_Modification_Equal mq = m->getAsEqual();
+							AST_Expression ex = mq->exp();
+							cout << ex->expressionType() << endl;
+	switch(ex->expressionType()){
+		case EXPCOMPREF:{
+			AST_Expression_ComponentReference expc =  ex->getAsComponentReference();
+			cout << "Comp Ref Name : " << expc->name() << endl;	
+			break;
+			}
+		case EXPNONE :{
+			cout << "ExpNone" << endl;
+			break;
+		}
+		case EXPBINOP:{
+			cout << "ExpBinOP" << endl;
+			break;
+		}
+		case EXPDERIVATIVE:{
+			cout << "ExpDerivative" << endl;
+			break;
+		}
+		case EXPNULL:{
+			cout << "ExpNUll" << endl;
+			break;
+		}
+		case EXPEND:{
+			cout << "ExpEnd" << endl;
+			break;
+		}
+		case EXPIF:{
+			cout << "ExpIf" << endl;
+			break;
+		}
+		case EXPCALLARG:{
+			cout << "ExpCallArgs" << endl;
+			break;
+		}
+		case EXPBRACE:{
+			cout << "ExpBrace" << endl;
+			break;
+		}
+		case EXPCALL:{
+			cout << "ExpCall" << endl;
+			break;
+		}
+		case EXPELSEIF:{
+			cout << "ExpElseIf" << endl;
+			break;
+		}
+		case EXPCOLON:{
+			cout << "ExpColon" << endl;
+			break;
+		}
+		case EXPUMINUS:{
+			cout << "ExpUminus" << endl;
+			break;
+		}
+		case EXPBOOLEAN:{
+			cout << "ExpBoolean" << endl;
+			break;
+		}
+		case EXPSTRING:{
+			cout << "ExpString" << endl;
+			break;
+		}
+		case EXPREAL:{
+			cout << "ExpReal" << endl;
+			break;
+		}
+		case EXPINTEGER:{
+			cout << "ExpInteger" << endl;
+			break;
+		}
+		case EXPBOOLEANNOT:{
+			cout << "ExpBooleanNot" << endl;
+			break;
+		}
+		case EXPOUTPUT:{
+			cout << "ExpOutput" << endl;
+			break;
+		}
+		case EXPRANGE:{
+			cout << "ExRange" << endl;
+			break;
+		}
+		default:{
+			cout << ex << endl;
+		}
+							}
+							break;
+							}
+						case MODASSIGN: 
+							cout << "MODASSIGN" << endl;
+							break;
+						case MODCLASS: 
+							cout << "MODCLASS" << endl;
+							break;
+						default:
+							cout << "default..." << endl;
+					}
 					cout << current_element(declit)->name() << "<<==" 
 					     << current_element(declit)->modification() << endl;
 					}else{
