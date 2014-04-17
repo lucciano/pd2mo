@@ -4,6 +4,7 @@
 #include <test/file_util.h>
 #include <string>
 #include <ast/stored_definition.h>
+#include <ast/modification.h>
 #include <parser/parse.h>
 #include <util/symbol_table.h>
 #include <util/ast_util.h>
@@ -59,21 +60,75 @@ BOOST_AUTO_TEST_CASE( uno) {
 	// First elements
 	AST_ElementList el = comp->elementList();
 	AST_ElementListIterator elit;
+	cout << "AST_ElementList" << endl;
 	foreach(elit,el) {
-		//switch (current_element(elit)->elementType()) {
-		//	case COMPONENT:
-		//		addVariable(current_element(elit)->getAsComponent());
-		//		break;
-		//	default:
-		//		addElement(current_element(elit));
-		//		break;
-		//}
+		AST_Element el = current_element(elit);
+		AST_Element_Component elco;
+		AST_DeclarationList decl; 
+		AST_DeclarationListIterator declit;
+		AST_ExpressionList expl;
+		cout << el <<endl;
+		switch(el->elementType()){
+			case ELNONE:
+				cout << "Type ELNONE" <<endl; break;
+			case COMPONENT:
+				{
+				cout << "Type COMPONENT" <<endl; 
+				elco = el->getAsComponent();
+				cout << "Variable :"<< elco->name() << endl; 
+				AST_DeclarationList  decl = elco->nameList ();
+				AST_DeclarationListIterator it;
+				foreach(it, decl){
+					cout <<"Var:" << current_element(it)->name() << endl;
+				}
+				AST_Modification m;
+				decl = elco->nameList();
+				foreach(declit, decl){
+					if(current_element(declit)->modification()){
+					m = current_element(declit)->modification();
+					cout << m->modificationType() << endl;
+					cout << current_element(declit)->name() << "<<==" 
+					     << current_element(declit)->modification() << endl;
+					}else{
+						cout << current_element(declit)->name() << "<<==" << endl;
+					}
+				}
+				AST_ExpressionList   expl = elco->indexes ();
+				cout << "Index :" << expl->size() << endl;
+				AST_ExpressionListIterator explit;
+				foreach(explit, expl){
+					cout << "Exp:" << current_element(it) << endl;
+				}
+				cout << "......................................\n";
+				}
+				break;
+			case IMPORT:
+				cout << "Type IMPORT" <<endl; break;
+			case EXTENDS:
+				cout << "Type EXTENDS" <<endl; break;
+			case ELCLASS:
+				cout << "Type ELCLASS" <<endl; break;
+			default:
+				cout << "Type UNKOWN" <<endl; break;
+		}
+                //        
+                //        AST_ExpressionList dims = newAST_ExpressionList();
+                //        AST_ListConcat(dims, current_element(it)->indexes() );
+                //        AST_ListConcat(dims, c->indexes() );
+                //        
+                //        if (dims->size() > 0 )
+                //                t = make_array_type(  dims, t  );
+                //        
+                //        VarInfo  v = newVarInfo(t , c->typePrefix() , current_element(it)->modification(), current_element(it)->comment() );
+                //        varEnv->insert(current_element(it)->name(), v);
+                ////}
+
 	}
 	
 	
 	AST_CompositionElementList cel = comp->compositionList();
 	AST_CompositionElementListIterator it;
-	
+	cout << "CompositionElements" <<endl;
 	foreach(it,cel) {
 		AST_EquationListIterator eqit;
 		AST_ElementListIterator  elit;
@@ -83,17 +138,11 @@ BOOST_AUTO_TEST_CASE( uno) {
 		AST_CompositionElement e = current_element(it);
 		AST_CompositionEqsAlgs eqA = e->getEquationsAlgs();
 		if (eqA != NULL) {
-			if  (eqA->isInitial()) {
+				cout << "Equations"<< endl;
 				foreach(eqit,eqA->getEquations())  
 					cout << current_element(eqit) << endl;
 				foreach(stit,eqA->getAlgorithms()) 
 					cout << current_element(stit) << endl;
-			} else {
-				foreach(eqit,eqA->getEquations())  
-					cout << current_element(eqit) << endl;
-				foreach(stit,eqA->getAlgorithms()) 
-					cout << current_element(stit) << endl;
-			}
 		}
 		// Elements 
 		foreach(elit,e->getElementList()) {
