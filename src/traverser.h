@@ -13,6 +13,15 @@ class Traverser {
 	virtual void visit(AST_ClassList classList);
 	virtual void visit(AST_Class _class);
 	virtual void visit(AST_Composition comp);
+	virtual void visit(AST_EquationList eqList);
+
+	virtual void visit(AST_Equation_Call eqCall);
+	virtual void visit(AST_Equation_Connect eqCon);
+	virtual void visit(AST_Equation_Equality eqEq);
+	virtual void visit(AST_Equation_For eqFor);
+	virtual void visit(AST_Equation_If eqIf);
+	virtual void visit(AST_Equation_When eqWhen);
+
 	virtual void visit(AST_ElementList elementList);
 	virtual void visit(AST_Element element); //AST_Element (type=NONE)
 	virtual void visit(AST_Element_ClassWrapper cw); //AST_Element
