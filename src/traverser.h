@@ -35,7 +35,7 @@ class Traverser {
 	virtual void visitModification_Class(AST_Modification_Class modClass); //AST_Modification 
 	virtual void visitModification_Equal(AST_Modification_Equal modEq); //AST_Modification 
 	virtual void visitExpression(AST_Expression ex); //AST_Expression
-	virtual void visitExpression_BinOp);(AST_Expression_BinOp); // AST_Expression
+	virtual void visitExpression_BinOp(AST_Expression_BinOp); // AST_Expression
 	virtual void visitExpression_Boolean(AST_Expression_Boolean); // AST_Expression
 	virtual void visitExpression_BooleanNot(AST_Expression_BooleanNot); // AST_Expression
 	virtual void visitExpression_Brace(AST_Expression_Brace); // AST_Expression
