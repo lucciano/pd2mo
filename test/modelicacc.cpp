@@ -25,10 +25,6 @@ BOOST_AUTO_TEST_CASE( cero ) {
 	BOOST_CHECK( 0 == c->name()->compare("Constant"));
 
 	cout << "Encontramos la clase " << c->name() << endl;
-	for( AST_ElementListIterator cIter = c->composition()->elementList()->begin();
-		cIter != c->composition()->elementList()->end(); ++cIter){
-		//cout << (*cIter) << endl;
-	}
 	AST_CompositionElementList cl = c->composition()->compositionList();
 	AST_CompositionElementListIterator it;
 	foreach(it, cl){

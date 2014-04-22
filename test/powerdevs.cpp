@@ -23,5 +23,6 @@ BOOST_AUTO_TEST_CASE( cero ) {
 	modelChild * modelC = *childsIterator;
 
         BOOST_CHECK(modelC->childType == ATOMIC  );
+	cout << modelC->atomic->path.toStdString() << endl;
     }
 }

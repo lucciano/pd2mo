@@ -24,6 +24,10 @@ void T1::visitClass(AST_Class _class){
 
 void T1::visitDeclaration(AST_Declaration dec){
 	debug << __PRETTY_FUNCTION__ << dec->name() << endl  ; 
+	AST_ExpressionListIterator it;
+	foreach(it, dec->indexes()){
+		cout <<"Indices " << current_element(it) << endl;
+	}
 	Traverser::visitDeclaration(dec);
 }
 void T1::visitModification_Equal(AST_Modification_Equal modEq){
@@ -37,8 +41,16 @@ BOOST_AUTO_TEST_CASE( cero ) {
     string path = getFullPath();
     string filename = path + "/data/Constant.mo";
     AST_StoredDefinition sd = parseFile(filename,&r);
-
     T1 t = T1();
     t.visitStoredDefinition(sd);
+}
 
+BOOST_AUTO_TEST_CASE( uno ){
+    int r = 0;
+    string path = getFullPath();
+   // string filename = path + "/data/simple01.pds";
+    string filename = path + "/data/Constant.mo";
+    AST_StoredDefinition sd = parseFile(filename,&r);
+    T1 t = T1();
+    t.visitStoredDefinition(sd);
 }
