@@ -54,6 +54,8 @@ class Traverser {
 	virtual void visitExpression_Real(AST_Expression_Real); // AST_Expression
 	virtual void visitExpression_String(AST_Expression_String); // AST_Expression
 	virtual void visitExpression_UMinus(AST_Expression_UMinus); // AST_Expression
+
+	virtual void visitClassWrapper(AST_Element_ClassWrapper);
 };
 }
 #endif

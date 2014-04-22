@@ -141,7 +141,7 @@ void Traverser::visitElement_ClassWrapper(AST_Element_ClassWrapper cw){
 void Traverser::visitElement_Component(AST_Element_Component comp){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_DeclarationList  decl = comp->nameList ();
-	this->visit(decl);
+	this->visitDeclarationList(decl);
 }
 
 void Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
@@ -156,7 +156,7 @@ void Traverser::visitDeclarationList(AST_DeclarationList decList){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	AST_DeclarationListIterator it;
 	foreach(it, decList){
-		this->visitDeclarationList(current_element(it));
+		this->visitDeclaration(current_element(it));
 	}
 }
 
@@ -201,10 +201,10 @@ void Traverser::visitModification_Class(AST_Modification_Class modClass){
 
 void Traverser::visitModification_Equal(AST_Modification_Equal modEq){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	this->visitExpressionExpression(modEq->exp());
+	this->visitExpression(modEq->exp());
 }
 
-void Traverser::visitExpressionExpression(AST_Expression ex){
+void Traverser::visitExpression(AST_Expression ex){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
@@ -212,7 +212,7 @@ void Traverser::visitExpression_BinOp(AST_Expression_BinOp binOp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
-void Traverser::visitExpression_Boolean (AST_Expression_Boolean bool){
+void Traverser::visitExpression_Boolean (AST_Expression_Boolean boolean){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
@@ -272,7 +272,7 @@ void Traverser::visitExpression_Range(AST_Expression_Range rangeExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
-void Traverser::visitAST_Expression_Real(AST_Expression_Real realExp){
+void Traverser::visitExpression_Real(AST_Expression_Real realExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
@@ -281,6 +281,10 @@ void Traverser::visitExpression_String(AST_Expression_String strExp){
 }
 
 void Traverser::visitExpression_UMinus(AST_Expression_UMinus uminusExp){
+	debug << __PRETTY_FUNCTION__ << endl  ; 
+}
+
+void Traverser::visitClassWrapper(AST_Element_ClassWrapper){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 }
 
