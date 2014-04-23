@@ -3,22 +3,23 @@
 #define debug std::cout 
 
 namespace pd2mo{
-void Traverser::visitStoredDefinition(AST_StoredDefinition sd){
+AST_StoredDefinition Traverser::visitStoredDefinition(AST_StoredDefinition sd){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_ClassList models = sd->models();
 	this->visitClassList(models);
-
+	return sd;
 }
 
-void Traverser::visitClassList(AST_ClassList classList){
+AST_ClassList Traverser::visitClassList(AST_ClassList classList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_ClassListIterator it;
 	foreach(it, classList){
 		this->visitClass(current_element(it));
 	}
+	return classList;
 }
 
-void Traverser::visitClass(AST_Class _class){
+AST_Class Traverser::visitClass(AST_Class _class){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	this->visitComposition(_class->composition());
 
@@ -28,15 +29,17 @@ void Traverser::visitClass(AST_Class _class){
 		AST_EquationList eql = current_element(compIt)->getEquationsAlgs()->getEquations();
 		this->visitEquationList(eql);
 	}
+	return _class;
 }
 
-void Traverser::visitComposition(AST_Composition comp){
+AST_Composition Traverser::visitComposition(AST_Composition comp){
 	debug << __PRETTY_FUNCTION__ << endl ;
 	AST_ElementList elList = comp->elementList();
 	this->visitElementList(elList);
+	return comp;
 }
 
-void Traverser::visitEquationList(AST_EquationList eqList){
+AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_EquationListIterator it;
 	foreach(it, eqList){
@@ -71,33 +74,40 @@ void Traverser::visitEquationList(AST_EquationList eqList){
 			throw current_element(it)->equationType();
 		}
 	}
+	return eqList;
 }
 
-void Traverser::visitEquation_Call(AST_Equation_Call eqCall){
+AST_Equation_Call Traverser::visitEquation_Call(AST_Equation_Call eqCall){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqCall;
 }
 
-void Traverser::visitEquation_Connect(AST_Equation_Connect eqCon){
+AST_Equation_Connect Traverser::visitEquation_Connect(AST_Equation_Connect eqCon){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqCon;
 }
 
-void Traverser::visitEquation_Equality(AST_Equation_Equality eqEq){
+AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eqEq){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqEq;
 }
 
-void Traverser::visitEquation_For(AST_Equation_For eqFor){
+AST_Equation_For Traverser::visitEquation_For(AST_Equation_For eqFor){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqFor;
 }
 
-void Traverser::visitEquation_If(AST_Equation_If eqIf){
+AST_Equation_If Traverser::visitEquation_If(AST_Equation_If eqIf){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqIf;
 }
 
-void Traverser::visitEquation_When(AST_Equation_When eqWhen){
+AST_Equation_When Traverser::visitEquation_When(AST_Equation_When eqWhen){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return eqWhen;
 }
 
-void Traverser::visitElementList(AST_ElementList elementList){
+AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_ElementListIterator elIt;
 	foreach(elIt, elementList){
@@ -128,39 +138,46 @@ void Traverser::visitElementList(AST_ElementList elementList){
 		}
         }
 
+	return elementList;
 }
 
-void Traverser::visitElement(AST_Element element){ 
+AST_Element Traverser::visitElement(AST_Element element){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return element;
 }
 
-void Traverser::visitElement_ClassWrapper(AST_Element_ClassWrapper cw){ 
+AST_Element_ClassWrapper Traverser::visitElement_ClassWrapper(AST_Element_ClassWrapper cw){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return cw;
 }
 
-void Traverser::visitElement_Component(AST_Element_Component comp){
+AST_Element_Component Traverser::visitElement_Component(AST_Element_Component comp){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_DeclarationList  decl = comp->nameList ();
 	this->visitDeclarationList(decl);
+	return comp;
 }
 
-void Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
+AST_Element_ExtendsClause Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	return extends;
 }
 
-void Traverser::visitElement_ImportClause(AST_Element_ImportClause import){
+AST_Element_ImportClause Traverser::visitElement_ImportClause(AST_Element_ImportClause import){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return import;
 }
 
-void Traverser::visitDeclarationList(AST_DeclarationList decList){
+AST_DeclarationList Traverser::visitDeclarationList(AST_DeclarationList decList){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	AST_DeclarationListIterator it;
 	foreach(it, decList){
 		this->visitDeclaration(current_element(it));
 	}
+	return decList;
 }
 
-void Traverser::visitDeclaration(AST_Declaration dec){
+AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	AST_Modification modif = dec->modification();
 	if(modif){
@@ -168,124 +185,150 @@ void Traverser::visitDeclaration(AST_Declaration dec){
 		case MODEQUAL:{
 			AST_Modification_Equal mo = modif->getAsEqual();
 			this->visitModification_Equal(mo);
-			return ;
+			break;
 		}
 		case MODASSIGN:{
 			AST_Modification_Assign mo = modif->getAsAssign();
 			this->visitModification_Assign(mo);
-			return ;
+			break;
 		}
 		case MODCLASS:{
 			AST_Modification_Class mo = modif->getAsClass();
 			this->visitModification_Class(mo);
-			return ;
+			break;
 		}
 		case  MODNONE:
 		default:
 			throw modif->modificationType();
 		}
 	}
+	return dec;
 }
 
-void Traverser::visitModification(AST_Modification mod){
+AST_Modification Traverser::visitModification(AST_Modification mod){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return mod;
 }
 
-void Traverser::visitModification_Assign(AST_Modification_Assign modASsig){
+AST_Modification_Assign Traverser::visitModification_Assign(AST_Modification_Assign modASsig){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return modASsig;
 }
 
-void Traverser::visitModification_Class(AST_Modification_Class modClass){
+AST_Modification_Class Traverser::visitModification_Class(AST_Modification_Class modClass){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return modClass;
 }
 
-void Traverser::visitModification_Equal(AST_Modification_Equal modEq){
+AST_Modification_Equal Traverser::visitModification_Equal(AST_Modification_Equal modEq){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	this->visitExpression(modEq->exp());
+	return modEq;
 }
 
-void Traverser::visitExpression(AST_Expression ex){
+AST_Expression Traverser::visitExpression(AST_Expression ex){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return ex;
 }
 
-void Traverser::visitExpression_BinOp(AST_Expression_BinOp binOp){
+AST_Expression_BinOp Traverser::visitExpression_BinOp(AST_Expression_BinOp binOp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return binOp;
 }
 
-void Traverser::visitExpression_Boolean (AST_Expression_Boolean boolean){
+AST_Expression_Boolean Traverser::visitExpression_Boolean (AST_Expression_Boolean boolean){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return boolean;
 }
 
-void Traverser::visitExpression_BooleanNot(AST_Expression_BooleanNot notExp){
+AST_Expression_BooleanNot Traverser::visitExpression_BooleanNot(AST_Expression_BooleanNot notExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return notExp;
 }
 
-void Traverser::visitExpression_Brace(AST_Expression_Brace brace){
+AST_Expression_Brace Traverser::visitExpression_Brace(AST_Expression_Brace brace){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return brace;
 }
 
-void Traverser::visitExpression_Call(AST_Expression_Call){
+AST_Expression_Call Traverser::visitExpression_Call(AST_Expression_Call callExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return callExp;
 }
 
-void Traverser::visitExpression_CallArgs(AST_Expression_CallArgs){
+AST_Expression_CallArgs Traverser::visitExpression_CallArgs(AST_Expression_CallArgs callArgsExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return callArgsExp;
 }
 
-void Traverser::visitExpression_Colon(AST_Expression_Colon){
+AST_Expression_Colon Traverser::visitExpression_Colon(AST_Expression_Colon colonExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return colonExp;
 }
 
-void Traverser::visitExpression_ComponentReference(AST_Expression_ComponentReference){
+AST_Expression_ComponentReference Traverser::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return compRefExp;
 }
 
-void Traverser::visitExpression_Derivative(AST_Expression_Derivative der){
+AST_Expression_Derivative Traverser::visitExpression_Derivative(AST_Expression_Derivative der){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return der;
 }
 
-void Traverser::visitExpression_End(AST_Expression_End endStm){
+AST_Expression_End Traverser::visitExpression_End(AST_Expression_End endStm){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return endStm;
 }
 
-void Traverser::visitExpression_If(AST_Expression_If ifExp){
+AST_Expression_If Traverser::visitExpression_If(AST_Expression_If ifExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return ifExp;
 }
 
-void Traverser::visitExpression_If_ElseIf(AST_Expression_If_ElseIf elseIfExp){
+AST_Expression_If_ElseIf Traverser::visitExpression_If_ElseIf(AST_Expression_If_ElseIf elseIfExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return elseIfExp;
 }
 
-void Traverser::visitExpression_Integer(AST_Expression_Integer){
+AST_Expression_Integer Traverser::visitExpression_Integer(AST_Expression_Integer expInt){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return expInt;
 }
 
-void Traverser::visitExpression_Null(AST_Expression_Null nullExp){
+AST_Expression_Null Traverser::visitExpression_Null(AST_Expression_Null nullExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return nullExp;
 }
 
-void Traverser::visitExpression_Output(AST_Expression_Output outExp){
+AST_Expression_Output Traverser::visitExpression_Output(AST_Expression_Output outExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return outExp;
 }
 
-void Traverser::visitExpression_Range(AST_Expression_Range rangeExp){
+AST_Expression_Range Traverser::visitExpression_Range(AST_Expression_Range rangeExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return rangeExp;
 }
 
-void Traverser::visitExpression_Real(AST_Expression_Real realExp){
+AST_Expression_Real Traverser::visitExpression_Real(AST_Expression_Real realExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return realExp;
 }
 
-void Traverser::visitExpression_String(AST_Expression_String strExp){
+AST_Expression_String Traverser::visitExpression_String(AST_Expression_String strExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return strExp;
 }
 
-void Traverser::visitExpression_UMinus(AST_Expression_UMinus uminusExp){
+AST_Expression_UMinus Traverser::visitExpression_UMinus(AST_Expression_UMinus uminusExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return uminusExp;
 }
 
-void Traverser::visitClassWrapper(AST_Element_ClassWrapper){
+AST_Element_ClassWrapper Traverser::visitClassWrapper(AST_Element_ClassWrapper classWrapExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return classWrapExp;
 }
 
 }

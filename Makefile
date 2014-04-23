@@ -1,7 +1,7 @@
 CPPLIBS=-lboost_unit_test_framework -lpdppt -lQtGui -lQtCore -lmocc 
 CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./src -I/usr/include/ -I.
 
-OBJ_COMMON=src/traverser.o
+OBJ_COMMON=src/traverser.o src/prefixmovars.o
 
 all: test $(OBJ_COMMON)
 

@@ -12,27 +12,28 @@ using namespace pd2mo;
 
 class T1: public Traverser {
 public:
-	virtual void visitModification_Equal(AST_Modification_Equal modEq);
-	virtual void visitDeclaration(AST_Declaration dec);
-	virtual void visitClass(AST_Class _class);
+	virtual AST_Modification_Equal visitModification_Equal(AST_Modification_Equal modEq);
+	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
+	virtual AST_Class visitClass(AST_Class _class);
 };
 
-void T1::visitClass(AST_Class _class){
+AST_Class T1::visitClass(AST_Class _class){
 	debug << __PRETTY_FUNCTION__ << _class->name() << endl  ; 
-	Traverser::visitClass(_class);
+	return Traverser::visitClass(_class);
 }
 
-void T1::visitDeclaration(AST_Declaration dec){
+AST_Declaration T1::visitDeclaration(AST_Declaration dec){
 	debug << __PRETTY_FUNCTION__ << dec->name() << endl  ; 
 	AST_ExpressionListIterator it;
 	foreach(it, dec->indexes()){
 		cout <<"Indices " << current_element(it) << endl;
 	}
-	Traverser::visitDeclaration(dec);
+	return Traverser::visitDeclaration(dec);
 }
-void T1::visitModification_Equal(AST_Modification_Equal modEq){
+AST_Modification_Equal T1::visitModification_Equal(AST_Modification_Equal modEq){
 	debug << __PRETTY_FUNCTION__ << modEq << endl  ; 
 	Traverser::visitExpression(modEq->exp());
+	return modEq;
 }
 
 BOOST_AUTO_TEST_CASE( cero ) {

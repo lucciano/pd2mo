@@ -7,9 +7,9 @@
 
 namespace pd2mo{
 class PrefixMoVars: public Traverser {
-	virtual void visitModification_Equal(AST_Modification_Equal modEq);
-	virtual void visitDeclaration(AST_Declaration dec);
-	virtual void visitClass(AST_Class _class);
+	virtual AST_Modification_Equal visitModification_Equal(AST_Modification_Equal modEq);
+	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
+	virtual AST_Class visitClass(AST_Class _class);
 };
 }
 #endif
