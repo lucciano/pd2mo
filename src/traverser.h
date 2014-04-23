@@ -3,7 +3,6 @@
 #include <ast/stored_definition.h>
 #include <ast/modification.h>
 #include <parser/parse.h>
-#include <util/symbol_table.h>
 
 namespace pd2mo{
 class Traverser {
