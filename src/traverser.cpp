@@ -47,11 +47,9 @@ AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	AST_EquationListIterator it;
 	foreach(it, eqList){
 		switch(current_element(it)->equationType()){
-		//  case EQNONE:{
-		//}
 		  case EQEQUALITY:{
 	AST_Equation_Equality eq = current_element(it)->getAsEquality();
-	this->visitEquation_Equality(eq);
+		current_element(it) = this->visitEquation_Equality(eq);
 	break;	}
 	//	  case EQCONNECT:{
 	//AST_Equation_Connect eq = current_element(it)->getAsConnect();
@@ -59,20 +57,21 @@ AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	//break;	}
 		  case EQCALL:{
 	AST_Equation_Call eq = current_element(it)->getAsCall();
-	this->visitEquation_Call(eq);
+		current_element(it) = this->visitEquation_Call(eq);
 	break;	}
 		  case EQFOR:{
 	AST_Equation_For eq = current_element(it)->getAsFor();
-	this->visitEquation_For(eq);
+		current_element(it) = this->visitEquation_For(eq);
 	break;	}
 		  case EQWHEN:{
 	AST_Equation_When eq = current_element(it)->getAsWhen();
-	this->visitEquation_When(eq);
+		current_element(it) = this->visitEquation_When(eq);
 	break;	}
 		  case EQIF:{
 	AST_Equation_If eq = current_element(it)->getAsIf();
-	this->visitEquation_If(eq);
+		current_element(it) = this->visitEquation_If(eq);
 	break;	}
+		  case EQNONE:
 		  default :
 			throw current_element(it)->equationType();
 		}
