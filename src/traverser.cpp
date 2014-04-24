@@ -198,9 +198,11 @@ AST_Element_ClassWrapper Traverser::visitElement_ClassWrapper(AST_Element_ClassW
 
 AST_Element_Component Traverser::visitElement_Component(AST_Element_Component comp){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	AST_DeclarationList  decl = comp->nameList ();
-	this->visitDeclarationList(decl);
-	return comp;
+	return new AST_Element_Component_ (
+		visitDeclarationList(comp->nameList()),
+		comp->type(), 
+		comp->typePrefix(), 
+		visitExpressionList(comp->indexes()));
 }
 
 AST_Element_ExtendsClause Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
