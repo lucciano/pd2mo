@@ -91,9 +91,11 @@ AST_Equation_Connect Traverser::visitEquation_Connect(AST_Equation_Connect eqCon
 		this->visitExpression_ComponentReference(eqCon->right()));
 }
 
-AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eqEq){
+AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eqExp){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqEq;
+	return new AST_Equation_Equality_ (
+		this->visitExpression(eqExp->left()), 
+		this->visitExpression(eqExp->right()));
 }
 
 AST_Equation_For Traverser::visitEquation_For(AST_Equation_For eqFor){
