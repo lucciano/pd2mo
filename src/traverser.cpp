@@ -156,33 +156,9 @@ AST_Equation_When Traverser::visitEquation_When(AST_Equation_When eqWhen){
 
 AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	AST_ElementListIterator elIt;
-	foreach(elIt, elementList){
-		switch(current_element(elIt)->elementType()){
-		case COMPONENT:{
-			AST_Element_Component el = current_element(elIt)->getAsComponent();
-			this->visitElement_Component(el);
-			break;
-		}
-		case IMPORT: {
-			AST_Element_ImportClause el = current_element(elIt)->getAsImportClause();
-			this->visitElement_ImportClause(el);
-			break;
-		}
-		case EXTENDS: {
-			AST_Element_ExtendsClause el = current_element(elIt)->getAsExtendsClause();
-			this->visitElement_ExtendsClause(el);
-			break;
-		}
-		case ELCLASS: {
-			AST_Element_ClassWrapper el = current_element(elIt)->getAsClassWrapper();
-			this->visitClassWrapper(el);
-			break;
-		}
-		case ELNONE:
-		default:
-			throw current_element(elIt)->elementType();
-		}
+	AST_ElementListIterator it;
+	foreach(it, elementList){
+		current_element(it) = visitElement(current_element(it));	
         }
 
 	return elementList;
@@ -190,12 +166,34 @@ AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
 
 AST_Element Traverser::visitElement(AST_Element element){
 	debug << __PRETTY_FUNCTION__ << endl  ;
+	switch(element->elementType()){
+	case COMPONENT:{
+		AST_Element_Component el = element->getAsComponent();
+		return visitElement_Component(el);
+		}
+	case IMPORT: {
+		AST_Element_ImportClause el = element->getAsImportClause();
+		return visitElement_ImportClause(el);
+		}
+	case EXTENDS: {
+		AST_Element_ExtendsClause el = element->getAsExtendsClause();
+		return visitElement_ExtendsClause(el);
+			
+		}
+	case ELCLASS: {
+		AST_Element_ClassWrapper el = element->getAsClassWrapper();
+		return visitElement_ClassWrapper(el);
+		}
+	case ELNONE:
+	default:
+		throw element->elementType();
+	}
 	return element;
 }
 
 AST_Element_ClassWrapper Traverser::visitElement_ClassWrapper(AST_Element_ClassWrapper cw){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return cw;
+	return new AST_Element_ClassWrapper_ (visitClass(cw->getClass()));
 }
 
 AST_Element_Component Traverser::visitElement_Component(AST_Element_Component comp){
