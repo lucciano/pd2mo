@@ -147,8 +147,11 @@ AST_Equation_Else Traverser::visitEquation_Else(AST_Equation_Else _else){
 }
 
 AST_Equation_When Traverser::visitEquation_When(AST_Equation_When eqWhen){
-	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqWhen;
+	debug << __PRETTY_FUNCTION__ << endl;
+	return new AST_Equation_When_ (
+		visitExpression(eqWhen->condition()),
+		visitEquationList(eqWhen->equationList()), 
+		visitEquation_ElseList(eqWhen->equationElseWhen()));
 }
 
 AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
