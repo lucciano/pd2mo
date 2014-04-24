@@ -46,7 +46,7 @@ AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_EquationListIterator it;
 	foreach(it, eqList){
-		switch(current_element(it)->equationType()){
+		switch(current_element(it)->equationType()){ //TODO: este switch deberia estar dentro de visitEquation ¿no?
 		  case EQEQUALITY:{
 	AST_Equation_Equality eq = current_element(it)->getAsEquality();
 		current_element(it) = this->visitEquation_Equality(eq);
@@ -81,12 +81,14 @@ AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 
 AST_Equation_Call Traverser::visitEquation_Call(AST_Equation_Call eqCall){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqCall;
+	return new AST_Equation_Call_ (this->visitExpression(eqCall->call()));
 }
 
 AST_Equation_Connect Traverser::visitEquation_Connect(AST_Equation_Connect eqCon){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqCon;
+	return new AST_Equation_Connect_ (
+		this->visitExpression_ComponentReference(eqCon->left()),
+		this->visitExpression_ComponentReference(eqCon->right()));
 }
 
 AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eqEq){
