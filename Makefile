@@ -1,9 +1,10 @@
 CPPLIBS=-lboost_unit_test_framework -lpdppt -lQtGui -lQtCore -lmocc 
-CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./src -I/usr/include/ -I.
+CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./src -I/usr/include/ -I. -g
 
 OBJ_COMMON=src/traverser.o src/prefixmovars.o
+TEST=test/powerdevs test/modelicacc test/pd2mo
 
-all: test $(OBJ_COMMON)
+all: $(TEST) $(OBJ_COMMON)
 
 clean:
 	rm test/*.o
@@ -12,7 +13,7 @@ clean:
 	rm test/pd2mo
 
 
-test:test/powerdevs test/modelicacc test/pd2mo
+test: $(TEST) $(OBJ_COMMON)
 	test/modelicacc
 	test/powerdevs
 	test/pd2mo

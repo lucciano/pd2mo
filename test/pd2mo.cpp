@@ -3,6 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <test/file_util.h>
 #include <string>
+#include <../src/prefixmovars.h>
 #include <../src/traverser.h>
 
 #define debug std::cout 
@@ -37,6 +38,7 @@ AST_Modification_Equal T1::visitModification_Equal(AST_Modification_Equal modEq)
 }
 
 BOOST_AUTO_TEST_CASE( cero ) {
+    cout << "cero" << endl;
     BOOST_CHECK( 1 == 1 );
     int r = 0;
     string path = getFullPath();
@@ -47,11 +49,14 @@ BOOST_AUTO_TEST_CASE( cero ) {
 }
 
 BOOST_AUTO_TEST_CASE( uno ){
+    cout << "uno" << endl;
     int r = 0;
     string path = getFullPath();
    // string filename = path + "/data/simple01.pds";
     string filename = path + "/data/Constant.mo";
     AST_StoredDefinition sd = parseFile(filename,&r);
-    T1 t = T1();
-    t.visitStoredDefinition(sd);
+    PrefixMoVars p = PrefixMoVars();
+    p.setPrefix("constant_N_");
+    AST_StoredDefinition sd2 = p.visitStoredDefinition(sd);
+    cout << sd << endl;
 }

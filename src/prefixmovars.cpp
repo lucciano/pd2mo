@@ -10,16 +10,20 @@ AST_Class PrefixMoVars::visitClass(AST_Class _class){
 }
 
 AST_Declaration PrefixMoVars::visitDeclaration(AST_Declaration dec){
-	debug << __PRETTY_FUNCTION__ << dec->name() << endl  ; 
-	AST_ExpressionListIterator it;
-	foreach(it, dec->indexes()){
-		cout <<"Indices " << current_element(it) << endl;
-	}
-	return Traverser::visitDeclaration(dec);
+	string name = this->prefix + dec->name();
+	debug << __PRETTY_FUNCTION__ << name << endl  ; 
+	AST_Declaration decPrefix = new AST_Declaration_(name, 
+		this->visitExpressionList(dec->indexes()),
+		this->visitModification(dec->modification()));
+	decPrefix->setComment(dec->comment());
+	dec = decPrefix;
+	return decPrefix;
 }
+
 AST_Modification_Equal PrefixMoVars::visitModification_Equal(AST_Modification_Equal modEq){
 	debug << __PRETTY_FUNCTION__ << modEq << endl  ; 
-	Traverser::visitExpression(modEq->exp());
-	return visitModification_Equal(modEq);
+	
+	//Traverser::visitExpression(modEq->exp());
+	return Traverser::visitModification_Equal(modEq);
 }
 }

@@ -9,6 +9,7 @@ class Traverser {
   public:
 	Traverser(){};
 	virtual AST_StoredDefinition visitStoredDefinition(AST_StoredDefinition st);
+	virtual AST_String visitString(AST_String s);
 	virtual AST_ClassList visitClassList(AST_ClassList classList);
 	virtual AST_Class visitClass(AST_Class _class);
 	virtual AST_Composition visitComposition(AST_Composition comp);
@@ -34,6 +35,7 @@ class Traverser {
 	virtual AST_Modification_Class visitModification_Class(AST_Modification_Class modClass); //AST_Modification 
 	virtual AST_Modification_Equal visitModification_Equal(AST_Modification_Equal modEq); //AST_Modification 
 	virtual AST_Expression visitExpression(AST_Expression ex); //AST_Expression
+	virtual AST_ExpressionList visitExpressionList(AST_ExpressionList ex); //AST_Expression
 	virtual AST_Expression_BinOp visitExpression_BinOp(AST_Expression_BinOp); // AST_Expression
 	virtual AST_Expression_Boolean visitExpression_Boolean(AST_Expression_Boolean); // AST_Expression
 	virtual AST_Expression_BooleanNot visitExpression_BooleanNot(AST_Expression_BooleanNot); // AST_Expression

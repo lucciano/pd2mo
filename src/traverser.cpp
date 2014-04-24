@@ -5,31 +5,34 @@
 namespace pd2mo{
 AST_StoredDefinition Traverser::visitStoredDefinition(AST_StoredDefinition sd){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	AST_ClassList models = sd->models();
-	this->visitClassList(models);
-	return sd;
+	return new AST_StoredDefinition_ (this->visitClassList(sd->models()), 
+			       this->visitString(sd->within()));
+}
+
+AST_String Traverser::visitString(AST_String s){
+	return s;
 }
 
 AST_ClassList Traverser::visitClassList(AST_ClassList classList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_ClassListIterator it;
 	foreach(it, classList){
-		this->visitClass(current_element(it));
+		current_element(it) = this->visitClass(current_element(it));
 	}
 	return classList;
 }
 
 AST_Class Traverser::visitClass(AST_Class _class){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	this->visitComposition(_class->composition());
-
-	AST_CompositionElementList compList = _class->composition()->compositionList();
-	AST_CompositionElementListIterator compIt;
-	foreach(compIt, compList){
-		AST_EquationList eql = current_element(compIt)->getEquationsAlgs()->getEquations();
-		this->visitEquationList(eql);
-	}
-	return _class;
+	return new AST_Class_ (this->visitString(_class->name()), 
+			this->visitComposition(_class->composition()));
+	//AST_CompositionElementList compList = _class->composition()->compositionList();
+	//AST_CompositionElementListIterator compIt;
+	//foreach(compIt, compList){
+	//	AST_EquationList eql = current_element(compIt)->getEquationsAlgs()->getEquations();
+	//	this->visitEquationList(eql);
+	//}
+	//return _class;
 }
 
 AST_Composition Traverser::visitComposition(AST_Composition comp){
@@ -226,6 +229,9 @@ AST_Modification_Equal Traverser::visitModification_Equal(AST_Modification_Equal
 	return modEq;
 }
 
+AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
+	return exList;
+}
 AST_Expression Traverser::visitExpression(AST_Expression ex){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	return ex;
