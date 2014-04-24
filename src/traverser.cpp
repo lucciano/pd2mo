@@ -207,7 +207,7 @@ AST_Element_Component Traverser::visitElement_Component(AST_Element_Component co
 
 AST_Element_ExtendsClause Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return extends;
+	return new AST_Element_ExtendsClause_ (visitString(extends->name()));
 }
 
 AST_Element_ImportClause Traverser::visitElement_ImportClause(AST_Element_ImportClause import){
@@ -219,12 +219,12 @@ AST_DeclarationList Traverser::visitDeclarationList(AST_DeclarationList decList)
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	AST_DeclarationListIterator it;
 	foreach(it, decList){
-		this->visitDeclaration(current_element(it));
+		current_element(it) = visitDeclaration(current_element(it));
 	}
 	return decList;
 }
 
-AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){
+AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){ //TODO: continue here...
 	debug << __PRETTY_FUNCTION__ << endl  ; 
 	AST_Modification modif = dec->modification();
 	if(modif){
