@@ -100,7 +100,24 @@ AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eq
 
 AST_Equation_For Traverser::visitEquation_For(AST_Equation_For eqFor){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqFor;
+	return new AST_Equation_For_ (
+		visitForIndexList(eqFor->forIndexList()),
+		visitEquationList(eqFor->equationList()));
+}
+
+AST_ForIndexList Traverser::visitForIndexList(AST_ForIndexList forIndexList){
+	debug << __PRETTY_FUNCTION__ << endl;
+	AST_ForIndexListIterator it;
+	foreach(it, forIndexList){
+		current_element(it) = visitForIndex(current_element(it));
+	}
+	return forIndexList;
+}
+
+AST_ForIndex Traverser::visitForIndex(AST_ForIndex forIndex){
+	debug << __PRETTY_FUNCTION__ << endl;
+	return new AST_ForIndex_ (visitString(forIndex->variable()), 
+				  visitExpression(forIndex->in_exp()));
 }
 
 AST_Equation_If Traverser::visitEquation_If(AST_Equation_If eqIf){

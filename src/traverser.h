@@ -19,6 +19,8 @@ class Traverser {
 	virtual AST_Equation_Connect visitEquation_Connect(AST_Equation_Connect eqCon);
 	virtual AST_Equation_Equality visitEquation_Equality(AST_Equation_Equality eqEq);
 	virtual AST_Equation_For visitEquation_For(AST_Equation_For eqFor);
+	virtual AST_ForIndexList visitForIndexList(AST_ForIndexList forIndexList);
+	virtual AST_ForIndex visitForIndex(AST_ForIndex forIndex);
 	virtual AST_Equation_If visitEquation_If(AST_Equation_If eqIf);
 	virtual AST_Equation_When visitEquation_When(AST_Equation_When eqWhen);
 
