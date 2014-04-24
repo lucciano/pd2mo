@@ -122,7 +122,28 @@ AST_ForIndex Traverser::visitForIndex(AST_ForIndex forIndex){
 
 AST_Equation_If Traverser::visitEquation_If(AST_Equation_If eqIf){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return eqIf;
+	return new AST_Equation_If_ (
+		visitExpression(eqIf->condition()),
+		visitEquationList(eqIf->equationList()),
+		visitEquation_ElseList(eqIf->equationElseIf()),
+		visitEquationList(eqIf->equationElseList())
+		);
+}
+
+AST_Equation_ElseList Traverser::visitEquation_ElseList(AST_Equation_ElseList elseList){
+	debug << __PRETTY_FUNCTION__ << endl  ;
+	AST_Equation_ElseListIterator it;
+	foreach(it, elseList){
+		current_element(it) = visitEquation_Else(current_element(it));
+	}
+	return elseList;
+}
+
+AST_Equation_Else Traverser::visitEquation_Else(AST_Equation_Else _else){
+	debug << __PRETTY_FUNCTION__ << endl  ;
+	return new AST_Equation_Else_(
+		visitExpression(_else->condition()), 
+		visitEquationList(_else->equations()));
 }
 
 AST_Equation_When Traverser::visitEquation_When(AST_Equation_When eqWhen){

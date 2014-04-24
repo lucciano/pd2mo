@@ -22,6 +22,8 @@ class Traverser {
 	virtual AST_ForIndexList visitForIndexList(AST_ForIndexList forIndexList);
 	virtual AST_ForIndex visitForIndex(AST_ForIndex forIndex);
 	virtual AST_Equation_If visitEquation_If(AST_Equation_If eqIf);
+	virtual AST_Equation_ElseList visitEquation_ElseList(AST_Equation_ElseList);
+	virtual AST_Equation_Else visitEquation_Else(AST_Equation_Else);
 	virtual AST_Equation_When visitEquation_When(AST_Equation_When eqWhen);
 
 	virtual AST_ElementList visitElementList(AST_ElementList elementList);
