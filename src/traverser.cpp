@@ -306,10 +306,56 @@ AST_Argument_Redeclaration Traverser::visitArgument_Redeclaration(AST_Argument_R
 
 
 AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
+	AST_ExpressionListIterator it;
+	foreach(it, exList){
+		current_element(it) = visitExpression(current_element(it));
+	}
 	return exList;
 }
+
 AST_Expression Traverser::visitExpression(AST_Expression ex){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+	switch(ex->expressionType ()){
+        EXPCOMPREF:
+		return visitExpression_ComponentReference(ex->getAsComponentReference());
+        EXPBINOP:
+		return visitExpression_ComponentReference(ex->getAsComponentReference());
+        EXPDERIVATIVE:
+		return visitExpression_Derivative(ex->getAsDerivative());
+        EXPIF:
+		return visitExpression_If(ex->getAsIf());
+        EXPCALLARG:
+		return visitExpression_CallArgs(ex->getAsCallArgs());
+        EXPBRACE:
+		return visitExpression_Brace(ex->getAsBrace());
+        EXPCALL:
+		return visitExpression_Call(ex->getAsCall());
+        EXPELSEIF:
+		return visitExpression_If_ElseIf(ex->getAsElseIf());
+        EXPBOOLEAN:
+		return visitExpression_Boolean(ex->getAsBoolean());
+        EXPSTRING:
+		return visitExpression_String(ex->getAsString());
+        EXPREAL:
+		return visitExpression_Real(ex->getAsReal());
+        EXPINTEGER:
+		return visitExpression_Integer(ex->getAsInteger());
+        EXPBOOLEANNOT:
+		return visitExpression_BooleanNot(ex->getAsBooleanNot());
+        EXPOUTPUT:
+		return visitExpression_Output(ex->getAsOutput());
+        EXPRANGE:
+		return visitExpression_Range(ex->getAsRange());
+
+        EXPUMINUS:
+        EXPEND:
+        EXPNULL:
+        EXPCOLON:
+	EXPNONE:
+		break;
+	default:
+		throw ex->expressionType();
+	}
 	return ex;
 }
 
