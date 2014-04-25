@@ -373,22 +373,23 @@ AST_Expression_Boolean Traverser::visitExpression_Boolean (AST_Expression_Boolea
 
 AST_Expression_BooleanNot Traverser::visitExpression_BooleanNot(AST_Expression_BooleanNot notExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return notExp;
+	return new AST_Expression_BooleanNot_ (visitExpression(notExp->exp()));
 }
 
 AST_Expression_Brace Traverser::visitExpression_Brace(AST_Expression_Brace brace){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return brace;
+	return new AST_Expression_Brace_ (visitExpressionList(brace->arguments()));
 }
 
 AST_Expression_Call Traverser::visitExpression_Call(AST_Expression_Call callExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return callExp;
+	return new AST_Expression_Call_ (visitString(callExp->name()), 
+					visitExpressionList(callExp->arguments()));
 }
 
 AST_Expression_CallArgs Traverser::visitExpression_CallArgs(AST_Expression_CallArgs callArgsExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return callArgsExp;
+	return new AST_Expression_CallArgs_ (visitExpressionList(callArgsExp->arguments()));
 }
 
 AST_Expression_Colon Traverser::visitExpression_Colon(AST_Expression_Colon colonExp){
