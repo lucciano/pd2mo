@@ -207,7 +207,7 @@ AST_Element_Component Traverser::visitElement_Component(AST_Element_Component co
 
 AST_Element_ExtendsClause Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return new AST_Element_ExtendsClause_ (visitString(extends->name()));
+	return new AST_Element_ExtendsClause_(*(extends->name()));
 }
 
 AST_Element_ImportClause Traverser::visitElement_ImportClause(AST_Element_ImportClause import){
@@ -224,24 +224,30 @@ AST_DeclarationList Traverser::visitDeclarationList(AST_DeclarationList decList)
 	return decList;
 }
 
-AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){ //TODO: continue here...
+AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	AST_Modification modif = dec->modification();
+ 	return new AST_Declaration_ (dec->name(), 
+				visitExpressionList(dec->indexes()),
+				visitModification(dec->modification()));
+}
+
+
+AST_Modification Traverser::visitModification(AST_Modification modif){
 	if(modif){
 		switch(modif->modificationType()){
 		case MODEQUAL:{
 			AST_Modification_Equal mo = modif->getAsEqual();
-			this->visitModification_Equal(mo);
+			return this->visitModification_Equal(mo);
 			break;
 		}
 		case MODASSIGN:{
 			AST_Modification_Assign mo = modif->getAsAssign();
-			this->visitModification_Assign(mo);
+			return this->visitModification_Assign(mo);
 			break;
 		}
 		case MODCLASS:{
 			AST_Modification_Class mo = modif->getAsClass();
-			this->visitModification_Class(mo);
+			return this->visitModification_Class(mo);
 			break;
 		}
 		case  MODNONE:
@@ -249,29 +255,55 @@ AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){ //TODO: contin
 			throw modif->modificationType();
 		}
 	}
-	return dec;
+	return modif;
 }
 
-AST_Modification Traverser::visitModification(AST_Modification mod){
+AST_Modification_Assign Traverser::visitModification_Assign(AST_Modification_Assign modAssig){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return mod;
-}
-
-AST_Modification_Assign Traverser::visitModification_Assign(AST_Modification_Assign modASsig){
-	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return modASsig;
+	return new AST_Modification_Assign_ (visitExpression(modAssig->exp()));
 }
 
 AST_Modification_Class Traverser::visitModification_Class(AST_Modification_Class modClass){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return modClass;
+	return new AST_Modification_Class_ (
+			visitArgumentList(modClass->arguments()),
+			visitExpression(modClass->exp()));
 }
 
 AST_Modification_Equal Traverser::visitModification_Equal(AST_Modification_Equal modEq){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	this->visitExpression(modEq->exp());
-	return modEq;
+	return new AST_Modification_Equal_ (visitExpression(modEq->exp()));
 }
+
+AST_ArgumentList Traverser::visitArgumentList(AST_ArgumentList argList){
+	debug << __PRETTY_FUNCTION__ << endl  ; 
+	AST_ArgumentListIterator it;
+	foreach(it, argList){
+		current_element(it) = visitArgument(current_element(it));
+	}
+	return argList;
+}
+AST_Argument Traverser::visitArgument(AST_Argument arg){
+	debug << __PRETTY_FUNCTION__ << endl  ; 
+	AST_Argument_Modification argMo = dynamic_cast<AST_Argument_Modification>(arg);
+	AST_Argument_Redeclaration argRed = dynamic_cast<AST_Argument_Redeclaration>(arg);
+	if(argMo){
+		return visitArgument_Modification(argMo);
+	}else if(argRed){
+		return visitArgument_Redeclaration(argRed);
+	}else{
+		return arg;
+	}
+}
+AST_Argument_Modification Traverser::visitArgument_Modification(AST_Argument_Modification argMod){
+	debug << __PRETTY_FUNCTION__ << endl  ; 
+	return new AST_Argument_Modification_ (visitString(argMod->name()), 
+					      visitModification(argMod->modification()));
+}
+AST_Argument_Redeclaration Traverser::visitArgument_Redeclaration(AST_Argument_Redeclaration argRed){
+	return argRed;
+}
+
 
 AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
 	return exList;

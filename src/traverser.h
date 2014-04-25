@@ -38,6 +38,7 @@ class Traverser {
 	virtual AST_Modification_Assign visitModification_Assign(AST_Modification_Assign modASsig); //AST_Modification 
 	virtual AST_Modification_Class visitModification_Class(AST_Modification_Class modClass); //AST_Modification 
 	virtual AST_Modification_Equal visitModification_Equal(AST_Modification_Equal modEq); //AST_Modification 
+
 	virtual AST_Expression visitExpression(AST_Expression ex); //AST_Expression
 	virtual AST_ExpressionList visitExpressionList(AST_ExpressionList ex); //AST_Expression
 	virtual AST_Expression_BinOp visitExpression_BinOp(AST_Expression_BinOp); // AST_Expression
@@ -46,6 +47,10 @@ class Traverser {
 	virtual AST_Expression_Brace visitExpression_Brace(AST_Expression_Brace); // AST_Expression
 	virtual AST_Expression_Call visitExpression_Call(AST_Expression_Call); // AST_Expression
 	virtual AST_Expression_CallArgs visitExpression_CallArgs(AST_Expression_CallArgs); // AST_Expression
+	virtual AST_ArgumentList visitArgumentList(AST_ArgumentList argList);
+	virtual AST_Argument visitArgument(AST_Argument arg);
+	virtual AST_Argument_Modification visitArgument_Modification(AST_Argument_Modification argMod);
+	virtual AST_Argument_Redeclaration visitArgument_Redeclaration(AST_Argument_Redeclaration argRed);
 	virtual AST_Expression_Colon visitExpression_Colon(AST_Expression_Colon); // AST_Expression
 	virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference); // AST_Expression
 	virtual AST_Expression_Derivative visitExpression_Derivative(AST_Expression_Derivative); // AST_Expression
