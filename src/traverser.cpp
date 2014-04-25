@@ -361,7 +361,9 @@ AST_Expression Traverser::visitExpression(AST_Expression ex){
 
 AST_Expression_BinOp Traverser::visitExpression_BinOp(AST_Expression_BinOp binOp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return binOp;
+	return new AST_Expression_BinOp_ (
+		visitExpression(binOp->left()), 
+		visitExpression(binOp->right()), binOp->binopType());
 }
 
 AST_Expression_Boolean Traverser::visitExpression_Boolean (AST_Expression_Boolean boolean){
