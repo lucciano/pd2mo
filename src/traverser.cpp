@@ -413,7 +413,8 @@ AST_Expression_ComponentReference Traverser::visitExpression_ComponentReference(
 
 AST_Expression_Derivative Traverser::visitExpression_Derivative(AST_Expression_Derivative der){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return der;
+	return new AST_Expression_Derivative_ (
+		visitExpressionList(der->arguments()));
 }
 
 AST_Expression_End Traverser::visitExpression_End(AST_Expression_End endStm){
@@ -423,12 +424,18 @@ AST_Expression_End Traverser::visitExpression_End(AST_Expression_End endStm){
 
 AST_Expression_If Traverser::visitExpression_If(AST_Expression_If ifExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return ifExp;
+	return new AST_Expression_If_ (
+		visitExpression(ifExp->condition()),
+		visitExpression(ifExp->then()), 
+		visitExpression(ifExp->else_exp()),
+		visitExpressionList(ifExp->elseif_list()));
 }
 
 AST_Expression_If_ElseIf Traverser::visitExpression_If_ElseIf(AST_Expression_If_ElseIf elseIfExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return elseIfExp;
+  	return new AST_Expression_If_ElseIf_ (
+		visitExpression(elseIfExp->condition()),
+		visitExpression(elseIfExp->then()));
 }
 
 AST_Expression_Integer Traverser::visitExpression_Integer(AST_Expression_Integer expInt){
