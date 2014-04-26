@@ -392,14 +392,23 @@ AST_Expression_CallArgs Traverser::visitExpression_CallArgs(AST_Expression_CallA
 	return new AST_Expression_CallArgs_ (visitExpressionList(callArgsExp->arguments()));
 }
 
-AST_Expression_Colon Traverser::visitExpression_Colon(AST_Expression_Colon colonExp){
-	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return colonExp;
-}
-
 AST_Expression_ComponentReference Traverser::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return compRefExp;
+	AST_Expression_ComponentReference rVal =
+		 new AST_Expression_ComponentReference_ ();
+
+	AST_StringList 	listS = compRefExp->names();
+	AST_StringListIterator itS;
+	AST_ExpressionListList listE = compRefExp->indexes();
+	AST_ExpressionListListIterator itE;
+	for(itS = listS->begin(), itE = listE->begin();
+		itS != listS->end() and itE != listE->begin();
+		itS++, itE++){
+		rVal->append(visitString(current_element(itS)), 
+			  	visitExpressionList(current_element(itE)));
+	}
+
+	return rVal;
 }
 
 AST_Expression_Derivative Traverser::visitExpression_Derivative(AST_Expression_Derivative der){

@@ -7,6 +7,7 @@ TEST=test/powerdevs test/modelicacc test/pd2mo
 all: $(TEST) $(OBJ_COMMON)
 
 clean:
+	rm src/*.o
 	rm test/*.o
 	rm test/powerdevs
 	rm test/modelicacc
