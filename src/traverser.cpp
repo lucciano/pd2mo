@@ -450,12 +450,13 @@ AST_Expression_Null Traverser::visitExpression_Null(AST_Expression_Null nullExp)
 
 AST_Expression_Output Traverser::visitExpression_Output(AST_Expression_Output outExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
+  	return new AST_Expression_Output_ (visitExpressionList(outExp->expressionList()));
 	return outExp;
 }
 
 AST_Expression_Range Traverser::visitExpression_Range(AST_Expression_Range rangeExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return rangeExp;
+	return new AST_Expression_Range_ (visitExpressionList(rangeExp->expressionList()));
 }
 
 AST_Expression_Real Traverser::visitExpression_Real(AST_Expression_Real realExp){
@@ -470,12 +471,11 @@ AST_Expression_String Traverser::visitExpression_String(AST_Expression_String st
 
 AST_Expression_UMinus Traverser::visitExpression_UMinus(AST_Expression_UMinus uminusExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return uminusExp;
+	return new AST_Expression_UMinus_ (visitExpression(uminusExp->exp()));
 }
 
 AST_Element_ClassWrapper Traverser::visitClassWrapper(AST_Element_ClassWrapper classWrapExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
-	return classWrapExp;
+ 	return new AST_Element_ClassWrapper_ (visitClass(classWrapExp->getClass()));
 }
-
 }
