@@ -352,11 +352,9 @@ AST_Expression Traverser::visitExpression(AST_Expression ex){
         EXPNULL:
         EXPCOLON:
 	EXPNONE:
-		break;
 	default:
-		throw ex->expressionType();
+		return ex;
 	}
-	return ex;
 }
 
 AST_Expression_BinOp Traverser::visitExpression_BinOp(AST_Expression_BinOp binOp){
