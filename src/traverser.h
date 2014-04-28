@@ -2,6 +2,7 @@
 #define PD2MO_TRAVERSER
 #include <ast/stored_definition.h>
 #include <ast/modification.h>
+#include <ast/statement.h>
 #include <parser/parse.h>
 
 namespace pd2mo{
@@ -13,7 +14,21 @@ class Traverser {
 	virtual AST_ClassList visitClassList(AST_ClassList classList);
 	virtual AST_Class visitClass(AST_Class _class);
 	virtual AST_Composition visitComposition(AST_Composition comp);
+	virtual AST_CompositionElement visitCompositionElement(AST_CompositionElement comp);
+	virtual AST_CompositionElementList visitCompositionElementList(AST_CompositionElementList compList);
+	virtual AST_CompositionEqsAlgs visitCompositionEqsAlgs(AST_CompositionEqsAlgs eqAlgs);
+	virtual AST_StatementList visitStatementList(AST_StatementList stList);
+	virtual AST_Statement visitStatement(AST_Statement st);
+	virtual AST_Statement_While visitStatement_While(AST_Statement_While stWhile);
+	virtual AST_Statement_If visitStatement_If(AST_Statement_If stIf);
+	virtual AST_Statement_When visitStatement_When(AST_Statement_When stWhen);
+	virtual AST_Statement_Assign visitStatement_Assign(AST_Statement_Assign stAssign);
+	virtual AST_Statement_For visitStatement_For(AST_Statement_For stFor);
+	virtual AST_Statement_ElseList visitStatement_ElseList(AST_Statement_ElseList);
+	virtual AST_Statement_Else visitStatement_Else(AST_Statement_Else);
+
 	virtual AST_EquationList visitEquationList(AST_EquationList eqList);
+	virtual AST_Equation visitEquation(AST_Equation eq);
 
 	virtual AST_Equation_Call visitEquation_Call(AST_Equation_Call eqCall);
 	virtual AST_Equation_Connect visitEquation_Connect(AST_Equation_Connect eqCon);

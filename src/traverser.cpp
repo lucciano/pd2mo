@@ -5,8 +5,8 @@
 namespace pd2mo{
 AST_StoredDefinition Traverser::visitStoredDefinition(AST_StoredDefinition sd){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return new AST_StoredDefinition_ (this->visitClassList(sd->models()), 
-			       this->visitString(sd->within()));
+	return new AST_StoredDefinition_ (visitClassList(sd->models()), 
+			       visitString(sd->within()));
 }
 
 AST_String Traverser::visitString(AST_String s){
@@ -17,85 +17,198 @@ AST_ClassList Traverser::visitClassList(AST_ClassList classList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_ClassListIterator it;
 	foreach(it, classList){
-		current_element(it) = this->visitClass(current_element(it));
+		current_element(it) = visitClass(current_element(it));
 	}
 	return classList;
 }
 
 AST_Class Traverser::visitClass(AST_Class _class){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return new AST_Class_ (this->visitString(_class->name()), 
-			this->visitComposition(_class->composition()));
-	//AST_CompositionElementList compList = _class->composition()->compositionList();
-	//AST_CompositionElementListIterator compIt;
-	//foreach(compIt, compList){
-	//	AST_EquationList eql = current_element(compIt)->getEquationsAlgs()->getEquations();
-	//	this->visitEquationList(eql);
+	AST_Class _retClass = new AST_Class_ (visitString(_class->name()), 
+			visitComposition(_class->composition()));
+
+	//AST_Element_ComponentList compList = _class->getComponents();
+	//AST_Element_ComponentListIterator compIt;
+	//if(compList){
+	//	foreach(compIt, compList){
+	//		_retClass->addComponent(visitElement_Component(current_element(compIt)));
+	//	}
 	//}
-	//return _class;
+	return _retClass;
 }
 
 AST_Composition Traverser::visitComposition(AST_Composition comp){
 	debug << __PRETTY_FUNCTION__ << endl ;
-	AST_ElementList elList = comp->elementList();
-	this->visitElementList(elList);
-	return comp;
+  	return new AST_Composition_ (
+			visitElementList(comp->elementList()), 
+			visitCompositionElementList(comp->compositionList()));
+}
+
+AST_CompositionElement Traverser::visitCompositionElement(AST_CompositionElement comp){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	AST_CompositionEqsAlgs compAlg= comp->getEquationsAlgs();
+	AST_ElementList elList= comp->getElementList();
+	if(compAlg){
+		return new AST_CompositionElement_(visitCompositionEqsAlgs(compAlg));
+	}else{
+		return new AST_CompositionElement_(visitElementList(elList));
+	}
+}
+
+AST_CompositionEqsAlgs Traverser::visitCompositionEqsAlgs(AST_CompositionEqsAlgs eqAlgs){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	AST_EquationList eqList = eqAlgs->getEquations();
+	AST_StatementList stList = eqAlgs->getAlgorithms();
+	if(eqList){
+		return new AST_CompositionEqsAlgs_ (
+			visitEquationList(eqList), eqAlgs->isInitial());
+	}else{
+		return new AST_CompositionEqsAlgs_ (
+			visitStatementList(stList), eqAlgs->isInitial());
+
+	}
+}
+
+AST_StatementList Traverser::visitStatementList(AST_StatementList stList){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	AST_StatementListIterator it;
+	foreach(it, stList){
+		current_element(it) = visitStatement(current_element(it));
+	}
+	return stList;
+}
+
+AST_Statement Traverser::visitStatement(AST_Statement st){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	switch (st->statementType()){
+	case STWHILE:
+		return visitStatement_While(st->getAsWhile());
+	case STIF:
+		return visitStatement_If(st->getAsIf());
+	case STWHEN:
+		return visitStatement_When(st->getAsWhen());
+	case STASSING:
+		return visitStatement_Assign(st->getAsAssign());
+	case STFOR:
+		return visitStatement_For(st->getAsFor());
+	case STOUTASSING:
+	case STNONE:
+	case STRETURN:
+	case STBREAK:
+	default:
+		return st;
+	}
+}
+
+AST_Statement_While Traverser::visitStatement_While(AST_Statement_While stWhile){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_While_ (
+		visitExpression(stWhile->condition()),
+		visitStatementList(stWhile->statements()));
+}
+
+AST_Statement_If Traverser::visitStatement_If(AST_Statement_If stIf){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_If_ (
+		visitExpression(stIf->condition()), 
+		visitStatementList(stIf->statements()),
+		visitStatement_ElseList(stIf->else_if()), 
+		visitStatementList(stIf->else_statements()));
+}
+
+AST_Statement_ElseList Traverser::visitStatement_ElseList(AST_Statement_ElseList stElseList){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	AST_Statement_ElseListIterator it;
+	foreach(it, stElseList){
+		current_element(it) = visitStatement_Else(current_element(it));
+	}
+	return stElseList;
+}
+AST_Statement_Else Traverser::visitStatement_Else(AST_Statement_Else stElse){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_Else_(
+		visitExpression(stElse->condition()), 
+		visitStatementList(stElse->statements()));
+}
+
+AST_Statement_When Traverser::visitStatement_When(AST_Statement_When stWhen){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_When_(
+		visitExpression(stWhen->condition()), 
+		visitStatementList(stWhen->statements()), 
+		visitStatement_ElseList(stWhen->else_when()));
+}
+
+AST_Statement_Assign Traverser::visitStatement_Assign(AST_Statement_Assign stAssign){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_Assign_(
+		visitExpression_ComponentReference(stAssign->lhs()), 
+		visitExpression(stAssign->exp()));
+}
+
+AST_Statement_For Traverser::visitStatement_For(AST_Statement_For stFor){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	return new AST_Statement_For_(
+		visitForIndexList(stFor->forIndexList()), 
+		visitStatementList(stFor->statements()));
+}
+
+AST_CompositionElementList Traverser::visitCompositionElementList(AST_CompositionElementList compList){
+	debug << __PRETTY_FUNCTION__ << endl ;
+	AST_CompositionElementListIterator it;
+	foreach(it, compList){
+		current_element(it) = visitCompositionElement(current_element(it));
+	}
+	return compList;
 }
 
 AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_EquationListIterator it;
 	foreach(it, eqList){
-		switch(current_element(it)->equationType()){ //TODO: este switch deberia estar dentro de visitEquation ¿no?
-		  case EQEQUALITY:{
-	AST_Equation_Equality eq = current_element(it)->getAsEquality();
-		current_element(it) = this->visitEquation_Equality(eq);
-	break;	}
-	//	  case EQCONNECT:{
-	//AST_Equation_Connect eq = current_element(it)->getAsConnect();
-	//this->visitEquation_Connect(eq);
-	//break;	}
-		  case EQCALL:{
-	AST_Equation_Call eq = current_element(it)->getAsCall();
-		current_element(it) = this->visitEquation_Call(eq);
-	break;	}
-		  case EQFOR:{
-	AST_Equation_For eq = current_element(it)->getAsFor();
-		current_element(it) = this->visitEquation_For(eq);
-	break;	}
-		  case EQWHEN:{
-	AST_Equation_When eq = current_element(it)->getAsWhen();
-		current_element(it) = this->visitEquation_When(eq);
-	break;	}
-		  case EQIF:{
-	AST_Equation_If eq = current_element(it)->getAsIf();
-		current_element(it) = this->visitEquation_If(eq);
-	break;	}
-		  case EQNONE:
-		  default :
-			throw current_element(it)->equationType();
-		}
+		current_element(it) = visitEquation(current_element(it));
 	}
 	return eqList;
 }
 
+AST_Equation Traverser::visitEquation(AST_Equation eq){
+	switch(eq->equationType()){
+	case EQEQUALITY:
+		return visitEquation_Equality(eq->getAsEquality());
+	case EQCALL:
+		return visitEquation_Call(eq->getAsCall());
+	case EQFOR:
+		return visitEquation_For(eq->getAsFor());
+	case EQWHEN:
+		return visitEquation_When(eq->getAsWhen());
+	case EQIF:
+		return visitEquation_If(eq->getAsIf());
+	case EQCONNECT: 
+		//undefined reference to AST_Equation_::getAsConnect
+		//return visitEquation_Connect(eq->getAsConnect());  
+	case EQNONE:
+	default :
+		return eq;
+	}
+}
+
 AST_Equation_Call Traverser::visitEquation_Call(AST_Equation_Call eqCall){
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return new AST_Equation_Call_ (this->visitExpression(eqCall->call()));
+	return new AST_Equation_Call_ (visitExpression(eqCall->call()));
 }
 
 AST_Equation_Connect Traverser::visitEquation_Connect(AST_Equation_Connect eqCon){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	return new AST_Equation_Connect_ (
-		this->visitExpression_ComponentReference(eqCon->left()),
-		this->visitExpression_ComponentReference(eqCon->right()));
+		visitExpression_ComponentReference(eqCon->left()),
+		visitExpression_ComponentReference(eqCon->right()));
 }
 
 AST_Equation_Equality Traverser::visitEquation_Equality(AST_Equation_Equality eqExp){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	return new AST_Equation_Equality_ (
-		this->visitExpression(eqExp->left()), 
-		this->visitExpression(eqExp->right()));
+		visitExpression(eqExp->left()), 
+		visitExpression(eqExp->right()));
 }
 
 AST_Equation_For Traverser::visitEquation_For(AST_Equation_For eqFor){
@@ -167,28 +280,18 @@ AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
 AST_Element Traverser::visitElement(AST_Element element){
 	debug << __PRETTY_FUNCTION__ << endl  ;
 	switch(element->elementType()){
-	case COMPONENT:{
-		AST_Element_Component el = element->getAsComponent();
-		return visitElement_Component(el);
-		}
-	case IMPORT: {
-		AST_Element_ImportClause el = element->getAsImportClause();
-		return visitElement_ImportClause(el);
-		}
-	case EXTENDS: {
-		AST_Element_ExtendsClause el = element->getAsExtendsClause();
-		return visitElement_ExtendsClause(el);
-			
-		}
-	case ELCLASS: {
-		AST_Element_ClassWrapper el = element->getAsClassWrapper();
-		return visitElement_ClassWrapper(el);
-		}
+	case COMPONENT:
+		return visitElement_Component(element->getAsComponent());
+	case IMPORT: 
+		return visitElement_ImportClause(element->getAsImportClause());
+	case EXTENDS: 
+		return visitElement_ExtendsClause(element->getAsExtendsClause());
+	case ELCLASS: 
+		return visitElement_ClassWrapper(element->getAsClassWrapper());
 	case ELNONE:
 	default:
-		throw element->elementType();
+		return element;
 	}
-	return element;
 }
 
 AST_Element_ClassWrapper Traverser::visitElement_ClassWrapper(AST_Element_ClassWrapper cw){ 
@@ -207,7 +310,7 @@ AST_Element_Component Traverser::visitElement_Component(AST_Element_Component co
 
 AST_Element_ExtendsClause Traverser::visitElement_ExtendsClause(AST_Element_ExtendsClause extends){ 
 	debug << __PRETTY_FUNCTION__ << endl  ;
-	return new AST_Element_ExtendsClause_(*(extends->name()));
+	return extends;
 }
 
 AST_Element_ImportClause Traverser::visitElement_ImportClause(AST_Element_ImportClause import){
@@ -233,21 +336,22 @@ AST_Declaration Traverser::visitDeclaration(AST_Declaration dec){
 
 
 AST_Modification Traverser::visitModification(AST_Modification modif){
+	debug << __PRETTY_FUNCTION__ << endl  ; 
 	if(modif){
 		switch(modif->modificationType()){
 		case MODEQUAL:{
 			AST_Modification_Equal mo = modif->getAsEqual();
-			return this->visitModification_Equal(mo);
+			return visitModification_Equal(mo);
 			break;
 		}
 		case MODASSIGN:{
 			AST_Modification_Assign mo = modif->getAsAssign();
-			return this->visitModification_Assign(mo);
+			return visitModification_Assign(mo);
 			break;
 		}
 		case MODCLASS:{
 			AST_Modification_Class mo = modif->getAsClass();
-			return this->visitModification_Class(mo);
+			return visitModification_Class(mo);
 			break;
 		}
 		case  MODNONE:
@@ -259,7 +363,7 @@ AST_Modification Traverser::visitModification(AST_Modification modif){
 }
 
 AST_Modification_Assign Traverser::visitModification_Assign(AST_Modification_Assign modAssig){
-	debug << __PRETTY_FUNCTION__ << endl  ; 
+	debug << __PRETTY_FUNCTION__ <<endl  ; 
 	return new AST_Modification_Assign_ (visitExpression(modAssig->exp()));
 }
 
@@ -314,45 +418,70 @@ AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
 }
 
 AST_Expression Traverser::visitExpression(AST_Expression ex){
-	debug << __PRETTY_FUNCTION__ << endl  ; 
+	debug << __PRETTY_FUNCTION__ ;
 	switch(ex->expressionType ()){
-        EXPCOMPREF:
+        case EXPCOMPREF:
+		debug << "EXPCOMPREF:" << endl;
 		return visitExpression_ComponentReference(ex->getAsComponentReference());
-        EXPBINOP:
-		return visitExpression_ComponentReference(ex->getAsComponentReference());
-        EXPDERIVATIVE:
+        case EXPBINOP:
+		debug << "EXPBINOP:" << endl;
+		return visitExpression_BinOp(ex->getAsBinOp());
+        case EXPDERIVATIVE:
+		debug << "EXPDERIVATIVE:" << endl;
 		return visitExpression_Derivative(ex->getAsDerivative());
-        EXPIF:
+        case EXPIF:
+		debug << "EXPIF:" << endl;
 		return visitExpression_If(ex->getAsIf());
-        EXPCALLARG:
+        case EXPCALLARG:
+		debug << "EXPCALLARG:" << endl;
 		return visitExpression_CallArgs(ex->getAsCallArgs());
-        EXPBRACE:
+        case EXPBRACE:
+		debug << "EXPBRACE:" << endl;
 		return visitExpression_Brace(ex->getAsBrace());
-        EXPCALL:
+        case EXPCALL:
+		debug << "EXPCALL:" << endl;
 		return visitExpression_Call(ex->getAsCall());
-        EXPELSEIF:
+        case EXPELSEIF:
+		debug << "EXPELSEIF:" << endl;
 		return visitExpression_If_ElseIf(ex->getAsElseIf());
-        EXPBOOLEAN:
+        case EXPBOOLEAN:
+		debug << "EXPBOOLEAN:" << endl;
 		return visitExpression_Boolean(ex->getAsBoolean());
-        EXPSTRING:
+        case EXPSTRING:
+		debug << "EXPSTRING:" << endl;
 		return visitExpression_String(ex->getAsString());
-        EXPREAL:
+        case EXPREAL:
+		debug << "EXPREAL:" << endl;
 		return visitExpression_Real(ex->getAsReal());
-        EXPINTEGER:
+        case EXPINTEGER:
+		debug << "EXPINTEGER:" << endl;
 		return visitExpression_Integer(ex->getAsInteger());
-        EXPBOOLEANNOT:
+        case EXPBOOLEANNOT:
+		debug << "EXPBOOLEANNOT:" << endl;
 		return visitExpression_BooleanNot(ex->getAsBooleanNot());
-        EXPOUTPUT:
+        case EXPOUTPUT:
+		debug << "EXPOUTPUT:" << endl;
 		return visitExpression_Output(ex->getAsOutput());
-        EXPRANGE:
+        case EXPRANGE:
+		debug << "EXPRANGE:" << endl;
 		return visitExpression_Range(ex->getAsRange());
-
-        EXPUMINUS:
-        EXPEND:
-        EXPNULL:
-        EXPCOLON:
-	EXPNONE:
+        case EXPUMINUS:
+		debug << "EXPUMINUS:" << endl;
+		return ex;
+        case EXPEND:
+		debug << "EXPEND:" << endl;
+		return ex;
+        case EXPNULL:
+		debug << "EXPNULL:" << endl;
+		return ex;
+        case EXPCOLON:
+		debug << "EXPCOLON:" << endl;
+		return ex;
+	case EXPNONE:
+		debug << "EXPNONE:" << endl;
+		return ex;
 	default:
+		debug << "default:" <<  endl;
 		return ex;
 	}
 }
@@ -391,20 +520,18 @@ AST_Expression_CallArgs Traverser::visitExpression_CallArgs(AST_Expression_CallA
 }
 
 AST_Expression_ComponentReference Traverser::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	debug << __PRETTY_FUNCTION__ << endl  ; 
+	debug << __PRETTY_FUNCTION__ << compRefExp->name() << endl  ; 
 	AST_Expression_ComponentReference rVal =
 		 new AST_Expression_ComponentReference_ ();
 
-	AST_StringList 	listS = compRefExp->names();
-	AST_StringListIterator itS;
-	AST_ExpressionListList listE = compRefExp->indexes();
-	AST_ExpressionListListIterator itE;
-	for(itS = listS->begin(), itE = listE->begin();
-		itS != listS->end() and itE != listE->begin();
-		itS++, itE++){
-		rVal->append(visitString(current_element(itS)), 
-			  	visitExpressionList(current_element(itE)));
+	AST_StringListIterator it;
+	AST_ExpressionListListIterator exp_it=compRefExp->indexes()->begin();
+	foreach (it, compRefExp->names()) {
+		rVal->append(visitString(current_element(it)), 
+			visitExpressionList(current_element(exp_it)));
+		exp_it++;
 	}
+
 
 	return rVal;
 }
