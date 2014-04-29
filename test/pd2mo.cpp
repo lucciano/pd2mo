@@ -42,10 +42,11 @@ BOOST_AUTO_TEST_CASE( cero ) {
     BOOST_CHECK( 1 == 1 );
     int r = 0;
     string path = getFullPath();
-    string filename = path + "/data/Constant.mo";
+    string filename = path + "/data/ModelBase.mo";
     AST_StoredDefinition sd = parseFile(filename,&r);
     T1 t = T1();
     t.visitStoredDefinition(sd);
+    cout << current_element(sd->models()->begin())->prefix() <<endl;
 }
 
 BOOST_AUTO_TEST_CASE( uno ){
@@ -62,27 +63,60 @@ BOOST_AUTO_TEST_CASE( uno ){
 }
 
 AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
+
 	AST_CompositionElementList comp = new list<AST_CompositionElement>();
 	AST_ElementList elem = new list<AST_Element>();
 
-	/*Class
-		-> Composition -> 
-			->AST_CompositionElementList 	compositionList () const
-				->  AST_CompositionEqsAlgs 	getEquationsAlgs ()
-					-> AST_EquationList 	getEquations ()
-					-> AST_StatementList 	getAlgorithms ()
-					-> bool 	isInitial ()
-				->  AST_ElementList 	getElementList ()
-			->AST_ElementList 	elementList () const 
-	*/
+	AST_Composition composition = new AST_Composition_ (elem, comp);
+	AST_Class ret = new AST_Class_(name, composition);
+	AST_StatementList stList = new list<AST_Statement>();
+	AST_EquationList eqList = new list<AST_Equation>();
 
-	comp->insert(comp->end(), 
-		a->composition()->compositionList()->begin(), 
-		a->composition()->compositionList()->end());
-	
-	comp->insert(comp->end(), 
-		b->composition()->compositionList()->begin(), 
-		b->composition()->compositionList()->end());
+	AST_CompositionEqsAlgs eqAlgsST = new AST_CompositionEqsAlgs_(stList);
+	AST_CompositionEqsAlgs eqAlgsEQ = new AST_CompositionEqsAlgs_(eqList);
+
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsST));
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsEQ));
+
+	AST_CompositionElementListIterator it;
+	foreach(it, a->composition()->compositionList()){
+		if(current_element(it)->getEquationsAlgs()){
+			stList->insert(stList->end(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
+			eqList->insert(eqList->end(),
+				current_element(it)->getEquationsAlgs()->getEquations()->begin(),
+				current_element(it)->getEquationsAlgs()->getEquations()->end());
+
+		}else if (current_element(it)->getElementList()->size() > 0){
+			elem->insert(elem->end(), 
+				current_element(it)->getElementList()->begin(),
+				current_element(it)->getElementList()->end());
+		}
+	}
+	foreach(it, b->composition()->compositionList()){
+		if(current_element(it)->getEquationsAlgs()){
+			stList->insert(stList->end(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
+			eqList->insert(eqList->end(),
+				current_element(it)->getEquationsAlgs()->getEquations()->begin(),
+				current_element(it)->getEquationsAlgs()->getEquations()->end());
+
+		}else if (current_element(it)->getElementList()->size() > 0){
+			elem->insert(elem->end(), 
+				current_element(it)->getElementList()->begin(),
+				current_element(it)->getElementList()->end());
+		}
+	}
+
+	//comp->insert(comp->end(), 
+	//	a->composition()->compositionList()->begin(), 
+	//	a->composition()->compositionList()->end());
+	//
+	//comp->insert(comp->end(), 
+	//	b->composition()->compositionList()->begin(), 
+	//	b->composition()->compositionList()->end());
 
 	elem->insert(elem->end(), 
 		a->composition()->elementList()->begin(), 
@@ -91,8 +125,9 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 	elem->insert(elem->end(), 
 		b->composition()->elementList()->begin(), 
 		b->composition()->elementList()->end());
+	//ret->setPrefixes(CP_MODEL);
 
-	return new AST_Class_(name, new AST_Composition_ (elem, comp));
+	return ret;
 }
 
 BOOST_AUTO_TEST_CASE( dos ){
