@@ -60,3 +60,59 @@ BOOST_AUTO_TEST_CASE( uno ){
     AST_StoredDefinition sd2 = p.visitStoredDefinition(sd);
     cout << sd << endl;
 }
+
+AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
+	AST_CompositionElementList comp = new list<AST_CompositionElement>();
+	AST_ElementList elem = new list<AST_Element>();
+
+	/*Class
+		-> Composition -> 
+			->AST_CompositionElementList 	compositionList () const
+				->  AST_CompositionEqsAlgs 	getEquationsAlgs ()
+					-> AST_EquationList 	getEquations ()
+					-> AST_StatementList 	getAlgorithms ()
+					-> bool 	isInitial ()
+				->  AST_ElementList 	getElementList ()
+			->AST_ElementList 	elementList () const 
+	*/
+
+	comp->insert(comp->end(), 
+		a->composition()->compositionList()->begin(), 
+		a->composition()->compositionList()->end());
+	
+	comp->insert(comp->end(), 
+		b->composition()->compositionList()->begin(), 
+		b->composition()->compositionList()->end());
+
+	elem->insert(elem->end(), 
+		a->composition()->elementList()->begin(), 
+		a->composition()->elementList()->end());
+
+	elem->insert(elem->end(), 
+		b->composition()->elementList()->begin(), 
+		b->composition()->elementList()->end());
+
+	return new AST_Class_(name, new AST_Composition_ (elem, comp));
+}
+
+BOOST_AUTO_TEST_CASE( dos ){
+    cout << "dos" << endl;
+    string path = getFullPath();
+    string filename = path + "/data/Constant.mo";
+    int r = 0;
+    AST_StoredDefinition sd1 = parseFile(filename,&r);
+
+    PrefixMoVars pa = PrefixMoVars();
+    pa.setPrefix("constant_X_");
+    AST_StoredDefinition sda = pa.visitStoredDefinition(sd1);
+
+    PrefixMoVars pb = PrefixMoVars();
+    pb.setPrefix("constant_N_");
+    AST_StoredDefinition sd2 = parseFile(filename,&r);
+    AST_StoredDefinition sdb = pb.visitStoredDefinition(sd2);
+
+    AST_String name = new  string("Model01");
+    cout << Combine(name, current_element(sdb->models()->begin()),
+		current_element(sda->models()->begin())) << endl;
+
+}

@@ -14,7 +14,7 @@ class Pd2Mo {
 	/**
 	  * Load the modelica Class acording with the modelCoupled/modelChild
 	  */
-	AST_ClassList loadClass(string path, modelCoupled c);
+	//AST_ClassList loadClass(string path, modelCoupled c);
 	//TODO: AST_ClassList rewriteModelicaVariables(string path, AST_ClassList classList);
 	//AST_StoredDefinition connectVariables(string path, AST_ClassList classList, modelCoupled c);
 }
