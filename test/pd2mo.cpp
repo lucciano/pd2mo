@@ -6,6 +6,12 @@
 #include <../src/prefixmovars.h>
 #include <../src/traverser.h>
 
+#include <QFile>
+#include <pdppt/parser.h>
+#include <pdppt/modelcoupled.h>
+#include <map>
+
+
 #define debug std::cout 
 
 using namespace std;
@@ -110,14 +116,6 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 		}
 	}
 
-	//comp->insert(comp->end(), 
-	//	a->composition()->compositionList()->begin(), 
-	//	a->composition()->compositionList()->end());
-	//
-	//comp->insert(comp->end(), 
-	//	b->composition()->compositionList()->begin(), 
-	//	b->composition()->compositionList()->end());
-
 	elem->insert(elem->end(), 
 		a->composition()->elementList()->begin(), 
 		a->composition()->elementList()->end());
@@ -125,8 +123,8 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 	elem->insert(elem->end(), 
 		b->composition()->elementList()->begin(), 
 		b->composition()->elementList()->end());
-	//ret->setPrefixes(CP_MODEL);
 
+	ret->setPrefixes(CP_MODEL);
 	return ret;
 }
 
@@ -150,4 +148,39 @@ BOOST_AUTO_TEST_CASE( dos ){
     cout << Combine(name, current_element(sdb->models()->begin()),
 		current_element(sda->models()->begin())) << endl;
 
+}
+
+AST_ClassList getAsClassList(modelCoupled * c, map<string, string> m){
+	QList< modelChild * >::iterator childsIterator;
+	AST_ClassList st = new list<AST_Class>();
+	int r;
+	for (childsIterator = c->childs.begin(); 
+		childsIterator != c->childs.end(); 
+		++childsIterator){
+		modelChild * modelC = *childsIterator;
+		if(m.count(modelC->atomic->path.toStdString())>0){
+			AST_StoredDefinition sd = parseFile(
+				m[modelC->atomic->path.toStdString()],&r);
+			st->insert(st->begin(), sd->models()->begin(), sd->models()->end());
+		}
+	}
+	return st;
+}
+
+BOOST_AUTO_TEST_CASE( tres ){
+    cout << "tres" << endl;
+    QString path = getFullPath();
+    QString filename = path + "/data/simple01.pds";
+    int r = 0; 
+    map<string, string> classMap;
+    classMap["qss/qss_integrator.h"] = path.toStdString() + "/data/Constant.mo";
+    classMap["qss/qss_wsum.h"] = path.toStdString() + "/data/Constant.mo";
+    classMap["sources\\constant_sci.h"] = path.toStdString() + "/data/Constant.mo";
+
+    modelCoupled *c = parsePDS(filename);
+    AST_ClassList cl = getAsClassList(c, classMap);
+    AST_ClassListIterator it; 
+    foreach(it, cl){
+	cout << current_element(it) << endl;
+    }
 }
