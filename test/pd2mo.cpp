@@ -187,11 +187,20 @@ BOOST_AUTO_TEST_CASE( tres ){
     QList<modelConnection*> * lsIc = &(c->lsIC);
     QList<modelConnection*>::iterator itM;
 
+    QList<modelChild * > * childs = &(c->childs);
+
     foreach(itM, lsIc){
-	cout << current_element(itM)->childSource
-		<< current_element(itM)->sourcePort
-		<< current_element(itM)->childSink
-		<< current_element(itM)->sinkPort
-		<< endl;
+	modelChild * src = childs->at(current_element(itM)->childSource);
+	modelChild * sink = childs->at(current_element(itM)->childSink);
+	cout << src->atomic->path.toStdString()
+		<< "(" << current_element(itM)->sourcePort << ")-->"
+		<< sink->atomic->path.toStdString() 
+		<< "(" << current_element(itM)->sinkPort << ")" << endl;
+	//cout << current_element(itM)->childSource
+	//	<< current_element(itM)->childSink
+	//	<< current_element(itM)->sourcePort
+	//	<< current_element(itM)->sinkPort
+	//	<< endl;
     }
+
 }
