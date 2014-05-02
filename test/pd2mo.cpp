@@ -10,6 +10,7 @@
 #include <pdppt/parser.h>
 #include <pdppt/modelcoupled.h>
 #include <map>
+#include <ast/expression.h>
 
 
 #define debug std::cout 
@@ -188,6 +189,11 @@ BOOST_AUTO_TEST_CASE( tres ){
     QList<modelConnection*>::iterator itM;
 
     QList<modelChild * > * childs = &(c->childs);
+    map<string, int> sourceArray;
+    sourceArray["qss/qss_integrator.h"] = 0;
+    sourceArray["qss/qss_wsum.h"] = 1; // Input Array...
+    sourceArray["sources\\constant_sci.h"] = 0;
+
 
     foreach(itM, lsIc){
 	modelChild * src = childs->at(current_element(itM)->childSource);
@@ -196,11 +202,20 @@ BOOST_AUTO_TEST_CASE( tres ){
 		<< "(" << current_element(itM)->sourcePort << ")-->"
 		<< sink->atomic->path.toStdString() 
 		<< "(" << current_element(itM)->sinkPort << ")" << endl;
-	//cout << current_element(itM)->childSource
-	//	<< current_element(itM)->childSink
-	//	<< current_element(itM)->sourcePort
-	//	<< current_element(itM)->sinkPort
-	//	<< endl;
     }
+
+    AST_ExpressionList lt1 = new list<AST_Expression>();
+    AST_ExpressionList lt2 = new list<AST_Expression>();
+    AST_String source = new string("source");
+    AST_String sink = new string("sink");
+    AST_Expression_ComponentReference esource = 
+	new AST_Expression_ComponentReference_ ();
+    AST_Expression_ComponentReference esink = 
+	new AST_Expression_ComponentReference_ ();
+    esink->append(sink, lt1);
+    esource->append(source, lt2);
+    //AST_Statement_Assign eq = new AST_Statement_Assign_(esource, esink);
+    AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+    cout << eq << endl;
 
 }
