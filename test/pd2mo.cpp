@@ -3,6 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <test/file_util.h>
 #include <string>
+#include <sstream>
 #include <../src/prefixmovars.h>
 #include <../src/traverser.h>
 
@@ -196,26 +197,27 @@ BOOST_AUTO_TEST_CASE( tres ){
 
 
     foreach(itM, lsIc){
-	modelChild * src = childs->at(current_element(itM)->childSource);
-	modelChild * sink = childs->at(current_element(itM)->childSink);
-	cout << src->atomic->path.toStdString()
+	modelChild * srcModel = childs->at(current_element(itM)->childSource);
+	modelChild * sinkModel = childs->at(current_element(itM)->childSink);
+	cout << srcModel->atomic->path.toStdString()
 		<< "(" << current_element(itM)->sourcePort << ")-->"
-		<< sink->atomic->path.toStdString() 
+		<< sinkModel->atomic->path.toStdString() 
 		<< "(" << current_element(itM)->sinkPort << ")" << endl;
+
+        AST_ExpressionList lt1 = new list<AST_Expression>();
+        AST_ExpressionList lt2 = new list<AST_Expression>();
+	stringstream sincStream; sincStream << current_element(itM)->childSink << "_u";
+	stringstream sourceStream; sourceStream<< current_element(itM)->childSource << "_y";
+        AST_String source = new string(sincStream.str());
+        AST_String sink = new string(sourceStream.str());
+        AST_Expression_ComponentReference esource = 
+            new AST_Expression_ComponentReference_ ();
+        AST_Expression_ComponentReference esink = 
+            new AST_Expression_ComponentReference_ ();
+        esink->append(sink, lt1);
+        esource->append(source, lt2);
+        AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+        cout << eq << endl;
+
     }
-
-    AST_ExpressionList lt1 = new list<AST_Expression>();
-    AST_ExpressionList lt2 = new list<AST_Expression>();
-    AST_String source = new string("source");
-    AST_String sink = new string("sink");
-    AST_Expression_ComponentReference esource = 
-	new AST_Expression_ComponentReference_ ();
-    AST_Expression_ComponentReference esink = 
-	new AST_Expression_ComponentReference_ ();
-    esink->append(sink, lt1);
-    esource->append(source, lt2);
-    //AST_Statement_Assign eq = new AST_Statement_Assign_(esource, esink);
-    AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
-    cout << eq << endl;
-
 }
