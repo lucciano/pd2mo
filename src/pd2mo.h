@@ -1,20 +1,38 @@
+#ifndef PD2MO_MAIN
+#define PD2MO_MAIN
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <stdio.h>
+#include <libgen.h>
+#include <map>
+#include <list>
 
+#include <ast/stored_definition.h>
+#include <ast/ast_types.h>
+#include <ast/expression.h>
+#include <parser/parse.h>
+#include <pdppt/parser.h>
+#include <pdppt/modelcoupled.h>
+
+
+using namespace std;
+
+namespace pd2mo{
 class Pd2Mo {
-	/**
-	 * Tranform the modelCoupled to a AST_StoredDefinition.
-         * @param string path of from where get the Modelica .mo files
-         * iteramos sobre cada modelChild, 
-		a) segun el path agreagamos a nuestros modelos los modelos (reescribimos las variables) 
-		b) seteamos los parametros (esto depende de como los leamos)
-		c) conectamos los componentes.
-         */ 
 
-	//TODO:AST_StoredDefinition transform(string path, modelCoupled c);
+	map<string, string> * classMap;
+	string pd2mo_dir;
 
-	/**
-	  * Load the modelica Class acording with the modelCoupled/modelChild
-	  */
-	//AST_ClassList loadClass(string path, modelCoupled c);
-	//TODO: AST_ClassList rewriteModelicaVariables(string path, AST_ClassList classList);
-	//AST_StoredDefinition connectVariables(string path, AST_ClassList classList, modelCoupled c);
+	char * getFullPath();
+
+	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *);
+
+public:
+	Pd2Mo();
+	void loadConfigFile(string file);
+	void transoform(string file, ofstream output, ofstream log);
+};
 }
+
+#endif
