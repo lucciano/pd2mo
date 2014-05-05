@@ -53,6 +53,8 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m){
 			AST_StoredDefinition sd = parseFile(
 				(*m)[modelC->atomic->path.toStdString()],&r);
 			st->insert(st->end(), sd->models()->begin(), sd->models()->end());
+		}else{
+			st->insert(st->end(), NULL);
 		}
 	}
 	return st;
