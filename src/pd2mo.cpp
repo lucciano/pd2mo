@@ -29,7 +29,7 @@ void Pd2Mo::transoform(string filename, ofstream output, ofstream log){
 	
         modelCoupled *model = parsePDS( qfilename);
 	//Load class based on the coupledModel from file
-	// AST_ClassList classList= getAsClassList(model, classMap); 
+	AST_ClassList classList= getAsClassList(model, classMap); 
 
 	//Rename each AST_Class variable based on name and position in the coupledmodel
 	// AST_ClassListIterator it;
