@@ -26,12 +26,12 @@ class Pd2Mo {
 
 	char * getFullPath();
 
-	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *);
+	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *, ostream * log);
 
 public:
 	Pd2Mo();
-	void loadConfigFile(string file);
-	void transoform(string file, ofstream output, ofstream log);
+	void loadConfigFile(string file, ostream * log);
+	void transform(string file, ostream * output, ostream * log);
 };
 }
 

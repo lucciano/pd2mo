@@ -2,6 +2,7 @@
 #define BOOST_TEST_DYN_LINK 
 #include <boost/test/unit_test.hpp>
 #include <test/file_util.h>
+#include <../src/pd2mo.h>
 #include <string>
 #include <sstream>
 #include <../src/prefixmovars.h>
@@ -220,4 +221,13 @@ BOOST_AUTO_TEST_CASE( tres ){
         cout << eq << endl;
 
     }
+}
+
+BOOST_AUTO_TEST_CASE( cuatro ){
+    cout << "cuatro" << endl;
+    string path = getFullPath();
+    string filename = path + "/data/simple01.pds";
+    Pd2Mo q = Pd2Mo();
+    q.loadConfigFile(path+ "/../data/config.ini", &cout)
+    q.transform(filename, &cout, &cout);
 }
