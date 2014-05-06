@@ -46,12 +46,21 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         //Rename each AST_Class variable based on name and position in the coupledmodel
         AST_ClassListIterator it;
+	int j = 0;
         foreach(it, classList){
-                if(current_element(it)){
-                        cout << current_element(it)->name() << endl;    
+		if(current_element(it)){
+			PrefixMoVars pf = PrefixMoVars();
+			stringstream sstm;
+			sstm << current_element(it)->name() << "_" << j << "_" ;
+			pf.setPrefix(sstm.str());
+                        current_element(it) = pf.visitClass(current_element(it));
+
+			(*log) << current_element(it) << endl;
                 }else{  
-                cout << "<<No Mapped Class>>" << endl;
+			cout << "<<No Mapped Class>>" << endl;
                 }
+
+		j++;
         }
 
         //Add coupledmodel connections

@@ -16,6 +16,9 @@
 #include <pdppt/modelcoupled.h>
 
 #include <inih/cpp/INIReader.h>
+#include <sstream>
+#include <prefixmovars.h>
+
 
 
 using namespace std;
