@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "../ini.h"
 #include "INIReader.h"
+#include <iostream>
 
 using std::string;
 
@@ -69,6 +70,7 @@ int INIReader::ValueHandler(void* user, const char* section, const char* name,
 {
     INIReader* reader = (INIReader*)user;
     string key = MakeKey(section, name);
+    reader->_keys[section].insert(reader->_keys[section].begin(), name);
     if (reader->_values[key].size() > 0)
         reader->_values[key] += "\n";
     reader->_values[key] += value;

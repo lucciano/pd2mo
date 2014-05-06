@@ -9,7 +9,7 @@ using namespace std;
 
 
 BOOST_AUTO_TEST_CASE( cero ){
-
+    cout << "cero" << endl;
     string path = getFullPath();
     INIReader reader(path + "/data/test.ini");
 
@@ -24,4 +24,13 @@ BOOST_AUTO_TEST_CASE( cero ){
               << reader.GetBoolean("user", "active", true) << "\n";
     }
 }
+BOOST_AUTO_TEST_CASE( uno ){
+    cout << "uno" << endl;
 
+    string path = getFullPath();
+    INIReader reader(path + "/../data/pd2mo.ini");
+
+    if (reader.ParseError() < 0) {
+        std::cout << "Can't load file\n";
+    }
+}

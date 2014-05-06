@@ -9,6 +9,7 @@
 #define __INIREADER_H__
 
 #include <map>
+#include <list>
 #include <string>
 
 // Read an INI file into easy-to-access name/value pairs. (Note that I've gone
@@ -42,9 +43,12 @@ public:
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
     bool GetBoolean(std::string section, std::string name, bool default_value);
 
+    std::map<std::string, std::list<std::string> > * getKeys(){return & _keys;}
+
 private:
     int _error;
     std::map<std::string, std::string> _values;
+    std::map<std::string, std::list<std::string> > _keys;
     static std::string MakeKey(std::string section, std::string name);
     static int ValueHandler(void* user, const char* section, const char* name,
                             const char* value);

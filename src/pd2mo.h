@@ -15,6 +15,8 @@
 #include <pdppt/parser.h>
 #include <pdppt/modelcoupled.h>
 
+#include <inih/cpp/INIReader.h>
+
 
 using namespace std;
 
