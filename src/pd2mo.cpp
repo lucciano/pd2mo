@@ -46,6 +46,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         //Rename each AST_Class variable based on name and position in the coupledmodel
         AST_ClassListIterator it;
+	map <int, string> className = map <int, string>();
 	int j = 0;
         foreach(it, classList){
 		if(current_element(it)){
@@ -54,16 +55,50 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			sstm << current_element(it)->name() << "_" << j << "_" ;
 			pf.setPrefix(sstm.str());
                         current_element(it) = pf.visitClass(current_element(it));
-
-			(*log) << current_element(it) << endl;
+			className[j] = sstm.str(); 
+			(*log) << current_element(it) << "@" << j << endl;
                 }else{  
-			cout << "<<No Mapped Class>>" << endl;
+			(*log) << "<<No Mapped Class>> @" << j << endl;
                 }
-
 		j++;
         }
 
         //Add coupledmodel connections
+        (*log) << "Add coupledmodel connections";
+	QList<modelConnection*> * lsIc = &(model->lsIC);
+	QList<modelConnection*>::iterator itM;
+	QList<modelChild * > * childs = &(model->childs);
+
+	foreach(itM, lsIc){
+		modelChild * srcModel = childs->at(current_element(itM)->childSource);
+		modelChild * sinkModel = childs->at(current_element(itM)->childSink);
+		cout << srcModel->atomic->path.toStdString()
+			<< "(" << current_element(itM)->sourcePort << ")-->"
+			<< sinkModel->atomic->path.toStdString() 
+			<< "(" << current_element(itM)->sinkPort << ")" << endl;
+
+		AST_ExpressionList lt1 = new list<AST_Expression>();
+		AST_ExpressionList lt2 = new list<AST_Expression>();
+		stringstream sincStream; 
+		sincStream << className[current_element(itM)->childSink] << "u";
+		stringstream sourceStream; 
+		sourceStream<< className[current_element(itM)->childSource] << "y";
+		if(className[current_element(itM)->childSource].empty() or
+		className[current_element(itM)->childSink].empty()){
+			continue;
+		}
+		AST_String source = new string(sincStream.str());
+		AST_String sink = new string(sourceStream.str());
+		AST_Expression_ComponentReference esource = 
+		    new AST_Expression_ComponentReference_ ();
+		AST_Expression_ComponentReference esink = 
+		    new AST_Expression_ComponentReference_ ();
+		esink->append(sink, lt1);
+		esource->append(source, lt2);
+		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+		cout << eq << endl;
+
+        }
         //Move all AST_Class List to a new "Model"
 }
 
