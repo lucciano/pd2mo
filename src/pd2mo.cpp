@@ -63,7 +63,36 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		j++;
         }
 
-        //Add coupledmodel connections
+        
+        //Move all AST_Class List to a new "Model"
+	AST_String name = new  string("Pd2Model");
+
+	AST_ElementList elem = new list<AST_Element>();
+	AST_CompositionElementList comp = new list<AST_CompositionElement>();
+
+	AST_Composition composition = new AST_Composition_ (elem, comp);
+	composition->setExternalFunctionCall(NULL);
+	AST_Class modelMo = new AST_Class_(name, composition);
+	modelMo->setPrefixes(CP_MODEL);
+
+	AST_StatementList stList = new list<AST_Statement>();
+	AST_EquationList eqList = new list<AST_Equation>();
+
+	AST_CompositionEqsAlgs eqAlgsST = new AST_CompositionEqsAlgs_(stList);
+	AST_CompositionEqsAlgs eqAlgsEQ = new AST_CompositionEqsAlgs_(eqList);
+
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsST));
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsEQ));
+
+        foreach(it, classList){
+		if(current_element(it)){
+			Combine(elem, stList, eqList, current_element(it));
+			cout << current_element(it)->name() << endl;
+		}
+	}
+
+
+	//Add coupledmodel connections
         (*log) << "Add coupledmodel connections";
 	QList<modelConnection*> * lsIc = &(model->lsIC);
 	QList<modelConnection*>::iterator itM;
@@ -96,35 +125,10 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		esink->append(sink, lt1);
 		esource->append(source, lt2);
 		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+		eqList->insert(eqList->end(), eq);
 		cout << eq << endl;
 
         }
-
-        //Move all AST_Class List to a new "Model"
-	AST_String name = new  string("Pd2Model");
-
-	AST_ElementList elem = new list<AST_Element>();
-	AST_CompositionElementList comp = new list<AST_CompositionElement>();
-
-	AST_Composition composition = new AST_Composition_ (elem, comp);
-	AST_Class modelMo = new AST_Class_(name, composition);
-	modelMo->setPrefixes(CP_MODEL);
-
-	AST_StatementList stList = new list<AST_Statement>();
-	AST_EquationList eqList = new list<AST_Equation>();
-
-	AST_CompositionEqsAlgs eqAlgsST = new AST_CompositionEqsAlgs_(stList);
-	AST_CompositionEqsAlgs eqAlgsEQ = new AST_CompositionEqsAlgs_(eqList);
-
-	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsST));
-	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsEQ));
-
-        foreach(it, classList){
-		if(current_element(it)){
-			Combine(elem, stList, eqList, current_element(it));
-			cout << current_element(it)->name() << endl;
-		}
-	}
 
 	cout << modelMo<< endl;
 
