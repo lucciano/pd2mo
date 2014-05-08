@@ -230,4 +230,5 @@ BOOST_AUTO_TEST_CASE( cuatro ){
     Pd2Mo q = Pd2Mo();
     q.loadConfigFile(path+ "/../data/pd2mo.ini", &cout);
     q.transform(filename, &cout, &cout);
+	cout << "fin.."<< endl;
 }

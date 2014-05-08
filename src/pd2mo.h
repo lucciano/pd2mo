@@ -32,11 +32,15 @@ class Pd2Mo {
 	char * getFullPath();
 
 	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *, ostream * log);
+	void Combine(AST_ElementList elem, 
+				AST_StatementList stList, 
+				AST_EquationList eqList, AST_Class a);
 
 public:
 	Pd2Mo();
 	void loadConfigFile(string file, ostream * log);
 	void transform(string file, ostream * output, ostream * log);
+
 };
 }
 

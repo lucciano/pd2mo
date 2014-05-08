@@ -99,7 +99,35 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		cout << eq << endl;
 
         }
+
         //Move all AST_Class List to a new "Model"
+	AST_String name = new  string("Pd2Model");
+
+	AST_ElementList elem = new list<AST_Element>();
+	AST_CompositionElementList comp = new list<AST_CompositionElement>();
+
+	AST_Composition composition = new AST_Composition_ (elem, comp);
+	AST_Class modelMo = new AST_Class_(name, composition);
+	modelMo->setPrefixes(CP_MODEL);
+
+	AST_StatementList stList = new list<AST_Statement>();
+	AST_EquationList eqList = new list<AST_Equation>();
+
+	AST_CompositionEqsAlgs eqAlgsST = new AST_CompositionEqsAlgs_(stList);
+	AST_CompositionEqsAlgs eqAlgsEQ = new AST_CompositionEqsAlgs_(eqList);
+
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsST));
+	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsEQ));
+
+        foreach(it, classList){
+		if(current_element(it)){
+			Combine(elem, stList, eqList, current_element(it));
+			cout << current_element(it)->name() << endl;
+		}
+	}
+
+	cout << modelMo<< endl;
+
 }
 
 /**
@@ -125,5 +153,34 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
                 }
         }
         return st;
+}
+
+	void Pd2Mo::Combine(AST_ElementList elem,
+				AST_StatementList stList, 
+				AST_EquationList eqList,
+				AST_Class a){
+
+
+
+	AST_CompositionElementListIterator it;
+	foreach(it, a->composition()->compositionList()){
+		if(current_element(it)->getEquationsAlgs()){
+			stList->insert(stList->end(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
+				current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
+			eqList->insert(eqList->end(),
+				current_element(it)->getEquationsAlgs()->getEquations()->begin(),
+				current_element(it)->getEquationsAlgs()->getEquations()->end());
+
+		}else if (current_element(it)->getElementList()->size() > 0){
+			elem->insert(elem->end(), 
+				current_element(it)->getElementList()->begin(),
+				current_element(it)->getElementList()->end());
+		}
+	}
+	
+	elem->insert(elem->end(), 
+		a->composition()->elementList()->begin(), 
+		a->composition()->elementList()->end());
 }
 }
