@@ -104,13 +104,13 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 	foreach(itM, lsIc){
 		modelChild * srcModel = childs->at(current_element(itM)->childSource);
 		modelChild * sinkModel = childs->at(current_element(itM)->childSink);
-		cout << srcModel->atomic->path.toStdString()
-			<< "(" << current_element(itM)->sourcePort << ")-->"
-			<< sinkModel->atomic->path.toStdString() 
-			<< "(" << current_element(itM)->sinkPort << ")" << endl;
+		// cout << srcModel->atomic->path.toStdString()
+		// 	<< "(" << current_element(itM)->sourcePort << ")-->"
+		// 	<< sinkModel->atomic->path.toStdString() 
+		// 	<< "(" << current_element(itM)->sinkPort << ")" << endl;
 
-		AST_ExpressionList lt1 = new list<AST_Expression>();
-		AST_ExpressionList lt2 = new list<AST_Expression>();
+		AST_ExpressionList sinklt = new list<AST_Expression>();
+		AST_ExpressionList sourcelt = new list<AST_Expression>();
 		stringstream sincStream; 
 		sincStream << className[current_element(itM)->childSink] << "u";
 		stringstream sourceStream; 
@@ -119,14 +119,26 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		className[current_element(itM)->childSink].empty()){
 			continue;
 		}
+
+		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
+
+		cout <<"param type:" << param << endl;
+		if(param.compare("Array") == 0){
+			sourcelt->insert(
+				sourcelt->end(), 
+				new AST_Expression_Integer_(
+					current_element(itM)->sinkPort
+					));
+		}
+
 		AST_String source = new string(sincStream.str());
 		AST_String sink = new string(sourceStream.str());
 		AST_Expression_ComponentReference esource = 
 		    new AST_Expression_ComponentReference_ ();
 		AST_Expression_ComponentReference esink = 
 		    new AST_Expression_ComponentReference_ ();
-		esink->append(sink, lt1);
-		esource->append(source, lt2);
+		esink->append(sink, sinklt);
+		esource->append(source, sourcelt);
 		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
 		eqList->insert(eqList->end(), eq);
 		cout << eq << endl;
@@ -156,7 +168,6 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
                         (*log) << "PowerDevs File " << pdfile << " to " << mofile << endl;
                         AST_StoredDefinition sd = parseFile(mofile, &r);
                         st->insert(st->end(), *(sd->models()->begin()));
-			modelSource[modelId] = mofile;
                 }else{
                         st->insert(st->end(), NULL);
                 }
