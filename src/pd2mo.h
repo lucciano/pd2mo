@@ -27,6 +27,8 @@ namespace pd2mo{
 class Pd2Mo {
 
 	map<string, string> * classMap;
+	map<string, string> * sourceType;
+	map<int, string> modelSource;
 	string pd2mo_dir;
 
 	char * getFullPath();

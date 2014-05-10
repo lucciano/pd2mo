@@ -5,6 +5,7 @@ using namespace std;
 namespace pd2mo{
 Pd2Mo::Pd2Mo(){ 
         classMap = new map<string, string>();
+        sourceType = new map<string, string>();
         pd2mo_dir = getFullPath();
 }
 
@@ -29,10 +30,12 @@ void Pd2Mo::loadConfigFile(string file, ostream * log){
                 map<string, list <string> > * keys = reader.getKeys();
                 foreach(it, keys){
                         (*classMap)[(it->first)] = reader.Get(it->first, "Path", "n");
+                        (*sourceType)[(it->first)] = reader.Get(it->first, "SourceType", "Unique");
                 }
         }
         //Model Parameters
 }
+
 void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         QString qfilename = QString::fromStdString(filename);
@@ -142,6 +145,7 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
         QList< modelChild * >::iterator childsIterator;
         AST_ClassList st = new list<AST_Class>();
         int r;
+	int modelId = 0;
         for (childsIterator = c->childs.begin(); 
                 childsIterator != c->childs.end(); 
                 ++childsIterator){
@@ -152,9 +156,11 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
                         (*log) << "PowerDevs File " << pdfile << " to " << mofile << endl;
                         AST_StoredDefinition sd = parseFile(mofile, &r);
                         st->insert(st->end(), *(sd->models()->begin()));
+			modelSource[modelId] = mofile;
                 }else{
                         st->insert(st->end(), NULL);
                 }
+		modelId++;
         }
         return st;
 }
