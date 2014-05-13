@@ -18,7 +18,7 @@ AST_ClassList Traverser::visitClassList(AST_ClassList classList){
 	AST_ClassListIterator it;
 	AST_ClassList retr = new list<AST_Class>();
 	foreach(it, classList){
-		retr->insert(retr->begin(), visitClass(current_element(it)));
+		retr->insert(retr->end(), visitClass(current_element(it)));
 	}
 	return retr;
 }
@@ -67,7 +67,7 @@ AST_StatementList Traverser::visitStatementList(AST_StatementList stList){
 	AST_StatementListIterator it;
 	AST_StatementList ret = new list<AST_Statement>();
 	foreach(it, stList){
-		ret->insert(ret->begin(), visitStatement(current_element(it)));
+		ret->insert(ret->end(), visitStatement(current_element(it)));
 	}
 	return ret;
 }
@@ -115,7 +115,7 @@ AST_Statement_ElseList Traverser::visitStatement_ElseList(AST_Statement_ElseList
 	AST_Statement_ElseListIterator it;
 	AST_Statement_ElseList ret = new list<AST_Statement_Else>();
 	foreach(it, stElseList){
-		ret->insert(ret->begin(), visitStatement_Else(current_element(it)));
+		ret->insert(ret->end(), visitStatement_Else(current_element(it)));
 	}
 	return ret;
 }
@@ -153,7 +153,7 @@ AST_CompositionElementList Traverser::visitCompositionElementList(AST_Compositio
 	AST_CompositionElementListIterator it;
 	AST_CompositionElementList ret = new list<AST_CompositionElement>();
 	foreach(it, compList){
-		ret->insert(ret->begin(), visitCompositionElement(current_element(it)));
+		ret->insert(ret->end(), visitCompositionElement(current_element(it)));
 	}
 	return ret;
 }
@@ -163,7 +163,7 @@ AST_EquationList Traverser::visitEquationList(AST_EquationList eqList){
 	AST_EquationListIterator it;
 	AST_EquationList ret = new list<AST_Equation>();
 	foreach(it, eqList){
-		ret->insert(ret->begin(), visitEquation(current_element(it)));
+		ret->insert(ret->end(), visitEquation(current_element(it)));
 	}
 	return ret;
 }
@@ -220,7 +220,7 @@ AST_ForIndexList Traverser::visitForIndexList(AST_ForIndexList forIndexList){
 	AST_ForIndexListIterator it;
 	AST_ForIndexList ret = new list<AST_ForIndex>();
 	foreach(it, forIndexList){
-		ret->insert(ret->begin(), visitForIndex(current_element(it)));
+		ret->insert(ret->end(), visitForIndex(current_element(it)));
 	}
 	return ret;
 }
@@ -246,7 +246,7 @@ AST_Equation_ElseList Traverser::visitEquation_ElseList(AST_Equation_ElseList el
 	AST_Equation_ElseListIterator it;
 	AST_Equation_ElseList ret = new list<AST_Equation_Else>();
 	foreach(it, elseList){
-		ret->insert(ret->begin(), visitEquation_Else(current_element(it)));
+		ret->insert(ret->end(), visitEquation_Else(current_element(it)));
 	}
 	return ret;
 }
@@ -271,7 +271,7 @@ AST_ElementList Traverser::visitElementList(AST_ElementList elementList){
 	AST_ElementListIterator it;
 	AST_ElementList ret = new list<AST_Element>(); 
 	foreach(it, elementList){
-		ret->insert(ret->begin(), visitElement(current_element(it)));
+		ret->insert(ret->end(), visitElement(current_element(it)));
         }
 
 	return ret;
@@ -323,7 +323,7 @@ AST_DeclarationList Traverser::visitDeclarationList(AST_DeclarationList decList)
 	AST_DeclarationListIterator it;
 	AST_DeclarationList ret = new list<AST_Declaration>();
 	foreach(it, decList){
-		ret->insert(ret->begin(), visitDeclaration(current_element(it)));
+		ret->insert(ret->end(), visitDeclaration(current_element(it)));
 	}
 	return ret;
 }
@@ -385,7 +385,7 @@ AST_ArgumentList Traverser::visitArgumentList(AST_ArgumentList argList){
 	AST_ArgumentListIterator it;
 	AST_ArgumentList ret = new list<AST_Argument>();
 	foreach(it, argList){
-		ret->insert(ret->begin(), visitArgument(current_element(it)));
+		ret->insert(ret->end(), visitArgument(current_element(it)));
 	}
 	return ret;
 }
@@ -415,7 +415,7 @@ AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
 	AST_ExpressionListIterator it;
 	AST_ExpressionList ret = new list<AST_Expression>();
 	foreach(it, exList){
-		ret->insert(ret->begin(), visitExpression(current_element(it)));
+		ret->insert(ret->end(), visitExpression(current_element(it)));
 	}
 	return ret;
 }
