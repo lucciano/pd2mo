@@ -1,8 +1,13 @@
 class WSum
-  constant Integer N = 8;
-  Real u[N] = {0,0,0,0,0,0,0,0};
-  Real y;
-  parameter Real w[N] = {1,-1,0,0,0,0,0,0};
+	parameter Real p[9];
+	constant Integer n=p[9];
+	parameter Real w[n];
+ 	Real u[n];
+	Real y[1];
+initial algorithm
+  for i in 1:n loop
+	w[i]:=p[i];
+  end for;
 equation
-  y = product(w,u,N);
+	y[1]=u*w;
 end WSum;
