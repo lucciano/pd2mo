@@ -11,3 +11,4 @@ initial algorithm
 equation
 	y[1]=u*w;
 end WSum;
+	
