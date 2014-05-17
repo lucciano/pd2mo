@@ -10,7 +10,13 @@ AST_StoredDefinition Traverser::visitStoredDefinition(AST_StoredDefinition sd){
 }
 
 AST_String Traverser::visitString(AST_String s){
-	return s;
+	AST_String ret;
+	if(s!= NULL){
+	    ret = new string(*s);
+	}else{
+	    ret = s;
+	}
+	return ret;
 }
 
 AST_ClassList Traverser::visitClassList(AST_ClassList classList){
@@ -32,9 +38,22 @@ AST_Class Traverser::visitClass(AST_Class _class){
 
 AST_Composition Traverser::visitComposition(AST_Composition comp){
 	debug << __PRETTY_FUNCTION__ << endl ;
-  	return new AST_Composition_ (
+	AST_Composition ret = new AST_Composition_ (
 			visitElementList(comp->elementList()), 
 			visitCompositionElementList(comp->compositionList()));
+
+	if(comp->externalCall() != NULL){
+		ret->setExternalFunctionCall(visitExternal_Function_Call(comp->externalCall()));
+	}else{
+		ret->setExternalFunctionCall(NULL);
+	}
+	
+	return ret;
+}
+
+AST_External_Function_Call Traverser::visitExternal_Function_Call(AST_External_Function_Call exFunCall){
+	return new AST_External_Function_Call_(visitString(exFunCall->language()),
+			visitArgumentList(exFunCall->annotation()));
 }
 
 AST_CompositionElement Traverser::visitCompositionElement(AST_CompositionElement comp){

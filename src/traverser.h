@@ -9,6 +9,7 @@ namespace pd2mo{
 class Traverser {
   public:
 	Traverser(){};
+	virtual AST_External_Function_Call visitExternal_Function_Call(AST_External_Function_Call exFunCall);
 	virtual AST_StoredDefinition visitStoredDefinition(AST_StoredDefinition st);
 	virtual AST_String visitString(AST_String s);
 	virtual AST_ClassList visitClassList(AST_ClassList classList);
