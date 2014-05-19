@@ -231,4 +231,17 @@ BOOST_AUTO_TEST_CASE( cuatro ){
     q.loadConfigFile(path+ "/../data/pd2mo.ini", &cout);
     q.transform(filename, &cout, &cout);
 	cout << "fin.."<< endl;
+
+    QString qfilename = QString::fromStdString(filename);
+    modelCoupled *model = parsePDS(qfilename);
+    QList<modelChild * >::iterator itC;
+    QList<modelChild * > * childs = &(model->childs);
+    foreach(itC, childs){
+	modelAtomic * m = current_element(itC)->atomic;
+	cout << m->paramsString.toStdString();
+	QList< modelParameter * > * params = &(m->params);
+	QList< modelParameter * >::iterator itp;
+    }
+ 
+
 }

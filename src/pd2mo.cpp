@@ -1,5 +1,9 @@
 #include <pd2mo.h>
 
+/**
+check if modelChild is Atomic
+*/
+
 using namespace std;
 
 namespace pd2mo{
