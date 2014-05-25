@@ -1,5 +1,5 @@
 class WSum
-	parameter Real p[9];
+	parameter Real p[9]={0,0,0,0,0,0,0,0};
 	constant Integer n=p[9];
 	parameter Real w[n];
  	Real u[n];

@@ -238,10 +238,12 @@ BOOST_AUTO_TEST_CASE( cuatro ){
     QList<modelChild * > * childs = &(model->childs);
     foreach(itC, childs){
 	modelAtomic * m = current_element(itC)->atomic;
-	cout << m->paramsString.toStdString();
-	QList< modelParameter * > * params = &(m->params);
-	QList< modelParameter * >::iterator itp;
+	//cout << m->paramsString.toStdString();
+	QStringList params = m->paramsString.split(',');
+	QStringList * paramsp = &(params);
+	QStringList::iterator itQs;
+	foreach(itQs, paramsp){
+		cout << current_element(itQs).toStdString() << endl;
+	}
     }
- 
-
 }
