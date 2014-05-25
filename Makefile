@@ -1,7 +1,7 @@
 CPPLIBS=-lboost_unit_test_framework -lpdppt -lQtGui -lQtCore -lmocc -lsimpd
 CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./src -I/usr/include/ -I. -g
 
-OBJ_COMMON=src/pd2mo.o src/traverser.o src/prefixmovars.o inih/ini.o inih/cpp/INIReader.o
+OBJ_COMMON=src/pd2mo.o src/traverser.o src/prefixmovars.o src/setParameters.o inih/ini.o inih/cpp/INIReader.o
 TEST=test/powerdevs test/modelicacc test/pd2mo test/inih test/simp
 
 all: $(TEST) $(OBJ_COMMON)
