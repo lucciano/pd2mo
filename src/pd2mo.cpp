@@ -50,6 +50,8 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         //Load class based on the coupledModel from file
         (*log) << "Load class list based on class map." << endl;
         AST_ClassList classList = getAsClassList(model, classMap, log); 
+	
+	setModelParameters(model, classList);
 
         //Rename each AST_Class variable based on name and position in the coupledmodel
         AST_ClassListIterator it;
@@ -208,4 +210,17 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 		a->composition()->elementList()->begin(), 
 		a->composition()->elementList()->end());
 }
+
+void Pd2Mo::setModelParameters(modelCoupled * model,
+				AST_ClassList classList){
+	AST_ClassListIterator cit;
+	int k = 0;
+	foreach(cit, classList){
+		modelAtomic * atomic = model->childs.at(k)->atomic;
+		cout << k  << " " << atomic->paramsString.toStdString() <<endl;
+		k++;
+	}
+}
+
+
 }

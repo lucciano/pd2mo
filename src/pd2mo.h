@@ -37,6 +37,7 @@ class Pd2Mo {
 	void Combine(AST_ElementList elem, 
 				AST_StatementList stList, 
 				AST_EquationList eqList, AST_Class a);
+	void setModelParameters(modelCoupled *, AST_ClassList);
 
 public:
 	Pd2Mo();
