@@ -6,16 +6,22 @@
 #include <prefixmovars.h>
 #include <traverser.h>
 #include <iostream>
-#define debug std::cout 
+#include <QStringList>
+#include <ast/stored_definition.h>
+#include <ast/modification.h>
+#include <simpd/pdevslib.h>
+#include <string>
+
+#define debug_out std::cout 
 
 using namespace std;
 
 namespace pd2mo{
 class SetParameters: public Traverser {
-    list<string> params;
+    AST_ExpressionList exp;
     string paramsName;
     public: 
-	void setParameters(list<string> x){ params = x; }
+	void setParametersList(QStringList x);
 	void setParameterName(string x){ paramsName = x; }
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
 	virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp);

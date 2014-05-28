@@ -216,7 +216,13 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 	AST_ClassListIterator cit;
 	int k = 0;
 	foreach(cit, classList){
+		SetParameters ps = SetParameters();
+		ps.setParameterName("p");
 		modelAtomic * atomic = model->childs.at(k)->atomic;
+		ps.setParametersList(atomic->paramsString.split(","));
+		if(current_element(cit) != NULL){
+			current_element(cit) = ps.visitClass(current_element(cit));
+		}
 		cout << k  << " " << atomic->paramsString.toStdString() <<endl;
 		k++;
 	}

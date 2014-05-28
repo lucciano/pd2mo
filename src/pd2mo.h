@@ -18,6 +18,7 @@
 #include <inih/cpp/INIReader.h>
 #include <sstream>
 #include <prefixmovars.h>
+#include <setParameters.h>
 
 
 
