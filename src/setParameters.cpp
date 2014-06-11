@@ -8,7 +8,14 @@ void SetParameters::setParametersList(QStringList x){
 	exp = new list<AST_Expression>;
 	for(it = x.begin(); it != x.end(); it++){
 		char * d_str = (char*) malloc(sizeof(char) * it->toStdString().size());
-		strcpy (d_str,  it->toStdString().c_str());
+		QString param = *it;
+		if(0 == param.mid(0,1).toStdString().compare("\"")){
+			cout << "Remove doblequote";
+			param = param.mid(1,param.length()-2);
+		}
+		strcpy (d_str,  param.toStdString().c_str());
+		//if(strcpy("\"", it->mid(0,1).toStdString().c_str()) == 0){
+		//}
 		double d = getScilabVar(d_str);
 		free(d_str);
 		AST_Expression_Real ra = new AST_Expression_Real_(d);
