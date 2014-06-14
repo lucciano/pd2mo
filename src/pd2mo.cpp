@@ -129,13 +129,19 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
 
 		cout <<"param type:" << param << endl;
-		if(param.compare("Array") == 0){
+		//if(param.compare("Array") == 0){
 			sourcelt->insert(
 				sourcelt->end(), 
 				new AST_Expression_Integer_(
-					current_element(itM)->sinkPort
+					current_element(itM)->sinkPort+1
 					));
-		}
+			sinklt->insert(
+				sinklt->end(), 
+				new AST_Expression_Integer_(
+					current_element(itM)->sourcePort+1
+					));
+
+		//}
 
 		AST_String source = new string(sincStream.str());
 		AST_String sink = new string(sourceStream.str());
