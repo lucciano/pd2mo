@@ -1,6 +1,6 @@
 class Constant
   parameter Real k = 1;
-  Real y (start = k);
+  Real y[1] (start = k);
 equation
-  y = k;
+  y[1] = k;
 end Constant;
