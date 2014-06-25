@@ -94,10 +94,6 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 	foreach(itM, lsIc){
 		modelChild * srcModel = childs->at(current_element(itM)->childSource);
 		modelChild * sinkModel = childs->at(current_element(itM)->childSink);
-		// cout << srcModel->atomic->path.toStdString()
-		// 	<< "(" << current_element(itM)->sourcePort << ")-->"
-		// 	<< sinkModel->atomic->path.toStdString() 
-		// 	<< "(" << current_element(itM)->sinkPort << ")" << endl;
 
 		AST_ExpressionList sinklt = new list<AST_Expression>();
 		AST_ExpressionList sourcelt = new list<AST_Expression>();
@@ -113,7 +109,6 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
 
 		(*log) <<"param type:" << param << endl;
-		//if(param.compare("Array") == 0){
 			sourcelt->insert(
 				sourcelt->end(), 
 				new AST_Expression_Integer_(
@@ -124,8 +119,6 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 				new AST_Expression_Integer_(
 					current_element(itM)->sourcePort+1
 					));
-
-		//}
 
 		AST_String source = new string(sincStream.str());
 		AST_String sink = new string(sourceStream.str());
@@ -157,7 +150,8 @@ string Pd2Mo::makeMoFileName(string pdfile){
     string mofile(pdfile);
     find_and_replace(mofile, "\\", "/");
     find_and_replace(mofile, ".h", ".mo");
-    mofile = getFullPath() + ("/data/" + mofile);
+    mofile =  ("/data/" + mofile);
+    mofile = string(getFullPath()) + mofile;
     cout << __PRETTY_FUNCTION__  << mofile << endl;
     return mofile;
 }
