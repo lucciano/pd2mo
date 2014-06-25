@@ -24,22 +24,6 @@ char * Pd2Mo::getFullPath(){
         return dirname(pBuf);
 }
 
-void Pd2Mo::loadConfigFile(string file, ostream * log){
-        //Class Mapping
-        INIReader reader(file);
-        if (reader.ParseError() < 0) {
-            (* log )<< "Can't load '"<< file <<"'\n";
-        }else{
-                map<string, list <string> >::iterator it;
-                map<string, list <string> > * keys = reader.getKeys();
-                foreach(it, keys){
-                        (*classMap)[(it->first)] = reader.Get(it->first, "Path", "n");
-                        (*sourceType)[(it->first)] = reader.Get(it->first, "SourceType", "Unique");
-                }
-        }
-        //Model Parameters
-}
-
 void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         QString qfilename = QString::fromStdString(filename);
@@ -160,7 +144,23 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 	cout << modelMo<< endl;
 
 }
+void find_and_replace(string& source, string const& find, string const& replace)
+{
+    for(std::string::size_type i = 0; (i = source.find(find, i)) != std::string::npos;)
+    {
+        source.replace(i, find.length(), replace);
+        i += replace.length() - find.length() + 1;
+    }
+}
 
+string Pd2Mo::makeMoFileName(string pdfile){
+    string mofile(pdfile);
+    find_and_replace(mofile, "\\", "/");
+    find_and_replace(mofile, ".h", ".mo");
+    mofile = getFullPath() + ("/data/" + mofile);
+    cout << __PRETTY_FUNCTION__  << mofile << endl;
+    return mofile;
+}
 /**
 
 */
@@ -174,10 +174,12 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
                 childsIterator != c->childs.end(); 
                 ++childsIterator){
                 modelChild * modelC = *childsIterator;
+
+		string pdfile = modelC->atomic->path.toStdString();
+		string mofile = makeMoFileName(pdfile);
+		(*log) << "PowerDevs File " << pdfile << " to " << mofile << endl;
                 if(m->count(modelC->atomic->path.toStdString())>0){
-                        string pdfile = modelC->atomic->path.toStdString();
-                        string mofile = (*m)[pdfile];
-                        (*log) << "PowerDevs File " << pdfile << " to " << mofile << endl;
+                        mofile = (*m)[pdfile];
                         AST_StoredDefinition sd = parseFile(mofile, &r);
                         st->insert(st->end(), *(sd->models()->begin()));
                 }else{

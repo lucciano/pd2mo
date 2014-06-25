@@ -228,7 +228,6 @@ BOOST_AUTO_TEST_CASE( cuatro ){
     string path = getFullPath();
     string filename = path + "/data/simple01.pds";
     Pd2Mo q = Pd2Mo();
-    q.loadConfigFile(path+ "/../data/pd2mo.ini", &cout);
     q.transform(filename, &cout, &cout);
 	cout << "fin.."<< endl;
 

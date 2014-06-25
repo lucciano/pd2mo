@@ -15,7 +15,6 @@
 #include <pdppt/parser.h>
 #include <pdppt/modelcoupled.h>
 
-#include <inih/cpp/INIReader.h>
 #include <sstream>
 #include <prefixmovars.h>
 #include <setParameters.h>
@@ -39,10 +38,10 @@ class Pd2Mo {
 				AST_StatementList stList, 
 				AST_EquationList eqList, AST_Class a);
 	void setModelParameters(modelCoupled *, AST_ClassList);
+	string makeMoFileName(string );
 
 public:
 	Pd2Mo();
-	void loadConfigFile(string file, ostream * log);
 	void transform(string file, ostream * output, ostream * log);
 
 };
