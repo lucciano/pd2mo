@@ -86,7 +86,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 
 	//Add coupledmodel connections
-        (*log) << "Add coupledmodel connections";
+        (*log) << "Add coupledmodel connections" << endl;;
 	QList<modelConnection*> * lsIc = &(model->lsIC);
 	QList<modelConnection*>::iterator itM;
 	QList<modelChild * > * childs = &(model->childs);
@@ -112,7 +112,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
 
-		cout <<"param type:" << param << endl;
+		(*log) <<"param type:" << param << endl;
 		//if(param.compare("Array") == 0){
 			sourcelt->insert(
 				sourcelt->end(), 
@@ -161,6 +161,17 @@ string Pd2Mo::makeMoFileName(string pdfile){
     cout << __PRETTY_FUNCTION__  << mofile << endl;
     return mofile;
 }
+
+int fileExist(const char* filename)
+{
+  FILE* fptr = fopen(filename, "r");
+  if (fptr != NULL)
+  {
+    fclose(fptr);
+    return 1;
+  }
+  return 0;
+}
 /**
 
 */
@@ -177,12 +188,14 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 
 		string pdfile = modelC->atomic->path.toStdString();
 		string mofile = makeMoFileName(pdfile);
-		(*log) << "PowerDevs File " << pdfile << " to " << mofile << endl;
-                if(m->count(modelC->atomic->path.toStdString())>0){
-                        mofile = (*m)[pdfile];
+		(*log) << "PowerDevs File " << pdfile << " to " << mofile << " " ;
+		const char * c = mofile.c_str();
+                if(fileExist(c)){
+			(*log) << "FILE EXISTS" << endl;
                         AST_StoredDefinition sd = parseFile(mofile, &r);
                         st->insert(st->end(), *(sd->models()->begin()));
                 }else{
+			(*log) << "FILE NO EXISTS" << endl;
                         st->insert(st->end(), NULL);
                 }
 		modelId++;
