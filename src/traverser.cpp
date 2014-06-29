@@ -68,16 +68,16 @@ AST_CompositionElement Traverser::visitCompositionElement(AST_CompositionElement
 }
 
 AST_CompositionEqsAlgs Traverser::visitCompositionEqsAlgs(AST_CompositionEqsAlgs eqAlgs){
-	debug << __PRETTY_FUNCTION__ << endl ;
+	debug << __PRETTY_FUNCTION__ << "(" << eqAlgs->getEquations()->size() << ","<<
+			 eqAlgs->getAlgorithms()->size() << ")"<< endl ;
 	AST_EquationList eqList = eqAlgs->getEquations();
 	AST_StatementList stList = eqAlgs->getAlgorithms();
-	if(eqList){
+	if(eqList->size() > 0){
 		return new AST_CompositionEqsAlgs_ (
 			visitEquationList(eqList), eqAlgs->isInitial());
 	}else{
 		return new AST_CompositionEqsAlgs_ (
 			visitStatementList(stList), eqAlgs->isInitial());
-
 	}
 }
 

@@ -48,6 +48,7 @@ BOOST_AUTO_TEST_CASE( uno) {
 
     AST_ClassList models = sd->models();
     AST_ClassListIterator mIter;
+	cout << sd << endl;
     for(mIter = models->begin(); mIter != models->end(); ++mIter){
 	AST_Class c = (*mIter);
 	
@@ -243,6 +244,7 @@ BOOST_AUTO_TEST_CASE( uno) {
 				cout << "Equations"<< endl;
 				foreach(eqit,eqA->getEquations())  
 					cout << current_element(eqit) << endl;
+				cout << "Algorithms"<< endl;
 				foreach(stit,eqA->getAlgorithms()) 
 					cout << current_element(stit) << endl;
 		}

@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE( cero ) {
     BOOST_CHECK( 1 == 1 );
     int r = 0;
     string path = getFullPath();
-    string filename = path + "/data/ModelBase.mo";
+    string filename = path + "/data/qss/qss_wsum.mo";
     AST_StoredDefinition sd = parseFile(filename,&r);
     T1 t = T1();
     t.visitStoredDefinition(sd);
