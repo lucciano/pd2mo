@@ -4,8 +4,7 @@ CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./sr
 OBJ_COMMON=src/pd2mo.o src/traverser.o src/prefixmovars.o src/setParameters.o
 TEST=test/powerdevs test/modelicacc test/pd2mo test/simp test/getopt
 
-all: $(TEST) $(OBJ_COMMON)
-
+all: $(TEST) $(OBJ_COMMON) pd2mo
 clean:
 	rm src/*.o
 	rm test/*.o
@@ -23,6 +22,9 @@ test: $(TEST) $(OBJ_COMMON)
 	test/pd2mo
 	test/simp
 	test/getopt
+
+pd2mo: src/main.o
+	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/getopt: test/getopt.o
 	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
