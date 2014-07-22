@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <iostream>
 #include <getopt.h>    
+#include <pd2mo.h>
 using namespace std;
-
-
+using namespace pd2mo;
 
 int main (int argc, char* argv[]) {
     string path;
-    string src_file;
+    string src_infile;
     string src_outfile;
 
     int c;
     int digit_optind = 0;
     int aopt = 0, bopt = 0;
-    char *copt = 0, *dopt = 0;
+    
     static struct option long_options[] = {
         {"path", 1, 0, 'p'},
         {"output", 1, 0, 'o'},
@@ -26,20 +26,6 @@ int main (int argc, char* argv[]) {
                  long_options, &option_index)) != -1) {
         int this_option_optind = optind ? optind : 1;
         switch (c) {
-        case 0:
-            printf ("option %s", long_options[option_index].name);
-            if (optarg)
-                printf (" with arg %s", optarg);
-            printf ("\n");
-            break;
-        case '0':
-        case '1':
-        case '2':
-            if (digit_optind != 0 && digit_optind != this_option_optind)
-              printf ("digits occur in two different argv-elements.\n");
-            digit_optind = this_option_optind;
-            printf ("option %c\n", c);
-            break;
         case 'h':
 	    cout << "Usage : " << argv[0] << " [-h|--help] "
 		<< "[-p|--path=some/path] " 
@@ -50,12 +36,10 @@ int main (int argc, char* argv[]) {
 	    return 0;
             break;
         case 'p':
-            printf ("option p with value '%s'\n", optarg);
-            copt = optarg;
+	    path = string(optarg);
             break;
         case 'o':
-            printf ("option o with value '%s'\n", optarg);
-            dopt = optarg;
+	    src_outfile = string(optarg);
             break;
         case '?':
             break;
@@ -64,10 +48,24 @@ int main (int argc, char* argv[]) {
         }
     }
     if (optind < argc) {
-        printf ("non-option ARGV-elements: ");
-        while (optind < argc)
-            printf ("%s ", argv[optind++]);
-        printf ("\n");
+
+	bool first = true;
+        while (optind < argc){
+		if(!first){
+			cerr << "to many arguments." <<endl;
+			return 1;
+		}
+		src_infile = string(argv[optind++]);
+		first = false;
+	}
+    }else{
+	cerr << "not enough arguments." <<endl;
+	return 1;
     }
+    ofstream outfile;
+    outfile.open(src_outfile.c_str());
+    Pd2Mo q = Pd2Mo();
+    q.transform(src_infile, &outfile, &cerr);
+    outfile.close();
     return 0;
 }

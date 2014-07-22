@@ -24,7 +24,7 @@ test: $(TEST) $(OBJ_COMMON)
 	test/getopt
 
 pd2mo: src/main.o
-	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
+	$(CXX) -o $@ $< $(OBJ_COMMON)$(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/getopt: test/getopt.o
 	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 

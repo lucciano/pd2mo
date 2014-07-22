@@ -31,7 +31,7 @@ class Pd2Mo {
 	map<int, string> modelSource;
 	string pd2mo_dir;
 
-	char * getFullPath();
+	string getFullPath();
 
 	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *, ostream * log);
 	void Combine(AST_ElementList elem, 

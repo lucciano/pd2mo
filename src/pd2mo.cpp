@@ -11,9 +11,10 @@ Pd2Mo::Pd2Mo(){
         classMap = new map<string, string>();
         sourceType = new map<string, string>();
         pd2mo_dir = getFullPath();
+	cout << "pd2mo_dir : "<< pd2mo_dir << endl;
 }
 
-char * Pd2Mo::getFullPath(){
+string Pd2Mo::getFullPath(){
         char szTmp[320];
         char pBuf[320];
         int len = 320;
@@ -21,7 +22,8 @@ char * Pd2Mo::getFullPath(){
         int bytes = readlink(szTmp, pBuf, len);
         if(bytes >= 0)
                 pBuf[bytes] = '\0';
-        return dirname(pBuf);
+        string ret(dirname(pBuf));
+	return ret;
 }
 
 void Pd2Mo::transform(string filename, ostream * output, ostream * log){
@@ -134,7 +136,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         }
 
-	cout << modelMo<< endl;
+	(*output) << modelMo;
 
 }
 void find_and_replace(string& source, string const& find, string const& replace)
@@ -151,7 +153,7 @@ string Pd2Mo::makeMoFileName(string pdfile){
     find_and_replace(mofile, "\\", "/");
     find_and_replace(mofile, ".h", ".mo");
     mofile =  ("/data/" + mofile);
-    mofile = string(getFullPath()) + mofile;
+    mofile = string(pd2mo_dir) + mofile;
     cout << __PRETTY_FUNCTION__  << mofile << endl;
     return mofile;
 }
