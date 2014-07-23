@@ -45,6 +45,8 @@ public:
 	void transform(string file, ostream * output, ostream * log);
 
 };
+
+void find_and_replace(string& source, string const& find, string const& replace);
 }
 
 #endif

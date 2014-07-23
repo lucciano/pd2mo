@@ -2,13 +2,14 @@
 #include <iostream>
 #include <getopt.h>    
 #include <pd2mo.h>
+#include <libgen.h>
 using namespace std;
 using namespace pd2mo;
 
 int main (int argc, char* argv[]) {
     string path;
     string src_infile;
-    string src_outfile;
+    string src_outfile("");
 
     int c;
     int digit_optind = 0;
@@ -63,6 +64,13 @@ int main (int argc, char* argv[]) {
 	return 1;
     }
     ofstream outfile;
+    if(src_outfile.compare("") == 0){
+        src_outfile = src_infile;
+        find_and_replace(src_outfile,".pds", ".mo");
+	char * base = strdup(src_outfile.c_str());
+	src_outfile = string(basename(base));
+    }
+
     outfile.open(src_outfile.c_str());
     Pd2Mo q = Pd2Mo();
     q.transform(src_infile, &outfile, &cerr);
