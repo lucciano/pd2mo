@@ -13,6 +13,7 @@ class PrefixMoVars: public Traverser {
 	void setPrefix(string x){ prefix = x; }
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
 	virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp);
+	virtual AST_String visitVariable(AST_String s);
 };
 }
 #endif

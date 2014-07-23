@@ -82,6 +82,7 @@ class Traverser {
 	virtual AST_Expression_UMinus visitExpression_UMinus(AST_Expression_UMinus); // AST_Expression
 
 	virtual AST_Element_ClassWrapper visitClassWrapper(AST_Element_ClassWrapper);
+	virtual AST_String visitVariable(AST_String);
 };
 }
 #endif

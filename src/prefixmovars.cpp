@@ -32,4 +32,9 @@ AST_Expression_ComponentReference PrefixMoVars::visitExpression_ComponentReferen
         return rVal;
 }
 
+AST_String PrefixMoVars::visitVariable(AST_String s){
+	string * rtr = new string(prefix + (*s));
+	return rtr;
+}
+
 }

@@ -246,7 +246,7 @@ AST_ForIndexList Traverser::visitForIndexList(AST_ForIndexList forIndexList){
 
 AST_ForIndex Traverser::visitForIndex(AST_ForIndex forIndex){
 	debug << __PRETTY_FUNCTION__ << endl;
-	return new AST_ForIndex_ (visitString(forIndex->variable()), 
+	return new AST_ForIndex_ (visitVariable(forIndex->variable()), 
 				  visitExpression(forIndex->in_exp()));
 }
 
@@ -624,5 +624,10 @@ AST_Expression_UMinus Traverser::visitExpression_UMinus(AST_Expression_UMinus um
 AST_Element_ClassWrapper Traverser::visitClassWrapper(AST_Element_ClassWrapper classWrapExp){
 	debug << __PRETTY_FUNCTION__ << endl  ; 
  	return new AST_Element_ClassWrapper_ (visitClass(classWrapExp->getClass()));
+}
+
+AST_String Traverser::visitVariable(AST_String s){
+	AST_String rtr = new string(*s);
+	return rtr;
 }
 }
