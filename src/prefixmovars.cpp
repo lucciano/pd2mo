@@ -7,7 +7,7 @@ namespace pd2mo{
 
 AST_Declaration PrefixMoVars::visitDeclaration(AST_Declaration dec){
 	string name = this->prefix + dec->name();
-	debug << __PRETTY_FUNCTION__ << name << endl  ; 
+	//debug << __PRETTY_FUNCTION__ << name << endl  ; 
 	AST_Declaration decPrefix = new AST_Declaration_(name, 
 		this->visitExpressionList(dec->indexes()),
 		this->visitModification(dec->modification()));
@@ -17,7 +17,7 @@ AST_Declaration PrefixMoVars::visitDeclaration(AST_Declaration dec){
 }
 
 AST_Expression_ComponentReference PrefixMoVars::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-        debug << __PRETTY_FUNCTION__ << compRefExp->name() << endl  ;
+        //debug << __PRETTY_FUNCTION__ << compRefExp->name() << endl  ;
         AST_Expression_ComponentReference rVal =
                  new AST_Expression_ComponentReference_ ();
 

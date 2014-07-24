@@ -1,7 +1,6 @@
 #define BOOST_AUTO_TEST_MAIN
 #define BOOST_TEST_DYN_LINK 
 #include <boost/test/unit_test.hpp>
-#include <test/file_util.h>
 #include <../src/pd2mo.h>
 #include <string>
 #include <sstream>
@@ -172,7 +171,7 @@ AST_ClassList getAsClassList(modelCoupled * c, map<string, string> m){
 
 BOOST_AUTO_TEST_CASE( tres ){
     cout << "tres" << endl;
-    QString path = getFullPath();
+    QString path = QString::fromStdString(getFullPath());
     QString filename = path + "/data/simple01.pds";
     int r = 0; 
     map<string, string> classMap;

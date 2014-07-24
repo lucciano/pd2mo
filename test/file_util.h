@@ -7,7 +7,6 @@ int len = 320;
 sprintf(szTmp, "/proc/%d/exe", getpid());
 int bytes = readlink(szTmp, pBuf, len);
 if(bytes >= 0)
-	pBuf[bytes] = '\0';
+pBuf[bytes] = '\0';
 return dirname(pBuf);
 }
-

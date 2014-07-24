@@ -10,7 +10,7 @@ void SetParameters::setParametersList(QStringList x){
 		char * d_str = (char*) malloc(sizeof(char) * it->toStdString().size());
 		QString param = *it;
 		if(0 == param.mid(0,1).toStdString().compare("\"")){
-			cout << "Remove doblequote";
+			//cout << "Remove doblequote";
 			param = param.mid(1,param.length()-2);
 		}
 		strcpy (d_str,  param.toStdString().c_str());
@@ -24,11 +24,11 @@ void SetParameters::setParametersList(QStringList x){
 }
 AST_Declaration SetParameters::visitDeclaration(AST_Declaration dec){
 	string name = dec->name();
-	debug_out << __PRETTY_FUNCTION__ << name << endl  ; 
+	//debug_out << __PRETTY_FUNCTION__ << name << endl  ; 
 
 	AST_Declaration decPrefix;
 	if(this->paramsName.compare(name) == 0){
-		debug_out << "Found param : " << name << endl;
+		//debug_out << "Found param : " << name << endl;
 		//dec->modification()->getAsEqual()->exp() << endl;
 		AST_Expression_Brace braces = new AST_Expression_Brace_ (exp);
 		AST_Modification_Equal mo = new AST_Modification_Equal_(braces);
@@ -47,7 +47,7 @@ AST_Declaration SetParameters::visitDeclaration(AST_Declaration dec){
 }
 
 AST_Expression_ComponentReference SetParameters::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-        debug_out << __PRETTY_FUNCTION__ << compRefExp->name() << endl  ;
+        //debug_out << __PRETTY_FUNCTION__ << compRefExp->name() << endl  ;
         AST_Expression_ComponentReference rVal =
                  new AST_Expression_ComponentReference_ ();
 
