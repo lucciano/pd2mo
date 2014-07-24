@@ -24,6 +24,8 @@
 using namespace std;
 
 namespace pd2mo{
+
+string getFullPath();
 class Pd2Mo {
 
 	map<string, string> * classMap;
@@ -31,7 +33,6 @@ class Pd2Mo {
 	map<int, string> modelSource;
 	string pd2mo_dir;
 
-	string getFullPath();
 
 	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *, ostream * log);
 	void Combine(AST_ElementList elem, 
@@ -43,6 +44,7 @@ class Pd2Mo {
 public:
 	Pd2Mo();
 	void transform(string file, ostream * output, ostream * log);
+	void setPath(string);
 
 };
 

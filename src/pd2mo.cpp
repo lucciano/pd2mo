@@ -7,14 +7,8 @@ check if modelChild is Atomic
 using namespace std;
 
 namespace pd2mo{
-Pd2Mo::Pd2Mo(){ 
-        classMap = new map<string, string>();
-        sourceType = new map<string, string>();
-        pd2mo_dir = getFullPath();
-	cout << "pd2mo_dir : "<< pd2mo_dir << endl;
-}
 
-string Pd2Mo::getFullPath(){
+string getFullPath(){
         char szTmp[320];
         char pBuf[320];
         int len = 320;
@@ -24,6 +18,13 @@ string Pd2Mo::getFullPath(){
                 pBuf[bytes] = '\0';
         string ret(dirname(pBuf));
 	return ret;
+}
+
+Pd2Mo::Pd2Mo(){
+        classMap = new map<string, string>();
+        sourceType = new map<string, string>();
+        pd2mo_dir = getFullPath();
+	cout << "pd2mo_dir : "<< pd2mo_dir << endl;
 }
 
 void Pd2Mo::transform(string filename, ostream * output, ostream * log){
@@ -152,7 +153,6 @@ string Pd2Mo::makeMoFileName(string pdfile){
     string mofile(pdfile);
     find_and_replace(mofile, "\\", "/");
     find_and_replace(mofile, ".h", ".mo");
-    mofile =  ("/data/" + mofile);
     mofile = string(pd2mo_dir) + mofile;
     cout << __PRETTY_FUNCTION__  << mofile << endl;
     return mofile;
@@ -243,6 +243,10 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 		cout << k  << " " << atomic->paramsString.toStdString() <<endl;
 		k++;
 	}
+}
+
+void Pd2Mo::setPath(string s){
+	pd2mo_dir = s;
 }
 
 

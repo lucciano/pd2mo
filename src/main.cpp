@@ -7,7 +7,7 @@ using namespace std;
 using namespace pd2mo;
 
 int main (int argc, char* argv[]) {
-    string path;
+    string path =  getFullPath() + "/data/";
     string src_infile;
     string src_outfile("");
 
@@ -32,8 +32,8 @@ int main (int argc, char* argv[]) {
 		<< "[-p|--path=some/path] " 
 		<< "[-o|--output=modelfile.mo] <modelfile.pds>"<< endl;
 	    cout << "-h, --help\t\tPrint this help message"<< endl;
-	    cout << "-p, --path\t\tpath with the .mo files" << endl;
-	    cout << "-o, --output\t\toutput file of the modelica, by default we change the .pds extension for .mo" << endl;
+	    cout << "-p, --path\t\tpath with the .mo files, defaults to \"" << path <<"\""<< endl;
+	    cout << "-o, --output\t\toutput file of the modelica, by default we change the .pds extension to .mo" << endl;
 	    return 0;
             break;
         case 'p':
@@ -73,6 +73,7 @@ int main (int argc, char* argv[]) {
 
     outfile.open(src_outfile.c_str());
     Pd2Mo q = Pd2Mo();
+    q.setPath(path);
     q.transform(src_infile, &outfile, &cerr);
     outfile.close();
     return 0;
