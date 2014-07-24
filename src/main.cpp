@@ -80,7 +80,7 @@ int main (int argc, char* argv[]) {
     if(logfile.compare("") == 0){
         logfile = src_infile;
         find_and_replace(logfile,".pds", ".log");
-	char * base = strdup(src_outfile.c_str());
+	char * base = strdup(logfile.c_str());
 	logfile = string(basename(base));
     }
     ofstream oFlogfile;
