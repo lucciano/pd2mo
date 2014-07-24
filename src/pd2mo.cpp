@@ -24,7 +24,6 @@ Pd2Mo::Pd2Mo(){
         classMap = new map<string, string>();
         sourceType = new map<string, string>();
         pd2mo_dir = getFullPath();
-	cout << "pd2mo_dir : "<< pd2mo_dir << endl;
 }
 
 void Pd2Mo::transform(string filename, ostream * output, ostream * log){
@@ -83,7 +82,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         foreach(it, classList){
 		if(current_element(it)){
 			Combine(elem, stList, eqList, current_element(it));
-			cout << current_element(it)->name() << endl;
+			(*log) << current_element(it)->name() << endl;
 		}
 	}
 
@@ -133,7 +132,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		esource->append(source, sourcelt);
 		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
 		eqList->insert(eqList->end(), eq);
-		cout << eq << endl;
+		(*log) << eq << endl;
 
         }
 
@@ -154,7 +153,6 @@ string Pd2Mo::makeMoFileName(string pdfile){
     find_and_replace(mofile, "\\", "/");
     find_and_replace(mofile, ".h", ".mo");
     mofile = string(pd2mo_dir) + mofile;
-    cout << __PRETTY_FUNCTION__  << mofile << endl;
     return mofile;
 }
 
@@ -240,7 +238,6 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 		if(current_element(cit) != NULL){
 			current_element(cit) = ps.visitClass(current_element(cit));
 		}
-		cout << k  << " " << atomic->paramsString.toStdString() <<endl;
 		k++;
 	}
 }
