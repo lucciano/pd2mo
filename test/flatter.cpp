@@ -28,3 +28,29 @@ BOOST_AUTO_TEST_CASE( cero ){
 	}
         }
 }
+
+BOOST_AUTO_TEST_CASE( uno ){
+    cout << "------------------------------------\n";
+    QString path = getFullPath();
+    QString filename = path + "/data/Coupled.pds";
+    modelCoupled *c = parsePDS(filename);
+
+    cout << c->childs.size() << endl;
+
+    modelCoupled *q = flatter::flat(c);
+    cout << q->childs.size() << endl;
+
+    QList< modelChild * >::iterator childsIterator;
+    for (childsIterator = q->childs.begin(); childsIterator != q->childs.end(); ++childsIterator){
+    	modelChild * modelC = *childsIterator;
+        if(modelC->childType == ATOMIC  ){
+		cout << "CHILD"<< endl;
+		cout << modelC->atomic->path.toStdString() << endl;
+	}else if(modelC->childType == COUPLED) {
+		cout << "COUPLED"<< "(" << modelC->coupled->childs.size() << ")" << endl;
+	}else{
+		cout << "NONO"<< endl;
+	}
+    }
+}
+

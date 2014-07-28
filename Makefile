@@ -28,8 +28,8 @@ test: $(TEST) $(OBJ_COMMON)
 pd2mo: src/main.o
 	$(CXX) -o $@ $< $(OBJ_COMMON)$(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
-test/flatter: test/flatter.o
-	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
+test/flatter: test/flatter.o 
+	$(CXX) -o $@ $< $(OBJ_COMMON) $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/getopt: test/getopt.o
 	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
