@@ -1,0 +1,30 @@
+#define BOOST_AUTO_TEST_MAIN
+#define BOOST_TEST_DYN_LINK 
+#include <boost/test/unit_test.hpp>
+#include <src/flatter.h>
+#include <pdppt/modelcoupled.h>
+#include <pdppt/parser.h>
+#include <QFile>
+#include <test/file_util.h>
+
+
+using namespace std;
+
+BOOST_AUTO_TEST_CASE( cero ){
+    QString path = getFullPath();
+    QString filename = path + "/data/Coupled.pds";
+    modelCoupled *c = parsePDS(filename);
+    QList< modelChild * >::iterator childsIterator;
+    for (childsIterator = c->childs.begin(); childsIterator != c->childs.end(); ++childsIterator){
+    	modelChild * modelC = *childsIterator;
+    
+        if(modelC->childType == ATOMIC  ){
+		cout << "CHILD"<< endl;
+		cout << modelC->atomic->path.toStdString() << endl;
+	}else if(modelC->childType == COUPLED) {
+		cout << "COUPLED"<< "(" << modelC->coupled->childs.size() << ")" << endl;
+	}else{
+		cout << "NONO"<< endl;
+	}
+        }
+}

@@ -1,8 +1,8 @@
 CPPLIBS=-lboost_unit_test_framework -lpdppt -lQtGui -lQtCore -lmocc -lsimpd
 CPPFLAGS=-I/usr/include/qt4 -I/usr/include/qt4/QtCore -I/usr/include/mocc -I./src -I/usr/include/ -I. -g 
 
-OBJ_COMMON=src/pd2mo.o src/traverser.o src/prefixmovars.o src/setParameters.o
-TEST=test/powerdevs test/modelicacc test/pd2mo test/simp test/getopt
+OBJ_COMMON=src/pd2mo.o src/traverser.o src/prefixmovars.o src/setParameters.o src/flatter.o
+TEST=test/powerdevs test/modelicacc test/pd2mo test/simp test/getopt test/flatter
 
 all: $(TEST) $(OBJ_COMMON) pd2mo
 clean:
@@ -13,6 +13,7 @@ clean:
 	rm test/pd2mo
 	rm test/simp
 	rm test/getopt
+	rm test/flatter
 
 
 test: $(TEST) $(OBJ_COMMON)
@@ -22,9 +23,13 @@ test: $(TEST) $(OBJ_COMMON)
 	test/pd2mo
 	test/simp
 	test/getopt
+	test/flatter
 
 pd2mo: src/main.o
 	$(CXX) -o $@ $< $(OBJ_COMMON)$(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
+
+test/flatter: test/flatter.o
+	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/getopt: test/getopt.o
 	$(CXX) -o $@ $< $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
