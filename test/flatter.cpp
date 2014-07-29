@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE( uno ){
     QString filename = path + "/data/Coupled.pds";
     modelCoupled *c = parsePDS(filename);
 
-    cout << c->childs.size() << endl;
+    cout << c->childs.size() << endl; //3 -> 4
 
     modelCoupled *q = flatter::flat(c);
     cout << q->childs.size() << endl;
@@ -51,6 +51,13 @@ BOOST_AUTO_TEST_CASE( uno ){
 	}else{
 		cout << "NONO"<< endl;
 	}
+    }
+
+    for(QList < modelConnection * >::iterator ic = q->lsIC.begin();
+			ic != q->lsIC.end();
+			ic++){
+	cout << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << ")" <<
+		"(" << (*ic)->childSink << "," << (*ic)->sinkPort << ")" << endl;
     }
 }
 

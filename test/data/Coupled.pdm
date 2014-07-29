@@ -18,6 +18,25 @@ Coupled
         }
     System
         {
+        Atomic
+            {
+            Name = Constant0
+            Ports = 0 ; 1
+            Path = sources\constant_sci.h
+            Description = Constant
+            Graphic
+                {
+                Position = -4305 ; -1230
+                Dimension = 675 ; 675
+                Direction = Right
+                Color = 15
+                Icon = %sources%constant.svg
+                }
+            Parameters
+                {
+                K = Str; 1 ; Constant output value (Scilab expression)
+                }
+            }
         Coupled
             {
             Type = Coordinator
@@ -64,28 +83,6 @@ Coupled
                     }
                 Atomic
                     {
-                    Name = QSS Integrator0
-                    Ports = 1 ; 1
-                    Path = qss/qss_integrator.h
-                    Description = Quantized Integrator (QSS methods) with logartithmic quantization
-                    Graphic
-                        {
-                        Position = -1305 ; -6705
-                        Dimension = 675 ; 675
-                        Direction = Right
-                        Color = 15
-                        Icon = %continuous%integrator.svg
-                        }
-                    Parameters
-                        {
-                        Method = Lst; 3%QSS%QSS2%QSS3%QSS4%BQSS%CQSS%LIQSS%LIQSS2%LIQSS3% ; 
-                        dqmin = Str; 1e-6 ; minimum quantum (Scilab)
-                        dqrel = Str; 1e-3 ; relative quantum (0 : uniform) (Scilab)
-                        x0 = Str; 0 ; Initial state (Scilab)
-                        }
-                    }
-                Atomic
-                    {
                     Name = WSum0
                     Ports = 2 ; 1
                     Path = qss/qss_wsum.h
@@ -111,6 +108,28 @@ Coupled
                         Inputs = Str; %Inputs ; 
                         }
                     }
+                Atomic
+                    {
+                    Name = QSS Integrator0
+                    Ports = 1 ; 1
+                    Path = qss/qss_integrator.h
+                    Description = Quantized Integrator (QSS methods) with logartithmic quantization
+                    Graphic
+                        {
+                        Position = -1305 ; -6705
+                        Dimension = 675 ; 675
+                        Direction = Right
+                        Color = 15
+                        Icon = %continuous%integrator.svg
+                        }
+                    Parameters
+                        {
+                        Method = Lst; 3%QSS%QSS2%QSS3%QSS4%BQSS%CQSS%LIQSS%LIQSS2%LIQSS3% ; 
+                        dqmin = Str; 1e-6 ; minimum quantum (Scilab)
+                        dqrel = Str; 1e-3 ; relative quantum (0 : uniform) (Scilab)
+                        x0 = Str; 0 ; Initial state (Scilab)
+                        }
+                    }
                 Point
                     {
                     ConectedLines = 3 ; 4 ; 5
@@ -120,20 +139,20 @@ Coupled
                 Line
                     {
                     Source = Prt ;  2 ;  1 ; 0
-                    Sink = Cmp ;  2 ;  1 ; -1
+                    Sink = Cmp ;  1 ;  1 ; -1
                     PointX = -4725 ; -4725 ; -3390
                     PointY = -6525 ; -6525 ; -6525
                     }
                 Line
                     {
-                    Source = Cmp ;  2 ;  1 ; 0
-                    Sink = Cmp ;  1 ;  1 ; -1
+                    Source = Cmp ;  1 ;  1 ; 0
+                    Sink = Cmp ;  2 ;  1 ; -1
                     PointX = -2475 ; -2475 ; -1440
                     PointY = -6375 ; -6375 ; -6375
                     }
                 Line
                     {
-                    Source = Cmp ;  1 ;  1 ; 0
+                    Source = Cmp ;  2 ;  1 ; 0
                     Sink = Pnt ;  1 ; -1 ; 0
                     PointX = -525 ; -525 ; -525
                     PointY = -6375 ; -6375 ; -5100
@@ -148,7 +167,7 @@ Coupled
                 Line
                     {
                     Source = Pnt ;  1 ; -1 ; 0
-                    Sink = Cmp ;  2 ;  2 ; -1
+                    Sink = Cmp ;  1 ;  2 ; -1
                     PointX = -525 ; -525 ; -3390 ; -3390
                     PointY = -5100 ; -3900 ; -3900 ; -6225
                     }
@@ -179,36 +198,17 @@ Coupled
                         Format5 = Str;  ; Formatting options for input 5
                         }
                     }
-                Atomic
-                    {
-                    Name = Constant0
-                    Ports = 0 ; 1
-                    Path = sources\constant_sci.h
-                    Description = Constant
-                    Graphic
-                        {
-                        Position = -4305 ; -1230
-                        Dimension = 675 ; 675
-                        Direction = Right
-                        Color = 15
-                        Icon = %sources%constant.svg
-                        }
-                    Parameters
-                        {
-                        K = Str; 1 ; Constant output value (Scilab expression)
-                        }
-                    }
                 Line
                     {
-                    Source = Cmp ;  3 ;  1 ; 0
-                    Sink = Cmp ;  1 ;  1 ; -1
+                    Source = Cmp ;  1 ;  1 ; 0
+                    Sink = Cmp ;  2 ;  1 ; -1
                     PointX = -3525 ; -2640 ; -2640
                     PointY = -900 ; -900 ; -900
                     }
                 Line
                     {
-                    Source = Cmp ;  1 ;  1 ; 0
-                    Sink = Cmp ;  2 ;  1 ; -1
+                    Source = Cmp ;  2 ;  1 ; 0
+                    Sink = Cmp ;  3 ;  1 ; -1
                     PointX = -1725 ; -465 ; -465
                     PointY = -900 ; -900 ; -900
                     }
