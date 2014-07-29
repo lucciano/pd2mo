@@ -25,7 +25,7 @@ test: $(TEST) $(OBJ_COMMON)
 	test/getopt
 	test/flatter
 
-pd2mo: src/main.o
+pd2mo: src/main.o $(OBJ_COMMON)
 	$(CXX) -o $@ $< $(OBJ_COMMON)$(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/flatter: test/flatter.o 

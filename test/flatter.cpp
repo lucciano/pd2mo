@@ -36,6 +36,12 @@ BOOST_AUTO_TEST_CASE( uno ){
     modelCoupled *c = parsePDS(filename);
 
     cout << c->childs.size() << endl; //3 -> 4
+    for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
+			ic != c->lsIC.end();
+			ic++){
+	cout << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << ")" <<
+		"(" << (*ic)->childSink << "," << (*ic)->sinkPort << ")" << endl;
+    }
 
     modelCoupled *q = flatter::flat(c);
     cout << q->childs.size() << endl;
