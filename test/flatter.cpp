@@ -34,6 +34,7 @@ BOOST_AUTO_TEST_CASE( uno ){
     QString path = getFullPath();
     QString filename = path + "/data/Coupled.pds";
     modelCoupled *c = parsePDS(filename);
+    cout <<"Type : " << c->type.toStdString() << " Name:" << c->name.toStdString() << endl;;
 
     cout << c->childs.size() << endl; //3 -> 4
     for(QList < modelConnection * >::iterator ic = c->lsIC.begin();

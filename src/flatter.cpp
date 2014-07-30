@@ -1,4 +1,6 @@
 #include <src/flatter.h>
+#include <pdppt/parser.h>
+#include <pdppt/modelcoupled.h>
 #include <iostream>
 
 using namespace std;
@@ -6,7 +8,9 @@ using namespace std;
 modelCoupled * flatter::flat(modelCoupled * c){
     int atomic = 0;
     modelCoupled * rtr = new modelCoupled();
-    //rtr->lsIC.append(c->lsIC);
+    rtr->type = TOKROOT;
+    rtr->name = c->name;
+
     for (QList< modelChild * >::iterator childsIterator = c->childs.begin(); 
 	childsIterator != c->childs.end(); 
 	++childsIterator, ++atomic){
@@ -16,9 +20,21 @@ modelCoupled * flatter::flat(modelCoupled * c){
 
 		
 		int delta = coupled->childs.size() -1;
-		rtr->childs.append(coupled->childs);
-		cout << "delta " << delta << endl;
-		cout << "atomic" << atomic << endl;
+		for( QList< modelChild * >::iterator cI = coupled->childs.begin(); 
+			cI != coupled->childs.end(); 
+			++cI){
+			if((*cI)->childType == ATOMIC){
+				modelChild * m = new modelChild();
+				m->atomic = new modelAtomic();
+				m->atomic->path = (*cI)->atomic->path;
+				m->atomic->params.append((*cI)->atomic->params);
+				m->atomic->father = rtr;
+				cout << m->atomic->params.size() << endl;
+				rtr->childs.append(m);
+			}else{
+				cout << "errro, recursivo..." << endl;
+			}
+		}
 
 		//Remapeo de las Conecciones Internas
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
@@ -70,8 +86,6 @@ modelCoupled * flatter::flat(modelCoupled * c){
 				cNew->sinkPort = (*ic)->sinkPort;
 				rtr->lsIC.append(cNew);
 			}
-
-			
 		}
 
 		//Agregamos las conecciones internas del modelo acoplado.
@@ -83,7 +97,13 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			rtr->lsIC.append((*ic));
 		}
 	}else{
-		rtr->childs.append(*childsIterator);
+		modelChild * m = new modelChild();
+		m->atomic = new modelAtomic();
+		m->atomic->path = (*childsIterator)->atomic->path;
+		m->atomic->params.append((*childsIterator)->atomic->params);
+		m->atomic->father = rtr;
+		cout << m->atomic->params.size() << endl;
+		rtr->childs.append(m);
 	}
     }
     return rtr;
