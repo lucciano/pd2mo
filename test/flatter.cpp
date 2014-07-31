@@ -36,7 +36,8 @@ BOOST_AUTO_TEST_CASE( uno ){
     modelCoupled *c = parsePDS(filename);
     cout <<"Type : " << c->type.toStdString() << " Name:" << c->name.toStdString() << endl;;
 
-    cout << c->childs.size() << endl; //3 -> 4
+    cout << "Childs:" << c->childs.size() << endl; //3 -> 4
+    cout << "Internal Connections:" << c->lsIC.size() << endl; //3 -> 4
     for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
 			ic != c->lsIC.end();
 			ic++){
