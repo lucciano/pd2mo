@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-modelCoupled * flatter::flat(modelCoupled * c){
+modelCoupled * flatter::flat1l(modelCoupled * c){
     int atomic = 0;
     modelCoupled * rtr = new modelCoupled();
     rtr->type = TOKROOT;
@@ -24,6 +24,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			++cI){
 			if((*cI)->childType == ATOMIC){
 				modelChild * m = new modelChild();
+				m->childType = ATOMIC;
 				m->atomic = new modelAtomic();
 				m->atomic->path = (*cI)->atomic->path;
 				m->atomic->params.append((*cI)->atomic->params);
@@ -31,7 +32,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 				m->atomic->father = rtr;
 				rtr->childs.append(m);
 			}else{
-				cout << "errro, recursivo..." << endl;
+				rtr->childs.append(*cI);
 			}
 		}
 

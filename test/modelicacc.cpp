@@ -257,3 +257,35 @@ BOOST_AUTO_TEST_CASE( uno) {
 	//_ct = new TypeCheck_( tyEnv , varEnv );
 	}
 }
+
+BOOST_AUTO_TEST_CASE( dos ) {
+    string path = getFullPath();
+    string filename = path + "/data/Model01.mo";
+	cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+
+    int r = 0;
+    AST_StoredDefinition sd = parseFile(filename,&r);
+
+    AST_ClassList models = sd->models();
+    AST_ClassListIterator mIter;
+    for(mIter = models->begin(); mIter != models->end(); ++mIter){
+	AST_Class c = (*mIter);
+	AST_CompositionElementList cl = c->composition()->compositionList();
+	//cout << c->composition();
+	//AST_CompositionElementListIterator it;
+	//foreach(it, cl){
+	//	cout << current_element(it) << endl;
+	//}
+
+	AST_ElementList  el = c->composition()->elementList();
+	AST_ElementListIterator ite;
+	cout << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
+	foreach(ite, el){
+		//cout << current_element(ite) << endl;
+	}
+
+	AST_Element_ComponentList co = c->getComponents();
+	cout << c << endl;
+	AST_Element_ComponentListIterator it1;
+    }
+}
