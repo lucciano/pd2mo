@@ -45,6 +45,7 @@ BOOST_AUTO_TEST_CASE( uno) {
     AST_StoredDefinition sd = parseFile(filename,&r);
     
     cout << filename << endl;
+    cout << sd << endl;
 
     AST_ClassList models = sd->models();
     AST_ClassListIterator mIter;
@@ -260,11 +261,12 @@ BOOST_AUTO_TEST_CASE( uno) {
 
 BOOST_AUTO_TEST_CASE( dos ) {
     string path = getFullPath();
-    string filename = path + "/data/Model01.mo";
+    string filename = path + "/data/ModelAnnot.mo";
 	cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 
     int r = 0;
     AST_StoredDefinition sd = parseFile(filename,&r);
+	cout << sd ;
 
     AST_ClassList models = sd->models();
     AST_ClassListIterator mIter;
@@ -286,6 +288,5 @@ BOOST_AUTO_TEST_CASE( dos ) {
 
 	AST_Element_ComponentList co = c->getComponents();
 	cout << c << endl;
-	AST_Element_ComponentListIterator it1;
     }
 }
