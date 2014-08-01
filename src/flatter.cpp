@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-modelCoupled * flatter::flat1l(modelCoupled * c){
+modelCoupled * flatter::flat(modelCoupled * c){
     int atomic = 0;
     modelCoupled * rtr = new modelCoupled();
     rtr->type = TOKROOT;
@@ -32,7 +32,10 @@ modelCoupled * flatter::flat1l(modelCoupled * c){
 				m->atomic->father = rtr;
 				rtr->childs.append(m);
 			}else{
-				rtr->childs.append(*cI);
+				modelChild * m = new modelChild();
+				m->childType = COUPLED;
+				m->coupled = flatter::flat((*cI)->coupled);
+				rtr->childs.append(m);
 			}
 		}
 

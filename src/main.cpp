@@ -102,7 +102,6 @@ int main (int argc, char* argv[]) {
     
     modelCoupled *cm = parsePDS(QString::fromStdString(src_infile));
     modelCoupled *qm = flatter::flat(cm);
-	cout << flatted << cm->points.size() << endl;
     //generateCode(qm, QString::fromStdString(flatted), false, true);
     ofstream oFlatter;
     oFlatter.open(flatted.c_str());
