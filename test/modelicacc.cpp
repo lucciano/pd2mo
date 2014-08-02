@@ -275,7 +275,20 @@ BOOST_AUTO_TEST_CASE( dos ) {
 	AST_Composition com = c->getAsDefinition()->composition();
 	AST_ArgumentList al = com->arguments();
 	for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
-		cout << current_element(it);
+		AST_Argument_Modification mo = current_element(it)->getAsModification();
+		cout << mo->name() << ":" << endl; 
+		AST_Modification mods =mo->modification();
+		if (MODCLASS == mods->modificationType()){
+			AST_Modification_Class mc = mods->getAsClass();
+			AST_ArgumentList al2 = mc->arguments();
+			for(AST_ArgumentListIterator it2 = al2->begin(); it2 != al2->end(); it2++){
+				AST_Argument ar = current_element(it2) ;
+				cout << ar->getAsModification()->name() << " --> " ;
+				AST_Modification_Equal me = ar->getAsModification()->modification()->getAsEqual();
+				cout << me->exp() << endl;
+			}
+		}
+		
 	}
 
 	//cout << c->composition();
