@@ -31,8 +31,8 @@ AST_ClassList Traverser::visitClassList(AST_ClassList classList){
 
 AST_Class Traverser::visitClass(AST_Class _class){
 	//debug << __PRETTY_FUNCTION__ << endl  ;
-	AST_Class _retClass = new AST_Class_ (visitString(_class->name()), 
-			visitComposition(_class->composition()));
+	AST_Class _retClass = new AST_Class_Definition_ (visitString(_class->getAsDefinition()->name()), 
+			visitComposition(_class->getAsDefinition()->composition()));
 	return _retClass;
 }
 

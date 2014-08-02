@@ -22,10 +22,10 @@ BOOST_AUTO_TEST_CASE( cero ) {
     AST_ClassListIterator mIter;
     for(mIter = models->begin(); mIter != models->end(); ++mIter){
 	AST_Class c = (*mIter);
-	BOOST_CHECK( 0 == c->name()->compare("Constant"));
+	BOOST_CHECK( 0 == c->getAsDefinition()->name()->compare("Constant"));
 
-	cout << "Encontramos la clase " << c->name() << endl;
-	AST_CompositionElementList cl = c->composition()->compositionList();
+	cout << "Encontramos la clase " << c->getAsDefinition()->name() << endl;
+	AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
 	AST_CompositionElementListIterator it;
 	foreach(it, cl){
 		AST_EquationList eql = (*it)->getEquationsAlgs()->getEquations();
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE( uno) {
     for(mIter = models->begin(); mIter != models->end(); ++mIter){
 	AST_Class c = (*mIter);
 	
-	AST_Composition comp = c->composition();
+	AST_Composition comp = c->getAsDefinition()->composition();
 
 	// First elements
 	AST_ElementList el = comp->elementList();
@@ -266,27 +266,23 @@ BOOST_AUTO_TEST_CASE( dos ) {
 
     int r = 0;
     AST_StoredDefinition sd = parseFile(filename,&r);
-	cout << sd ;
 
     AST_ClassList models = sd->models();
     AST_ClassListIterator mIter;
     for(mIter = models->begin(); mIter != models->end(); ++mIter){
 	AST_Class c = (*mIter);
-	AST_CompositionElementList cl = c->composition()->compositionList();
+	AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
+	AST_Composition com = c->getAsDefinition()->composition();
+	AST_ArgumentList al = com->arguments();
+	for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
+		cout << current_element(it);
+	}
+
 	//cout << c->composition();
 	//AST_CompositionElementListIterator it;
 	//foreach(it, cl){
 	//	cout << current_element(it) << endl;
 	//}
 
-	AST_ElementList  el = c->composition()->elementList();
-	AST_ElementListIterator ite;
-	cout << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n";
-	foreach(ite, el){
-		//cout << current_element(ite) << endl;
-	}
-
-	AST_Element_ComponentList co = c->getComponents();
-	cout << c << endl;
     }
 }

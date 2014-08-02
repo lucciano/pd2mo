@@ -27,7 +27,7 @@ public:
 };
 
 AST_Class T1::visitClass(AST_Class _class){
-	debug << __PRETTY_FUNCTION__ << _class->name() << endl  ; 
+	debug << __PRETTY_FUNCTION__ << _class->getAsDefinition()->name() << endl  ; 
 	return Traverser::visitClass(_class);
 }
 
@@ -76,7 +76,7 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 	AST_ElementList elem = new list<AST_Element>();
 
 	AST_Composition composition = new AST_Composition_ (elem, comp);
-	AST_Class ret = new AST_Class_(name, composition);
+	AST_Class ret = new AST_Class_Definition_(name, composition);
 	AST_StatementList stList = new list<AST_Statement>();
 	AST_EquationList eqList = new list<AST_Equation>();
 
@@ -87,7 +87,7 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 	comp->insert(comp->end(), new AST_CompositionElement_(eqAlgsEQ));
 
 	AST_CompositionElementListIterator it;
-	foreach(it, a->composition()->compositionList()){
+	foreach(it, a->getAsDefinition()->composition()->compositionList()){
 		if(current_element(it)->getEquationsAlgs()){
 			stList->insert(stList->end(),
 				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
@@ -102,7 +102,7 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 				current_element(it)->getElementList()->end());
 		}
 	}
-	foreach(it, b->composition()->compositionList()){
+	foreach(it, b->getAsDefinition()->composition()->compositionList()){
 		if(current_element(it)->getEquationsAlgs()){
 			stList->insert(stList->end(),
 				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
@@ -119,12 +119,12 @@ AST_Class Combine(AST_String name, AST_Class a, AST_Class b){
 	}
 
 	elem->insert(elem->end(), 
-		a->composition()->elementList()->begin(), 
-		a->composition()->elementList()->end());
+		a->getAsDefinition()->composition()->elementList()->begin(), 
+		a->getAsDefinition()->composition()->elementList()->end());
 
 	elem->insert(elem->end(), 
-		b->composition()->elementList()->begin(), 
-		b->composition()->elementList()->end());
+		b->getAsDefinition()->composition()->elementList()->begin(), 
+		b->getAsDefinition()->composition()->elementList()->end());
 
 	ret->setPrefixes(CP_MODEL);
 	return ret;

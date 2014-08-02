@@ -102,11 +102,7 @@ int main (int argc, char* argv[]) {
     
     modelCoupled *cm = parsePDS(QString::fromStdString(src_infile));
     modelCoupled *qm = flatter::flat(cm);
-    //generateCode(qm, QString::fromStdString(flatted), false, true);
-    ofstream oFlatter;
-    oFlatter.open(flatted.c_str());
-    flatter::writePDS(qm, &oFlatter);
-    oFlatter.close();
+    generateCode(qm, QString::fromStdString(flatted), false, true);
 
     ofstream oFlogfile;
     oFlogfile.open(logfile.c_str());

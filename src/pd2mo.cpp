@@ -47,7 +47,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		if(current_element(it)){
 			PrefixMoVars pf = PrefixMoVars();
 			stringstream sstm;
-			sstm << current_element(it)->name() << "_" << j << "_" ;
+			sstm << current_element(it)->getAsDefinition()->name() << "_" << j << "_" ;
 			pf.setPrefix(sstm.str());
                         current_element(it) = pf.visitClass(current_element(it));
 			className[j] = sstm.str(); 
@@ -67,7 +67,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 	AST_Composition composition = new AST_Composition_ (elem, comp);
 	composition->setExternalFunctionCall(NULL);
-	AST_Class modelMo = new AST_Class_(name, composition);
+	AST_Class modelMo = new AST_Class_Definition_(name, composition);
 	modelMo->setPrefixes(CP_MODEL);
 
 	AST_StatementList stList = new list<AST_Statement>();
@@ -82,7 +82,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         foreach(it, classList){
 		if(current_element(it)){
 			Combine(elem, stList, eqList, current_element(it));
-			(*log) << current_element(it)->name() << endl;
+			(*log) << current_element(it)->getAsDefinition()->name() << endl;
 		}
 	}
 
@@ -205,7 +205,7 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 
 
 	AST_CompositionElementListIterator it;
-	foreach(it, a->composition()->compositionList()){
+	foreach(it, a->getAsDefinition()->composition()->compositionList()){
 		if(current_element(it)->getEquationsAlgs()){
 			stList->insert(stList->end(),
 				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
@@ -222,8 +222,8 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 	}
 	
 	elem->insert(elem->end(), 
-		a->composition()->elementList()->begin(), 
-		a->composition()->elementList()->end());
+		a->getAsDefinition()->composition()->elementList()->begin(), 
+		a->getAsDefinition()->composition()->elementList()->end());
 }
 
 void Pd2Mo::setModelParameters(modelCoupled * model,
