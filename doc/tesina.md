@@ -47,7 +47,7 @@ Describir el algoritmo para PDS
 
 # Detalles de Implementación #
 
-# Ejemplos de Aplicación # 
+# Ejemplos de Aplicación #
 ## Vector/airs ##
 ## Vector/lcline ##
 
