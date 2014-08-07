@@ -185,8 +185,8 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 		(*log) << "PowerDevs File " << pdfile << " to " << mofile << " " ;
 		const char * c = mofile.c_str();
                 if(fileExist(c)){
-			(*log) << "FILE EXISTS" << endl;
                         AST_StoredDefinition sd = parseFile(mofile, &r);
+			(*log) << "FILE EXISTS "  <<  endl;
                         st->insert(st->end(), *(sd->models()->begin()));
                 }else{
 			(*log) << "FILE NO EXISTS" << endl;
