@@ -1,6 +1,6 @@
 class Scalar2Vector
-	parameter Real p[9]={40,0,0,0,0,0,0,0,0};
-	constant Integer N=0;//p[2];
+	parameter Real p[1]={40};
+	constant Integer N=100;//p[2];
 	parameter Integer Index=40;//p[1];
 	Real u[1];
 	Real y[N,1];

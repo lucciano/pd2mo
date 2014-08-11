@@ -1,5 +1,5 @@
 class VecInt
-  parameter Real p[9] = {0, 10, 0, 0, 0, 0, 0, 0, 0};
+  parameter Real p[5] = {0, 0, 0, 0, 0};
   constant Integer N = 10;
   //p[2];
   parameter Real x0[N](start = 0);
