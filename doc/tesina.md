@@ -4,6 +4,7 @@
 # Resumen #
 
 # Introducción #
+Hola [@Fer12] .
 ## Motivación y Objetivos ##
 ## Trabajo relacionado ##
 ## Alcance ##
@@ -52,3 +53,5 @@ Describir el algoritmo para PDS
 ## Vector/lcline ##
 
 # Conclusiones y Trabajo a futuro #
+
+# Bibliografía #
