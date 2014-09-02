@@ -10,6 +10,7 @@
 
 namespace pd2mo{
 class evalp: public Traverser {
+public:
 	QStringList params;
 	void setParams(QStringList x){ params = x; }
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);

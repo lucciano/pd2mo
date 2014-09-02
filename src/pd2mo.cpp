@@ -1,4 +1,5 @@
 #include <pd2mo.h>
+#include <evalp.h>
 
 /**
 check if modelChild is Atomic
@@ -235,8 +236,13 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 		ps.setParameterName("p");
 		modelAtomic * atomic = model->childs.at(k)->atomic;
 		ps.setParametersList(atomic->paramsString.split(","));
+
+		evalp ep = evalp();
+		ep.setParams(atomic->paramsString.split(","));
+
 		if(current_element(cit) != NULL){
 			current_element(cit) = ps.visitClass(current_element(cit));
+			current_element(cit) = ep.visitClass(current_element(cit));
 		}
 		k++;
 	}
