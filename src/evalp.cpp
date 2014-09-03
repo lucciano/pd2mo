@@ -11,25 +11,39 @@ AST_Declaration evalp::visitDeclaration(AST_Declaration dec){
         return decPrefix;
 }
 
-AST_Expression_ComponentReference evalp::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-        AST_Expression_ComponentReference rVal =
-                 new AST_Expression_ComponentReference_ ();
+AST_Expression evalp::visitExpression_ComponentReferenceALT(AST_Expression_ComponentReference compRefExp){
 
         AST_StringListIterator it;
         AST_ExpressionListListIterator exp_it=compRefExp->indexes()->begin();
-        foreach (it, compRefExp->names()) {
-                string * name = new string(*current_element(it));
-		cout << "->"<< name << "(" ;
-		AST_ExpressionListIterator exp_it_it = current_element(exp_it)->begin();
-		foreach(exp_it_it, current_element(exp_it)){
-			cout << current_element(exp_it_it) << " ";
+
+	string * name = current_element(compRefExp->names()->begin());
+	AST_ExpressionListList indexes = compRefExp->indexes();
+	if(compRefExp->names()->size() == 1){	
+		if(name->compare("p") == 0){
+		//	AST_ExpressionListListIterator itIndex = indexes->begin();
+			if(indexes->size() == 1 and current_element(indexes->begin())->size() == 1){
+				AST_Expression index = current_element(current_element(indexes->begin())->begin());
+				//cout << index->expressionType() << index->getAsInteger() << endl;
+				return new AST_Expression_Integer_(22);
+			}
 		}
-		cout << ")" <<endl;
-                rVal->append(name,
-                        visitExpressionList(current_element(exp_it)));
-                exp_it++;
-        }
-        return rVal;
+	}
+	AST_Expression_ComponentReference rVal =
+		new AST_Expression_ComponentReference_ ();
+
+	rVal->append(name,
+		visitExpressionList(current_element(indexes->begin())));
+
+	return rVal;
+}
+
+AST_Expression evalp::visitExpression(AST_Expression ex){
+        switch(ex->expressionType()){
+        case EXPCOMPREF:
+                //debug << "EXPCOMPREF:" << endl;
+                return visitExpression_ComponentReferenceALT(ex->getAsComponentReference());
+	}
+	return Traverser::visitExpression(ex);
 }
 
 AST_String evalp::visitVariable(AST_String s){

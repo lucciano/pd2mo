@@ -1,5 +1,5 @@
 class Scalar2Vector
-	parameter Real p[1]={40};
+	parameter Real p[2]={-1,40};
 	constant Integer N=p[2];
 	parameter Integer Index=p[1];
 	Real u[1];

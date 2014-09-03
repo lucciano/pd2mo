@@ -14,8 +14,9 @@ public:
 	QStringList params;
 	void setParams(QStringList x){ params = x; }
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
-        virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp);
+        AST_Expression visitExpression_ComponentReferenceALT(AST_Expression_ComponentReference compRefExp);
         virtual AST_String visitVariable(AST_String s);
+	virtual AST_Expression visitExpression(AST_Expression ex);
 };
 }
 #endif

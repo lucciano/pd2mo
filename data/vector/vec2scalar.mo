@@ -1,7 +1,7 @@
 class Vec2Scalar
-	parameter Real p[1]={40};
+	parameter Real p[1]={1, 40};
 	parameter Integer Index=p[1];
-	constant Integer N = 100;
+	constant Integer N = p[2];
 	Real u[N,1];
 	Real y[1];
 equation
