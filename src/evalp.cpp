@@ -1,4 +1,5 @@
 #include <evalp.h>
+#include <simpd/pdevslib.h>
 
 namespace pd2mo {
 AST_Declaration evalp::visitDeclaration(AST_Declaration dec){
@@ -24,7 +25,7 @@ AST_Expression evalp::visitExpression_ComponentReferenceALT(AST_Expression_Compo
 			if(indexes->size() == 1 and current_element(indexes->begin())->size() == 1){
 				AST_Expression index = current_element(current_element(indexes->begin())->begin());
 				//cout << index->expressionType() << index->getAsInteger() << endl;
-				return new AST_Expression_Integer_(22);
+				return exp->at(index->getAsInteger()->val()-1);
 			}
 		}
 	}
@@ -48,6 +49,24 @@ AST_Expression evalp::visitExpression(AST_Expression ex){
 
 AST_String evalp::visitVariable(AST_String s){
 	return s;
+}
+void evalp::setParams(QStringList x){ 
+	params = x; 
+	QStringList::iterator it;
+	exp = new std::vector<AST_Expression>;
+	for(it = x.begin(); it != x.end(); it++){
+		char * d_str = (char*) malloc(sizeof(char) * it->toStdString().size());
+		QString param = *it;
+		if(0 == param.mid(0,1).toStdString().compare("\"")){
+			//cout << "Remove doblequote";
+			param = param.mid(1,param.length()-2);
+		}
+		strcpy (d_str,  param.toStdString().c_str());
+		double d = getScilabVar(d_str);
+		free(d_str);
+		AST_Expression_Real ra = new AST_Expression_Real_(d);//TODO : check if is INT or REAL
+		exp->insert(exp->end(), ra);
+	}
 }
 
 }

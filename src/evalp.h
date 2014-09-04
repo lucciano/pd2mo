@@ -7,12 +7,14 @@
 #include <string>
 
 #include <QStringList>
+#include <vector>
 
 namespace pd2mo{
 class evalp: public Traverser {
-public:
 	QStringList params;
-	void setParams(QStringList x){ params = x; }
+	std::vector<AST_Expression> *exp;
+public:
+	void setParams(QStringList x);
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
         AST_Expression visitExpression_ComponentReferenceALT(AST_Expression_ComponentReference compRefExp);
         virtual AST_String visitVariable(AST_String s);
