@@ -24,7 +24,6 @@ AST_Expression evalp::visitExpression_ComponentReferenceALT(AST_Expression_Compo
 		//	AST_ExpressionListListIterator itIndex = indexes->begin();
 			if(indexes->size() == 1 and current_element(indexes->begin())->size() == 1){
 				AST_Expression index = current_element(current_element(indexes->begin())->begin());
-				//cout << index->expressionType() << index->getAsInteger() << endl;
 				return exp->at(index->getAsInteger()->val()-1);
 			}
 		}
@@ -58,7 +57,6 @@ void evalp::setParams(QStringList x){
 		char * d_str = (char*) malloc(sizeof(char) * it->toStdString().size());
 		QString param = *it;
 		if(0 == param.mid(0,1).toStdString().compare("\"")){
-			//cout << "Remove doblequote";
 			param = param.mid(1,param.length()-2);
 		}
 		strcpy (d_str,  param.toStdString().c_str());
