@@ -1,5 +1,5 @@
 class Vec2Scalar
-	parameter Real p[1]={1, 40};
+	parameter Real p[2]={1, 40};
 	parameter Integer Index=p[1];
 	constant Integer N = p[2];
 	Real u[N,1];

@@ -24,7 +24,9 @@ AST_Expression evalp::visitExpression_ComponentReferenceALT(AST_Expression_Compo
 		//	AST_ExpressionListListIterator itIndex = indexes->begin();
 			if(indexes->size() == 1 and current_element(indexes->begin())->size() == 1){
 				AST_Expression index = current_element(current_element(indexes->begin())->begin());
-				return exp->at(index->getAsInteger()->val()-1);
+				if(index and index->getAsInteger()){
+					return exp->at(index->getAsInteger()->val()-1);
+				}
 			}
 		}
 	}

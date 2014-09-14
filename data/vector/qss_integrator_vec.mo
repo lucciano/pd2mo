@@ -1,11 +1,13 @@
 class VecInt
-  parameter Real p[5] = {0, 0, 0, 0, 0};
-  constant Integer N = 10;
-  //p[2];
-  parameter Real x0[N](start = 0);
-  /*p[1]*/
+  parameter Real p[5] = {0, 10, 0, 0, 10};
+  constant Integer N = p[5];
+  parameter Real x0 = p[4];
   Real u[N, 1];
-  Real y[N, 1](start = x0);
+  Real y[N, 1];
+initial equation 
+  for i in i:N loop
+    y[i,1] = x0;
+  end for;
 equation
   for i in 1:N loop
     der(y[i, 1]) = u[i, 1];

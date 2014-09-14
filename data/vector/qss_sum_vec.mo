@@ -1,9 +1,7 @@
 class VectorSum
-  parameter Real p[9] = {1, -1, 0, 0, 0, 0, 0, 2, 10};
-  constant Integer N = 10;
-  //p[9];
-  constant Integer nin = 2;
-  //p[8];
+  parameter Real p[10] = {1, -1, 0, 0, 0, 0, 0, 2, 10};
+  constant Integer N = p[9];
+  constant Integer nin = p[8];
   parameter Real w[nin] = p[1:nin];
   Real u[N, nin];
   Real y[N, 1];

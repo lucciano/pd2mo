@@ -23,7 +23,6 @@ void SetParameters::setParametersList(QStringList x){
 AST_Declaration SetParameters::visitDeclaration(AST_Declaration dec){
 	string name = dec->name();
 	//debug_out << __PRETTY_FUNCTION__ << name << endl  ; 
-
 	AST_Declaration decPrefix;
 	if(this->paramsName.compare(name) == 0){
 		//debug_out << "Found param : " << name << endl;
@@ -32,7 +31,6 @@ AST_Declaration SetParameters::visitDeclaration(AST_Declaration dec){
 		AST_Modification_Equal mo = new AST_Modification_Equal_(braces);
 		decPrefix = new AST_Declaration_(name, 
 			this->visitExpressionList(dec->indexes()), mo);
-
 	}else{
 		decPrefix = new AST_Declaration_(name, 
 			this->visitExpressionList(dec->indexes()),

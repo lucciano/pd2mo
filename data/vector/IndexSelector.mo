@@ -1,11 +1,8 @@
 class IndexSelector
-  parameter Real p[9] = {3, 9, 100, 0, 0, 0, 0, 0, 0};
-  parameter Integer L = 3;
-  //integer(p[1]);
-  parameter Integer H = 9;
-  //integer(p[2]);
-  constant Integer N = 100;
-  //integer(p[3]);
+  parameter Real p[3] = {3, 9, 100};
+  parameter Integer L = p[1];
+  parameter Integer H = p[2];
+  constant Integer N = p[3];
   Real u[N, 1];
   Real y[N, 1];
 equation

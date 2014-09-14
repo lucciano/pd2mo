@@ -1,9 +1,7 @@
 class IndexShift
-  parameter Real p[9] = {50, 100, 0, 0, 0, 0, 0, 0, 0};
-  parameter Integer Shift = 50;
-  //p[1];
-  constant Integer N = 100;
-  //p[2];
+  parameter Real p[2] = {50, 100};
+  parameter Integer Shift = p[1];
+  constant Integer N = p[2];
   Real u[N, 1];
   Real y[N, 1];
 equation
