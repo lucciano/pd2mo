@@ -71,6 +71,16 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 	AST_Class modelMo = new AST_Class_Definition_(name, composition);
 	modelMo->setPrefixes(CP_MODEL);
 
+
+	AST_StatementList initStList = new list<AST_Statement>();
+	AST_EquationList initEqList = new list<AST_Equation>();
+
+	AST_CompositionEqsAlgs initialEqAlgsST = new AST_CompositionEqsAlgs_(initStList, true);
+	AST_CompositionEqsAlgs initialEqAlgsEQ = new AST_CompositionEqsAlgs_(initEqList, true);
+
+	comp->insert(comp->end(), new AST_CompositionElement_(initialEqAlgsST));
+	comp->insert(comp->end(), new AST_CompositionElement_(initialEqAlgsEQ));
+
 	AST_StatementList stList = new list<AST_Statement>();
 	AST_EquationList eqList = new list<AST_Equation>();
 
@@ -82,7 +92,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         foreach(it, classList){
 		if(current_element(it)){
-			Combine(elem, stList, eqList, current_element(it));
+			Combine(elem, initStList, initEqList, stList, eqList, current_element(it));
 			(*log) << current_element(it)->getAsDefinition()->name() << endl;
 		}
 	}
@@ -199,21 +209,32 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 }
 
 	void Pd2Mo::Combine(AST_ElementList elem,
+				AST_StatementList initialStList, 
+				AST_EquationList initialEqList,
 				AST_StatementList stList, 
 				AST_EquationList eqList,
+
 				AST_Class a){
-
-
 
 	AST_CompositionElementListIterator it;
 	foreach(it, a->getAsDefinition()->composition()->compositionList()){
 		if(current_element(it)->getEquationsAlgs()){
-			stList->insert(stList->end(),
-				current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
-				current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
-			eqList->insert(eqList->end(),
-				current_element(it)->getEquationsAlgs()->getEquations()->begin(),
-				current_element(it)->getEquationsAlgs()->getEquations()->end());
+			if(current_element(it)->getEquationsAlgs()->isInitial()){
+				initialStList->insert(initialStList->end(),
+					current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
+					current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
+				initialEqList->insert(initialEqList->end(),
+					current_element(it)->getEquationsAlgs()->getEquations()->begin(),
+					current_element(it)->getEquationsAlgs()->getEquations()->end());
+			}else{
+				stList->insert(stList->end(),
+					current_element(it)->getEquationsAlgs()->getAlgorithms()->begin(),
+					current_element(it)->getEquationsAlgs()->getAlgorithms()->end());
+				eqList->insert(eqList->end(),
+					current_element(it)->getEquationsAlgs()->getEquations()->begin(),
+					current_element(it)->getEquationsAlgs()->getEquations()->end());
+
+			}
 
 		}else if (current_element(it)->getElementList()->size() > 0){
 			elem->insert(elem->end(), 

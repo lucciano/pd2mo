@@ -36,6 +36,8 @@ class Pd2Mo {
 
 	AST_ClassList getAsClassList(modelCoupled *, map<string, string> *, ostream * log);
 	void Combine(AST_ElementList elem, 
+				AST_StatementList initialStList, 
+				AST_EquationList initialEqList, 
 				AST_StatementList stList, 
 				AST_EquationList eqList, AST_Class a);
 	void setModelParameters(modelCoupled *, AST_ClassList);
