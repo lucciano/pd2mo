@@ -5,7 +5,7 @@ class VecInt
   Real u[N, 1];
   Real y[N, 1];
 initial equation 
-  for i in i:N loop
+  for i in 1:N loop
     y[i,1] = x0;
   end for;
 equation
