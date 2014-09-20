@@ -37,6 +37,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         //Load class based on the coupledModel from file
         (*log) << "Load class list based on class map." << endl;
         AST_ClassList classList = getAsClassList(model, classMap, log); 
+	list<tConnection> cList = getClassConnections(classList);
 	
 	setModelParameters(model, classList);
 
@@ -271,6 +272,47 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 
 void Pd2Mo::setPath(string s){
 	pd2mo_dir = s;
+}
+
+
+list<tConnection> Pd2Mo::getClassConnections(AST_ClassList classlist){
+	list<tConnection> cList = list<tConnection>();
+
+	for(AST_ClassListIterator mIter = classlist->begin(); mIter != classlist->end(); ++mIter){
+		AST_Class c = (*mIter);
+
+                AST_Class_Definition cd = c->getAsDefinition();
+                AST_Class_Modification cm = c->getAsModification();
+		cout << (long) cd << " " << (long)cm <<endl;
+		if(cd){
+			cout << "-----DEFINITION-----------\n";
+			//cout << c << endl;
+		}else{
+			cout << "--NO-DEFINITION-----------\n";
+			//cout << c << endl;
+		}
+		//if(!cd) continue;
+		//AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
+		//AST_Composition com = c->getAsDefinition()->composition();
+		//AST_ArgumentList al = com->arguments();
+
+		//for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
+		//	AST_Argument_Modification mo = current_element(it)->getAsModification();
+		//	cout << mo->name() << ":" << endl; 
+		//	AST_Modification mods =mo->modification();
+		//	if (MODCLASS == mods->modificationType()){
+		//		AST_Modification_Class mc = mods->getAsClass();
+		//		AST_ArgumentList al2 = mc->arguments();
+		//		for(AST_ArgumentListIterator it2 = al2->begin(); it2 != al2->end(); it2++){
+		//			AST_Argument ar = current_element(it2) ;
+		//			cout << ar->getAsModification()->name() << " --> " ;
+		//			AST_Modification_Equal me = ar->getAsModification()->modification()->getAsEqual();
+		//			cout << me->exp() << endl;
+		//		}
+		//	}
+		//}
+	}
+	return cList;
 }
 
 
