@@ -280,13 +280,16 @@ list<tConnection> Pd2Mo::getClassConnections(AST_ClassList classlist){
 
 	for(AST_ClassListIterator mIter = classlist->begin(); mIter != classlist->end(); ++mIter){
 		AST_Class c = (*mIter);
+		if(NULL == c){
+			continue;
+		}
 
                 AST_Class_Definition cd = c->getAsDefinition();
                 AST_Class_Modification cm = c->getAsModification();
 		cout << (long) cd << " " << (long)cm <<endl;
 		if(cd){
 			cout << "-----DEFINITION-----------\n";
-			//cout << c << endl;
+			cout << c << endl;
 		}else{
 			cout << "--NO-DEFINITION-----------\n";
 			//cout << c << endl;
