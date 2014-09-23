@@ -46,7 +46,7 @@ class Pd2Mo {
 	void setModelParameters(modelCoupled *, AST_ClassList);
 	string makeMoFileName(string );
 	
-	list<tConnection> getClassConnections(AST_ClassList);
+	list<tConnection*> getClassConnections(AST_ClassList);
 
 public:
 	Pd2Mo();
