@@ -284,24 +284,39 @@ list<tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 			cList.insert(cList.end(), NULL);
 			continue;
 		}
-		cout << "-------------------------" << endl;
+
                 AST_Class_Definition cd = c->getAsDefinition();
 		AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
 		AST_Composition com = c->getAsDefinition()->composition();
 		AST_ArgumentList al = com->arguments();
 
+		tConnection * connection = new tConnection;
+		connection->first = SCALAR;
+		connection->second = SCALAR;
 		for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
 			AST_Argument_Modification mo = current_element(it)->getAsModification();
+			if(mo->name()->compare("PD2MO") != 0){
+				continue;
+			}
+			
 			AST_Modification mods =mo->modification();
 			if (MODEQUAL== mods->modificationType()){
 				AST_Modification_Equal mc = mods->getAsEqual();
 				if(EXPBRACE == mc->exp()->expressionType()){
 					AST_Expression_Brace br = mc->exp()->getAsBrace();
 					AST_ExpressionList expList = br->arguments();
+					int position = 0;
 					for(AST_ExpressionListIterator it = expList->begin();
 						it != expList->end() ; it++){
 						if(EXPCOMPREF == (*it)->expressionType()){
-							cout << (*it)->getAsComponentReference()->name() << endl;
+					if((*it)->getAsComponentReference()->name().compare("VECTORIAL") == 0){
+						if(position == 0){
+							connection->first = VECTORIAL;
+						}else{
+							connection->second= VECTORIAL;
+						}
+					}
+						position++;
 						}
 					}
 				}
@@ -313,6 +328,10 @@ list<tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 				//	cout << me->exp() << endl;
 				//}
 			}
+			cList.insert(cList.end(), connection);
+
+			
+			
 		}
 	}
 	return cList;
