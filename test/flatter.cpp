@@ -11,8 +11,8 @@
 using namespace std;
 
 BOOST_AUTO_TEST_CASE( cero ){
-    QString path = getFullPath();
-    QString filename = path + "/data/Coupled.pds";
+    string path = getFullPath();
+    QString filename = QString::fromStdString(path + string("/data/Coupled.pds"));
     modelCoupled *c = parsePDS(filename);
     QList< modelChild * >::iterator childsIterator;
     for (childsIterator = c->childs.begin(); childsIterator != c->childs.end(); ++childsIterator){
