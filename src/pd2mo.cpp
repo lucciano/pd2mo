@@ -37,7 +37,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         //Load class based on the coupledModel from file
         (*log) << "Load class list based on class map." << endl;
         AST_ClassList classList = getAsClassList(model, classMap, log); 
-	list<tConnection*> cList = getClassConnections(classList);
+	map<int, tConnection*> cList = getClassConnections(classList);
 	
 	setModelParameters(model, classList);
 
@@ -115,9 +115,22 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		sincStream << className[current_element(itM)->childSink] << "u";
 		stringstream sourceStream; 
 		sourceStream<< className[current_element(itM)->childSource] << "y";
+
 		if(className[current_element(itM)->childSource].empty() or
 		className[current_element(itM)->childSink].empty()){
 			continue;
+		}
+		cout << current_element(itM)->childSource << "->" << current_element(itM)->childSink << endl;
+		cout << cList.size() << endl;
+
+		if(cList[current_element(itM)->childSource] == NULL or 
+		   cList[current_element(itM)->childSink] == NULL or
+		   cList[current_element(itM)->childSource]->second != 
+		   cList[current_element(itM)->childSink]->first){
+			(*log) << "Error connecting : " <<
+				className[current_element(itM)->childSource]
+			<< " and " <<
+				className[current_element(itM)->childSink] << endl;
 		}
 
 		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
@@ -275,13 +288,14 @@ void Pd2Mo::setPath(string s){
 }
 
 
-list<tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
-	list<tConnection*> cList = list<tConnection *>();
-
+map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
+	map<int, tConnection*> cList = map<int, tConnection *>();
+	int i = 0;
 	for(AST_ClassListIterator mIter = classlist->begin(); mIter != classlist->end(); ++mIter){
 		AST_Class c = (*mIter);
+		i++;
 		if(NULL == c){
-			cList.insert(cList.end(), NULL);
+			cList[i]= NULL;
 			continue;
 		}
 
@@ -320,19 +334,10 @@ list<tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 						}
 					}
 				}
-				//AST_ArgumentList al2 = mc->arguments();
-				//for(AST_ArgumentListIterator it2 = al2->begin(); it2 != al2->end(); it2++){
-				//	AST_Argument ar = current_element(it2) ;
-				//	cout << ar->getAsModification()->name() << " --> " ;
-				//	AST_Modification_Equal me = ar->getAsModification()->modification()->getAsEqual();
-				//	cout << me->exp() << endl;
-				//}
 			}
-			cList.insert(cList.end(), connection);
-
-			
-			
 		}
+
+		cList[i] = connection;
 	}
 	return cList;
 }
