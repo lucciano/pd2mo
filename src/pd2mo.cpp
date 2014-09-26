@@ -120,13 +120,23 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		className[current_element(itM)->childSink].empty()){
 			continue;
 		}
-		cout << current_element(itM)->childSource << "->" << current_element(itM)->childSink << endl;
-		cout << cList.size() << endl;
+		cout << className[current_element(itM)->childSource] << "->" << className[current_element(itM)->childSink] << endl;
+		cout << current_element(itM)->childSource << ":" << current_element(itM)->childSink << endl;
+		cout << cList[current_element(itM)->childSource] << ":" << cList[current_element(itM)->childSink] << endl;
+		if(cList[current_element(itM)->childSource]->second == SCALAR and
+	           cList[current_element(itM)->childSink]->first == SCALAR){
+			cout << "Scalar connection" <<endl;
+		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
+	           cList[current_element(itM)->childSink]->first == VECTORIAL){
+			cout << "Vectorial connection" <<endl;
+		}else{
+			cout << "Unkown connection" <<endl;
+		}
 
 		if(cList[current_element(itM)->childSource] == NULL or 
 		   cList[current_element(itM)->childSink] == NULL or
-		   cList[current_element(itM)->childSource]->second != 
-		   cList[current_element(itM)->childSink]->first){
+		   *cList[current_element(itM)->childSource] != 
+		   *cList[current_element(itM)->childSink]){
 			(*log) << "Error connecting : " <<
 				className[current_element(itM)->childSource]
 			<< " and " <<
@@ -293,51 +303,52 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 	int i = 0;
 	for(AST_ClassListIterator mIter = classlist->begin(); mIter != classlist->end(); ++mIter){
 		AST_Class c = (*mIter);
-		i++;
-		if(NULL == c){
+		if(!c){
 			cList[i]= NULL;
-			continue;
-		}
+		}else{
+			AST_Class_Definition cd = c->getAsDefinition();
+			AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
+			AST_Composition com = c->getAsDefinition()->composition();
+			AST_ArgumentList al = com->arguments();
 
-                AST_Class_Definition cd = c->getAsDefinition();
-		AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
-		AST_Composition com = c->getAsDefinition()->composition();
-		AST_ArgumentList al = com->arguments();
-
-		tConnection * connection = new tConnection;
-		connection->first = SCALAR;
-		connection->second = SCALAR;
-		for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
-			AST_Argument_Modification mo = current_element(it)->getAsModification();
-			if(mo->name()->compare("PD2MO") != 0){
-				continue;
-			}
-			
-			AST_Modification mods =mo->modification();
-			if (MODEQUAL== mods->modificationType()){
-				AST_Modification_Equal mc = mods->getAsEqual();
-				if(EXPBRACE == mc->exp()->expressionType()){
-					AST_Expression_Brace br = mc->exp()->getAsBrace();
-					AST_ExpressionList expList = br->arguments();
-					int position = 0;
-					for(AST_ExpressionListIterator it = expList->begin();
-						it != expList->end() ; it++){
-						if(EXPCOMPREF == (*it)->expressionType()){
-					if((*it)->getAsComponentReference()->name().compare("VECTORIAL") == 0){
-						if(position == 0){
-							connection->first = VECTORIAL;
-						}else{
-							connection->second= VECTORIAL;
+			tConnection * connection = new tConnection;
+			connection->first = SCALAR;
+			connection->second = SCALAR;
+			for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
+				AST_Argument_Modification mo = current_element(it)->getAsModification();
+				if(mo->name()->compare("PD2MO") != 0){
+					continue;
+				}
+				cout << "PD2MO Annotation found!!!" << endl;
+				AST_Modification mods =mo->modification();
+				if (MODEQUAL== mods->modificationType()){
+					AST_Modification_Equal mc = mods->getAsEqual();
+					if(EXPBRACE == mc->exp()->expressionType()){
+						AST_Expression_Brace br = mc->exp()->getAsBrace();
+						AST_ExpressionList expList = br->arguments();
+						int position = 0;
+						cout << "Annotation params found!!!";
+						for(AST_ExpressionListIterator it = expList->begin();
+							it != expList->end() ; it++){
+							if(EXPCOMPREF == (*it)->expressionType()){
+								cout << " " << (*it)->getAsComponentReference()->name();
+						if((*it)->getAsComponentReference()->name().compare("VECTORIAL") == 0){
+							if(position == 0){
+								position++;
+								connection->first = VECTORIAL;
+							}else{
+								connection->second= VECTORIAL;
+							}
 						}
-					}
-						position++;
+							}
 						}
 					}
 				}
 			}
+			cList[i] = connection;
 		}
+		i++;
 
-		cList[i] = connection;
 	}
 	return cList;
 }
