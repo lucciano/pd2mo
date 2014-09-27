@@ -18,7 +18,7 @@
 #include <sstream>
 #include <prefixmovars.h>
 #include <setParameters.h>
-
+#include <motools.h>
 
 
 using namespace std;

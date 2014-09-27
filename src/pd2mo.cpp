@@ -38,6 +38,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         (*log) << "Load class list based on class map." << endl;
         AST_ClassList classList = getAsClassList(model, classMap, log); 
 	map<int, tConnection*> cList = getClassConnections(classList);
+	map<int, AST_Class > classListMap = map<int,AST_Class>();
 	
 	setModelParameters(model, classList);
 
@@ -52,6 +53,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			sstm << current_element(it)->getAsDefinition()->name() << "_" << j << "_" ;
 			pf.setPrefix(sstm.str());
                         current_element(it) = pf.visitClass(current_element(it));
+			classListMap[j] = current_element(it);
 			className[j] = sstm.str(); 
 			(*log) << current_element(it) << "@" << j << endl;
                 }else{  
@@ -159,9 +161,34 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
 	           cList[current_element(itM)->childSink]->first == VECTORIAL){
 			cout << "Vectorial connection" <<endl;
+
+			cout << sourceStream.str() << " --> " << sincStream.str() ;
+
+			//cout << classListMap[current_element(itM)->childSource] << endl;
+			//cout << classListMap[current_element(itM)->childSink] << endl;
+
+			MoTool mSource = MoTool(classListMap[current_element(itM)->childSource]);
+			MoTool mSink = MoTool(classListMap[current_element(itM)->childSink]);
+
 			//find the declaration <Model>_y[X,z]
-			// read the dimensions, ie the first dimension -> X
-			// make a form with that dimension.... for Model_rand_i from 1:X
+			AST_String srcVar = new string(sourceStream.str().c_str());
+			AST_ExpressionList sourceIndex = mSource.getDimension(srcVar);
+			AST_String sinkOp = new string(sincStream.str().c_str());
+			AST_ExpressionList sinkIndex  = mSink.getDimension(sinkOp);
+	
+			if(sourceIndex->size() != sinkIndex->size()){
+				cout << "Error : Can't connect "
+					<< sourceStream.str() << " --> " << sincStream.str() << endl
+					<< " are not of the same dimensions" << endl;
+			}
+
+			//delete srcVar;
+			//delete sinkOp;
+		
+			cout <<"("<< current_element(sourceIndex->begin()) << ")"<< endl;
+	
+			//read the dimensions, ie the first dimension -> X
+			//make a form with that dimension.... for Model_rand_i from 1:X
 
 		}else{
 			cout << "Unkown connection" <<endl;
@@ -334,7 +361,6 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 						for(AST_ExpressionListIterator it = expList->begin();
 							it != expList->end() ; it++){
 							if(EXPCOMPREF == (*it)->expressionType()){
-								cout << " " << (*it)->getAsComponentReference()->name();
 					if((*it)->getAsComponentReference()->name().compare("Vector") == 0){
 						if(position == 0){
 							position++;
