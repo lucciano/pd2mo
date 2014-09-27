@@ -120,19 +120,9 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		className[current_element(itM)->childSink].empty()){
 			continue;
 		}
-		cout << className[current_element(itM)->childSource] << "->" << className[current_element(itM)->childSink] << endl;
-		cout << current_element(itM)->childSource << ":" << current_element(itM)->childSink << endl;
-		cout << cList[current_element(itM)->childSource] << ":" << cList[current_element(itM)->childSink] << endl;
-		if(cList[current_element(itM)->childSource]->second == SCALAR and
-	           cList[current_element(itM)->childSink]->first == SCALAR){
-			cout << "Scalar connection" <<endl;
-		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
-	           cList[current_element(itM)->childSink]->first == VECTORIAL){
-			cout << "Vectorial connection" <<endl;
-		}else{
-			cout << "Unkown connection" <<endl;
-		}
-
+		//cout << className[current_element(itM)->childSource] << "->" << className[current_element(itM)->childSink] << endl;
+		//cout << current_element(itM)->childSource << ":" << current_element(itM)->childSink << endl;
+		//cout << cList[current_element(itM)->childSource] << ":" << cList[current_element(itM)->childSink] << endl;
 		if(cList[current_element(itM)->childSource] == NULL or 
 		   cList[current_element(itM)->childSink] == NULL or
 		   *cList[current_element(itM)->childSource] != 
@@ -142,33 +132,46 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			<< " and " <<
 				className[current_element(itM)->childSink] << endl;
 		}
-
-		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
-
-		(*log) <<"param type:" << param << endl;
-			sourcelt->insert(
-				sourcelt->end(), 
-				new AST_Expression_Integer_(
+		sourcelt->insert( sourcelt->end(), new AST_Expression_Integer_(
 					current_element(itM)->sinkPort+1
-					));
-			sinklt->insert(
-				sinklt->end(), 
-				new AST_Expression_Integer_(
+				));
+		sinklt->insert( sinklt->end(), new AST_Expression_Integer_(
 					current_element(itM)->sourcePort+1
-					));
+				));
 
-		AST_String source = new string(sincStream.str());
-		AST_String sink = new string(sourceStream.str());
-		AST_Expression_ComponentReference esource = 
-		    new AST_Expression_ComponentReference_ ();
-		AST_Expression_ComponentReference esink = 
-		    new AST_Expression_ComponentReference_ ();
-		esink->append(sink, sinklt);
-		esource->append(source, sourcelt);
-		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
-		eqList->insert(eqList->end(), eq);
-		(*log) << eq << endl;
 
+		if(cList[current_element(itM)->childSource]->second == SCALAR and
+	           cList[current_element(itM)->childSink]->first == SCALAR){
+			cout << "Scalar connection" <<endl;
+			
+			AST_String source = new string(sincStream.str());
+			AST_String sink = new string(sourceStream.str());
+			AST_Expression_ComponentReference esource = 
+			    new AST_Expression_ComponentReference_ ();
+			AST_Expression_ComponentReference esink = 
+			    new AST_Expression_ComponentReference_ ();
+			esink->append(sink, sinklt);
+			esource->append(source, sourcelt);
+			AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+			eqList->insert(eqList->end(), eq);
+			(*log) << eq << endl;
+
+		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
+	           cList[current_element(itM)->childSink]->first == VECTORIAL){
+			cout << "Vectorial connection" <<endl;
+			//find the declaration <Model>_y[X,z]
+			// read the dimensions, ie the first dimension -> X
+			// make a form with that dimension.... for Model_rand_i from 1:X
+
+		}else{
+			cout << "Unkown connection" <<endl;
+		}
+
+		
+
+		//string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
+		//(*log) <<"param type:" << param << endl;
+		
         }
 
 	(*output) << modelMo;
@@ -319,7 +322,7 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 				if(mo->name()->compare("PD2MO") != 0){
 					continue;
 				}
-				cout << "PD2MO Annotation found!!!" << endl;
+				//cout << "PD2MO Annotation found!!!" << endl;
 				AST_Modification mods =mo->modification();
 				if (MODEQUAL== mods->modificationType()){
 					AST_Modification_Equal mc = mods->getAsEqual();
@@ -327,19 +330,27 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 						AST_Expression_Brace br = mc->exp()->getAsBrace();
 						AST_ExpressionList expList = br->arguments();
 						int position = 0;
-						cout << "Annotation params found!!!";
+						//cout << "Annotation params found!!!";
 						for(AST_ExpressionListIterator it = expList->begin();
 							it != expList->end() ; it++){
 							if(EXPCOMPREF == (*it)->expressionType()){
 								cout << " " << (*it)->getAsComponentReference()->name();
-						if((*it)->getAsComponentReference()->name().compare("VECTORIAL") == 0){
-							if(position == 0){
-								position++;
-								connection->first = VECTORIAL;
-							}else{
-								connection->second= VECTORIAL;
-							}
+					if((*it)->getAsComponentReference()->name().compare("Vector") == 0){
+						if(position == 0){
+							position++;
+							connection->first = VECTORIAL;
+						}else{
+							connection->second= VECTORIAL;
 						}
+					}else if((*it)->getAsComponentReference()->name().compare("Scalar") == 0){
+						if(position == 0){
+							position++;
+							connection->first = SCALAR;
+						}else{
+							connection->second= SCALAR;
+						}
+					}else{
+					}
 							}
 						}
 					}
