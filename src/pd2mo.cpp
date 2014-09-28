@@ -187,8 +187,42 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		
 			cout <<"("<< current_element(sourceIndex->begin()) << ")"<< endl;
 	
-			//read the dimensions, ie the first dimension -> X
-			//make a form with that dimension.... for Model_rand_i from 1:X
+			//TODO: agregar index para que use el "iterador"
+ 
+			AST_String source = new string(sincStream.str());
+			AST_String sink = new string(sourceStream.str());
+			AST_Expression_ComponentReference esource = 
+			    new AST_Expression_ComponentReference_ ();
+			AST_Expression_ComponentReference esink = 
+			    new AST_Expression_ComponentReference_ ();
+			esink->append(sink, sinklt);
+			esource->append(source, sourcelt);
+			AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+
+			(*log) << eq << endl;
+			AST_Expression_Integer oneExp = new AST_Expression_Integer_(1);
+
+			AST_ExpressionList emptyList = new list<AST_Expression>();
+			//read the dimensions (could be a variable or a constant), ie the first dimension -> X
+			AST_Expression upToExp = current_element(sourceIndex->begin());
+
+			//make a for with that dimension.... for Model_rand_i from 1:X
+			AST_ExpressionList rangeExpList = new list<AST_Expression>();
+			rangeExpList->insert(rangeExpList->end(), oneExp);
+			rangeExpList->insert(rangeExpList->end(), upToExp);
+			AST_Expression_Range rangeExp = new AST_Expression_Range_ (rangeExpList);
+
+			AST_String strIterator = new string("i");
+			AST_ForIndex forIn = new AST_ForIndex_ (strIterator, rangeExp);
+			AST_ForIndexList ind = new list<AST_ForIndex>();
+			ind->insert(ind->end(), forIn);
+			
+			AST_EquationList eql = new list<AST_Equation>();
+			eql->insert(eql->end(), eq);
+			AST_Equation_For eqFor = new AST_Equation_For_ (ind, eql);
+
+			eqList->insert(eqList->end(), eqFor);
+
 
 		}else{
 			cout << "Unkown connection" <<endl;
