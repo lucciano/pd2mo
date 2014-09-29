@@ -179,7 +179,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			if(sourceIndex->size() != sinkIndex->size()){
 				cout << "Error : Can't connect "
 					<< sourceStream.str() << " --> " << sincStream.str() << endl
-					<< " are not of the same dimensions" << endl;
+					<< " don't have the same dimensions" << endl;
 			}
 
 			//delete srcVar;
@@ -197,6 +197,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			    new AST_Expression_ComponentReference_ ();
 			esink->append(sink, sinklt);
 			esource->append(source, sourcelt);
+
 			AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
 
 			(*log) << eq << endl;
@@ -213,6 +214,11 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			AST_Expression_Range rangeExp = new AST_Expression_Range_ (rangeExpList);
 
 			AST_String strIterator = new string("i");
+			AST_Expression_ComponentReference expIterator = new AST_Expression_ComponentReference_();
+			expIterator->append(strIterator, emptyList);
+			sourcelt->insert( sourcelt->begin(), expIterator);
+			sinklt->insert( sinklt->begin(), expIterator);
+
 			AST_ForIndex forIn = new AST_ForIndex_ (strIterator, rangeExp);
 			AST_ForIndexList ind = new list<AST_ForIndex>();
 			ind->insert(ind->end(), forIn);
