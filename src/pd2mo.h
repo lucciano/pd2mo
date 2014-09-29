@@ -18,12 +18,15 @@
 #include <sstream>
 #include <prefixmovars.h>
 #include <setParameters.h>
-
+#include <motools.h>
 
 
 using namespace std;
 
 namespace pd2mo{
+
+enum tConnect {SCALAR, VECTORIAL};
+typedef pair <tConnect,tConnect> tConnection;
 
 string getFullPath();
 class Pd2Mo {
@@ -42,6 +45,8 @@ class Pd2Mo {
 				AST_EquationList eqList, AST_Class a);
 	void setModelParameters(modelCoupled *, AST_ClassList);
 	string makeMoFileName(string );
+	
+	map<int, tConnection*> getClassConnections(AST_ClassList);
 
 public:
 	Pd2Mo();

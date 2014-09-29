@@ -37,6 +37,8 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
         //Load class based on the coupledModel from file
         (*log) << "Load class list based on class map." << endl;
         AST_ClassList classList = getAsClassList(model, classMap, log); 
+	map<int, tConnection*> cList = getClassConnections(classList);
+	map<int, AST_Class > classListMap = map<int,AST_Class>();
 	
 	setModelParameters(model, classList);
 
@@ -51,6 +53,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			sstm << current_element(it)->getAsDefinition()->name() << "_" << j << "_" ;
 			pf.setPrefix(sstm.str());
                         current_element(it) = pf.visitClass(current_element(it));
+			classListMap[j] = current_element(it);
 			className[j] = sstm.str(); 
 			(*log) << current_element(it) << "@" << j << endl;
                 }else{  
@@ -114,37 +117,128 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		sincStream << className[current_element(itM)->childSink] << "u";
 		stringstream sourceStream; 
 		sourceStream<< className[current_element(itM)->childSource] << "y";
+
 		if(className[current_element(itM)->childSource].empty() or
 		className[current_element(itM)->childSink].empty()){
 			continue;
 		}
-
-		string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
-
-		(*log) <<"param type:" << param << endl;
-			sourcelt->insert(
-				sourcelt->end(), 
-				new AST_Expression_Integer_(
+		//cout << className[current_element(itM)->childSource] << "->" << className[current_element(itM)->childSink] << endl;
+		//cout << current_element(itM)->childSource << ":" << current_element(itM)->childSink << endl;
+		//cout << cList[current_element(itM)->childSource] << ":" << cList[current_element(itM)->childSink] << endl;
+		if(cList[current_element(itM)->childSource] == NULL or 
+		   cList[current_element(itM)->childSink] == NULL or
+		   *cList[current_element(itM)->childSource] != 
+		   *cList[current_element(itM)->childSink]){
+			(*log) << "Error connecting : " <<
+				className[current_element(itM)->childSource]
+			<< " and " <<
+				className[current_element(itM)->childSink] << endl;
+		}
+		sourcelt->insert( sourcelt->end(), new AST_Expression_Integer_(
 					current_element(itM)->sinkPort+1
-					));
-			sinklt->insert(
-				sinklt->end(), 
-				new AST_Expression_Integer_(
+				));
+		sinklt->insert( sinklt->end(), new AST_Expression_Integer_(
 					current_element(itM)->sourcePort+1
-					));
+				));
 
-		AST_String source = new string(sincStream.str());
-		AST_String sink = new string(sourceStream.str());
-		AST_Expression_ComponentReference esource = 
-		    new AST_Expression_ComponentReference_ ();
-		AST_Expression_ComponentReference esink = 
-		    new AST_Expression_ComponentReference_ ();
-		esink->append(sink, sinklt);
-		esource->append(source, sourcelt);
-		AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
-		eqList->insert(eqList->end(), eq);
-		(*log) << eq << endl;
 
+		if(cList[current_element(itM)->childSource]->second == SCALAR and
+	           cList[current_element(itM)->childSink]->first == SCALAR){
+			cout << "Scalar connection" <<endl;
+			
+			AST_String source = new string(sincStream.str());
+			AST_String sink = new string(sourceStream.str());
+			AST_Expression_ComponentReference esource = 
+			    new AST_Expression_ComponentReference_ ();
+			AST_Expression_ComponentReference esink = 
+			    new AST_Expression_ComponentReference_ ();
+			esink->append(sink, sinklt);
+			esource->append(source, sourcelt);
+			AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+			eqList->insert(eqList->end(), eq);
+			(*log) << eq << endl;
+
+		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
+	           cList[current_element(itM)->childSink]->first == VECTORIAL){
+			cout << "Vectorial connection" <<endl;
+
+			cout << sourceStream.str() << " --> " << sincStream.str() ;
+
+			//cout << classListMap[current_element(itM)->childSource] << endl;
+			//cout << classListMap[current_element(itM)->childSink] << endl;
+
+			MoTool mSource = MoTool(classListMap[current_element(itM)->childSource]);
+			MoTool mSink = MoTool(classListMap[current_element(itM)->childSink]);
+
+			//find the declaration <Model>_y[X,z]
+			AST_String srcVar = new string(sourceStream.str().c_str());
+			AST_ExpressionList sourceIndex = mSource.getDimension(srcVar);
+			AST_String sinkOp = new string(sincStream.str().c_str());
+			AST_ExpressionList sinkIndex  = mSink.getDimension(sinkOp);
+	
+			if(sourceIndex->size() != sinkIndex->size()){
+				cout << "Error : Can't connect "
+					<< sourceStream.str() << " --> " << sincStream.str() << endl
+					<< " don't have the same dimensions" << endl;
+			}
+
+			//delete srcVar;
+			//delete sinkOp;
+		
+			cout <<"("<< current_element(sourceIndex->begin()) << ")"<< endl;
+	
+			//TODO: agregar index para que use el "iterador"
+ 
+			AST_String source = new string(sincStream.str());
+			AST_String sink = new string(sourceStream.str());
+			AST_Expression_ComponentReference esource = 
+			    new AST_Expression_ComponentReference_ ();
+			AST_Expression_ComponentReference esink = 
+			    new AST_Expression_ComponentReference_ ();
+			esink->append(sink, sinklt);
+			esource->append(source, sourcelt);
+
+			AST_Equation_Equality eq = new AST_Equation_Equality_(esource, esink);
+
+			(*log) << eq << endl;
+			AST_Expression_Integer oneExp = new AST_Expression_Integer_(1);
+
+			AST_ExpressionList emptyList = new list<AST_Expression>();
+			//read the dimensions (could be a variable or a constant), ie the first dimension -> X
+			AST_Expression upToExp = current_element(sourceIndex->begin());
+
+			//make a for with that dimension.... for Model_rand_i from 1:X
+			AST_ExpressionList rangeExpList = new list<AST_Expression>();
+			rangeExpList->insert(rangeExpList->end(), oneExp);
+			rangeExpList->insert(rangeExpList->end(), upToExp);
+			AST_Expression_Range rangeExp = new AST_Expression_Range_ (rangeExpList);
+
+			AST_String strIterator = new string("i");
+			AST_Expression_ComponentReference expIterator = new AST_Expression_ComponentReference_();
+			expIterator->append(strIterator, emptyList);
+			sourcelt->insert( sourcelt->begin(), expIterator);
+			sinklt->insert( sinklt->begin(), expIterator);
+
+			AST_ForIndex forIn = new AST_ForIndex_ (strIterator, rangeExp);
+			AST_ForIndexList ind = new list<AST_ForIndex>();
+			ind->insert(ind->end(), forIn);
+			
+			AST_EquationList eql = new list<AST_Equation>();
+			eql->insert(eql->end(), eq);
+			AST_Equation_For eqFor = new AST_Equation_For_ (ind, eql);
+
+			eqList->insert(eqList->end(), eqFor);
+
+
+		}else{
+			cout << "Unkown connection" <<endl;
+		}
+
+		
+
+		//string param = (*sourceType)[sinkModel->atomic->path.toStdString()];
+		//(*log) <<"param type:" << param << endl;
+		
         }
 
 	(*output) << modelMo;
@@ -271,6 +365,69 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 
 void Pd2Mo::setPath(string s){
 	pd2mo_dir = s;
+}
+
+
+map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
+	map<int, tConnection*> cList = map<int, tConnection *>();
+	int i = 0;
+	for(AST_ClassListIterator mIter = classlist->begin(); mIter != classlist->end(); ++mIter){
+		AST_Class c = (*mIter);
+		if(!c){
+			cList[i]= NULL;
+		}else{
+			AST_Class_Definition cd = c->getAsDefinition();
+			AST_CompositionElementList cl = c->getAsDefinition()->composition()->compositionList();
+			AST_Composition com = c->getAsDefinition()->composition();
+			AST_ArgumentList al = com->arguments();
+
+			tConnection * connection = new tConnection;
+			connection->first = SCALAR;
+			connection->second = SCALAR;
+			for(AST_ArgumentListIterator it = al->begin(); it != al->end(); it++){
+				AST_Argument_Modification mo = current_element(it)->getAsModification();
+				if(mo->name()->compare("PD2MO") != 0){
+					continue;
+				}
+				//cout << "PD2MO Annotation found!!!" << endl;
+				AST_Modification mods =mo->modification();
+				if (MODEQUAL== mods->modificationType()){
+					AST_Modification_Equal mc = mods->getAsEqual();
+					if(EXPBRACE == mc->exp()->expressionType()){
+						AST_Expression_Brace br = mc->exp()->getAsBrace();
+						AST_ExpressionList expList = br->arguments();
+						int position = 0;
+						//cout << "Annotation params found!!!";
+						for(AST_ExpressionListIterator it = expList->begin();
+							it != expList->end() ; it++){
+							if(EXPCOMPREF == (*it)->expressionType()){
+					if((*it)->getAsComponentReference()->name().compare("Vector") == 0){
+						if(position == 0){
+							position++;
+							connection->first = VECTORIAL;
+						}else{
+							connection->second= VECTORIAL;
+						}
+					}else if((*it)->getAsComponentReference()->name().compare("Scalar") == 0){
+						if(position == 0){
+							position++;
+							connection->first = SCALAR;
+						}else{
+							connection->second= SCALAR;
+						}
+					}else{
+					}
+							}
+						}
+					}
+				}
+			}
+			cList[i] = connection;
+		}
+		i++;
+
+	}
+	return cList;
 }
 
 
