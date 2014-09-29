@@ -3,6 +3,8 @@
 
 # Resumen #
 
+En este trabajo se descrive la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el Modelica, más especificamente en µModelica. 
+
 # Introducción #
 Hola [@Fer12] .
 ## Motivación y Objetivos ##
