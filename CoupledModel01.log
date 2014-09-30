@@ -1,0 +1,46 @@
+Open File CoupledModel01.flatted.pds
+Load class list based on class map.
+std::list<AST_Class_*>* pd2mo::Pd2Mo::getAsClassList(modelCoupled*, std::map<std::basic_string<char>, std::basic_string<char> >*, std::ostream*)
+PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
+PowerDevs File qss/qss_wsum.h to /home/powerdevs/pd2mo/data/qss/qss_wsum.mo FILE EXISTS 
+PowerDevs File qss/qss_integrator.h to /home/powerdevs/pd2mo/data/qss/qss_integrator.mo FILE EXISTS 
+PowerDevs File sinks/gnuplot.h to /home/powerdevs/pd2mo/data/sinks/gnuplot.mo FILE NO EXISTS
+Constant
+  parameter Real Constant_0_k = 1;
+  Real Constant_0_y[1](start = {Constant_0_k});
+  equation
+    Constant_0_y[1] = Constant_0_k;
+end Constant;
+@0
+WSum
+  parameter Real WSum_1_p[9] = {1,-1,0,0,0,0,0,0,2};
+  parameter Integer WSum_1_n = integer(2);
+  parameter Real WSum_1_w[WSum_1_n] = WSum_1_p[1:WSum_1_n];
+  Real WSum_1_u[WSum_1_n];
+  Real WSum_1_y[1];
+  equation
+    WSum_1_y[1] = WSum_1_u*WSum_1_w;
+end WSum;
+@1
+QSSIntegrator
+  parameter Real QSSIntegrator_2_x0 = 0;
+  Real QSSIntegrator_2_u[1];
+  Real QSSIntegrator_2_y[1](start = {QSSIntegrator_2_x0});
+  equation
+    der(QSSIntegrator_2_y[1]) = QSSIntegrator_2_u[1];
+end QSSIntegrator;
+@2
+<<No Mapped Class>> @3
+Constant
+WSum
+QSSIntegrator
+Add coupledmodel connections
+Scalar connection
+WSum_1_u[1] = Constant_0_y[1];
+
+Scalar connection
+QSSIntegrator_2_u[1] = WSum_1_y[1];
+
+Scalar connection
+WSum_1_u[2] = QSSIntegrator_2_y[1];
+
