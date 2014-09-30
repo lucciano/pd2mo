@@ -122,9 +122,6 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		className[current_element(itM)->childSink].empty()){
 			continue;
 		}
-		//cout << className[current_element(itM)->childSource] << "->" << className[current_element(itM)->childSink] << endl;
-		//cout << current_element(itM)->childSource << ":" << current_element(itM)->childSink << endl;
-		//cout << cList[current_element(itM)->childSource] << ":" << cList[current_element(itM)->childSink] << endl;
 		if(cList[current_element(itM)->childSource] == NULL or 
 		   cList[current_element(itM)->childSink] == NULL or
 		   *cList[current_element(itM)->childSource] != 
@@ -144,7 +141,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 		if(cList[current_element(itM)->childSource]->second == SCALAR and
 	           cList[current_element(itM)->childSink]->first == SCALAR){
-			cout << "Scalar connection" <<endl;
+			(*log) << "Scalar connection" <<endl;
 			
 			AST_String source = new string(sincStream.str());
 			AST_String sink = new string(sourceStream.str());
@@ -160,12 +157,12 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 		} else if ( cList[current_element(itM)->childSource]->second == VECTORIAL and
 	           cList[current_element(itM)->childSink]->first == VECTORIAL){
-			cout << "Vectorial connection" <<endl;
+			(*log) << "Vectorial connection" <<endl;
 
-			cout << sourceStream.str() << " --> " << sincStream.str() ;
+			(*log) << sourceStream.str() << " --> " << sincStream.str() ;
 
-			//cout << classListMap[current_element(itM)->childSource] << endl;
-			//cout << classListMap[current_element(itM)->childSink] << endl;
+			//(*log) << classListMap[current_element(itM)->childSource] << endl;
+			//(*log) << classListMap[current_element(itM)->childSink] << endl;
 
 			MoTool mSource = MoTool(classListMap[current_element(itM)->childSource]);
 			MoTool mSink = MoTool(classListMap[current_element(itM)->childSink]);
@@ -177,7 +174,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			AST_ExpressionList sinkIndex  = mSink.getDimension(sinkOp);
 	
 			if(sourceIndex->size() != sinkIndex->size()){
-				cout << "Error : Can't connect "
+				(*log) << "Error : Can't connect "
 					<< sourceStream.str() << " --> " << sincStream.str() << endl
 					<< " don't have the same dimensions" << endl;
 			}
@@ -185,7 +182,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			//delete srcVar;
 			//delete sinkOp;
 		
-			cout <<"("<< current_element(sourceIndex->begin()) << ")"<< endl;
+			(*log) <<"("<< current_element(sourceIndex->begin()) << ")"<< endl;
 	
 			//TODO: agregar index para que use el "iterador"
  
@@ -231,7 +228,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
 
 		}else{
-			cout << "Unkown connection" <<endl;
+			(*log) << "Unkown connection" <<endl;
 		}
 
 		
@@ -389,7 +386,7 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 				if(mo->name()->compare("PD2MO") != 0){
 					continue;
 				}
-				//cout << "PD2MO Annotation found!!!" << endl;
+				//(*log) << "PD2MO Annotation found!!!" << endl;
 				AST_Modification mods =mo->modification();
 				if (MODEQUAL== mods->modificationType()){
 					AST_Modification_Equal mc = mods->getAsEqual();
