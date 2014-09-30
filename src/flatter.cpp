@@ -109,6 +109,6 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		rtr->childs.append(m);
 	}
     }
-    rtr->lsIC.append(c->lsIC);
+    //rtr->lsIC.append(c->lsIC);
     return rtr;
 }
