@@ -1,0 +1,87 @@
+Open File ArrayModel01.flatted.pds
+Load class list based on class map.
+std::list<AST_Class_*>* pd2mo::Pd2Mo::getAsClassList(modelCoupled*, std::map<std::basic_string<char>, std::basic_string<char> >*, std::ostream*)
+PowerDevs File sinks/gnuplot.h to /home/powerdevs/pd2mo/data/sinks/gnuplot.mo FILE NO EXISTS
+PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
+PowerDevs File vector\qss_sum_vec.h to /home/powerdevs/pd2mo/data/vector/qss_sum_vec.mo FILE EXISTS 
+PowerDevs File vector/vec2scalar.h to /home/powerdevs/pd2mo/data/vector/vec2scalar.mo FILE EXISTS 
+PowerDevs File vector/scalar2vec.h to /home/powerdevs/pd2mo/data/vector/scalar2vec.mo FILE EXISTS 
+PowerDevs File vector\qss_integrator_vec.h to /home/powerdevs/pd2mo/data/vector/qss_integrator_vec.mo FILE EXISTS 
+<<No Mapped Class>> @0
+Constant
+  parameter Real Constant_1_k = 1;
+  Real Constant_1_y[1](start = {Constant_1_k});
+  equation
+    Constant_1_y[1] = Constant_1_k;
+end Constant;
+@1
+VectorSum
+  parameter Real VectorSum_2_p[10] = {1,1,0,0,0,0,0,0,2,1000};
+  constant Integer VectorSum_2_N = 1000;
+  constant Integer VectorSum_2_nin = 2;
+  parameter Real VectorSum_2_w[VectorSum_2_nin] = VectorSum_2_p[1:VectorSum_2_nin];
+  Real VectorSum_2_u[VectorSum_2_N,VectorSum_2_nin];
+  Real VectorSum_2_y[VectorSum_2_N,1];
+  equation
+    for VectorSum_2_i in 1:VectorSum_2_N loop
+      VectorSum_2_y[VectorSum_2_i,1] = VectorSum_2_u[VectorSum_2_i,1:VectorSum_2_nin]*VectorSum_2_w;
+    end for;
+end VectorSum;
+@2
+Vec2Scalar
+  parameter Real Vec2Scalar_3_p[2] = {0,100};
+  parameter Integer Vec2Scalar_3_Index = 0;
+  constant Integer Vec2Scalar_3_N = 100;
+  Real Vec2Scalar_3_u[Vec2Scalar_3_N,1];
+  Real Vec2Scalar_3_y[1];
+  equation
+    Vec2Scalar_3_y[1] = Vec2Scalar_3_u[Vec2Scalar_3_Index,1];
+end Vec2Scalar;
+@3
+Scalar2Vector
+  parameter Real Scalar2Vector_4_p[2] = {-1,100};
+  constant Integer Scalar2Vector_4_N = 100;
+  parameter Integer Scalar2Vector_4_Index = -1;
+  Real Scalar2Vector_4_u[1];
+  Real Scalar2Vector_4_y[Scalar2Vector_4_N,1];
+  equation
+    for Scalar2Vector_4_i in 1:Scalar2Vector_4_N loop
+      Scalar2Vector_4_y[Scalar2Vector_4_i,1] = (if Scalar2Vector_4_Index==Scalar2Vector_4_i or Scalar2Vector_4_Index==(-1) then Scalar2Vector_4_u[1] else 0);
+    end for;
+end Scalar2Vector;
+@4
+VecInt
+  parameter Real VecInt_5_p[5] = {0,1e-06,0.001,0,1000};
+  constant Integer VecInt_5_N = 10;
+  parameter Real VecInt_5_x0 = 1;
+  Real VecInt_5_u[VecInt_5_N,1];
+  Real VecInt_5_y[VecInt_5_N,1];
+  initial equation
+    for VecInt_5_i in 1:VecInt_5_N loop
+      VecInt_5_y[VecInt_5_i,1] = VecInt_5_x0;
+    end for;
+  equation
+    for VecInt_5_i in 1:VecInt_5_N loop
+      der(VecInt_5_y[VecInt_5_i,1]) = VecInt_5_u[VecInt_5_i,1];
+    end for;
+end VecInt;
+@5
+Constant
+VectorSum
+Vec2Scalar
+Scalar2Vector
+VecInt
+Add coupledmodel connections
+VecInt_5_u[1] = VectorSum_2_y[1];
+
+Error connecting : Scalar2Vector_4_ and VectorSum_2_
+VectorSum_2_u[1] = Scalar2Vector_4_y[1];
+
+Error connecting : Constant_1_ and Scalar2Vector_4_
+Scalar2Vector_4_u[1] = Constant_1_y[1];
+
+VectorSum_2_u[2] = VecInt_5_y[1];
+
+Error connecting : VecInt_5_ and Vec2Scalar_3_
+Vec2Scalar_3_u[1] = VecInt_5_y[1];
+
