@@ -13,22 +13,22 @@ Root-Coordinator
   Simulator
    {
     Path = vector\qss_sum_vec.h
-    Parameters = "1","1","0","0","0","0","0","0",2.000000e+00,"1000"
+    Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00,"10"
    }
   Simulator
    {
     Path = vector/vec2scalar.h
-    Parameters = "0","100"
+    Parameters = "0","10"
    }
   Simulator
    {
     Path = vector/scalar2vec.h
-    Parameters = "-1","100"
+    Parameters = "-1","10"
    }
   Simulator
    {
     Path = vector\qss_integrator_vec.h
-    Parameters = "QSS3","1e-6","1e-3","0","1000"
+    Parameters = "QSS3","1e-6","1e-3","0","10"
    }
   EIC
    {

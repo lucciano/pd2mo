@@ -70,7 +70,7 @@ Coupled
             Description = y = K[0] * u0 + K[1] * u1 + ... + K[7] * u7 (QSS1 to 4)
             Graphic
                 {
-                Position = -630 ; -510
+                Position = -630 ; -435
                 Dimension = 675 ; 720
                 Direction = Right
                 Color = 15
@@ -79,7 +79,7 @@ Coupled
             Parameters
                 {
                 K[0] = Str; 1 ; 
-                K[1] = Str; 1 ; 
+                K[1] = Str; -1 ; 
                 K[2] = Str; 0 ; 
                 K[3] = Str; 0 ; 
                 K[4] = Str; 0 ; 
@@ -87,7 +87,7 @@ Coupled
                 K[6] = Str; 0 ; 
                 K[7] = Str; 0 ; 
                 Inputs = Str; %Inputs ; 
-                Size = Str; 1000 ; Vector Size
+                Size = Str; 10 ; Vector Size
                 }
             }
         Atomic
@@ -107,7 +107,7 @@ Coupled
             Parameters
                 {
                 Index = Str; 0 ; Signal Index
-                Size = Str; 100 ; 
+                Size = Str; 10 ; 
                 }
             }
         Atomic
@@ -127,7 +127,7 @@ Coupled
             Parameters
                 {
                 Index = Str; -1 ; Signal Index
-                size = Str; 100 ; 
+                size = Str; 10 ; 
                 }
             }
         Atomic
@@ -150,7 +150,7 @@ Coupled
                 dqmin = Str; 1e-6 ; minimum quantum (Scilab)
                 dqrel = Str; 1e-3 ; relative quantum (0 : uniform) (Scilab)
                 x0 = Str; 0 ; Initial state (Scilab)
-                Size = Str; 1000 ; Vector Dimension
+                Size = Str; 10 ; Vector Dimension
                 }
             }
         Point
@@ -163,8 +163,8 @@ Coupled
             {
             Source = Cmp ;  3 ;  1 ; 0
             Sink = Cmp ;  6 ;  1 ; -1
-            PointX = 150 ; 150 ; 1035
-            PointY = -150 ; -150 ; -150
+            PointX = 150 ; 1035 ; 1035
+            PointY = -75 ; -75 ; -150
             }
         Line
             {
@@ -185,7 +185,7 @@ Coupled
             Source = Cmp ;  3 ;  2 ; -1
             Sink = Pnt ;  1 ; -1 ; 0
             PointX = -765 ; -765 ; 2550 ; 2550
-            PointY = 0 ; 1725 ; 1725 ; -150
+            PointY = 75 ; 1725 ; 1725 ; -150
             }
         Line
             {
@@ -198,8 +198,8 @@ Coupled
             {
             Source = Cmp ;  5 ;  1 ; 0
             Sink = Cmp ;  3 ;  1 ; -1
-            PointX = -2100 ; -2100 ; -765
-            PointY = -300 ; -300 ; -300
+            PointX = -2100 ; -765 ; -765
+            PointY = -300 ; -300 ; -225
             }
         Line
             {
