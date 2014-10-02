@@ -9,6 +9,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
     modelCoupled * rtr = new modelCoupled();
     rtr->type = TOKROOT;
     rtr->name = c->name;
+    int delta = 0;
 
     for (QList< modelChild * >::iterator childsIterator = c->childs.begin(); 
 	childsIterator != c->childs.end(); 
@@ -18,7 +19,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		modelCoupled * coupled = (*childsIterator)->coupled;
 
 		
-		int delta = coupled->childs.size() -1;
+		delta += coupled->childs.size() -1;
 		for( QList< modelChild * >::iterator cI = coupled->childs.begin(); 
 			cI != coupled->childs.end(); 
 			++cI){
@@ -44,8 +45,22 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			ic != c->lsIC.end();
 			ic++){
 
-			if((*ic)->childSource == atomic){ 
-			// internal connection con un jerarquico. 
+			// cout << atomic << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << "), (" <<
+			// 	(*ic)->childSink << ","<<(*ic)->sinkPort <<")" << endl;
+
+			if(((*ic)->childSource > atomic or (*ic)->childSink > atomic)
+			and ((*ic)->childSource != atomic and (*ic)->childSink != atomic))
+			{
+				modelConnection * cNew = *ic;
+				cNew->childSource += ((*ic)->childSource > atomic)?delta:0;
+				cNew->sourcePort = (*ic)->sourcePort;
+				cNew->childSink += ((*ic)->childSink > atomic)?delta:0;
+				cNew->sinkPort = (*ic)->sinkPort;
+				continue;
+			}
+
+			if((*ic)->childSource == atomic){
+			// internal connection with a coupled (sub) module.
 				for(QList < modelConnection * >::iterator eoc = coupled->lsEOC.begin();
 					eoc != coupled->lsEOC.end();
 					eoc++){
@@ -60,8 +75,9 @@ modelCoupled * flatter::flat(modelCoupled * c){
 						rtr->lsIC.append(cNew);
 					}
 				}
-			}
+			} 
 			if((*ic)->childSink == atomic){
+			// internal connection with a coupled (sub) module.
 				for(QList < modelConnection * >::iterator eic = coupled->lsEIC.begin();
 					eic != coupled->lsEIC.end();
 					eic++){
@@ -75,22 +91,9 @@ modelCoupled * flatter::flat(modelCoupled * c){
 						rtr->lsIC.append(cNew);
 					}
 				}
-			
-			}
-			if(((*ic)->childSource > atomic or (*ic)->childSink > atomic)
-			and ((*ic)->childSource != atomic and (*ic)->childSink != atomic))
-			{
-				modelConnection * cNew = new modelConnection;
-				cNew->childSource = (*ic)->childSource 
-							+ ((*ic)->childSource > atomic)?delta:0;
-				cNew->sourcePort = (*ic)->sourcePort;
-				cNew->childSink = (*ic)->childSink
-							+ ((*ic)->childSink > atomic)?delta:0;
-				cNew->sinkPort = (*ic)->sinkPort;
-				rtr->lsIC.append(cNew);
 			}
 		}
-
+		
 		//Agregamos las conecciones internas del modelo acoplado.
 		for(QList < modelConnection * >::iterator ic = coupled->lsIC.begin();
 			ic != coupled->lsIC.end();
@@ -98,6 +101,16 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			(*ic)->childSource += atomic;
 			(*ic)->childSink += atomic;
 			rtr->lsIC.append((*ic));
+		}
+		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
+			ic != c->lsIC.end();
+			ic++){
+			if( (*ic)->childSink == atomic or
+			(*ic)->childSource  == atomic){
+				c->lsIC.erase(ic);
+				ic=c->lsIC.begin();
+				continue;
+			}
 		}
 	}else{
 		modelChild * m = new modelChild();
@@ -107,6 +120,20 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		m->atomic->paramsString = (*childsIterator)->atomic->paramsString;
 		m->atomic->father = rtr;
 		rtr->childs.append(m);
+		//TODO: Agregar las conecciones asociadas a este atomico.
+		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
+			ic != c->lsIC.end();
+			ic++){
+
+			if(( (*ic)->childSource == atomic and (*ic)->childSink <= atomic)
+					or
+			     ((*ic)->childSink == atomic and (*ic)->childSource <= atomic)){
+				rtr->lsIC.append(*ic);
+				
+			}
+		}
+
+
 	}
     }
     //rtr->lsIC.append(c->lsIC);

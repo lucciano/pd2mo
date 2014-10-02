@@ -1,67 +1,73 @@
 Open File CoupledModel02.flatted.pds
 Load class list based on class map.
 std::list<AST_Class_*>* pd2mo::Pd2Mo::getAsClassList(modelCoupled*, std::map<std::basic_string<char>, std::basic_string<char> >*, std::ostream*)
+PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
 PowerDevs File qss/qss_wsum.h to /home/powerdevs/pd2mo/data/qss/qss_wsum.mo FILE EXISTS 
-PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
-PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
-PowerDevs File sinks/gnuplot.h to /home/powerdevs/pd2mo/data/sinks/gnuplot.mo FILE NO EXISTS
 PowerDevs File qss/qss_integrator.h to /home/powerdevs/pd2mo/data/qss/qss_integrator.mo FILE EXISTS 
 PowerDevs File qss/qss_wsum.h to /home/powerdevs/pd2mo/data/qss/qss_wsum.mo FILE EXISTS 
-WSum
-  parameter Real WSum_0_p[9] = {1,1,0,0,0,0,0,0,2};
-  parameter Integer WSum_0_n = integer(2);
-  parameter Real WSum_0_w[WSum_0_n] = WSum_0_p[1:WSum_0_n];
-  Real WSum_0_u[WSum_0_n];
-  Real WSum_0_y[1];
+PowerDevs File sources\constant_sci.h to /home/powerdevs/pd2mo/data/sources/constant_sci.mo FILE EXISTS 
+PowerDevs File sinks/gnuplot.h to /home/powerdevs/pd2mo/data/sinks/gnuplot.mo FILE NO EXISTS
+Constant
+  parameter Real Constant_0_k = 1;
+  Real Constant_0_y[1](start = {Constant_0_k});
   equation
-    WSum_0_y[1] = WSum_0_u*WSum_0_w;
-end WSum;
+    Constant_0_y[1] = Constant_0_k;
+end Constant;
 @0
-Constant
-  parameter Real Constant_1_k = 1;
-  Real Constant_1_y[1](start = {Constant_1_k});
-  equation
-    Constant_1_y[1] = Constant_1_k;
-end Constant;
-@1
-Constant
-  parameter Real Constant_2_k = 1;
-  Real Constant_2_y[1](start = {Constant_2_k});
-  equation
-    Constant_2_y[1] = Constant_2_k;
-end Constant;
-@2
-<<No Mapped Class>> @3
-QSSIntegrator
-  parameter Real QSSIntegrator_4_x0 = 0;
-  Real QSSIntegrator_4_u[1];
-  Real QSSIntegrator_4_y[1](start = {QSSIntegrator_4_x0});
-  equation
-    der(QSSIntegrator_4_y[1]) = QSSIntegrator_4_u[1];
-end QSSIntegrator;
-@4
 WSum
-  parameter Real WSum_5_p[9] = {1,-1,0,0,0,0,0,0,2};
-  parameter Integer WSum_5_n = integer(2);
-  parameter Real WSum_5_w[WSum_5_n] = WSum_5_p[1:WSum_5_n];
-  Real WSum_5_u[WSum_5_n];
-  Real WSum_5_y[1];
+  parameter Real WSum_1_p[9] = {1,1,0,0,0,0,0,0,2};
+  parameter Integer WSum_1_n = integer(2);
+  parameter Real WSum_1_w[WSum_1_n] = WSum_1_p[1:WSum_1_n];
+  Real WSum_1_u[WSum_1_n];
+  Real WSum_1_y[1];
   equation
-    WSum_5_y[1] = WSum_5_u*WSum_5_w;
+    WSum_1_y[1] = WSum_1_u*WSum_1_w;
 end WSum;
-@5
+@1
+QSSIntegrator
+  parameter Real QSSIntegrator_2_x0 = 0;
+  Real QSSIntegrator_2_u[1];
+  Real QSSIntegrator_2_y[1](start = {QSSIntegrator_2_x0});
+  equation
+    der(QSSIntegrator_2_y[1]) = QSSIntegrator_2_u[1];
+end QSSIntegrator;
+@2
 WSum
+  parameter Real WSum_3_p[9] = {1,-1,0,0,0,0,0,0,2};
+  parameter Integer WSum_3_n = integer(2);
+  parameter Real WSum_3_w[WSum_3_n] = WSum_3_p[1:WSum_3_n];
+  Real WSum_3_u[WSum_3_n];
+  Real WSum_3_y[1];
+  equation
+    WSum_3_y[1] = WSum_3_u*WSum_3_w;
+end WSum;
+@3
 Constant
+  parameter Real Constant_4_k = 1;
+  Real Constant_4_y[1](start = {Constant_4_k});
+  equation
+    Constant_4_y[1] = Constant_4_k;
+end Constant;
+@4
+<<No Mapped Class>> @5
 Constant
+WSum
 QSSIntegrator
 WSum
+Constant
 Add coupledmodel connections
 Scalar connection
-WSum_5_u[1] = WSum_0_y[1];
+WSum_1_u[1] = Constant_0_y[1];
 
 Scalar connection
-QSSIntegrator_4_u[1] = WSum_5_y[1];
+WSum_3_u[1] = WSum_1_y[1];
 
 Scalar connection
-WSum_5_u[2] = QSSIntegrator_4_y[1];
+QSSIntegrator_2_u[1] = WSum_3_y[1];
+
+Scalar connection
+WSum_3_u[2] = QSSIntegrator_2_y[1];
+
+Scalar connection
+WSum_1_u[2] = Constant_4_y[1];
 
