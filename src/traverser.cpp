@@ -439,8 +439,11 @@ AST_ExpressionList Traverser::visitExpressionList(AST_ExpressionList exList){
 }
 
 AST_Expression Traverser::visitExpression(AST_Expression ex){
+	if(ex == NULL){
+		return ex;
+	}
 	//debug << __PRETTY_FUNCTION__ ;
-	switch(ex->expressionType ()){
+	switch(ex->expressionType()){
         case EXPCOMPREF:
 		//debug << "EXPCOMPREF:" << endl;
 		return visitExpression_ComponentReference(ex->getAsComponentReference());
@@ -552,7 +555,6 @@ AST_Expression_ComponentReference Traverser::visitExpression_ComponentReference(
 			visitExpressionList(current_element(exp_it)));
 		exp_it++;
 	}
-
 
 	return rVal;
 }

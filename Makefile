@@ -33,7 +33,7 @@ test: $(TEST) $(OBJ_COMMON)
 pd2mo: src/main.o $(OBJ_COMMON)
 	$(CXX) -o $@ $< $(OBJ_COMMON)$(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
-test/mda: test/mda.o 
+test/mda: test/mda.o $(OBJ_COMMON)
 	$(CXX) -o $@ $< $(OBJ_COMMON) $(CFLAGS) $(CPPFLAGS) $(CPPLIBS) 
 
 test/annotation : test/annotation.o 

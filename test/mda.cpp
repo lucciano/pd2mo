@@ -14,5 +14,10 @@ BOOST_AUTO_TEST_CASE( multidimarray){
     int r = 0;
     AST_StoredDefinition sd = parseFile(filename,&r);
 
+    mda *m = new mda();
+
     cout << sd << endl;
+     
+    cout << m->visitStoredDefinition(sd) << endl;
+    
 }
