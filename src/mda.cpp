@@ -4,7 +4,6 @@
 namespace pd2mo{
 
 AST_Declaration mda::visitDeclaration(AST_Declaration dec){
-	cout <<  dec->name() << dec->indexes()->size() <<  endl  ; 
 	if(dec->indexes()->size() > 0){
 		def[dec->name()] = dec->indexes();
 	}
@@ -42,27 +41,31 @@ AST_Expression_ComponentReference mda::visitExpression_ComponentReference(AST_Ex
 		AST_ExpressionList expList = new list<AST_Expression>();
 		if(def.count(*current_element(it))>0
 		and current_element(exp_it)->size()) {
-		    cout << "*[";
+		    
 		    int size2=current_element(exp_it)->size(),i2=0;
 		    AST_ExpressionListIterator itExp = def[(*current_element(it))]->begin();
 
-		    foreach (exp_it2,current_element(exp_it)){
-			    cout << current_element(exp_it2) << "*";
-			    cout << current_element(itExp) << (++i2<size2 ? "+" : "");
-		    }
-		    cout << " - 1]->";
-		    
+		    AST_Expression expArr = NULL;
 		    foreach (exp_it2,current_element(exp_it)){
 			/// TODO Contruir la expresion....
+			current_element(exp_it2);
+			AST_Expression_BinOp mult = new AST_Expression_BinOp_(
+						current_element(exp_it2),
+						*itExp,BINOPMULT);
+			if(expArr){
+				expArr = new AST_Expression_BinOp_ (expArr, mult, BINOPADD);
+			}else{
+				expArr = mult;
+			}
 			itExp++;
 		    }
+		    expList->insert(expList->end(), expArr);
                     
 		}
 		rVal->append(visitString(current_element(it)), visitExpressionList(expList));
 
 		exp_it++;
 	}
-	cout << endl;
 	return Traverser::visitExpression_ComponentReference(rVal);
 }
 }
