@@ -47,7 +47,6 @@ AST_Expression_ComponentReference mda::visitExpression_ComponentReference(AST_Ex
 
 		    AST_Expression expArr = NULL;
 		    foreach (exp_it2,current_element(exp_it)){
-			/// TODO Contruir la expresion....
 			current_element(exp_it2);
 			AST_Expression_BinOp mult = new AST_Expression_BinOp_(
 						current_element(exp_it2),
