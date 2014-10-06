@@ -1,5 +1,6 @@
 #include <pd2mo.h>
 #include <evalp.h>
+#include <mda.h>
 
 /**
 check if modelChild is Atomic
@@ -237,7 +238,9 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		//(*log) <<"param type:" << param << endl;
 		
         }
-
+	//mda * multDimArr = new mda();
+	//modelMo = multDimArr->visitClass(modelMo);
+	//delete multDimArr;
 	(*output) << modelMo;
 
 }
@@ -277,6 +280,7 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
         AST_ClassList st = new list<AST_Class>();
         int r;
 	int modelId = 0;
+
         for (childsIterator = c->childs.begin(); 
                 childsIterator != c->childs.end(); 
                 ++childsIterator){

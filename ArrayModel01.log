@@ -17,7 +17,7 @@ end Constant;
 @1
 VectorSum
   parameter Real VectorSum_2_p[10] = {1,-1,0,0,0,0,0,0,2,10};
-  constant Integer VectorSum_2_N = 1000;
+  constant Integer VectorSum_2_N = 10;
   constant Integer VectorSum_2_nin = 2;
   parameter Real VectorSum_2_w[VectorSum_2_nin] = VectorSum_2_p[1:VectorSum_2_nin];
   Real VectorSum_2_u[VectorSum_2_N,VectorSum_2_nin];
@@ -72,10 +72,6 @@ Vec2Scalar
 Scalar2Vector
 VecInt
 Add coupledmodel connections
-Vectorial connection
-VectorSum_2_y --> VecInt_5_u(VectorSum_2_N)
-VecInt_5_u[1] = VectorSum_2_y[1];
-
 Error connecting : Scalar2Vector_4_ and VectorSum_2_
 Vectorial connection
 Scalar2Vector_4_y --> VectorSum_2_u(Scalar2Vector_4_N)
@@ -84,6 +80,10 @@ VectorSum_2_u[1] = Scalar2Vector_4_y[1];
 Error connecting : Constant_1_ and Scalar2Vector_4_
 Scalar connection
 Scalar2Vector_4_u[1] = Constant_1_y[1];
+
+Vectorial connection
+VectorSum_2_y --> VecInt_5_u(VectorSum_2_N)
+VecInt_5_u[1] = VectorSum_2_y[1];
 
 Vectorial connection
 VecInt_5_y --> VectorSum_2_u(VecInt_5_N)

@@ -26,10 +26,6 @@ AST_Declaration mda::visitDeclaration(AST_Declaration dec){
 }
 
 AST_Expression_ComponentReference mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	//cout << compRefExp <<" " << (*compRefExp->indexes()->begin())->size() << endl  ; 
-	
-        //if (def.count(compRefExp->name())>0)
-	//cout << "\t" << compRefExp->name() << def[compRefExp->name()]->size() << endl;
 	AST_Expression_ComponentReference rVal =
 		 new AST_Expression_ComponentReference_ ();
 
