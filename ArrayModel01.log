@@ -46,14 +46,14 @@ Scalar2Vector
   Real Scalar2Vector_4_y[Scalar2Vector_4_N,1];
   equation
     for Scalar2Vector_4_i in 1:Scalar2Vector_4_N loop
-      Scalar2Vector_4_y[Scalar2Vector_4_i,1] = (if Scalar2Vector_4_Index==Scalar2Vector_4_i or Scalar2Vector_4_Index==(-1) then Scalar2Vector_4_u[1] else 0);
+      Scalar2Vector_4_y[Scalar2Vector_4_i,1] = (if Scalar2Vector_4_Index+1==Scalar2Vector_4_i or Scalar2Vector_4_Index==(-1) then Scalar2Vector_4_u[1] else 0);
     end for;
 end Scalar2Vector;
 @4
 VecInt
   parameter Real VecInt_5_p[5] = {0,1e-06,0.001,0,10};
   constant Integer VecInt_5_N = 10;
-  parameter Real VecInt_5_x0 = 1;
+  parameter Real VecInt_5_x0 = 0;
   Real VecInt_5_u[VecInt_5_N,1];
   Real VecInt_5_y[VecInt_5_N,1];
   initial equation

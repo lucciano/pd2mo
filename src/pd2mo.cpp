@@ -238,8 +238,8 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		//(*log) <<"param type:" << param << endl;
 		
         }
-	//mda * multDimArr = new mda();
-	//modelMo = multDimArr->visitClass(modelMo);
+	mda * multDimArr = new mda();
+	modelMo = multDimArr->visitClass(modelMo);
 	//delete multDimArr;
 	(*output) << modelMo;
 

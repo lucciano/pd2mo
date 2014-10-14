@@ -1,66 +1,62 @@
 #include <traverser.h>
 #include <mda.h>
+#include <string>
 
 namespace pd2mo{
 
 AST_Declaration mda::visitDeclaration(AST_Declaration dec){
-	if(dec->indexes()->size() > 0){
-		def[dec->name()] = dec->indexes();
-	}
-	AST_ExpressionList simpList = new list< AST_Expression >();
-	AST_ExpressionListIterator it; 
-	int j = 0;
-	AST_Expression prevMult = NULL;
-	foreach(it, dec->indexes()){
-		j++;
-		if (j >= 2) {
-			prevMult = new AST_Expression_BinOp_ (prevMult, current_element(it), BINOPMULT);
-		}else if (j == 1) {
-			prevMult = current_element(it);
-		}
-	}
-	if(prevMult != NULL) simpList->insert(simpList->begin(), prevMult);
-	return new AST_Declaration_ (dec->name(),
-				visitExpressionList(simpList),
-				dec->modification());
+	return Traverser::visitDeclaration(dec);
 }
 
-AST_Expression_ComponentReference mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	AST_Expression_ComponentReference rVal =
-		 new AST_Expression_ComponentReference_ ();
+AST_Expression_ComponentReference 
+	mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
+	return Traverser::visitExpression_ComponentReference(compRefExp);
+}
 
-	AST_ExpressionListListIterator exp_it=compRefExp->indexes()->begin();
-	AST_ExpressionListIterator exp_it2;
-	AST_StringListIterator it;
-	AST_ExpressionListIterator arrRange;
-	foreach (it, compRefExp->names()) {
-		AST_ExpressionList expList = new list<AST_Expression>();
-		if(def.count(*current_element(it))>0
-		and current_element(exp_it)->size()) {
-		    
-		    int size2=current_element(exp_it)->size(),i2=0;
-		    AST_ExpressionListIterator itExp = def[(*current_element(it))]->begin();
+AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
+	AST_DeclarationListIterator it;
+	AST_DeclarationList ret = new list<AST_Declaration>();
+	foreach(it, decList){
+		AST_Declaration dec = visitDeclaration(current_element(it));
+		AST_ExpressionList indexes = dec->indexes();
+		if(indexes->size() >= 2){
+			cout << dec->name() << " un buen candidato para eliminar o remplazar" << endl;
+			AST_ExpressionListIterator itExp;
 
-		    AST_Expression expArr = NULL;
-		    foreach (exp_it2,current_element(exp_it)){
-			current_element(exp_it2);
-			AST_Expression_BinOp mult = new AST_Expression_BinOp_(
-						current_element(exp_it2),
-						*itExp,BINOPMULT);
-			if(expArr){
-				expArr = new AST_Expression_BinOp_ (expArr, mult, BINOPADD);
-			}else{
-				expArr = mult;
+			foreach(itExp, indexes){
+				if(current_element(itExp)->expressionType() == EXPINTEGER){
+					AST_Expression_Integer itExpInteger = current_element(itExp)->getAsInteger();
+					if(itExpInteger->val() == 1){
+						cout << dec->name() << "(1) podemos eliminar una dimension " << endl;
+						//indexes->erase(itExp);
+					}else{
+						//indexes->erase(itExp);
+						AST_ExpressionList altDec = new std::list<AST_Expression>();
+						for(int i = 1; i <= itExpInteger->val(); i++){
+							std::stringstream ss;
+							std::string label;
+							ss << dec->name() << "_"<< i;
+							label = ss.str();
+							cout << label << " redimensionado" << endl;
+							//new AST_Declaration_ (dec->name() + itoa(i), 
+							//	visitExpressionList(dec->indexes()),
+							//	visitModification(dec->modification()))
+							
+						}
+					}
+				}else{
+					cout << dec << endl;
+				}
 			}
-			itExp++;
-		    }
-		    expList->insert(expList->end(), expArr);
-                    
+		}else{
+			if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
+			   dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER){
+				var[dec->name()] = dec->modification()->getAsEqual()->exp()->getAsInteger();
+			}
+			ret->insert(ret->end(), dec);
 		}
-		rVal->append(visitString(current_element(it)), visitExpressionList(expList));
-
-		exp_it++;
 	}
-	return Traverser::visitExpression_ComponentReference(rVal);
+	return ret;
 }
+
 }
