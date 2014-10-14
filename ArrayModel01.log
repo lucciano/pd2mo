@@ -30,7 +30,7 @@ end VectorSum;
 @2
 Vec2Scalar
   parameter Real Vec2Scalar_3_p[2] = {0,10};
-  parameter Integer Vec2Scalar_3_Index = 0;
+  parameter Integer Vec2Scalar_3_Index = 0+1;
   constant Integer Vec2Scalar_3_N = 10;
   Real Vec2Scalar_3_u[Vec2Scalar_3_N,1];
   Real Vec2Scalar_3_y[1];

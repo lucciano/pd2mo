@@ -8,7 +8,7 @@ model Pd2Model
   Real VectorSum_2_u[VectorSum_2_N,VectorSum_2_nin];
   Real VectorSum_2_y[VectorSum_2_N,1];
   parameter Real Vec2Scalar_3_p[2] = {0,10};
-  parameter Integer Vec2Scalar_3_Index = 0;
+  parameter Integer Vec2Scalar_3_Index = 0+1;
   constant Integer Vec2Scalar_3_N = 10;
   Real Vec2Scalar_3_u[Vec2Scalar_3_N,1];
   Real Vec2Scalar_3_y[1];

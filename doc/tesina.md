@@ -6,7 +6,7 @@
 En este trabajo se descrive la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el Modelica, más especificamente en µModelica, con el fin de aprobechar la velocidad de simulación del '''QSS Solver''' y aprobechar su velocidad de simulación, permitiendo describir las simulaciones en el entorno PowerDEVS.
 
 # Introducción #
-Hola [@Fer12] .
+[@Fer12] .
 ## Motivación y Objetivos ##
 ## Trabajo relacionado ##
 ## Alcance ##
