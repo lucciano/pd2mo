@@ -6,15 +6,14 @@
 
 namespace pd2mo{
 
+
 AST_Declaration mda::visitDeclaration(AST_Declaration dec){
 	return Traverser::visitDeclaration(dec);
 }
 
-AST_Expression_ComponentReference 
-	mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	return Traverser::visitExpression_ComponentReference(compRefExp);
-}
 
+
+//TODO: a level up (the calling function) will look better in the code
 AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 	AST_DeclarationListIterator it;
 	AST_DeclarationList ret = new list<AST_Declaration>();
@@ -33,19 +32,6 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 					cout << dec->name() << "(1) podemos eliminar una dimension " << endl;
 						//indexes->erase(itExp);
 				}else{
-					//TODO : sustituir las dimensiones
-						//AST_ExpressionList altDec = new std::list<AST_Expression>();
-						//for(int i = 1; i <= itExpInteger->val(); i++){
-						//	std::stringstream ss;
-						//	std::string label;
-						//	ss << dec->name() << "_"<< i;
-						//	label = ss.str();
-						//	cout << label << " redimensionado" << endl;
-						//	//new AST_Declaration_ (dec->name() + itoa(i), 
-						//	//	visitExpressionList(dec->indexes()),
-						//	//	visitModification(dec->modification()))
-						//	
-						//}
 					if(current_element(itExp)->expressionType() == EXPCOMPREF and
 				        var.find(current_element(itExp)
 						->getAsComponentReference()
@@ -82,6 +68,38 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 		}
 	}
 	return ret;
+}
+
+AST_Equation mda::visitEquationList(AST_Equation eq){
+	AST_EquationListIterator it;
+	AST_EquationList ret = new list<AST_Equation>();
+	foreach(it, eqList){
+		if(current_element(it)->equationType() == EQFOR){
+			AST_Equation_For eqFor = eq->getAsFor();
+			AST_ForIndexList eqForIndexList = eqFor->forIndexList();
+			//TODO : check that the for can be exanded (i.e. it goes from IntExp to IntExp)
+			//TODO . Add the var to the prefix stack
+			//TODO : Traverse each list and the add all elements to the list
+		}else{
+			ret->insert(ret->end(), visitEquation(current_element(it)));
+		}
+	}
+	return ret;
+}
+
+AST_Expression_ComponentReference 
+	mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
+
+	//TODO : Check if we have an element on the stack, if we do we may be able to rewrite the reference and drop an index.
+	cout << compRefExp << endl;
+	return Traverser::visitExpression_ComponentReference(compRefExp);
+}
+
+AST_Statement_For mda::visitStatement_For(AST_Statement_For stFor){
+	cout << "------------------stFor-----------------"<< endl;
+	cout << stFor << endl;
+	cout << "------------------stFor-----------------"<< endl;
+	return Traverser::visitStatement_For(stFor);
 }
 
 }
