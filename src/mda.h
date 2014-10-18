@@ -10,6 +10,9 @@ class mda : public Traverser {
 
    std::map<string, AST_Declaration> declr;
    std::map<string, AST_Expression_Integer> var;
+
+   AST_Expression lookUpVar(AST_Expression);
+
    public : 
 	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
 
@@ -17,7 +20,6 @@ class mda : public Traverser {
 
 	virtual AST_DeclarationList visitDeclarationList(AST_DeclarationList decList);
 
-	virtual AST_Equation visitEquation(AST_Equation eq);
 	virtual AST_Statement_For visitStatement_For(AST_Statement_For stFor);
 	virtual AST_EquationList visitEquationList(AST_EquationList eqList);
 };

@@ -70,16 +70,45 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 	return ret;
 }
 
-AST_Equation mda::visitEquationList(AST_Equation eq){
+AST_Expression mda::lookUpVar (AST_Expression exp){
+	if(exp->expressionType() == EXPCOMPREF and 
+		var.find(exp->getAsComponentReference()->name()) != var.end()){
+		return lookUpVar(var[exp->getAsComponentReference()->name()]);
+	}else{
+		return exp;
+	}
+}
+
+AST_EquationList mda::visitEquationList(AST_EquationList eqList){
 	AST_EquationListIterator it;
 	AST_EquationList ret = new list<AST_Equation>();
 	foreach(it, eqList){
 		if(current_element(it)->equationType() == EQFOR){
-			AST_Equation_For eqFor = eq->getAsFor();
+			AST_Equation_For eqFor = current_element(it)->getAsFor();
 			AST_ForIndexList eqForIndexList = eqFor->forIndexList();
-			//TODO : check that the for can be exanded (i.e. it goes from IntExp to IntExp)
-			//TODO . Add the var to the prefix stack
-			//TODO : Traverse each list and the add all elements to the list
+			AST_ForIndexListIterator itf;
+			foreach(itf, eqForIndexList){
+				AST_ForIndex indexFor = current_element(itf);
+				//TODO : check that the for can be exanded (i.e. it goes from IntExp to IntExp)
+				if (indexFor->in_exp()->expressionType() == EXPRANGE){
+					AST_ExpressionList expList = indexFor->in_exp()->getAsRange()->expressionList();
+					if(expList->size() == 2){
+						AST_Expression from, to;
+						from = *(expList->begin());
+						to = *(++expList->begin());
+						cout << "Rage Size " << expList->size() << endl;
+						cout << "Variable " << indexFor->variable() << endl;
+						cout << "Expresion " << indexFor->in_exp() << endl;
+						cout << lookUpVar(from) << "...." << lookUpVar(to) << endl;
+						if (lookUpVar(from)->expressionType() == EXPINTEGER and
+							lookUpVar(to)->expressionType() == EXPINTEGER ){
+							cout << "this for is expandible TDOD:" << endl; // TODO
+							//TODO . Add the var to the prefix stack
+							//TODO : Traverse each list and the add all elements to the list
+						}
+					}
+				}
+			}
 		}else{
 			ret->insert(ret->end(), visitEquation(current_element(it)));
 		}
