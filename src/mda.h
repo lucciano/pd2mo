@@ -22,6 +22,9 @@ class mda : public Traverser {
 
 	virtual AST_Statement_For visitStatement_For(AST_Statement_For stFor);
 	virtual AST_EquationList visitEquationList(AST_EquationList eqList);
+
+	virtual AST_Expression visitExpression(AST_Expression ex);
+
 };
 
 }
