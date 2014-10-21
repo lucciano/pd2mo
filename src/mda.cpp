@@ -19,55 +19,61 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 	AST_DeclarationList ret = new list<AST_Declaration>();
 	foreach(it, decList){
 		AST_Declaration dec = visitDeclaration(current_element(it));
-		AST_ExpressionList indexes = dec->indexes();
-		if(indexes->size() >= 2){
-			//cout << dec->name() << " un buen candidato para eliminar o remplazar" << endl;
-			AST_ExpressionListIterator itExp;
+//		AST_ExpressionList indexes = dec->indexes();
+//		if(indexes->size() >= 2){
+//			cout << dec->name() << " un buen candidato para eliminar o remplazar" << endl;
+//			AST_ExpressionListIterator itExp;
+//
+//			foreach(itExp, indexes){
+//				//TODO, podemos procesar si es una referenceExpresion y la tenemos en var
+//				if(current_element(itExp)->expressionType() == EXPINTEGER and 
+//					current_element(itExp)->getAsInteger()->val() == 1)
+//				{
+//					//cout << dec->name() << "(1) podemos eliminar una dimension " << endl;
+//						//indexes->erase(itExp);
+//				}else{
+//					if(current_element(itExp)->expressionType() == EXPCOMPREF and
+//				        var.find(current_element(itExp)
+//						->getAsComponentReference()
+//						->name()) != var.end() and
+//					   itExp != indexes->begin()
+//					  )
+//					{
+//						int x = var[current_element(itExp)
+//							->getAsComponentReference()
+//							->name()]->val();
+//						for(int i  = 1; i <= x; i++){
+//							AST_ExpressionList altInx = new std::list<AST_Expression>();
+//							altInx->insert(altInx->begin(),
+//									std::next(itExp,0),  
+//									indexes->end());
+//							std::stringstream ss;
+//							ss << dec->name() << "_" << i;
+//							AST_Declaration dec2 = new AST_Declaration_(ss.str(),
+//										altInx, dec->modification());
+//				
+//							ret->insert(ret->end(), dec2);
+//						}
+//					}
+//				}
+//			}
+//		}else{
+//			if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
+//			   dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER){
+//				var[dec->name()] = dec->modification()->getAsEqual()->exp()->getAsInteger();
+//				//cout << dec->name() << "=" <<  var[dec->name()] << endl;
+//			}
 
-			foreach(itExp, indexes){
-				//TODO, podemos procesar si es una referenceExpresion y la tenemos en var
-				if(current_element(itExp)->expressionType() == EXPINTEGER and 
-					current_element(itExp)->getAsInteger()->val() == 1)
-				{
-					//cout << dec->name() << "(1) podemos eliminar una dimension " << endl;
-						//indexes->erase(itExp);
-				}else{
-					if(current_element(itExp)->expressionType() == EXPCOMPREF and
-				        var.find(current_element(itExp)
-						->getAsComponentReference()
-						->name()) != var.end() and
-					   itExp != indexes->begin()
-					  )
-					{
-						int x = var[current_element(itExp)
-							->getAsComponentReference()
-							->name()]->val();
-						for(int i  = 1; i <= x; i++){
-							AST_ExpressionList altInx = new std::list<AST_Expression>();
-							altInx->insert(altInx->begin(),
-									std::next(itExp,0),  
-									indexes->end());
-							std::stringstream ss;
-							ss << dec->name() << "_" << i;
-							AST_Declaration dec2 = new AST_Declaration_(ss.str(),
-										altInx, dec->modification());
-				
-							ret->insert(ret->end(), dec2);
-						}
-						//cout << x << endl;
-					}
-				}
-			}
-		}else{
-			if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
-			   dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER){
-				var[dec->name()] = dec->modification()->getAsEqual()->exp()->getAsInteger();
-				//cout << dec->name() << "=" <<  var[dec->name()] << endl;
-			}
-			ret->insert(ret->end(), dec);
+		if(dec->modification() and dec->modification()->modificationType() == MODEQUAL
+			and dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER 
+		){
+			cout << dec->name() << endl;
+			var[dec->name()] = current_element(it)->modification()->getAsEqual()->exp()->getAsInteger();
 		}
+		ret->insert(ret->end(), dec);
 	}
 	return ret;
+	//return Traverser::visitDeclarationList(decList);
 }
 
 AST_Expression mda::lookUpVar (AST_Expression exp){
@@ -128,11 +134,11 @@ AST_Expression_ComponentReference
 
 	//TODO : Check if we have an element on the stack, if we do we may be able to rewrite the reference and drop an index.
 	if(compRefExp->indexes()->size() > 0 and (*compRefExp->indexes()->begin())->size() > 1){
-		cout << compRefExp << endl;
+		//cout << compRefExp << endl;
 		AST_ExpressionListIterator it;
 
 		std::stringstream ss;
-		cout << "name:" << *(compRefExp->names()->begin()) << endl;
+		//cout << "name:" << *(compRefExp->names()->begin()) << endl;
 		ss <<*(compRefExp->names()->begin());
 		bool first = true;
 		AST_ExpressionList expList = new std::list<AST_Expression>();
