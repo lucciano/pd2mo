@@ -33,6 +33,7 @@ AST_Class Traverser::visitClass(AST_Class _class){
 	//debug << __PRETTY_FUNCTION__ << endl  ;
 	AST_Class _retClass = new AST_Class_Definition_ (visitString(_class->getAsDefinition()->name()), 
 			visitComposition(_class->getAsDefinition()->composition()));
+	_retClass->setPrefixes(_class->prefix());
 	return _retClass;
 }
 

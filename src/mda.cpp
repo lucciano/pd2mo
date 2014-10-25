@@ -67,7 +67,7 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 		if(dec->modification() and dec->modification()->modificationType() == MODEQUAL
 			and dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER 
 		){
-			cout << dec->name() << endl;
+			//cout << dec->name() << endl;
 			var[dec->name()] = current_element(it)->modification()->getAsEqual()->exp()->getAsInteger();
 		}
 		ret->insert(ret->end(), dec);
@@ -83,6 +83,66 @@ AST_Expression mda::lookUpVar (AST_Expression exp){
 	}else{
 		return exp;
 	}
+}
+
+AST_ElementList mda::visitElementList(AST_ElementList elementList){
+	AST_ElementListIterator itelemen;
+	AST_ElementList ret = new list<AST_Element>(); 
+	foreach(itelemen, elementList){
+		bool skyp_element = false;
+		if(current_element(itelemen)->elementType() == COMPONENT){
+			AST_Element_Component comp = current_element(itelemen)->getAsComponent();
+
+			AST_DeclarationListIterator it;
+			foreach(it, comp->nameList()){
+				AST_Declaration dec = current_element(it);
+				AST_ExpressionList indexes = dec->indexes();
+				if(indexes->size() >= 2){
+					AST_Expression a1 = lookUpVar(*indexes->begin());
+					AST_Expression a2 = lookUpVar(*std::next(indexes->begin(),1));
+					if(a1->expressionType() == EXPINTEGER and a2->expressionType() == EXPINTEGER){
+						//cout << comp->name() << "[" <<a1 << ", " << a2 << "]" << endl;
+						skyp_element = true;
+						AST_DeclarationList decList = new std::list<AST_Declaration>();
+						for(int i = 1; i <= a2->getAsInteger()->val(); i++){
+							std::stringstream ss;
+							ss <<(comp->name());
+							ss << "_" << i;
+							AST_ExpressionListIterator indexIt;
+							AST_ExpressionList ss_list = new std::list<AST_Expression>();
+							foreach(indexIt, indexes){
+								if(indexIt == std::next(indexes->begin(),1)){
+									continue;
+								}
+								ss_list->insert(ss_list->end(), visitExpression(current_element(indexIt)));
+							}
+
+							AST_DeclarationList expList = new std::list<AST_Declaration>();
+							AST_Declaration newDec = new AST_Declaration_(ss.str(), ss_list, dec->modification());
+							decList->insert(decList->end(), newDec);
+						}
+
+						ret->insert(ret->end(), new AST_Element_Component_ ( decList, comp->type(), 
+							comp->typePrefix(), visitExpressionList(comp->indexes())));
+
+					}
+				}else{
+					if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
+					   dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER){
+						var[dec->name()] = dec->modification()->getAsEqual()->exp()->getAsInteger();
+					}
+				}
+				
+			}
+			
+		}
+		if(!skyp_element){
+			ret->insert(ret->end(), visitElement(current_element(itelemen)));
+		}	
+
+        }
+
+	return ret;
 }
 
 AST_EquationList mda::visitEquationList(AST_EquationList eqList){
