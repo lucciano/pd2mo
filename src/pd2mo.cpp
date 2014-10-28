@@ -238,11 +238,8 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 		//(*log) <<"param type:" << param << endl;
 		
         }
-	//mda * multDimArr = new mda();
-	//modelMo = multDimArr->visitClass(modelMo);
-	//delete multDimArr;
-	(*output) << modelMo;
 
+	(*output) << modelMo;
 }
 void find_and_replace(string& source, string const& find, string const& replace)
 {

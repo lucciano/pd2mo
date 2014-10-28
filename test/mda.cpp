@@ -16,8 +16,8 @@ BOOST_AUTO_TEST_CASE( multidimarray){
 
     mda *m = new mda();
 
-    cout << sd << endl;
+    cout << *sd->models()->begin() << endl;
      
-    cout << m->visitStoredDefinition(sd) << endl;
+    cout << m->visitClass(*sd->models()->begin()) << endl;
     
 }

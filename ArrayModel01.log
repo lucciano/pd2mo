@@ -8,14 +8,14 @@ PowerDevs File vector/vec2scalar.h to /home/powerdevs/pd2mo/data/vector/vec2scal
 PowerDevs File vector/scalar2vec.h to /home/powerdevs/pd2mo/data/vector/scalar2vec.mo FILE EXISTS 
 PowerDevs File vector\qss_integrator_vec.h to /home/powerdevs/pd2mo/data/vector/qss_integrator_vec.mo FILE EXISTS 
 <<No Mapped Class>> @0
-Constant
+class Constant
   parameter Real Constant_1_k = 1;
   Real Constant_1_y[1](start = {Constant_1_k});
   equation
     Constant_1_y[1] = Constant_1_k;
 end Constant;
 @1
-VectorSum
+class VectorSum
   parameter Real VectorSum_2_p[10] = {1,-1,0,0,0,0,0,0,2,10};
   constant Integer VectorSum_2_N = 10;
   constant Integer VectorSum_2_nin = 2;
@@ -28,7 +28,7 @@ VectorSum
     end for;
 end VectorSum;
 @2
-Vec2Scalar
+class Vec2Scalar
   parameter Real Vec2Scalar_3_p[2] = {0,10};
   parameter Integer Vec2Scalar_3_Index = 0+1;
   constant Integer Vec2Scalar_3_N = 10;
@@ -38,7 +38,7 @@ Vec2Scalar
     Vec2Scalar_3_y[1] = Vec2Scalar_3_u[Vec2Scalar_3_Index,1];
 end Vec2Scalar;
 @3
-Scalar2Vector
+class Scalar2Vector
   parameter Real Scalar2Vector_4_p[2] = {-1,10};
   constant Integer Scalar2Vector_4_N = 10;
   parameter Integer Scalar2Vector_4_Index = -1;
@@ -50,7 +50,7 @@ Scalar2Vector
     end for;
 end Scalar2Vector;
 @4
-VecInt
+class VecInt
   parameter Real VecInt_5_p[5] = {0,1e-06,0.001,0,10};
   constant Integer VecInt_5_N = 10;
   parameter Real VecInt_5_x0 = 0;

@@ -3,6 +3,7 @@
 #include <getopt.h>    
 #include <pd2mo.h>
 #include <src/flatter.h>
+#include <src/mda.h>
 #include <pdppt/codegenerator.h>
 #include <libgen.h>
 using namespace std;
@@ -14,6 +15,7 @@ int main (int argc, char* argv[]) {
     string src_outfile("");
     string logfile("");
     string flatted("");
+    string mmodelica_src_outfile("");
 
     int c;
     int digit_optind = 0;
@@ -23,12 +25,14 @@ int main (int argc, char* argv[]) {
         {"path", 1, 0, 'p'},
         {"output", 1, 0, 'o'},
         {"flatted", 1, 0, 'f'},
+        {"log", 1, 0, 'l'},
+        {"mmodelica", 1, 0, 'm'},
         {"help", 0, 0, 'h'},
         {NULL, 0, NULL, 0}
     };
     int option_index = 0;
 
-    while ((c = getopt_long(argc, argv, "hp:o:",
+    while ((c = getopt_long(argc, argv, "hp:o:l:m:",
                  long_options, &option_index)) != -1) {
         int this_option_optind = optind ? optind : 1;
         switch (c) {
@@ -37,6 +41,7 @@ int main (int argc, char* argv[]) {
 		<< "[-p|--path=some/path] " 
 		<< "[-l|--log=modelfile.log] " 
 		<< "[-o|--output=modelfile.mo] "
+		<< "[-m|--mmodelica=modelfile.mo] "
 		<< "[-f|--flatted=modelfile.flatted.pds] <modelfile.pds>"<< endl;
 	    cout << "-h, --help\t\tPrint this help message"<< endl;
 	    cout << "-p, --path\t\tpath with the .mo files, defaults to \"" << path <<"\""<< endl;
@@ -54,6 +59,9 @@ int main (int argc, char* argv[]) {
             break;
         case 'o':
 	    src_outfile = string(optarg);
+            break;
+        case 'm':
+	    mmodelica_src_outfile = string(optarg);
             break;
         case '?':
             break;
@@ -83,7 +91,11 @@ int main (int argc, char* argv[]) {
 	src_outfile = string(basename(base));
     }
     ofstream outfile;
-    outfile.open(src_outfile.c_str());
+    outfile.open(src_outfile.c_str(), ios::trunc);
+
+    if(mmodelica_src_outfile.compare("") == 0){
+        mmodelica_src_outfile = src_outfile;
+    }
 
     if(logfile.compare("") == 0){
         logfile = src_infile;
@@ -105,11 +117,20 @@ int main (int argc, char* argv[]) {
     generateCode(qm, QString::fromStdString(flatted), false, true);
 
     ofstream oFlogfile;
-    oFlogfile.open(logfile.c_str());
+    oFlogfile.open(logfile.c_str(), ios::trunc);
 
     Pd2Mo q = Pd2Mo();
     q.setPath(path);
     q.transform(flatted, &outfile, &oFlogfile);
     outfile.close();
+
+    int r = 0;
+    AST_StoredDefinition sd = parseFile(src_outfile.c_str(),&r);
+
+    mda *m = new mda();
+    outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
+    outfile << m->visitClass(*sd->models()->begin()) << endl;
+    outfile.close();
+
     return 0;
 }

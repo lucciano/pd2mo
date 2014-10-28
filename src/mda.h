@@ -16,8 +16,6 @@ class mda : public Traverser {
    public : 
 	virtual AST_EquationList visitEquationList(AST_EquationList eqList);
 
-	virtual AST_Declaration visitDeclaration(AST_Declaration dec);
-
 	virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp);
 
 	virtual AST_DeclarationList visitDeclarationList(AST_DeclarationList decList);
