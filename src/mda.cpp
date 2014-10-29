@@ -46,19 +46,19 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 				AST_ExpressionList indexes = dec->indexes();
 				if(indexes->size() >= 2){
 					AST_Expression a1 = lookUpVar(*indexes->begin());
-					AST_Expression a2 = lookUpVar(*std::next(indexes->begin(),1));
-					if(a1->expressionType() == EXPINTEGER and a2->expressionType() == EXPINTEGER){
+					//AST_Expression a2 = lookUpVar(*std::next(indexes->begin(),1));
+					if(a1->expressionType() == EXPINTEGER){
 						//cout << comp->name() << "[" <<a1 << ", " << a2 << "]" << endl;
 						skyp_element = true;
 						AST_DeclarationList decList = new std::list<AST_Declaration>();
-						for(int i = 1; i <= a2->getAsInteger()->val(); i++){
+						for(int i = 1; i <= a1->getAsInteger()->val(); i++){
 							std::stringstream ss;
 							ss <<(comp->name());
 							ss << "_" << i;
 							AST_ExpressionListIterator indexIt;
 							AST_ExpressionList ss_list = new std::list<AST_Expression>();
 							foreach(indexIt, indexes){
-								if(indexIt == std::next(indexes->begin(),1)){
+								if(indexIt == indexes->begin()){
 									continue;
 								}
 								ss_list->insert(ss_list->end(), visitExpression(current_element(indexIt)));
@@ -118,6 +118,7 @@ AST_EquationList mda::visitEquationList(AST_EquationList eqList){
 								var[variable] = new AST_Expression_Integer_(i);
 								AST_EquationList fEqList = visitEquationList(eqFor->equationList());
 								ret->insert(ret->end(), fEqList->begin(), fEqList->end());
+								var.erase(variable);
 							//TODO . Add the var to the prefix stack
 							}
 						}else{
@@ -149,7 +150,7 @@ AST_Expression_ComponentReference
 		bool first = true;
 		AST_ExpressionList expList = new std::list<AST_Expression>();
 		foreach(it, (*compRefExp->indexes()->begin())){
-			if(!first and lookUpVar(current_element(it))->expressionType() == EXPINTEGER){//TODO: keep track, if we remove the index (==1) or not
+			if(first and lookUpVar(current_element(it))->expressionType() == EXPINTEGER){//TODO: keep track, if we remove the index (==1) or not
 				ss << "_" <<lookUpVar(current_element(it));
 			}else{
 				expList->insert(expList->end(), visitExpression(lookUpVar(current_element(it))));
