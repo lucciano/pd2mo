@@ -1,11 +1,13 @@
-#ifndef PD2MO_MDA
-#define PD2MO_MDA
+#ifndef PD2MO_UDA
+#define PD2MO_UDA
 #include <../src/traverser.h>
 #include <map>
 #include <list>
 
 namespace pd2mo{
 class uda : public Traverser {
+
+   std::map<string, std::list<int>> var;
 
    public : 
 	virtual AST_EquationList visitEquationList(AST_EquationList eqList);

@@ -4,6 +4,7 @@
 #include <pd2mo.h>
 #include <src/flatter.h>
 #include <src/mda.h>
+#include <src/uda.h>
 #include <pdppt/codegenerator.h>
 #include <libgen.h>
 using namespace std;
@@ -128,8 +129,14 @@ int main (int argc, char* argv[]) {
     AST_StoredDefinition sd = parseFile(src_outfile.c_str(),&r);
 
     mda *m = new mda();
+    uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
-    outfile << m->visitClass(*sd->models()->begin()) << endl;
+    outfile << u->visitClass(
+		m->visitClass(
+			*sd->models()->begin()
+				)
+				) << endl;
+
     outfile.close();
 
     return 0;

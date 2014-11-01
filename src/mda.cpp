@@ -24,10 +24,22 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 }
 
 AST_Expression mda::lookUpVar (AST_Expression exp){
+	
+
 	if(exp->expressionType() == EXPCOMPREF and 
-		var.find(exp->getAsComponentReference()->name()) != var.end()){
+		var.find(exp->getAsComponentReference()->name()) != var.end() and 
+		var[exp->getAsComponentReference()->name()] != NULL){
 		return lookUpVar(var[exp->getAsComponentReference()->name()]);
+	}else if(exp->expressionType() == EXPBINOP and 
+		exp->getAsBinOp()->binopType() == BINOPADD and
+		lookUpVar(exp->getAsBinOp()->left())->expressionType() == EXPINTEGER and
+		lookUpVar(exp->getAsBinOp()->right())->expressionType() == EXPINTEGER){
+		AST_Integer expInt = lookUpVar(exp->getAsBinOp()->left())->getAsInteger()->val() +
+				lookUpVar(exp->getAsBinOp()->right())->getAsInteger()->val();
+		cout << expInt << endl;	
+		return new AST_Expression_Integer_(expInt);
 	}else{
+
 		return exp;
 	}
 }
@@ -174,7 +186,8 @@ AST_Statement_For mda::visitStatement_For(AST_Statement_For stFor){
 }
 
 AST_Expression mda::visitExpression(AST_Expression ex){
-	return lookUpVar(Traverser::visitExpression(ex));
+	if(ex != NULL) return lookUpVar(Traverser::visitExpression(ex));
+	else return NULL;
 }
 
 }

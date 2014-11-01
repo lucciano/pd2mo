@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE( multidimarray){
 
     uda *m = new uda();
 
-    cout << *sd->models()->begin() << endl;
+ //   cout << *sd->models()->begin() << endl;
      
     cout << m->visitClass(*sd->models()->begin()) << endl;
     

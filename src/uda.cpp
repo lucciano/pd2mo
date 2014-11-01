@@ -23,13 +23,16 @@ AST_ElementList uda::visitElementList(AST_ElementList elementList){
 				AST_ExpressionList explist = dec->indexes();
 				AST_ExpressionList altExpList = new std::list<AST_Expression>();
 				AST_ExpressionListIterator itexpl;
+				int j = 0;
 				foreach(itexpl, explist){
 					if(current_element(itexpl)->expressionType() == EXPINTEGER and
 					   current_element(itexpl)->getAsInteger()->val() == 1){
-						cout << dec->name() << endl;
+						//cout << dec->name() << endl;
+						var[dec->name()].insert(var[dec->name()].end(),j);
 					}else{
 						altExpList->insert(altExpList->end(), visitExpression(current_element(itexpl)));
 					}
+					j++;
 				}
 				AST_Declaration altDec = new AST_Declaration_(dec->name(), 
 										altExpList, 
@@ -54,7 +57,28 @@ AST_EquationList uda::visitEquationList(AST_EquationList eqList){
 
 AST_Expression_ComponentReference 
 	uda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	return Traverser::visitExpression_ComponentReference(compRefExp);
+	string * varname = new string (**(compRefExp->names()->begin()));
+	std::map<string, std::list<int>>::const_iterator it = var.find(*varname);
+	AST_Expression_ComponentReference rVal =
+		 new AST_Expression_ComponentReference_ ();
+
+	if(it!=var.end()){
+		AST_ExpressionListIterator it;
+		int j = 0;
+		std::list<int>::const_iterator iit = var[*varname].begin();
+		AST_ExpressionList nplist = new std::list < AST_Expression >();
+		foreach(it, (*compRefExp->indexes()->begin())){
+			if((*iit) != j){
+				nplist->insert(nplist->end(), visitExpression(*it));
+			}
+			j++;
+		}
+		rVal->append(varname, nplist);
+		//cout << varname << endl;
+		return rVal;
+	}else{
+		return Traverser::visitExpression_ComponentReference(compRefExp);
+	}
 }
 
 AST_Statement_For uda::visitStatement_For(AST_Statement_For stFor){

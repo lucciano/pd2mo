@@ -10,7 +10,7 @@ PowerDevs File vector\qss_integrator_vec.h to /home/powerdevs/pd2mo/data/vector/
 <<No Mapped Class>> @0
 class Constant
   parameter Real Constant_1_k = 1;
-  Real Constant_1_y[1](start = {Constant_1_k});
+  Real Constant_1_y[1];
   equation
     Constant_1_y[1] = Constant_1_k;
 end Constant;
