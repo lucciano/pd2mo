@@ -8,7 +8,7 @@ namespace pd2mo{
 class mda : public Traverser {
    std::map<string, AST_ExpressionList > def;
 
-   std::map<string, AST_Declaration> declr;
+   std::map<string, AST_DeclarationList> declr;
    std::map<string, AST_Expression_Integer> var;
 
    AST_Expression lookUpVar(AST_Expression);

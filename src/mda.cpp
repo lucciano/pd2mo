@@ -2,11 +2,8 @@
 #include <mda.h>
 #include <string>
 
-//TODO : expandir el for ... :(
-
 namespace pd2mo{
 
-//TODO: a level up (the calling function) will look better in the code
 AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 	AST_DeclarationListIterator it;
 	AST_DeclarationList ret = new list<AST_Declaration>();
@@ -24,8 +21,6 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 }
 
 AST_Expression mda::lookUpVar (AST_Expression exp){
-	
-
 	if(exp->expressionType() == EXPCOMPREF and 
 		var.find(exp->getAsComponentReference()->name()) != var.end() and 
 		var[exp->getAsComponentReference()->name()] != NULL){
@@ -36,10 +31,11 @@ AST_Expression mda::lookUpVar (AST_Expression exp){
 		lookUpVar(exp->getAsBinOp()->right())->expressionType() == EXPINTEGER){
 		AST_Integer expInt = lookUpVar(exp->getAsBinOp()->left())->getAsInteger()->val() +
 				lookUpVar(exp->getAsBinOp()->right())->getAsInteger()->val();
-		cout << expInt << endl;	
 		return new AST_Expression_Integer_(expInt);
 	}else{
-
+		if(exp->expressionType() == EXPCOMPREF and var.find(exp->getAsComponentReference()->name()) != var.end()){
+			cout << "no found @ var " << exp->getAsComponentReference()->name() << endl;
+		}
 		return exp;
 	}
 }
@@ -60,7 +56,8 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					AST_Expression a1 = lookUpVar(*indexes->begin());
 					//AST_Expression a2 = lookUpVar(*std::next(indexes->begin(),1));
 					if(a1->expressionType() == EXPINTEGER){
-						//cout << comp->name() << "[" <<a1 << ", " << a2 << "]" << endl;
+						//cout << comp->name() << "[" <<a1 <<"]" << endl;
+						
 						skyp_element = true;
 						AST_DeclarationList decList = new std::list<AST_Declaration>();
 						for(int i = 1; i <= a1->getAsInteger()->val(); i++){
@@ -77,9 +74,11 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 							}
 
 							AST_DeclarationList expList = new std::list<AST_Declaration>();
-							AST_Declaration newDec = new AST_Declaration_(ss.str(), ss_list, dec->modification());
+							AST_Declaration newDec = new AST_Declaration_(ss.str(), ss_list, 
+											visitModification(dec->modification()));
 							decList->insert(decList->end(), newDec);
 						}
+						declr[comp->name()] = decList;
 
 						ret->insert(ret->end(), new AST_Element_Component_ ( decList, comp->type(), 
 							comp->typePrefix(), visitExpressionList(comp->indexes())));
@@ -87,8 +86,9 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					}
 				}else{
 					if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
-					   dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER){
-						var[dec->name()] = dec->modification()->getAsEqual()->exp()->getAsInteger();
+					   lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER){
+						var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
+						cout << "var <- " << dec->name() << " <- " << var[dec->name()] << endl;
 					}
 				}
 				
@@ -151,9 +151,7 @@ AST_EquationList mda::visitEquationList(AST_EquationList eqList){
 
 AST_Expression_ComponentReference 
 	mda::visitExpression_ComponentReference(AST_Expression_ComponentReference compRefExp){
-	//TODO : Check if we have an element on the stack, if we do we may be able to rewrite the reference and drop an index.
 	if(compRefExp->indexes()->size() > 0 and (*compRefExp->indexes()->begin())->size() > 1){
-		//cout << compRefExp << endl;
 		AST_ExpressionListIterator it;
 
 		std::stringstream ss;
@@ -165,6 +163,9 @@ AST_Expression_ComponentReference
 			if(first and lookUpVar(current_element(it))->expressionType() == EXPINTEGER){//TODO: keep track, if we remove the index (==1) or not
 				ss << "_" <<lookUpVar(current_element(it));
 			}else{
+				cout << __LINE__ << compRefExp << "- -- - " << current_element(it) << "=" << lookUpVar(current_element(it)) ;
+				cout << "first :  " <<first ;
+				cout << "isExpInteger :  " << lookUpVar(current_element(it))->expressionType() << EXPINTEGER<< endl;
 				expList->insert(expList->end(), visitExpression(lookUpVar(current_element(it))));
 			}
 			first = false;
@@ -174,6 +175,9 @@ AST_Expression_ComponentReference
 		newref->append(varname, expList);
 		return newref;
 	}else{
+		if(declr.find(**(compRefExp->names()->begin())) != declr.end()){
+			cout <<  "fuckit " << *(compRefExp->names()->begin()) << endl;;
+		}
 		return Traverser::visitExpression_ComponentReference(compRefExp);
 	}
 }
