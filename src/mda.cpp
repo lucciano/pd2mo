@@ -13,7 +13,7 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 			and lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER 
 		){
 			var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
-			cout << dec->name() << "@ line : " <<__LINE__ << dec->modification()->getAsEqual()->exp() << endl;
+			//cout << dec->name() << "@ line : " <<__LINE__ << dec->modification()->getAsEqual()->exp() << endl;
 		}
 		ret->insert(ret->end(), visitDeclaration(dec));
 	}
@@ -34,7 +34,7 @@ AST_Expression mda::lookUpVar (AST_Expression exp){
 		return new AST_Expression_Integer_(expInt);
 	}else{
 		if(exp->expressionType() == EXPCOMPREF and var.find(exp->getAsComponentReference()->name()) != var.end()){
-			cout << "no found @ var " << exp->getAsComponentReference()->name() << (NULL == var[exp->getAsComponentReference()->name()]) << endl;
+			//cout << "no found @ var " << exp->getAsComponentReference()->name() << (NULL == var[exp->getAsComponentReference()->name()]) << endl;
 		}
 		return exp;
 	}
@@ -88,17 +88,7 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
 					   lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER){
 						var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
-						cout << "var <- " << dec->name() << " <- " << var[dec->name()] << endl;
-  for (std::map<string,AST_Expression_Integer>::iterator it=var.begin(); it!=var.end(); ++it){
-        if(it->second != NULL){
-            std::cout << it->first << " => " << it->second << '\n';
-        }else{
-            std::cout << it->first << " => NULL" << '\n';
-        }
-  }
-
-
- 
+						//cout << "var <- " << dec->name() << " <- " << var[dec->name()] << endl;
 					}
 				}
 				
@@ -140,7 +130,7 @@ AST_EquationList mda::visitEquationList(AST_EquationList eqList){
 								var[variable] = new AST_Expression_Integer_(i);
 								AST_EquationList fEqList = visitEquationList(eqFor->equationList());
 								ret->insert(ret->end(), fEqList->begin(), fEqList->end());
-								cout << "borrando :" << variable << endl;
+								//cout << "borrando :" << variable << endl;
 								var.erase(variable);
 							}
 						}else{
@@ -173,9 +163,7 @@ AST_Expression_ComponentReference
 			if(first and lookUpVar(current_element(it))->expressionType() == EXPINTEGER){//TODO: keep track, if we remove the index (==1) or not
 				ss << "_" <<lookUpVar(current_element(it));
 			}else{
-				cout << __LINE__ << compRefExp << "- -- - " << current_element(it) << "=" << lookUpVar(current_element(it)) ;
-				cout << "first :  " <<first ;
-				cout << "isExpInteger :  " << lookUpVar(current_element(it))->expressionType() << EXPINTEGER<< endl;
+				//cout << compRefExp << "- -- - " << current_element(it) << "=" << lookUpVar(current_element(it)) ;
 				expList->insert(expList->end(), visitExpression(lookUpVar(current_element(it))));
 			}
 			first = false;
@@ -185,9 +173,9 @@ AST_Expression_ComponentReference
 		newref->append(varname, expList);
 		return newref;
 	}else{
-		if(declr.find(**(compRefExp->names()->begin())) != declr.end()){
-			cout <<  "fuckit " << *(compRefExp->names()->begin()) << endl;;
-		}
+		//if(declr.find(**(compRefExp->names()->begin())) != declr.end()){
+		//	cout <<  "fuckit " << *(compRefExp->names()->begin()) << endl;;
+		//}
 		return Traverser::visitExpression_ComponentReference(compRefExp);
 	}
 }
