@@ -10,10 +10,10 @@ AST_DeclarationList mda::visitDeclarationList(AST_DeclarationList decList){
 	foreach(it, decList){
 		AST_Declaration dec = visitDeclaration(current_element(it));
 		if(dec->modification() and dec->modification()->modificationType() == MODEQUAL
-			and dec->modification()->getAsEqual()->exp()->expressionType() == EXPINTEGER 
+			and lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER 
 		){
-			//cout << dec->name() << endl;
-			var[dec->name()] = current_element(it)->modification()->getAsEqual()->exp()->getAsInteger();
+			var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
+			cout << dec->name() << "@ line : " <<__LINE__ << dec->modification()->getAsEqual()->exp() << endl;
 		}
 		ret->insert(ret->end(), visitDeclaration(dec));
 	}
@@ -34,7 +34,7 @@ AST_Expression mda::lookUpVar (AST_Expression exp){
 		return new AST_Expression_Integer_(expInt);
 	}else{
 		if(exp->expressionType() == EXPCOMPREF and var.find(exp->getAsComponentReference()->name()) != var.end()){
-			cout << "no found @ var " << exp->getAsComponentReference()->name() << endl;
+			cout << "no found @ var " << exp->getAsComponentReference()->name() << (NULL == var[exp->getAsComponentReference()->name()]) << endl;
 		}
 		return exp;
 	}
@@ -89,6 +89,16 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					   lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER){
 						var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
 						cout << "var <- " << dec->name() << " <- " << var[dec->name()] << endl;
+  for (std::map<string,AST_Expression_Integer>::iterator it=var.begin(); it!=var.end(); ++it){
+        if(it->second != NULL){
+            std::cout << it->first << " => " << it->second << '\n';
+        }else{
+            std::cout << it->first << " => NULL" << '\n';
+        }
+  }
+
+
+ 
 					}
 				}
 				
@@ -130,8 +140,8 @@ AST_EquationList mda::visitEquationList(AST_EquationList eqList){
 								var[variable] = new AST_Expression_Integer_(i);
 								AST_EquationList fEqList = visitEquationList(eqFor->equationList());
 								ret->insert(ret->end(), fEqList->begin(), fEqList->end());
+								cout << "borrando :" << variable << endl;
 								var.erase(variable);
-							//TODO . Add the var to the prefix stack
 							}
 						}else{
 							ret->insert(ret->end(), visitEquation(current_element(it)));

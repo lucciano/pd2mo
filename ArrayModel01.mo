@@ -45,7 +45,7 @@ model Pd2Model
     VectorSum_2_y_8 = VectorSum_2_u_8[1:2]*VectorSum_2_w;
     VectorSum_2_y_9 = VectorSum_2_u_9[1:2]*VectorSum_2_w;
     VectorSum_2_y_10 = VectorSum_2_u_10[1:2]*VectorSum_2_w;
-    Vec2Scalar_3_y = Vec2Scalar_3_u[Vec2Scalar_3_Index,1];
+    Vec2Scalar_3_y = Vec2Scalar_3_u_1;
     Scalar2Vector_4_y_1 = (if Scalar2Vector_4_Index+1==1 or Scalar2Vector_4_Index==((-1)) then Scalar2Vector_4_u else 0);
     Scalar2Vector_4_y_2 = (if Scalar2Vector_4_Index+1==2 or Scalar2Vector_4_Index==((-1)) then Scalar2Vector_4_u else 0);
     Scalar2Vector_4_y_3 = (if Scalar2Vector_4_Index+1==3 or Scalar2Vector_4_Index==((-1)) then Scalar2Vector_4_u else 0);
