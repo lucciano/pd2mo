@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get install subversion git build-essential
   - sudo apt-get install automake
   - sudo apt-get install qt4-dev-tools
-  - sudo apt-get install bison 
+  - sudo apt-get install bison++ 
   - sudo apt-get install libginac-dev
   - sudo apt-get install libboost-dev
   - sudo apt-get install libboost-test-dev
