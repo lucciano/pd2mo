@@ -11,6 +11,8 @@ before_install:
   - sudo apt-get install libginac-dev
   - sudo apt-get install libginac-dev libboost-dev
   - sudo apt-get install libboost-test-dev
+  - svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code
+  - svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
 before_script:
   - ./autogen.sh
 script:
