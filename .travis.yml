@@ -13,8 +13,8 @@ before_install:
   - svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code
   - svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
 before_script:
-  - cd powerdevs-code ; make 
   - cd modelicacc-code ; make ; sudo make install 
+  - cd powerdevs-code ; make 
 script:
   - make 
 branches:
