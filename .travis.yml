@@ -1,0 +1,20 @@
+language: cpp
+compiler:
+  - gcc
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install subversion git build-essential
+  - sudo apt-get install automake
+  - sudo apt-get install libqt4-dev
+  - sudo apt-get install bison qt4lib-dev
+  - sudo apt-get install libginac
+  - sudo apt-get install libginac-dev
+  - sudo apt-get install libginac-dev libboost-dev
+  - sudo apt-get install libboost-test-dev
+before_script:
+  - ./autogen.sh
+script:
+  - make 
+branches:
+  only:
+    - master
