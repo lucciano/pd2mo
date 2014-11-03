@@ -7,9 +7,8 @@ before_install:
   - sudo apt-get install automake
   - sudo apt-get install qt4-dev-tools
   - sudo apt-get install bison 
-  - sudo apt-get install libginac
   - sudo apt-get install libginac-dev
-  - sudo apt-get install libginac-dev libboost-dev
+  - sudo apt-get install libboost-dev
   - sudo apt-get install libboost-test-dev
   - svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code
   - svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
