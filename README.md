@@ -19,3 +19,5 @@ Build Requirement
     7.-  sudo apt-get install libginac-dev libboost-dev
     8.-  sudo apt-get install libboost-test-dev
   
+### TODO ###
+Hysteresis, VectorSum, VectorNRGen, Pulse, IndexShift
