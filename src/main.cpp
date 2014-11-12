@@ -131,11 +131,11 @@ int main (int argc, char* argv[]) {
     mda *m = new mda();
     uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
-    outfile << u->visitClass(
-		m->visitClass(
+    outfile << //m->visitClass(
+		u->visitClass(
 			*sd->models()->begin()
 				)
-				) << endl;
+				/*)*/ << endl;
 
     outfile.close();
 
