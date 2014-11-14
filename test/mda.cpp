@@ -6,6 +6,7 @@
 #include <util/symbol_table.h>
 #include <ast/class.h>
 #include <mmo/mmo_class.h>
+#include <../src/if.h>
 
 
 
@@ -48,5 +49,16 @@ BOOST_AUTO_TEST_CASE( mmo ){
 	cout << evalExp->eval(intExp2) << endl;
 	cout << intExp << endl;
 	cout << binOp << endl;
+
+}
+
+BOOST_AUTO_TEST_CASE( mmo2 ){
+    string filename = "/home/powerdevs/pd2mo/test/data/EvalCondition.mo";
+    int r = 0;
+    TypeSymbolTable tyEnv = newTypeSymbolTable();
+    AST_Class ast_c = parseClass(filename,&r);
+    If * i =  new If();
+    ast_c = i->visitClass(ast_c);
+    cout << ast_c << endl;
 
 }
