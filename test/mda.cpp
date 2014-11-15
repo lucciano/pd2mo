@@ -3,8 +3,8 @@
 #include <boost/test/unit_test.hpp>
 #include <test/file_util.h>
 #include <../src/mda.h>
-#include <util/symbol_table.h>
 #include <ast/class.h>
+#include <util/symbol_table.h>
 #include <mmo/mmo_class.h>
 #include <../src/if.h>
 
