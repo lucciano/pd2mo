@@ -1,0 +1,172 @@
+  \documentclass[a4paper,	11pt]{article}
+%-----------Paquetes-------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[spanish]{babel}
+%\renewcommand{\abstractname}{Resumen: }
+
+\begin{document}
+
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+\title{Conversión de modelos PowerDEVS al lenguaje Modelica}
+\author{Tesinista: Luciano Andrade \\ Director: Federico Bergero, Co-Director: Ernesto Kofman} 
+
+\maketitle
+\section{Resumen}
+En este trabajo se descrive la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el Modelica, más especificamente en $\mu$Modelica, con el fin de aprobechar la velocidad de simulación del 'QSS Solver' y aprobechar su velocidad de simulación, permitiendo describir las simulaciones en el entorno PowerDEVS.
+
+
+\section{Introducción}
+\subsection{Motivación y Objetivos}
+\subsection{Trabajo relacionado}
+\subsection{Alcance}
+
+\section{Conceptos Previos}
+\subsection{Modelado y Simulación}
+\subsubsection{Sistemas Continuos y Discretos}
+\subsubsection{Métodos de Integración numérica}
+\subsection{Formalismo DEVS}
+\subsubsection{Atómicos }
+\subsubsection{Acoplados}
+Equivalencia entre atómicos y acoplados.
+
+\subsection {Métodos de integración de QSS}
+\subsection {PowerDEVS}
+\subsubsection{Modelos Vectoriales}
+\subsection{Modelica}
+\subsection{QSS Stand Alone Solver}
+\subsubsection{$\mu$Modelica}
+
+\section{Conversión de modelos DEVS}
+\subsection{Modelos Atómicos}
+Cómo se traducen (es conocimiento del modelador, no automático)
+\subsection{Modelos Vectoriales}
+?
+
+\subsection{Modelos Acoplados Planos}
+Modelos acoplados solo con modelos atómicos adentro.
+
+Mencionar el algoritmo (traducción de conexiones y ``aplanado'' de cada uno de los atómicos hijos``)	
+
+\subsection{Equivalencia semántica de la conversión}
+
+\section{Modelos Acoplados Jerárquicos}
+Explicar cuándo se utilzan y que resolvemos el problema aplanando los acoplados
+
+\subsection{Algoritmo de aplanado}
+Describir el algoritmo para PDS
+
+\subsection{Comparación de performance}
+
+\section{Detalles de Implementación}
+
+\section{Ejemplos de Aplicación}
+\subsection{Vector/airs}
+\subsection{Vector/lcline}
+
+\section{Conclusiones y Trabajo a futuro}
+
+\newpage
+
+
+\section{Marco del proyecto}
+El trabajo se enmarca en el proyecto PID-ING386, Modelado, Simulación y Control en Tiempo Real con
+Aplicaciones en Electrónica de Potencia, UNR y PICT 2012-0077 de la Agencia de Nacional de Promoción Científica y Tecnología.  
+
+La tesina será dirigida por el Dr. Federico Bergero y el Dr. Ernesto Kofman. La tesina no es remunerada.
+
+\section{Estado del Arte}
+ Comentaremos aquí brevemente, tanto en qué consiste la herramienta PowerDEVS, el lenguaje Modelica y trabajos relacionados con el presente plan.
+\subsection*{PowerDEVS}
+         \label{powerdevs}
+        
+         PowerDEVS\cite{BK11} es un entorno de simulación de
+         sistemas de eventos discretos (DEVS) de propósito general. Fue desarrollado
+         en la Facultad de Ciencias Exactas, Ingeniería
+         y Agrimensura de la Universidad Nacional de Rosario como proyecto
+         final y es mantenido por nuestro grupo de investigación.
+         
+         Esta herramienta posee una interfaz gráfica por la cual permite describir modelos
+          DEVS de una forma gráfica y sencilla. La interfaz gráfica consiste esencialmente
+          en un editor de diagramas de bloques con una funcionalidad
+          muy similar a la de Simulink donde pueden conectarse los distintos bloques atómicos. 
+          
+          PowerDEVS incluye una librería de bloques DEVS predefinidos que pueden ser utilizado
+	  para crear modelos más complejos. La herramienta permite también agregar bloques
+	  especificando su funcionalidad a través de una descripción C++. Dentro de esta librería	
+	  existen bloques integradores que utilizan métodos de quantificación de estado \cite{Cel06}
+	  para aproximar sistemas continuos a través de eventos discretos.
+	  	  
+ 
+\subsection*{Modelica}
+         \label{modelica}
+        Modelica \cite{Fri98} es un lenguaje orientado a objetos, para el modelado de sistemas complejos, con componentes, 
+mecánicos, eléctricos, electrónicos, hidráulicos, térmicos, etc. El lenguaje no tiene restricciones de uso (licencia Modelica V2)
+y es desarrollado por la asociación sin fines de lucro Modelica Asociation. Un modelo Modelica es una representación
+textual aunque las herramientas de modelado y simulación de Modelica permiten componer el modelo gráficamente sin 
+tener que escribirlo. 
+
+\subsection*{Modelica y DEVS}
+Es interesante establecer la relación entre estos dos lenguajes de modelado. 
+Los sistemas de eventos discretos descriptos en DEVS pueden ser representado sin pérdida de generalidad en Modelica.
+Modelica puede representar también sistemas continuos los cuales, como antes mencionamos, pueden ser aproximados en DEVS con los métodos de QSS.
+
+La transformación de un modelo Modelica en un modelo DEVS equivalente fue estudiada previamente por nuestro grupo de investigación en \cite{Flo11}. 
+En el trabajo citado se obtuvo una ganancia en performance  al realizar la simulación en PowerDEVS con los métodos de QSS.
+
+
+\section{Motivación y Objetivos}
+La herramienta de modelado y simulación  PowerDEVS \cite{BK11} permite describir sistemas en el formalismo de eventos discretos DEVS y luego realizar
+la simulación. Aunque los sistemas de tiempo continuo no pueden ser representados directamente en el formalismo DEVS, éstos pueden 
+ser aproximados por los métodos de cuantificación de estados QSS \cite{Cel06}. La implementación de estos métodos en una herramienta de modelado y simulación
+DEVS es trivial pero resulta ineficiente. Esto motivó el desarrollo de una implementación autónoma \cite{Fer12} (fuera del formalismo DEVS) la cual resulta un orden
+de magnitud más eficiente en tiempo de simulación. Esta herramienta acepta modelos descriptos en un subconjunto del lenguaje Modelica \cite{Fri98}, por lo tanto
+los modelos realizados en PowerDEVS no pueden ser simulados directamente en ella sino que deben ser traducidos a Modelica.
+
+El trabajo a grandes rasgos consiste en el estudio y desarrollo de una herramienta para la conversión automática de modelos
+descriptos en PowerDEVS hacia un subconjunto del lenguaje Modelica. 
+Para ello habrá que desarrollar modelos Modelica para cada uno de los bloques de la librería de PowerDEVS, y luego generar un modelo Modelica
+que represente la estructura del modelo DEVS.
+
+
+\section{Tareas a realizar y Cronograma}
+La tesina tendrá una duración de seis meses con una carga
+horaria de 4 hs diarias. Tendrá inicio el 01/03/2014 y finalización el
+31/09/2014.
+
+En forma global, el trabajo consiste en la implementación de un traductor de modelos descriptos en PowerDEVS al lenguaje
+Modelica. Dependiendo del resultado obtenido y de la disponibilidad de tiempo podremos integrarlo a la herramienta PowerDEVS
+de forma de poder simular los modelos con el simulador autónomo antes presentado.
+% 
+Las tareas a realizar son: 
+\begin{itemize}
+	\item Estudio del lenguaje Modelica y de la herramienta PowerDEVS (1 semana). 
+	\item Como ejercicio de prueba, desarrollar la traducción de forma manual para encontrar posibles problemas.(1 semana).
+	\item Desarrollar modelos Modelica equivalente para cada bloque (o la mayoría) de la librería de PowerDEVS (2 semanas)
+	\item Estudiar, analizar e implementar el algoritmo para la conversión (1 mes).
+	\item Integrar la solución con la herramienta PowerDEVS para facilitar la tarea del usuario (1 semana).
+	\item Depurar, generar casos de prueba, documentar y anotar el código (1 mes).
+	\item Realizar el informe de tesina (1 mes).
+\end{itemize}
+
+
+
+\section{Factibilidad y Antecedentes}
+La tesina será realizada en el grupo de Simulación y Control de Sistemas Dinámicos del instituto CIFASIS. Los directores cuentan 
+con experiencia en el desarrollo de software en particular en el área en cuestión (métodos de integración numérica, 
+herramientas de simulación y compiladores) y con recursos (computadoras, bibliografía, acceso a revistas) para completar el proyecto
+en el tiempo estipulado.
+
+\bibliographystyle{plain}
+\begin{small}
+\bibliography{tesina_luciano}
+\end{small}
+\end{document}
