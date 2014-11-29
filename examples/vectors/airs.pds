@@ -1,0 +1,104 @@
+Root-Coordinator
+ {
+    Coordinator
+     {
+      Simulator
+       {
+        Path = hybrid\runscilabjob.h
+        Parameters = "CS=200,tha=32,th0=rand(CS,1)*4+18,Cap=rand(CS,1)*100+550,Res=rand(CS,1)*0.4+1.8,Pot=rand(CS,1)*2+13","",""
+       }
+      Simulator
+       {
+        Path = vector\qss_integrator_vec.h
+        Parameters = "QSS3","1e-6","1e-3","th0","CS"
+       }
+      Simulator
+       {
+        Path = vector\scalar2vec.h
+        Parameters = "-1"
+       }
+      Simulator
+       {
+        Path = vector\vec2scalar.h
+        Parameters = "0"
+       }
+      Simulator
+       {
+        Path = vector/vector_sum.h
+        Parameters = "-1/CS/mean(Pot)","CS"
+       }
+      Simulator
+       {
+        Path = vector\hyst_vec.h
+        Parameters = "-0.5","0.5","-Pot","0","CS"
+       }
+      Simulator
+       {
+        Path = vector\qss_sum_vec.h
+        Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00,"CS"
+       }
+      Simulator
+       {
+        Path = vector\qss_sum_vec.h
+        Parameters = "(Cap.*Res).^(-1)","(Cap.*Res).^(-1)","Cap.^(-1)","-(Cap.*Res).^(-1)","0","0","0","0",3.000000e+00,"CS"
+       }
+      Simulator
+       {
+        Path = sources\constant_sci.h
+        Parameters = "tha"
+       }
+      Simulator
+       {
+        Path = vector\scalar2vec.h
+        Parameters = "-1"
+       }
+      Simulator
+       {
+        Path = sinks/gnuplot.h
+        Parameters = 1.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'Temperature 1'","","","",""
+       }
+      EIC
+       {
+        (0,0);(2,0)
+       }
+      EOC
+       {
+        (4,0);(0,0)
+       }
+      IC
+       {
+        (7,0);(1,0)
+        (6,0);(5,0)
+        (2,0);(6,0)
+        (8,0);(9,0)
+        (9,0);(7,0)
+        (3,0);(10,0)
+        (5,0);(4,0)
+        (5,0);(7,1)
+        (1,0);(7,2)
+        (1,0);(6,1)
+        (1,0);(3,0)
+       }
+     }
+  Simulator
+   {
+    Path = sources\pulse_sci.h
+    Parameters = "20","0.5","1000","2000"
+   }
+  Simulator
+   {
+    Path = sinks/gnuplot.h
+    Parameters = 1.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'Power'","","","",""
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (1,0);(0,0)
+    (0,0);(2,0)
+   }
+ }
