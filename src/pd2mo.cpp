@@ -348,15 +348,22 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 		SetParameters ps = SetParameters();
 		ps.setParameterName("p");
 		modelAtomic * atomic = model->childs.at(k)->atomic;
-		ps.setParametersList(atomic->paramsString.split(","));
+		std::size_t found = atomic->paramsString.toStdString().find("=");
 
 		evalp ep = evalp();
-		ep.setParams(atomic->paramsString.split(","));
+		if (found==std::string::npos){
+			cout << atomic->paramsString.toStdString() << endl;
+			ps.setParametersList(atomic->paramsString.split(","));
 
-		if(current_element(cit) != NULL){
-			current_element(cit) = ps.visitClass(current_element(cit));
-			current_element(cit) = ep.visitClass(current_element(cit));
+			ep.setParams(atomic->paramsString.split(","));
+			if(current_element(cit) != NULL){
+				current_element(cit) = ps.visitClass(current_element(cit));
+				current_element(cit) = ep.visitClass(current_element(cit));
+			}
+
 		}
+		
+		
 		k++;
 	}
 }

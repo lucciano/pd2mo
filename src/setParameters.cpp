@@ -13,7 +13,9 @@ void SetParameters::setParametersList(QStringList x){
 			//cout << "Remove doblequote";
 			param = param.mid(1,param.length()-2);
 		}
+
 		strcpy (d_str,  param.toStdString().c_str());
+
 		double d = getScilabVar(d_str);
 		free(d_str);
 		AST_Expression_Real ra = new AST_Expression_Real_(d);

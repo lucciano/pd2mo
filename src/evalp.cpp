@@ -24,7 +24,7 @@ AST_Expression evalp::visitExpression_ComponentReferenceALT(AST_Expression_Compo
 		//	AST_ExpressionListListIterator itIndex = indexes->begin();
 			if(indexes->size() == 1 and current_element(indexes->begin())->size() == 1){
 				AST_Expression index = current_element(current_element(indexes->begin())->begin());
-				if(index and index->getAsInteger()){
+				if(index and index->getAsInteger() and exp->size() >= index->getAsInteger()->val()){
 					return exp->at(index->getAsInteger()->val()-1);
 				}
 			}
@@ -62,6 +62,7 @@ void evalp::setParams(QStringList x){
 			param = param.mid(1,param.length()-2);
 		}
 		strcpy (d_str,  param.toStdString().c_str());
+		std::cout << d_str << std::endl;
 		double d = getScilabVar(d_str);
 		free(d_str);
 		AST_Expression_Real ra = new AST_Expression_Real_(d);//TODO : check if is INT or REAL
