@@ -24,7 +24,12 @@ AST_Expression_ComponentReference PrefixMoVars::visitExpression_ComponentReferen
         AST_StringListIterator it;
         AST_ExpressionListListIterator exp_it=compRefExp->indexes()->begin();
         foreach (it, compRefExp->names()) {
-		string * name = new string(this->prefix + *current_element(it));
+		string * name;
+		if(current_element(it)->compare("time") == 0){
+			name = new string(*current_element(it));
+		}else{
+			name = new string(this->prefix + *current_element(it));
+		}
                 rVal->append(name,
                         visitExpressionList(current_element(exp_it)));
                 exp_it++;
@@ -33,7 +38,12 @@ AST_Expression_ComponentReference PrefixMoVars::visitExpression_ComponentReferen
 }
 
 AST_String PrefixMoVars::visitVariable(AST_String s){
-	string * rtr = new string(prefix + (*s));
+	string * rtr ;
+	if(s->compare("time") == 0){
+		rtr = new string(*s);
+	}else{
+		rtr = new string(prefix + (*s));
+	}
 	return rtr;
 }
 

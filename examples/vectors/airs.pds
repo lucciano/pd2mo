@@ -14,13 +14,13 @@ Root-Coordinator
        }
       Simulator
        {
-        Path = vector\scalar2vec.h
-        Parameters = "-1"
+        Path = vector/scalar2vec.h
+        Parameters = "-1","CS"
        }
       Simulator
        {
-        Path = vector\vec2scalar.h
-        Parameters = "0"
+        Path = vector/vec2scalar.h
+        Parameters = "0","CS"
        }
       Simulator
        {
@@ -49,8 +49,8 @@ Root-Coordinator
        }
       Simulator
        {
-        Path = vector\scalar2vec.h
-        Parameters = "-1"
+        Path = vector/scalar2vec.h
+        Parameters = "-1","CS"
        }
       Simulator
        {

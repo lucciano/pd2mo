@@ -110,7 +110,7 @@ Coupled
                     {
                     Name = Scalar_to Vector0
                     Ports = 1 ; 1
-                    Path = vector\scalar2vec.h
+                    Path = vector/scalar2vec.h
                     Description = Scalar to Vector Signal. Index -1 propagates the input to all outputs.
                     Graphic
                         {
@@ -123,13 +123,14 @@ Coupled
                     Parameters
                         {
                         Index = Str; -1 ; Signal Index
+                        Size = Str; CS ; Vector Size
                         }
                     }
                 Atomic
                     {
                     Name = Vector_to Scalar0
                     Ports = 1 ; 1
-                    Path = vector\vec2scalar.h
+                    Path = vector/vec2scalar.h
                     Description = Vector to scalar signal
                     Graphic
                         {
@@ -142,6 +143,7 @@ Coupled
                     Parameters
                         {
                         Index = Str; 0 ; Signal Index
+                        Size = Str; CS ; Vector Size
                         }
                     }
                 Atomic
@@ -266,7 +268,7 @@ Coupled
                     {
                     Name = Scalar_to Vector1
                     Ports = 1 ; 1
-                    Path = vector\scalar2vec.h
+                    Path = vector/scalar2vec.h
                     Description = Scalar to Vector Signal. Index -1 propagates the input to all outputs.
                     Graphic
                         {
@@ -279,6 +281,7 @@ Coupled
                     Parameters
                         {
                         Index = Str; -1 ; Signal Index
+                        Size = Str; CS ; Vector Size
                         }
                     }
                 Atomic
