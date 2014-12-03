@@ -117,7 +117,7 @@ Coupled
             {
             Name = Index Shift 0
             Ports = 1 ; 1
-            Path = vector\index_shift.h
+            Path = vector/index_shift.h
             Description = Vector Index Shift. Computes y(index)=u(index+shift)
             Graphic
                 {
@@ -130,6 +130,7 @@ Coupled
             Parameters
                 {
                 shift = Str; 1 ; Signal Index Shift
+                Size = Str; N ; 
                 }
             }
         Atomic
@@ -164,7 +165,7 @@ Coupled
             {
             Name = Index Shift 1
             Ports = 1 ; 1
-            Path = vector\index_shift.h
+            Path = vector/index_shift.h
             Description = Vector Index Shift. Computes y(index)=u(index+shift)
             Graphic
                 {
@@ -177,13 +178,14 @@ Coupled
             Parameters
                 {
                 shift = Str; -1 ; Signal Index Shift
+                Size = Str; N ; 
                 }
             }
         Atomic
             {
             Name = Scalar_to Vector 0
             Ports = 1 ; 1
-            Path = vector\scalar2vec.h
+            Path = vector/scalar2vec.h
             Description = Scalar to Vector Signal. Index -1 propagates the input to all outputs.
             Graphic
                 {
@@ -196,6 +198,7 @@ Coupled
             Parameters
                 {
                 Index = Str; 0 ; Signal Index
+                Size = Str; N ; Size
                 }
             }
         Atomic
@@ -249,7 +252,7 @@ Coupled
             {
             Name = Vector_to Scalar 0
             Ports = 1 ; 1
-            Path = vector\vec2scalar.h
+            Path = vector/vec2scalar.h
             Description = Vector to scalar signal
             Graphic
                 {
@@ -262,13 +265,14 @@ Coupled
             Parameters
                 {
                 Index = Str; 0 ; Signal Index
+                Size = Str; N ; Size
                 }
             }
         Atomic
             {
             Name = Vector_to Scalar 1
             Ports = 1 ; 1
-            Path = vector\vec2scalar.h
+            Path = vector/vec2scalar.h
             Description = Vector to scalar signal
             Graphic
                 {
@@ -281,6 +285,7 @@ Coupled
             Parameters
                 {
                 Index = Str; N-1 ; Signal Index
+                Size = Str; N ; Size
                 }
             }
         Point
@@ -388,7 +393,7 @@ Coupled
             {
             Source = Cmp ;  9 ;  1 ; 0
             Sink = Cmp ;  8 ;  1 ; -1
-            PointX = -12075 ; -11190 ; -11190
+            PointX = -12075 ; -12075 ; -11190
             PointY = -5250 ; -5250 ; -5250
             }
         Line
@@ -409,7 +414,7 @@ Coupled
             {
             Source = Cmp ;  12 ;  1 ; -1
             Sink = Pnt ;  4 ; -1 ; 0
-            PointX = -1215 ; -2010 ; -2010
+            PointX = -1215 ; -1215 ; -2010
             PointY = -3600 ; -3600 ; -3600
             }
         Line

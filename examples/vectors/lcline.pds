@@ -22,8 +22,8 @@ Root-Coordinator
    }
   Simulator
    {
-    Path = vector\index_shift.h
-    Parameters = "1"
+    Path = vector/index_shift.h
+    Parameters = "1","N"
    }
   Simulator
    {
@@ -32,13 +32,13 @@ Root-Coordinator
    }
   Simulator
    {
-    Path = vector\index_shift.h
-    Parameters = "-1"
+    Path = vector/index_shift.h
+    Parameters = "-1","N"
    }
   Simulator
    {
-    Path = vector\scalar2vec.h
-    Parameters = "0"
+    Path = vector/scalar2vec.h
+    Parameters = "0","N"
    }
   Simulator
    {
@@ -52,13 +52,13 @@ Root-Coordinator
    }
   Simulator
    {
-    Path = vector\vec2scalar.h
-    Parameters = "0"
+    Path = vector/vec2scalar.h
+    Parameters = "0","N"
    }
   Simulator
    {
-    Path = vector\vec2scalar.h
-    Parameters = "N-1"
+    Path = vector/vec2scalar.h
+    Parameters = "N-1","N"
    }
   EIC
    {
