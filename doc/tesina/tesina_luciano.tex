@@ -21,21 +21,23 @@
 
 \maketitle
 \section{Resumen}
-En este trabajo se descrive la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el Modelica, más especificamente en $\mu$Modelica, con el fin de aprobechar la velocidad de simulación del 'QSS Solver' y aprobechar su velocidad de simulación, permitiendo describir las simulaciones en el entorno PowerDEVS.
+En este trabajo se descrive la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprobechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
 
 
 \section{Introducción}
 \subsection{Motivación y Objetivos}
-¿Que es un modelado de un sistemas?
 ¿Que es una simulación?
-
+¿Que es un modelado de un sistemas?
+¿Que es DEVS?
+¿Que es que es modelica?
+¿Que es que es $\mu$modelica?
 %bibliografia sobre devs
 
 \subsection{Trabajo relacionado}
 ¿Cuales hay ?
 \subsection{Alcance}
  Diferentes limitaciones entre Devs y Modelica y la transformación, ademas de la diferencia entre la composicion de los modelos.
- diferencia en los formalismos
+ diferencia superficiales en los formalismos
 
 \section{Conceptos Previos}
 \subsection{Modelado y Simulación}
@@ -43,9 +45,9 @@ En este trabajo se descrive la implementación de una aplicación capaz de conve
 \subsubsection{Métodos de Integración numérica}
 \subsection{Formalismo DEVS}
 \subsubsection{Atómicos }
+	descripcion
 \subsubsection{Acoplados}
-Equivalencia entre atómicos y acoplados.
-
+	descripcion, el aplanado se ve más adelante
 \subsection {Métodos de integración de QSS}
 \subsection {PowerDEVS}
 \subsubsection{Modelos Vectoriales}
@@ -57,7 +59,7 @@ Equivalencia entre atómicos y acoplados.
 \subsection{Modelos Atómicos}
 Cómo se traducen (es conocimiento del modelador, no automático)
 \subsection{Modelos Vectoriales}
-?
+Consideraciones  y anotaciones
 
 \subsection{Modelos Acoplados Planos}
 Modelos acoplados solo con modelos atómicos adentro.
@@ -74,6 +76,7 @@ Describir el algoritmo para PDS
 
 
 \subsection{Comparación de performance}
+¿No deberia estar despues de "Ejemplos de Aplicación"?
 
 \section{Detalles de Implementación}
 API Powerdevs, AST Modelica
