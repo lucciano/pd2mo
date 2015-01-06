@@ -1,4 +1,4 @@
-  \documentclass[a4paper,	11pt]{article}
+\documentclass[a4paper,	11pt]{article}
 %-----------Paquetes-------------------------
 
 \usepackage[utf8]{inputenc}
@@ -26,6 +26,15 @@ En este trabajo se describe la implementación de una aplicación para convertir
 
 \section{Introducción}
 \subsection{Motivación y Objetivos}
+PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parametros, posibilidad de conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
+
+La resoluci ́on de ecuaciones diferenciales ordinarias, requiere el uso de m ́etodos de integraci ́on num ́erica. Todos los algoritmos tradicionales de integraci ́on se basan en la discretizaci ́on de la variable independiente (que generalmente representa el tiempo). Las rutinas que implementan estos algoritmos, se denominan solvers y existen gran variedad de implementaciones de los mismos en diferentes lenguajes de programaci ́on. Los M ́etodos de Integraci ́on Num ́erica QSS (Quantized State System), a diferencia de los m ́etodos de integración tradicionales, realizan la discretizaci ́on sobre las variables de estado. En consecuencia, convierten los sistemas continuos en sistemas de eventos discretos, y tienen grandes ventajas para simular sistemas con discontinuidades.
+Si bien PowerDEVS, implementa la totalidad de los algoritmos de QSS, resultan ineficientes, dado que malgastan gran parte de la carga computacional en la transmisión de eventos entre submodelos.
+
+Para solventar este hecho se desarrollo una familia de QSS stand-solver, el cual requiere un modelo descripto en lenguaje C el cual contiene las equaciones difereciales, las funciones de cruce de cero asi como la información estructural requerida por los algoritmos QSS. Estos solvers obtienen una mejora de performace de hasta un orden de maginitud comparado con otras implementaciones DEVS.
+Sobre este se desarrollo una herramineta la cual genera a partir de un modelo µ-Modedelica (un subconjunto del lenguaje Modelica) el modelo requerido para el QSS solver.
+
+Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amigable con el usuario, se creo una herramienta capas de convertir un modelo PowerDEVS en un modelo µ-Modelica.
 
 
 \subsection{Trabajo relacionado}
