@@ -40,6 +40,82 @@ Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amiga
 \subsection{Trabajo relacionado}
 ¿Cuales?
 \subsection{Alcance}
+DEVS abbreviating Discrete Event System Specification is a modular and hierarchical formalism for modeling and analyzing general systems that can be discrete event systems which might be described by state transition tables, and continuous state systems which might be described by differential equations, and hybrid continuous state and discrete event systems. DEVS is a timed event system.
+
+In the classic DEVS formalism, Atomic DEVS captures the system behavior, while Coupled DEVS describes the structure of system.
+
+The following formal definition is for Classic DEVS [ZKP00]. In this article, we will use the time base,  \mathbb{T}=[0,\infty) that is the set of non-negative real numbers; the extended time base, \mathbb{T}^\infty=[0,\infty] that is the set of non-negative real numbers plus infinity.
+
+Atomic DEVS[edit]
+An atomic DEVS model is defined as a 7-tuple
+
+M=<X,Y,S,ta, \delta_{ext}, \delta_{int}, \lambda>
+where
+
+X is the set of input events;
+Y is the set of output events;
+S is the set of sequential states (or also called the set of partial states);
+ta:S \rightarrow \mathbb{T}^\infty is the time advance function which is used to determine the lifespan of a state;
+\delta_{ext}:Q \times X \rightarrow  S  is the external transition function which defines how an input event changes a state of the system, where Q=\{(s,t_e)|s \in S, t_e \in (\mathbb{T} \cap [0, ta(s)])\} is the set of total states, and t_e is the elapsed time since the last event;
+[2]
+
+
+
+\delta_{int}:S \rightarrow S  is the internal transition function which defines how a state of the system changes internally (when the elapsed time reaches to the lifetime of the state);
+\lambda:S \rightarrow  Y^\phi is the output function where Y^\phi=Y \cup \{\phi\} and  \phi \not\in Y is a silent event or an unobserved event. This function defines how a state of the system generates an output event (when the elapsed time reaches to the lifetime of the state);
+The atomic DEVS Model for Ping-Pong Players
+The atomic DEVS model for player A of Fig. 1 is given Player=<X,Y,S,s_0,ta,\delta_{ext}, \delta_{int}, \lambda> such that
+
+
+\begin{align}
+ X &= \{?receive\}\\
+ Y &= \{!send\}\\
+ S &= \{(d,\sigma)| d \in \{Wait,Send\}, \sigma \in \mathbb{T}^\infty\}\\
+ s_0 &= (Send, 0.1)\\
+ t_a(s) &=\sigma \text{ for all } s \in S\\
+\delta_{ext}(((Wait,\sigma),t_e),?receive)&=(Send,0.1)\\
+\delta_{int}(Send,\sigma)&=(Wait,\infty)\\
+\delta_{int}(Wait,\sigma)&=(Send,0.1)\\
+\lambda(Send,\sigma)&=!send\\
+\lambda(Wait,\sigma)&=\phi
+\end{align}
+
+Behavior of Atomic DEVS[edit]
+Simply speaking, there are two cases that an atomic DEVS model  M  can change its state s \in S: (1) when an external input  x \in X  comes into the system  M ; (2) when the elapsed time  t_e  reaches the lifespan of s which is defined by  ta(s) . (At the same time of (2),  M  generates an output  y \in Y which is defined by  \lambda(s) .) .
+
+For formal behavior description of given an Atomic DEVS model, refer to the page Behavior of DEVS. Computer algorithms to implement the behavior of a given Atomic DEVS model are available at Simulation Algorithms for Atomic DEVS.
+
+Coupled DEVS[edit]
+The coupled DEVS defines which sub-components belong to it and how they are connected with each other. A coupled DEVS model is defined as an 8-tuple
+
+N=<X,Y,D,\{M_i\},C_{xx}, C_{yx}, C_{yy}, Select> 
+where
+
+X is the set of input events;
+Y is the set of output events;
+D is the name set of sub-components;
+\{M_i\} is the set of sub-components where for each i \in D, M_i can be either an atomic DEVS model or a coupled DEVS model.
+C_{xx}\subseteq X \times \bigcup_{i \in D} X_i is the set of external input couplings;
+C_{yx}\subseteq \bigcup_{i \in D} Y_i \times \bigcup_{i \in D} X_i is the set of internal couplings;
+C_{yy}: \bigcup_{i \in D} Y_i \rightarrow Y^\phi is the external output coupling function;
+Select:2^D \rightarrow D is the tie-breaking function which defines how to select the event from the set of simultaneous events
+
+Behavior of Coupled DEVS[edit]
+Simply speaking, like the behavior of the atomic DEVS class, a coupled DEVS model  N  changes its components' states (1) when an external event x \in X comes into  N ; (2) when one of components  M_i  where  i \in D  executes its internal state transition and generates its output  y_i \in Y_i. In both cases (1) and (2), a triggering event is transmitted to all influencees which are defined by coupling sets  C_{xx}, C_{yx}, and  C_{yy} .
+
+Modelica is an object-oriented, declarative, multi-domain modeling language for component-oriented modeling of complex systems, e.g., systems containing mechanical, electrical, electronic, hydraulic, thermal, control, electric power or process-oriented subcomponents. The free Modelica language[1] is developed by the non-profit Modelica Association.[2] The Modelica Association also develops the free Modelica Standard Library[3] that contains about 1360 generic model components and 1280 functions in various domains, as of version 3.2.1.
+
+While Modelica resembles object-oriented programming languages, such as C++ or Java, it differs in two important respects. First, Modelica is a modeling language rather than a conventional programming language. Modelica classes are not compiled in the usual sense, but they are translated into objects which are then exercised by a simulation engine. The simulation engine is not specified by the language, although certain required capabilities are outlined.
+
+Second, although classes may contain algorithmic components similar to statements or blocks in programming languages, their primary content is a set of equations. In contrast to a typical assignment statement, such as
+
+x := 2 + y;
+where the left-hand side of the statement is assigned a value calculated from the expression on the right-hand side, an equation may have expressions on both its right- and left-hand sides, for example,
+
+x + y = 3 * z;
+Equations do not describe assignment but equality. In Modelica terms, equations have no pre-defined causality. The simulation engine may (and usually must) manipulate the equations symbolically to determine their order of execution and which components in the equation are inputs and which are outputs.
+
+	
  Diferentes limitaciones entre Devs y Modelica y la transformación, ademas de la diferencia entre la composicion de los modelos.
  diferencia superficiales en los formalismos
 
