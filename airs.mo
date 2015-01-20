@@ -4,14 +4,14 @@ model Pd2Model
   parameter Real VecInt_1_x0 = 0;
   Real VecInt_1_u[VecInt_1_N];
   Real VecInt_1_y[VecInt_1_N];
-  parameter Real Scalar2Vector_2_p[2] = {-1, 0};
-  constant Integer Scalar2Vector_2_N = 0;
+  parameter Real Scalar2Vector_2_p[2] = {-1, VecInt_1_N};
+  parameter Integer Scalar2Vector_2_N = integer(Scalar2Vector_2_p[2]);
   parameter Integer Scalar2Vector_2_Index = -1;
   Real Scalar2Vector_2_u;
   Real Scalar2Vector_2_y[Scalar2Vector_2_N];
-  parameter Real Vec2Scalar_3_p[2] = {0, 0};
+  parameter Real Vec2Scalar_3_p[2] = {0, VecInt_1_N};
   parameter Integer Vec2Scalar_3_Index = 0 + 1;
-  constant Integer Vec2Scalar_3_N = 0;
+  parameter Integer Vec2Scalar_3_N = integer(Vec2Scalar_3_p[2]);
   Real Vec2Scalar_3_u[Vec2Scalar_3_N];
   Real Vec2Scalar_3_y;
   parameter Real vector_sum_4_p[2] = {-1, 0};
@@ -42,22 +42,18 @@ model Pd2Model
   Real VectorSum_7_y[VectorSum_7_N];
   parameter Real Constant_8_k = 1;
   Real Constant_8_y;
-  parameter Real Scalar2Vector_9_p[2] = {-1, 0};
-  constant Integer Scalar2Vector_9_N = 0;
+  parameter Real Scalar2Vector_9_p[2] = {-1, VecInt_1_N};
+  parameter Integer Scalar2Vector_9_N = integer(Scalar2Vector_9_p[2]);
   parameter Integer Scalar2Vector_9_Index = -1;
   Real Scalar2Vector_9_u;
   Real Scalar2Vector_9_y[Scalar2Vector_9_N];
-  constant Real pulse_sci_11_p[4] = {20, 0.5, 1000, 2000};
-  Real pulse_sci_11_y;
+  constant Real pulse_sci_11_p[4] = {20, 10, 1000, 2000};
   parameter Real pulse_sci_11_low = 20;
-  parameter Real pulse_sci_11_amplitude = 0.5;
+  parameter Real pulse_sci_11_amplitude = 10;
   parameter Real pulse_sci_11_ti = 1000;
   parameter Real pulse_sci_11_tf = 2000;
   Real pulse_sci_11_d(start = pulse_sci_11_low);
-initial equation
-  for VecInt_1_i in 1:VecInt_1_N loop
-    VecInt_1_y[VecInt_1_i] = VecInt_1_x0;
-  end for;
+  Real pulse_sci_11_y;
 algorithm
   for hysteretic_vec_5_i in 1:hysteretic_vec_5_N loop
     when hysteretic_vec_5_u[hysteretic_vec_5_i] > hysteretic_vec_5_xu then
@@ -110,12 +106,22 @@ equation
     VectorSum_7_u[i, 1] = Scalar2Vector_9_y[i];
   end for;
   for i in 1:VecInt_1_N loop
-    VectorSum_7_u[i, 3] = VecInt_1_y[i];
+    VectorSum_6_u[i, 2] = VecInt_1_y[i];
   end for;
   for i in 1:VecInt_1_N loop
-    VectorSum_6_u[i, 2] = VecInt_1_y[i];
+    VectorSum_7_u[i, 3] = VecInt_1_y[i];
   end for;
   for i in 1:VecInt_1_N loop
     Vec2Scalar_3_u[i] = VecInt_1_y[i];
   end for;
+	annotation(
+
+	experiment(
+		MMO_Description=" ",
+		MMO_Solver=QSS3,
+		StartTime= 0.0,
+		StopTime= 1.0,
+		Tolerance={1e-3},
+		AbsTolerance={}
+	));
 end Pd2Model;
