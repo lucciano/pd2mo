@@ -62,3 +62,14 @@ BOOST_AUTO_TEST_CASE( mmo2 ){
     cout << ast_c << endl;
 
 }
+
+BOOST_AUTO_TEST_CASE( mmo3 ){
+    string filename = "/home/powerdevs/pd2mo/test/data/EvalLong.mo";
+    int r = 0;
+    TypeSymbolTable tyEnv = newTypeSymbolTable();
+    AST_Class ast_c = parseClass(filename,&r);
+    If * i =  new If();
+    ast_c = i->visitClass(ast_c);
+    cout << ast_c << endl;
+
+}
