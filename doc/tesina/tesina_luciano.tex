@@ -1,4 +1,4 @@
-\documentclass[a4paper,	11pt]{article}
+\documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
 
 \usepackage[utf8]{inputenc}
@@ -20,12 +20,17 @@
 \author{Tesinista: Luciano Andrade \\ Director: Federico Bergero, Co-Director: Ernesto Kofman} 
 
 \maketitle
-\section{Resumen}
+\tableofcontents
+
+\begin{abstract}
+%\section{Resumen}
 En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprobechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
+\end{abstract}
 
 
-\section{Introducción}
-\subsection{Motivación y Objetivos}
+\chapter{Introducción}
+
+\section{Motivación y Objetivos}
 PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parametros, posibilidad de conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 
 La resolución de ecuaciones diferenciales ordinarias, requiere el uso de métodos de integración numérica. Todos los algoritmos tradicionales de integración se basan en la discretización de la variable independiente (que generalmente representa el tiempo). Las rutinas que implementan estos algoritmos, se denominan solvers y existen gran variedad de implementaciones de los mismos en diferentes lenguajes de programación. Los Métodos de Integración Numérica QSS (Quantized State System), a diferencia de los métodos de integración tradicionales, realizan la discretización sobre las variables de estado. En consecuencia, convierten los sistemas continuos en sistemas de eventos discretos, y tienen grandes ventajas para simular sistemas con discontinuidades.
@@ -37,9 +42,9 @@ Sobre este se desarrollo una herramineta la cual genera a partir de un modelo $\
 Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amigable con el usuario, se creo una herramienta capas de convertir un modelo PowerDEVS en un modelo $\mu$-Modelica.
 
 
-\subsection{Trabajo relacionado}
+\section{Trabajo relacionado}
 ¿Cuales?
-\subsection{Alcance}
+\section{Alcance}
 DEVS, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerarquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos mediantes que pueden ser descriptos mediantes equaciones diferenciales.
 
 En el formalismo clasico DEVS, los modelos atómicos capturan el comportamiento del sistema, mientras los modelos Acoplados describen la estructura del sistema.
@@ -56,13 +61,13 @@ De esto se desprenden las siguientes limitaciones importantes:
 	\item Solamente podemos convertir modelos cuyos componentes atómicos esten o puedan ser convertidos a modelica.
 \end{itemize}
 	
-\section{Conceptos Previos}
+\chapter{Conceptos Previos}
+\section{Modelado y Simulación}
 
-\subsection{Modelado y Simulación}
 modelos matematica, eq diferenciales
-\subsubsection{Sistemas Continuos y Discretos}
+\subsection{Sistemas Continuos y Discretos}
 clasificacion de modelos/sistemas
-\subsubsection{Métodos de Integración numérica}
+\subsection{Métodos de Integración numérica}
 %Ber12 pag. 9
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
@@ -70,39 +75,39 @@ Un sistema continuo puede ser descripto por un modelo en espacios de estados de 
 x(t) = f (x(t), u(t))
 \end{equation}
 
-\subsection{Formalismo DEVS}
+\section{Formalismo DEVS}
 Ber12 pag. 20
-\subsubsection{Atómicos }
+\subsection{Atómicos }
 
-\subsubsection{Acoplados}
+\subsection{Acoplados}
 
-\subsubsection{Modelos Vectoriales}
+\subsection{Modelos Vectoriales}
 BK11
 	
-\subsection{Métodos de integración QSS}
+\section{Métodos de integración QSS}
 QSS paper
 
-\subsection{PowerDEVS}
+\section{PowerDEVS}
 Powerdevs Paper
 
-\subsection{Modelica}
-\subsection{QSS Stand Alone Solver}
+\section{Modelica}
+\section{QSS Stand Alone Solver}
 QSSPaper
 
-\subsubsection{$\mu$Modelica}
+\subsection{$\mu$Modelica}
 
-\section{Conversión de modelos DEVS}
-\subsection{Modelos Atómicos}
+\chapter{Conversión de modelos DEVS}
+\section{Modelos Atómicos}
 Cómo se traducen (es conocimiento del modelador, no automático)
-\subsection{Modelos Vectoriales}
+\section{Modelos Vectoriales}
 Consideraciones  y anotaciones en modelica, modificaciones
 
-\subsection{Modelos Acoplados Planos}
-Modelos acoplados solo con modelos atómicos adentro.
+\section{Modelos Acoplados Planos}
+Modelos acoplados solo con modelos atómicos adentro.	
 
 Mencionar el algoritmo (traducción de conexiones y ``aplanado'' de cada uno de los atómicos hijos``)	
 
-\subsection{Equivalencia semántica de la conversión}
+\section{Equivalencia semántica de la conversión}
 
 \section{Modelos Acoplados Jerárquicos}
 Explicar cuándo se utilzan y que resolvemos el problema aplanando los acoplados
@@ -110,10 +115,10 @@ Explicar cuándo se utilzan y que resolvemos el problema aplanando los acoplados
 \subsection{Algoritmo de aplanado}
 Describir el algoritmo para PDS
 
-\subsection{Comparación de performance}
+\section{Comparación de performance}
 ¿No deberia estar despues de "Ejemplos de Aplicación"?
 
-\section{Detalles de Implementación}
+\chapter{Detalles de Implementación}
 API Powerdevs, AST Modelica
 Traverser
 Modelica Transformer
@@ -123,11 +128,11 @@ Modelica Transformer
 tamaños de las vectores y comparativas de 
 \subsection{Vector/airs}
 \subsection{Vector/lcline}
-
+\nocite{*}
 \section{Conclusiones y Trabajo a futuro}
 
+
 \bibliographystyle{plain}
-\begin{small}
 \bibliography{tesina_luciano}
-\end{small}
+
 \end{document}
