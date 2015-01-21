@@ -11,7 +11,8 @@ AST_EquationList If::visitEquationList (AST_EquationList eqList){
 
 		case EQIF:{
 			AST_Equation_If eqIf = eq->getAsIf();
-			cout << eqIf << ".-.-.-.-" << endl;
+			cout << eqIf->condition() << ".-.-.-.-" << endl;
+			cout << _c_class << ".-.-.-.-" << endl;
 			EvalExp *evalExp = new EvalExp(_c_class->getVarSymbolTable());
 			AST_Expression exp = evalExp->eval(eqIf->condition());
 			if(exp->expressionType() == EXPBOOLEAN){
