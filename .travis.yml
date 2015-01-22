@@ -7,9 +7,9 @@ before_install:
 
 before_script:
   - svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
-  - cd modelicacc-code ; autoreconf -f ; ./configure ; make ; sudo make install 
-  - svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code
-  - cd powerdevs-code ; make install-lib
+  - cd modelicacc-code ; autoreconf -f ; ./configure ; make ; sudo make install ; cd ..
+  - svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code 
+  - cd powerdevs-code ; make install-lib  ; cd ..
 script:
   - make 
 branches:
