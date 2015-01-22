@@ -102,14 +102,15 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			(*ic)->childSink += atomic;
 			rtr->lsIC.append((*ic));
 		}
+
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
 			ic != c->lsIC.end();
 			ic++){
+			cout << "atomic:" << atomic <<" " << (*ic)->childSource << "- > " <<(*ic)->childSink << endl;
 			if( (*ic)->childSink == atomic or
-			(*ic)->childSource  == atomic){
+			    (*ic)->childSource  == atomic){
 				c->lsIC.erase(ic);
 				ic=c->lsIC.begin();
-				continue;
 			}
 		}
 	}else{
@@ -120,7 +121,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		m->atomic->paramsString = (*childsIterator)->atomic->paramsString;
 		m->atomic->father = rtr;
 		rtr->childs.append(m);
-		//TODO: Agregar las conecciones asociadas a este atomico.
+
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
 			ic != c->lsIC.end();
 			ic++){

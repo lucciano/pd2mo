@@ -1,7 +1,7 @@
 model Pd2Model
-  parameter Real VecInt_1_p[5] = {0,1e-06,0.001,20.4648,200};
+  parameter Real VecInt_1_p[5] = {0,1e-06,0.001,18.8453,200};
   constant Integer VecInt_1_N = 200;
-  parameter Real VecInt_1_x0 = 20.4648;
+  parameter Real VecInt_1_x0 = 18.8453;
   Real VecInt_1_u[VecInt_1_N];
   Real VecInt_1_y[VecInt_1_N];
   constant Real Scalar2Vector_2_p[2] = {(-1),200};
@@ -14,15 +14,15 @@ model Pd2Model
   constant Integer Vec2Scalar_3_N = 200;
   Real Vec2Scalar_3_u[Vec2Scalar_3_N];
   Real Vec2Scalar_3_y;
-  parameter Real vector_sum_4_p[2] = {(-0.000357109),200};
+  parameter Real vector_sum_4_p[2] = {(-0.000356739),200};
   constant Integer vector_sum_4_N = 200;
   Real vector_sum_4_u[vector_sum_4_N];
   Real vector_sum_4_y;
-  Real vector_sum_4_K = (-0.000357109);
-  constant Real hysteretic_vec_5_p[5] = {(-0.5),0.5,(-14.498),0,200};
+  Real vector_sum_4_K = (-0.000356739);
+  constant Real hysteretic_vec_5_p[5] = {(-0.5),0.5,(-13.0747),0,200};
   parameter Real hysteretic_vec_5_xl = (-0.5);
   parameter Real hysteretic_vec_5_xu = 0.5;
-  parameter Real hysteretic_vec_5_yl = (-14.498);
+  parameter Real hysteretic_vec_5_yl = (-13.0747);
   parameter Real hysteretic_vec_5_yu = 0;
   constant Integer hysteretic_vec_5_N = integer(200);
   Real hysteretic_vec_5_u[hysteretic_vec_5_N];
@@ -34,7 +34,7 @@ model Pd2Model
   parameter Real VectorSum_6_w[VectorSum_6_nin] = VectorSum_6_p[1:VectorSum_6_nin];
   Real VectorSum_6_u[VectorSum_6_N,VectorSum_6_nin];
   Real VectorSum_6_y[VectorSum_6_N];
-  parameter Real VectorSum_7_p[10] = {0.000844084,0.000844084,0.00157873,(-0.000844084),0,0,0,0,3,200};
+  parameter Real VectorSum_7_p[10] = {0.00081669,0.00081669,0.00173431,(-0.00081669),0,0,0,0,3,200};
   constant Integer VectorSum_7_N = 200;
   constant Integer VectorSum_7_nin = 3;
   parameter Real VectorSum_7_w[VectorSum_7_nin] = VectorSum_7_p[1:VectorSum_7_nin];
@@ -102,7 +102,22 @@ model Pd2Model
     for i in 1:VectorSum_7_N loop
       VecInt_1_u[i] = VectorSum_7_y[i];
     end for;
+    for i in 1:VectorSum_6_N loop
+      hysteretic_vec_5_u[i] = VectorSum_6_y[i];
+    end for;
+    for i in 1:Scalar2Vector_2_N loop
+      VectorSum_6_u[i,1] = Scalar2Vector_2_y[i];
+    end for;
     Scalar2Vector_9_u = Constant_8_y;
+    for i in 1:Scalar2Vector_9_N loop
+      VectorSum_7_u[i,1] = Scalar2Vector_9_y[i];
+    end for;
+    for i in 1:hysteretic_vec_5_N loop
+      vector_sum_4_u[i] = hysteretic_vec_5_y[i];
+    end for;
+    for i in 1:hysteretic_vec_5_N loop
+      VectorSum_7_u[i,2] = hysteretic_vec_5_y[i];
+    end for;
     for i in 1:VecInt_1_N loop
       VectorSum_7_u[i,3] = VecInt_1_y[i];
     end for;

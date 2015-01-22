@@ -12,6 +12,7 @@ using namespace std;
 
 BOOST_AUTO_TEST_CASE( cero ){
     string path = getFullPath();
+	cout << getFullPath() << endl;
     QString filename = QString::fromStdString(path + string("/data/Coupled.pds"));
     modelCoupled *c = parsePDS(filename);
     QList< modelChild * >::iterator childsIterator;
@@ -67,5 +68,46 @@ BOOST_AUTO_TEST_CASE( uno ){
 	cout << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << ")" <<
 		"(" << (*ic)->childSink << "," << (*ic)->sinkPort << ")" << endl;
     }
+}
+
+BOOST_AUTO_TEST_CASE( dos ){
+    cout << "------------------------------------\n";
+    QString path = getFullPath();
+    QString filename = path + "/data/airs.pds";
+    modelCoupled *c = parsePDS(filename);
+    cout <<"Type : " << c->type.toStdString() << " Name:" << c->name.toStdString() << endl;;
+
+    cout << "Childs:" << c->childs.size() << endl; //3 -> 4
+    cout << "Internal Connections:" << c->lsIC.size() << endl; //3 -> 4
+    for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
+			ic != c->lsIC.end();
+			ic++){
+	cout << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << ")" <<
+		"(" << (*ic)->childSink << "," << (*ic)->sinkPort << ")" << endl;
+    }
+
+    modelCoupled *q = flatter::flat(c);
+    cout << q->childs.size() << endl;
+
+    QList< modelChild * >::iterator childsIterator;
+    for (childsIterator = q->childs.begin(); childsIterator != q->childs.end(); ++childsIterator){
+    	modelChild * modelC = *childsIterator;
+        if(modelC->childType == ATOMIC  ){
+		cout << "CHILD"<< endl;
+		cout << modelC->atomic->path.toStdString() << endl;
+	}else if(modelC->childType == COUPLED) {
+		cout << "COUPLED"<< "(" << modelC->coupled->childs.size() << ")" << endl;
+	}else{
+		cout << "NONO"<< endl;
+	}
+    }
+
+    for(QList < modelConnection * >::iterator ic = q->lsIC.begin();
+			ic != q->lsIC.end();
+			ic++){
+	cout << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << ")" <<
+		"(" << (*ic)->childSink << "," << (*ic)->sinkPort << ")" << endl;
+    }
+    cout << q->lsIC.size() << endl;
 }
 
