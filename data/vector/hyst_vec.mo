@@ -23,4 +23,5 @@ algorithm
       state[i] := yl;
     end when;
   end for;
+  annotation (PD2MO={Vector,Vector});
 end hysteretic_vec;
