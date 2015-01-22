@@ -6,18 +6,28 @@ Requires
 
 Build Requirement
 =================
- * PowerDEVS's libpdppt 
- * Modelicacc's libmodelicacc
 
-### Install ###
-    1.-  sudo apt-get install subversion git build-essential
-    2.-  sudo apt-get install automake
-    3.-  sudo apt-get install libqt4-dev
-    4.-  sudo apt-get install bison qt4lib-dev
-    5.-  sudo apt-get install libginac
-    6.-  sudo apt-get install libginac-dev
-    7.-  sudo apt-get install libginac-dev libboost-dev
-    8.-  sudo apt-get install libboost-test-dev
+ * PowerDEVS's libpdppt and simulation engine
+~~~
+  svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code
+  cd powerdevs-code ; make install-lib
+~~~
+
+ * Modelicacc's libmodelicacc
+~~~
+  svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
+  cd modelicacc-code ; make install
+~~~
   
-### TODO ###
-Hysteresis, VectorSum, VectorNRGen, Pulse, IndexShift
+## Other software ##
+
+### OpenModelica ###
+https://www.openmodelica.org/download/download-linux
+
+### PowerDEVS ###
+https://sourceforge.net/projects/powerdevs/files/?source=navbar
+
+### Modelica C Compiler ###
+
+### QSS Solver ###
+https://sourceforge.net/projects/powerdevs/files/?source=navbar

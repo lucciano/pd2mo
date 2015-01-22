@@ -98,19 +98,19 @@ model Pd2Model
       Scalar2Vector_9_y[Scalar2Vector_9_i] = Scalar2Vector_9_u;
     end for;
     pulse_sci_11_y = pulse_sci_11_d;
-    Scalar2Vector_2_u = pulse_sci_11_y;
-    for i in 1:VectorSum_7_N loop
-      VecInt_1_u[i] = VectorSum_7_y[i];
-    end for;
-    Scalar2Vector_9_u = Constant_8_y;
     for i in 1:VecInt_1_N loop
-      VectorSum_7_u[i,3] = VecInt_1_y[i];
+      Vec2Scalar_3_u[i] = VecInt_1_y[i];
     end for;
     for i in 1:VecInt_1_N loop
       VectorSum_6_u[i,2] = VecInt_1_y[i];
     end for;
-    for i in 1:VecInt_1_N loop
-      Vec2Scalar_3_u[i] = VecInt_1_y[i];
+    for i in 1:VectorSum_7_N loop
+      VecInt_1_u[i] = VectorSum_7_y[i];
     end for;
+    for i in 1:VecInt_1_N loop
+      VectorSum_7_u[i,3] = VecInt_1_y[i];
+    end for;
+    Scalar2Vector_9_u = Constant_8_y;
+    Scalar2Vector_2_u = pulse_sci_11_y;
 end Pd2Model;
 

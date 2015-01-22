@@ -10,7 +10,7 @@ before_install:
 before_script:
   - bison++ -V
   - cd modelicacc-code ; autoreconf -f ; ./configure ; make ; sudo make install 
-  - cd powerdevs-code ; make 
+  - cd powerdevs-code ; make install-lib
 script:
   - make 
 branches:
