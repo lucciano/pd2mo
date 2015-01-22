@@ -18,4 +18,5 @@ equation
       y[i, 1] = 0;
     end for;
   end if;
+  annotation(PD2MO = {Scalar, Vector});
 end Scalar2Vector;
