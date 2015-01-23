@@ -73,6 +73,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 							+ (((*ic)->childSink > atomic)?delta:0);
 						cNew->sinkPort = (*ic)->sinkPort;
 						rtr->lsIC.append(cNew);
+						c->lsIC.erase(ic);
 					}
 				}
 			} 
@@ -89,6 +90,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 						cNew->childSink = (*eic)->childSink + atomic;
 						cNew->sinkPort = (*eic)->sinkPort;
 						rtr->lsIC.append(cNew);
+						c->lsIC.erase(ic);
 					}
 				}
 			}
@@ -106,7 +108,6 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
 			ic != c->lsIC.end();
 			ic++){
-			cout << "atomic:" << atomic <<" " << (*ic)->childSource << "- > " <<(*ic)->childSink << endl;
 			if( (*ic)->childSink == atomic or
 			    (*ic)->childSource  == atomic){
 				c->lsIC.erase(ic);
