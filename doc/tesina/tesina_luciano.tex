@@ -24,12 +24,11 @@
 
 \begin{abstract}
 %\section{Resumen}
-En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprobechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
+En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprovechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
 \end{abstract}
 
 
 \chapter{Introducción}
-
 \section{Motivación y Objetivos}
 PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parametros, posibilidad de conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 
@@ -57,16 +56,21 @@ Para poder realizar nuestro objetivo es necesario primero contar con un modelo  
 
 De esto se desprenden las siguientes limitaciones importantes:
 \begin{itemize}
-	\item La semantica de los modelos convertidos depende de los modelos equivalentes a los DEVS atómicos 
-	\item Solamente podemos convertir modelos cuyos componentes atómicos esten o puedan ser convertidos a modelica.
+	\item La semántica de los modelos convertidos depende de los modelos equivalentes a los DEVS atómicos 
+	\item Solamente podemos convertir modelos cuyos componentes atómicos estén o puedan ser convertidos a $\mu$modelica.
 \end{itemize}
 	
 \chapter{Conceptos Previos}
+En este capítulo introducimos algunos conceptos básicos, necesarios para poder comprender este trabajo.
 \section{Modelado y Simulación}
 
-modelos matematica, eq diferenciales
+Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego simulado, de forma de obtener datos sobre el sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en si.
+
 \subsection{Sistemas Continuos y Discretos}
-clasificacion de modelos/sistemas
+Se considera un sistema continuo si las variables de este son conocidas en cada instante de tiempo, mientras que se considera discreto si las variables son conocidas en instantes de tiempo determinados.
+
+En general los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos puesto que la simulación en computadora así lo requiere, puesto que la misma computadora es un sistema discreto.
+
 \subsection{Métodos de Integración numérica}
 %Ber12 pag. 9
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
