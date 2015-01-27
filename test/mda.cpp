@@ -16,7 +16,7 @@ using namespace pd2mo;
 BOOST_AUTO_TEST_CASE( multidimarray){
 
     //string path = getFullPath();
-    string filename = "/home/powerdevs/pd2mo/test/data/mda.mo";
+    string filename = "/home/ubuntu/pd2mo/test/data/mda.mo";
     int r = 0;
     AST_StoredDefinition sd = parseFile(filename,&r);
 
@@ -25,6 +25,7 @@ BOOST_AUTO_TEST_CASE( multidimarray){
     //cout << *sd->models()->begin() << endl;
      
     cout << m->visitClass(*sd->models()->begin()) << endl;
+    cout << (*sd->models()->begin()) << endl;
 
 }
 

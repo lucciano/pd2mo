@@ -15,9 +15,9 @@ model Pd2Model
   parameter Real VectorSum_3_w[VectorSum_3_nin] = VectorSum_3_p[1:VectorSum_3_nin];
   Real VectorSum_3_u[VectorSum_3_N,VectorSum_3_nin];
   Real VectorSum_3_y[VectorSum_3_N];
-  parameter Real IndexShift_4_p[2] = {1,50};
-  parameter Integer IndexShift_4_Shift = 1;
-  constant Integer IndexShift_4_N = 50;
+  constant Real IndexShift_4_p[2] = {1,50};
+  constant Integer IndexShift_4_Shift = integer(1);
+  constant Integer IndexShift_4_N = integer(50);
   Real IndexShift_4_u[IndexShift_4_N];
   Real IndexShift_4_y[IndexShift_4_N];
   parameter Real VectorSum_5_p[10] = {1,1,(-1),0,0,0,0,0,3,50};
@@ -26,9 +26,9 @@ model Pd2Model
   parameter Real VectorSum_5_w[VectorSum_5_nin] = VectorSum_5_p[1:VectorSum_5_nin];
   Real VectorSum_5_u[VectorSum_5_N,VectorSum_5_nin];
   Real VectorSum_5_y[VectorSum_5_N];
-  parameter Real IndexShift_6_p[2] = {(-1),50};
-  parameter Integer IndexShift_6_Shift = (-1);
-  constant Integer IndexShift_6_N = 50;
+  constant Real IndexShift_6_p[2] = {(-1),50};
+  constant Integer IndexShift_6_Shift = integer((-1));
+  constant Integer IndexShift_6_N = integer(50);
   Real IndexShift_6_u[IndexShift_6_N];
   Real IndexShift_6_y[IndexShift_6_N];
   constant Real Scalar2Vector_7_p[2] = {0,50};
@@ -53,12 +53,12 @@ model Pd2Model
   constant Integer Vec2Scalar_11_N = 50;
   Real Vec2Scalar_11_u[Vec2Scalar_11_N];
   Real Vec2Scalar_11_y;
-  initial equation
+  initial algorithm
     for VecInt_1_i in 1:VecInt_1_N loop
-      VecInt_1_y[VecInt_1_i] = VecInt_1_x0;
+      VecInt_1_y[VecInt_1_i]:=VecInt_1_x0;
     end for;
     for VecInt_2_i in 1:VecInt_2_N loop
-      VecInt_2_y[VecInt_2_i] = VecInt_2_x0;
+      VecInt_2_y[VecInt_2_i]:=VecInt_2_x0;
     end for;
   algorithm
     when time>pulse_sci_8_ti then
@@ -77,14 +77,20 @@ model Pd2Model
     for VectorSum_3_i in 1:VectorSum_3_N loop
       VectorSum_3_y[VectorSum_3_i] = VectorSum_3_u[VectorSum_3_i,1:VectorSum_3_nin]*VectorSum_3_w;
     end for;
-    for IndexShift_4_i in 1:IndexShift_4_N loop
-      IndexShift_4_y[IndexShift_4_i] = if IndexShift_4_i-IndexShift_4_Shift>0 and IndexShift_4_i-IndexShift_4_Shift<IndexShift_4_N then IndexShift_4_u[IndexShift_4_i-IndexShift_4_Shift] else 0;
+    for IndexShift_4_i in 1:IndexShift_4_N-IndexShift_4_Shift loop
+      IndexShift_4_y[IndexShift_4_i+IndexShift_4_Shift] = IndexShift_4_u[IndexShift_4_i];
+    end for;
+    for IndexShift_4_i in 1:IndexShift_4_Shift loop
+      IndexShift_4_y[IndexShift_4_i] = 0;
     end for;
     for VectorSum_5_i in 1:VectorSum_5_N loop
       VectorSum_5_y[VectorSum_5_i] = VectorSum_5_u[VectorSum_5_i,1:VectorSum_5_nin]*VectorSum_5_w;
     end for;
-    for IndexShift_6_i in 1:IndexShift_6_N loop
-      IndexShift_6_y[IndexShift_6_i] = if IndexShift_6_i-IndexShift_6_Shift>0 and IndexShift_6_i-IndexShift_6_Shift<IndexShift_6_N then IndexShift_6_u[IndexShift_6_i-IndexShift_6_Shift] else 0;
+    for IndexShift_6_i in 1:IndexShift_6_N+IndexShift_6_Shift loop
+      IndexShift_6_y[IndexShift_6_i] = IndexShift_6_u[IndexShift_6_i-IndexShift_6_Shift];
+    end for;
+    for IndexShift_6_i in IndexShift_6_N+IndexShift_6_Shift+1:IndexShift_6_N loop
+      IndexShift_6_y[IndexShift_6_i] = 0;
     end for;
     for Scalar2Vector_7_i in 1:Scalar2Vector_7_Index loop
       Scalar2Vector_7_y[Scalar2Vector_7_i] = 0;

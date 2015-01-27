@@ -54,9 +54,9 @@ model Pd2Model
   parameter Real pulse_sci_11_tf = 2000;
   Real pulse_sci_11_d(start = pulse_sci_11_low);
   Real pulse_sci_11_y;
-  initial equation
+  initial algorithm
     for VecInt_1_i in 1:VecInt_1_N loop
-      VecInt_1_y[VecInt_1_i] = VecInt_1_x0;
+      VecInt_1_y[VecInt_1_i]:=VecInt_1_x0;
     end for;
   algorithm
     for hysteretic_vec_5_i in 1:hysteretic_vec_5_N loop
@@ -65,7 +65,7 @@ model Pd2Model
       end when;
     end for;
     for hysteretic_vec_5_i in 1:hysteretic_vec_5_N loop
-      when hysteretic_vec_5_u[hysteretic_vec_5_N]<hysteretic_vec_5_xl then
+      when hysteretic_vec_5_u[hysteretic_vec_5_i]<hysteretic_vec_5_xl then
         hysteretic_vec_5_state[hysteretic_vec_5_i]:=hysteretic_vec_5_yl;
       end when;
     end for;

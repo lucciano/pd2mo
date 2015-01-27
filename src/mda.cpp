@@ -53,21 +53,22 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 				AST_Declaration dec = current_element(it);
 				AST_ExpressionList indexes = dec->indexes();
 				if(indexes->size() >= 2){
-					AST_Expression a1 = lookUpVar(*indexes->begin());
-					//AST_Expression a2 = lookUpVar(*std::next(indexes->begin(),1));
+					AST_ExpressionListIterator a1_it= std::next(indexes->begin(),1);
+					AST_Expression a1 = lookUpVar(*a1_it);
 					if(a1->expressionType() == EXPINTEGER){
 						//cout << comp->name() << "[" <<a1 <<"]" << endl;
 						
 						skyp_element = true;
 						AST_DeclarationList decList = new std::list<AST_Declaration>();
 						for(int i = 1; i <= a1->getAsInteger()->val(); i++){
+							
 							std::stringstream ss;
 							ss <<(comp->name());
 							ss << "_" << i;
 							AST_ExpressionListIterator indexIt;
 							AST_ExpressionList ss_list = new std::list<AST_Expression>();
 							foreach(indexIt, indexes){
-								if(indexIt == indexes->begin()){
+								if(indexIt == a1_it){
 									continue;
 								}
 								ss_list->insert(ss_list->end(), visitExpression(current_element(indexIt)));
