@@ -4,9 +4,9 @@ class VecInt
   parameter Real x0 = p[4];
   Real u[N, 1];
   Real y[N, 1];
-initial equation
+initial algorithm
   for i in 1:N loop
-    y[i, 1] = x0;
+    y[i, 1] := x0;
   end for;
 equation
   for i in 1:N loop
