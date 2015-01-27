@@ -19,7 +19,7 @@ algorithm
     end when;
   end for;
   for i in 1:N loop
-    when u[N, 1] < xl then
+    when u[i, 1] < xl then
       state[i] := yl;
     end when;
   end for;
