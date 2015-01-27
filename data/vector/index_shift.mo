@@ -1,12 +1,24 @@
 class IndexShift
-  parameter Real p[2] = {50, 100};
-  parameter Integer Shift = p[1];
-  constant Integer N = p[2];
+  constant Real p[2] = {-1, 10};
+  constant Integer Shift = integer(p[1]);
+  constant Integer N = integer(p[2]);
   Real u[N, 1];
   Real y[N, 1];
 equation
-  for i in 1:N loop
-    y[i, 1] = if i - Shift > 0 and i - Shift < N then u[i - Shift, 1] else 0;
-  end for;
+  if Shift > 0 then
+    for i in 1:N - Shift loop
+      y[i + Shift, 1] = u[i, 1];
+    end for;
+    for i in 1:Shift loop
+      y[i, 1] = 0;
+    end for;
+  else
+    for i in 1:N + Shift loop
+      y[i, 1] = u[i - Shift, 1];
+    end for;
+    for i in N + Shift + 1:N loop
+      y[i, 1] = 0;
+    end for;
+  end if;
   annotation(PD2MO = {Vector, Vector});
 end IndexShift;
