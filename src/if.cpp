@@ -51,7 +51,6 @@ AST_EquationList If::visitEquationList (AST_EquationList eqList){
 }
 
 AST_Class If::visitClass(AST_Class _class){
-
 	TypeSymbolTable tyEnv = newTypeSymbolTable();
 	_c_class = newMMO_Class(_class, tyEnv);
 	AST_Class rtr = Traverser::visitClass(_class);

@@ -1,8 +1,8 @@
 class VectorSum
   parameter Real p[10] = {1, 1, 0, 0, 0, 0, 0, 0, 2, 1000};
-  constant Integer N = p[10];
-  constant Integer nin = p[9];
-  parameter Real w[nin] = {p[1], p[2]};
+  constant Integer N = 1000;
+  constant Integer nin = 2;
+  parameter Real w[nin] = {1,1};
   Real u[N, nin];
   Real y[N, 1];
 equation

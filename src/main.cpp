@@ -133,8 +133,8 @@ int main (int argc, char* argv[]) {
     If *i = new If();
     uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
-    outfile << //m->visitClass(
-		u->visitClass(
+    outfile << m->visitClass(
+		//u->visitClass(
 			i->visitClass(*sd->models()->begin())
 				)
 				/*)*/ << endl;
