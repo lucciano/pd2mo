@@ -30,22 +30,19 @@ BOOST_AUTO_TEST_CASE( multidimarray){
 
 }
 
-//BOOST_AUTO_TEST_CASE( multidimarray2){
-//
-//    //string path = getFullPath();
-//    string filename = "/home/ubuntu/pd2mo/test/data/mda2.mo";
-//    int r = 0;
-//    AST_StoredDefinition sd = parseFile(filename,&r);
-//
-//    mda *m = new mda();
-//    range *ra = new range();
-//    //cout << *sd->models()->begin() << endl;
-//     
-//    cout << m->visitClass(*sd->models()->begin()) << endl;
-//    cout << (*sd->models()->begin()) << endl;
-//    cout << ra->visitClass(*sd->models()->begin()) << endl;
-//
-//}
+BOOST_AUTO_TEST_CASE( multidimarray2){
+    //string path = getFullPath();
+    string filename = "/home/ubuntu/pd2mo/test/data/mda2.mo";
+    int r = 0;
+    AST_StoredDefinition sd = parseFile(filename,&r);
+
+    range *ra = new range();
+    //cout << *sd->models()->begin() << endl;
+     
+    cout << (*sd->models()->begin()) << endl;
+    cout << ra->visitClass(*sd->models()->begin()) << endl;
+
+}
 
 //BOOST_AUTO_TEST_CASE( mmo ){
 //    string filename = "/home/ubuntu/pd2mo/test/data/EvalCondition.mo";

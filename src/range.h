@@ -9,7 +9,7 @@ namespace pd2mo{
 class range: public Traverser {
    public:
 	MMO_Class _c_class; 
-	virtual AST_Expression_ComponentReference visitExpression_ComponentReference(AST_Expression_ComponentReference); // AST_Expression
+	virtual AST_Expression visitExpression(AST_Expression); // AST_Expression
 	virtual AST_Class visitClass(AST_Class _class);
 };
 }
