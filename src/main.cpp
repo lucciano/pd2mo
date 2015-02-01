@@ -5,6 +5,7 @@
 #include <src/flatter.h>
 #include <src/mda.h>
 #include <src/uda.h>
+#include <src/range.h>
 #include <src/if.h>
 #include <pdppt/codegenerator.h>
 #include <libgen.h>
@@ -130,12 +131,13 @@ int main (int argc, char* argv[]) {
     AST_StoredDefinition sd = parseFile(src_outfile.c_str(),&r);
 
     mda *m = new mda();
+    range *ran = new range();
     If *i = new If();
     uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
     outfile << m->visitClass(
 		//u->visitClass(
-			i->visitClass(*sd->models()->begin())
+		ran->visitClass(i->visitClass(*sd->models()->begin()))
 				)
 				/*)*/ << endl;
 
