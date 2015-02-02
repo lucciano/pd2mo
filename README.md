@@ -32,3 +32,9 @@ http://sourceforge.net/p/modelicacc/code/HEAD/tree/
 
 ### QSS Solver ###
 https://sourceforge.net/projects/powerdevs/files/?source=navbar
+
+
+cambiar el nombre del modelo
+solo expandir el segundo componente del rango
+solo expandir cuando tenga dos componentes.
+expandir el producto interno cuando alguno de los dos es bidimensional y tiene rango en la segunda componente.

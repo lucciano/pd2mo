@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE( cuatro ){
     string path = getFullPath();
     string filename = path + "/data/simple01.pds";
     Pd2Mo q = Pd2Mo();
-    q.transform(filename, &cout, &cout);
+    q.transform(filename, "PD2Model", &cout, &cout);
 	cout << "fin.."<< endl;
 
     QString qfilename = QString::fromStdString(filename);

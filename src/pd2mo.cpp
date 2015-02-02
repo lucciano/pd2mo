@@ -28,7 +28,7 @@ Pd2Mo::Pd2Mo(){
         pd2mo_dir = getFullPath();
 }
 
-void Pd2Mo::transform(string filename, ostream * output, ostream * log){
+void Pd2Mo::transform(string filename, string modelname, ostream * output, ostream * log){
 
         QString qfilename = QString::fromStdString(filename);
         
@@ -65,7 +65,7 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 
         
         //Move all AST_Class List to a new "Model"
-	AST_String name = new  string("Pd2Model");
+	AST_String name = new  string(modelname);;
 
 	AST_ElementList elem = new list<AST_Element>();
 	AST_CompositionElementList comp = new list<AST_CompositionElement>();
@@ -226,7 +226,6 @@ void Pd2Mo::transform(string filename, ostream * output, ostream * log){
 			AST_Equation_For eqFor = new AST_Equation_For_ (ind, eql);
 
 			eqList->insert(eqList->end(), eqFor);
-
 
 		}else{
 			(*log) << "Unkown connection" <<endl;

@@ -50,7 +50,7 @@ class Pd2Mo {
 
 public:
 	Pd2Mo();
-	void transform(string file, ostream * output, ostream * log);
+	void transform(string file, string modelname, ostream * output, ostream * log);
 	void setPath(string);
 
 };

@@ -124,7 +124,17 @@ int main (int argc, char* argv[]) {
 
     Pd2Mo q = Pd2Mo();
     q.setPath(path);
-    q.transform(flatted, &outfile, &oFlogfile);
+ 	
+    char * file = basename((char *) src_infile.c_str());
+	file[strlen(file)-4] = 0;
+    char * mname = strdup(file);
+    //modelname.copy( src_infile.c_str(), (sizeof src_infile) - 3, 0);
+    string modelname(mname); // = string(src_infile);
+
+    cout << modelname << "....."<<  endl;
+
+
+    q.transform(flatted, modelname, &outfile, &oFlogfile);
     outfile.close();
 
     int r = 0;
