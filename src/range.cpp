@@ -27,7 +27,6 @@ AST_Expression range::visitExpression(AST_Expression exp){
 		AST_ExpressionList expList = current_element(it);
 		foreach(itExp, expList){
 			if(current_element(itExp)->expressionType() == EXPRANGE){
-				cout << name << "exp pos: " << i << ", " << j;
 				AST_Expression_Range expRange = current_element(itExp)->getAsRange();
 				AST_Expression exp1 = *(expRange->expressionList()->begin());
 				AST_Expression exp2 = *(std::next(expRange->expressionList()->begin(),1));

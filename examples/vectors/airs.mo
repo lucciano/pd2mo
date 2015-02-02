@@ -1,4 +1,4 @@
-model Pd2Model
+model airs
   parameter Real VecInt_1_p[5] = {0,1e-06,0.001,18.8453,200};
   constant Integer VecInt_1_N = 200;
   parameter Real VecInt_1_x0 = 18.8453;
@@ -31,13 +31,13 @@ model Pd2Model
   parameter Real VectorSum_6_p[10] = {1,(-1),0,0,0,0,0,0,2,200};
   constant Integer VectorSum_6_N = 200;
   constant Integer VectorSum_6_nin = 2;
-  parameter Real VectorSum_6_w[2] = {VectorSum_6_p[1],VectorSum_6_p[2]};
+  parameter Real VectorSum_6_w[2] = VectorSum_6_p[1:2];
   Real VectorSum_6_u_1[200],VectorSum_6_u_2[200];
   Real VectorSum_6_y_1[200];
   parameter Real VectorSum_7_p[10] = {0.00081669,0.00081669,0.00173431,(-0.00081669),0,0,0,0,3,200};
   constant Integer VectorSum_7_N = 200;
   constant Integer VectorSum_7_nin = 3;
-  parameter Real VectorSum_7_w[3] = {VectorSum_7_p[1],VectorSum_7_p[2],VectorSum_7_p[3]};
+  parameter Real VectorSum_7_w[3] = VectorSum_7_p[1:3];
   Real VectorSum_7_u_1[200],VectorSum_7_u_2[200],VectorSum_7_u_3[200];
   Real VectorSum_7_y_1[200];
   parameter Real Constant_8_k = 1;
@@ -88,10 +88,10 @@ model Pd2Model
       hysteretic_vec_5_y_1[hysteretic_vec_5_i] = hysteretic_vec_5_state[hysteretic_vec_5_i];
     end for;
     for VectorSum_6_i in 1:200 loop
-      VectorSum_6_y_1[VectorSum_6_i] = {VectorSum_6_u_1[VectorSum_6_i],VectorSum_6_u_2[VectorSum_6_i]}*VectorSum_6_w;
+      VectorSum_6_y_1[VectorSum_6_i] = VectorSum_6_u_1[VectorSum_6_i]*VectorSum_6_w[1]+VectorSum_6_u_2[VectorSum_6_i]*VectorSum_6_w[2];
     end for;
     for VectorSum_7_i in 1:200 loop
-      VectorSum_7_y_1[VectorSum_7_i] = {VectorSum_7_u_1[VectorSum_7_i],VectorSum_7_u_2[VectorSum_7_i],VectorSum_7_u_3[VectorSum_7_i]}*VectorSum_7_w;
+      VectorSum_7_y_1[VectorSum_7_i] = VectorSum_7_u_1[VectorSum_7_i]*VectorSum_7_w[1]+VectorSum_7_u_2[VectorSum_7_i]*VectorSum_7_w[2]+VectorSum_7_u_3[VectorSum_7_i]*VectorSum_7_w[3];
     end for;
     Constant_8_y[1] = 1;
     for Scalar2Vector_9_i in 1:Scalar2Vector_9_N loop
@@ -127,5 +127,5 @@ model Pd2Model
     for i in 1:200 loop
       Vec2Scalar_3_u_1[i] = VecInt_1_y_1[i];
     end for;
-end Pd2Model;
+end airs;
 

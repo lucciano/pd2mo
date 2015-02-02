@@ -6,6 +6,7 @@
 #include <src/mda.h>
 #include <src/uda.h>
 #include <src/range.h>
+#include <src/prodint.h>
 #include <src/if.h>
 #include <pdppt/codegenerator.h>
 #include <libgen.h>
@@ -142,14 +143,20 @@ int main (int argc, char* argv[]) {
 
     mda *m = new mda();
     range *ran = new range();
+    prodint *  prod = new prodint();
     If *i = new If();
     uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
     outfile << m->visitClass(
 		//u->visitClass(
-		ran->visitClass(i->visitClass(*sd->models()->begin()))
+		//ran->visitClass(
+		prod->visitClass(
+		i->visitClass(
+			*sd->models()->begin()
 				)
-				/*)*/ << endl;
+				)
+				)
+				/*))*/ << endl;
 
     outfile.close();
 
