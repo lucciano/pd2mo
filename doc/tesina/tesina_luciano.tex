@@ -104,8 +104,28 @@ x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \
 Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de términos de la serie de Taylor que consideran para la aproximación.
 
 \section{Formalismo DEVS}
-Ber12 pag. 20
-\subsection{Atómicos }
+
+DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, ocurren una cantidad finita de eventos).
+Un modelo DEVS puede ser visto como un autómata que procesa una serie de eventos de entrada y genera una serie de eventos de salida. Este procesamiento está regido por la estructura interna de cada una de las partes que componen el modelo general.
+Un modelo DEVS está descripto por dos clases de componentes, modelos atómicos y modelos acoplados.
+
+\subsection{Atómicos}
+
+Un modelo atómico representa la unidad "indivisible" de especificación, en el sentido que es la pieza fundamental y más básica de un modelo DEVS. Formalmente un modelo atómico está conformado por la 7-upla:
+
+\begin{equation} 
+(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
+\end{equation}
+
+\begin{itemize}
+\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
+\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
+\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
+\item $ta$ es una función $S \to R^{+}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún evento de entrada. Esta función puede asociarse también al tiempo de vida de un estado.
+\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. Sería el análogo a una tabla de transición en otros autómatas.
+\item $\delta_{ext}$ es una función $(S \times R^{+} \times X) \to S$, que indica el cambio de estado ante la presencia de un evento externo.
+\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado.
+\end{itemize}
 
 \subsection{Acoplados}
 
