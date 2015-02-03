@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage[spanish]{babel}
+\usepackage{amssymb}
 %\renewcommand{\abstractname}{Resumen: }
 
 \begin{document}
@@ -155,23 +156,22 @@ donde cada componente es:
       \begin {itemize}
           \item EIC (o External Input Coupling) son las conexiones de entrada al acoplado, es decir, conecta un puerto de entrada del acoplado con un puerto de entrada de un modelo perteneciente al acoplado.
           \item EOC (o External Output Coupling) son las conexiones de salida del acoplado. Conecta un puerto de salida de un modelo interno del acoplado con un puerto de salida del acoplado. Formalmente:
-          $ EIC \in {((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d } $
-          $EOC \in {((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d } $
+          $ EIC \in \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} $
+          $EOC \in \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d \} $
     
     	donde N es el modelo acoplado.
       \end{itemize}
 
 \item $IC$ representa las conexiones internas del acoplado donde:
 \begin{equation}
-IC \in {((a, ip_a ), (b, ip_b )) | a, b \in D, ip a \in OutPorts_a , ip_b \in InPorts_b }
+IC \in \{((a, ip_a ), (b, ip_b )) | a, b \in D, ip a \in OutPorts_a , ip_b \in InPorts_b \}
 \end{equation}
 donde no se permite que $a = b$.
 
 \item Select es una función $(D \times D \to D)$ que decide qué modelo realizará primero su transición interna, si se da el caso de eventos simultáneos. Es una función de "desempate" que en ciertos modelos es necesaria.
 \end{itemize}
 
-%XXX Cambiar N por "Naturales"
-$InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = N$ y $Outports = N$ Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
+$InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$ Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
 
 %XXX : Falta figura 2.6 - Ber12, pag. 24
 
@@ -180,29 +180,29 @@ En esta Sección introducimos una extensión al formalismo DEVS para especificar
 \subsection{Modelos DEVS parametrizados}
 Definimos aquí primero un modelo DEVS parametrizado. Dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
 \begin{equation}
-M (p) = {X, Y, S, \delta_{int} p , \delta_{ext} p ,\lambda p , ta p}
+M (p) = \{X, Y, S, \delta_{int} p , \delta_{ext} p ,\lambda p , ta p\}
 \end{equation}
 
 donde $p \in P$ es un parámetro que pertenece a un conjunto de parámetros arbitrario tal que $\delta_{int}$ , $\delta_{ext}$ , $\lambda$ y $ta$ dependen también de $p$.
-Notar que dos modelos DEVS $M (p_1 )$, $M (p_2 )$ con $p_1$ \noeq $p_2$ pueden exhibir distintos comportamientos aunque compartan los mismos conjuntos de entrada, salida y de estados ($X$, $Y$ , y $S$, respectivamente).
+Notar que dos modelos DEVS $M (p_1 )$, $M (p_2 )$ con $p_1 \neq p_2$ pueden exhibir distintos comportamientos aunque compartan los mismos conjuntos de entrada, salida y de estados ($X$, $Y$ , y $S$, respectivamente).
 
 \subsection{Modelos Vectoriales}
 Dado el modelo escalar DEVS Parametrizado:
 \begin{equation}
-M (p) = {X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p}
+M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
 \end{equation}
 
 definimos un modelo Vectorial DEVS como la estructura:
 \begin{equation}
-V D = {N, XV, Y V, P, {M i }},
+V D = \{N, XV, Y V, P, {M i }\},
 \end{equation}
 donde:
 \begin{itemize}
 \item $N \in N$ es la dimensión del modelo vectorial.
 
-\item $XV = X \times Index$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo escalar e $Index = {1, \cdots , N }$ es el conjunto de  ́ındices que indican cuál de los modelos DEVS atómicos recibirá el evento.
+\item $XV = X \times Index$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
 
-\item $YV = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \cdots , N }$ es el conjunto de índices que indica qué ́modelo escalar de los $N$ , emitió el evento.
+\item $YV = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento.
 
 \item $P$ es un conjunto de parámetros arbitrario.
 
