@@ -4,10 +4,10 @@ model pulse_sci
   parameter Real amplitude = p[2];
   parameter Real ti = p[3];
   parameter Real tf = p[4];
-  Real d(start = low);
+  discrete Real d(start = low);
   Real y[1];
 equation
-  y[1] = d;
+  y[1] = pre(d);
 algorithm
   when time > ti then
     d := low + amplitude;

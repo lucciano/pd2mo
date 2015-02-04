@@ -10,7 +10,7 @@ model hysteretic_vec
   discrete Real state[N];
 equation
   for i in 1:N loop
-    y[i, 1] = state[i];
+    y[i, 1] = pre(state[i]);
   end for;
 algorithm
   for i in 1:N loop
