@@ -210,7 +210,35 @@ donde:
 \end{itemize}
 	
 \section{Métodos de integración QSS}
-QSS paper
+Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación la por:
+%Agregar la referencia de la equación
+
+\begin{equation}
+\dot{x}(t) = f (q(t), v(t))
+\end{equation}
+
+donde q es el vector de estados cuantificados y sus componentes están relacionadas una a una con las del vector de estados $x$ siguiendo una función de cuantificación con histéresis:
+
+\begin{equation}
+q_j(t) = \left\{ 
+  \begin{array}{l l}
+    x_j(t)  \quad \text{si} \mid x_j (t ) - q_j (t^{-} ) \mid \geq \Delta Q_j \\
+    q_j (t^{-} ) \quad \text{en caso contrario}
+  \end{array} \right.
+\end{equation}
+
+donde $q_j (t^{-})$ es el límite por izquierda de $q_j$ en $t$.
+
+%TODO Figura Ber12 p. 17
+En la Figura 2.2 vemos la relación entrada-salida de una función de cuantificación de orden cero.
+
+Notar que un cuantificador con histéresis tiene memoria. Es decir, calcula $q(t)$ no sólo en función del valor actual de $x(t)$ sino también de su valor pasado.
+La presencia de esta función que relaciona $q_j (t)$ y $x_j (t)$ implica que $q_j (t)$ sigue una trayectoria constante a trozos que sólo cambia cuando difiere con $x_j (t)$ en un parámetro $\Delta Q_j$ llamado quantum.
+
+%XXX Que es un sistema ralo.
+Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante a trozos de la variable de estado correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes a trozos de las componentes correspondientes de $u(t)$.  Los pasos de integración en los métodos de QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de estado correspondiente $x_j (t)$ difiere de $q_j(t^{-})$ en un quantum. Ese cambio implica también que algunas derivadas de estado (aquellas que dependen de $x_j$ ) tambi ́en son modificadas. Luego, cada paso involucra un cambio en sólo una variable cuantificada y en algunas derivadas de estado. Por lo tanto cuando un gran sistema ralo (o sparse) posee sólo actividad en unos pocos estados mientras que el resto del sistema se mantiene intacto, los métodos de QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
+Otra ventaja importante de los métodos de QSS es que tratan las discontinuidades de una manera muy eficiente. Dependiendo del orden del método, las variables de estado siguen trayectorias lineal a trozos, parabólica a trozos o constante a trozos. Debido a ello, detectar los cruces por cero es sencillo ya que se debe resolver una ecuación cúbica en el peor caso. Una vez que la discontinuidad es detectada, el algoritmo la trata como un paso normal ya que cada paso es de hecho una discontinuidad en una variable cuantificada. Por lo tanto la ocurrencia de una discontinuidad implica sólo algunos cálculos locales para recomputar las derivadas de estados que están directamente afectadas por ese evento.
+Estas ventajas resultan en una aceleración notable en el tiempo de simulación contra los algoritmos de integración numérica clásicos. En modelos con discontinuidades frecuentes como sistemas de electrónica de potencia, los métodos de alto orden que veremos a continuación, pueden simular hasta 20 veces más rápido que los métodos convencionales.
 
 \section{PowerDEVS}
 Powerdevs Paper
