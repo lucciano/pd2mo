@@ -258,7 +258,9 @@ Cuando el modelo se guarda, el código es guardado en los archivos .cpp y .h.
 \item El \emph{Pre procesador}, toma un archivo .pdm (o .pds) producido por el \emph{Editor de Modelos} y produce el programa que corre la simulación. Básicamente traduce el archivo .pdm a un archivo de cabecera .h que enlaza el simulador y el coordinador de acuerdo a la estructura del modelo pasando además los parámetros.
 El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual invoca el compilador para generar el programa que implementa la simulación. 
 
+\item La \emph{interfaz de simulación}, que corre el programa que implementa la simulación y permite variar parámetros de la simulación como tiempo final, números de simulación a ejecutar, y el modo de simulación (normal, cronometrada, pasa o paso, etc.).
 
+\item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados. 
 \end{itemize}
 
 \section{Modelica}
