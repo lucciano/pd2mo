@@ -255,6 +255,9 @@ La ventana de Edición de Bloques, nos permite configurar la apariencia gráfica
 \item El \emph{Editor de Atómico} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario solo debe definir las variables que forman el estado y la salida del modelo DEVS. Luego, el código C++ de la transición de avance de tiempo y la función de salida deben se completados. Hay dos ventanas adicionales init y exit, donde se puede completar con código que sera ejecutado al inicio y fin de la simulación.
 Cuando el modelo se guarda, el código es guardado en los archivos .cpp y .h. 
 
+\item El \emph{Pre procesador}, toma un archivo .pdm (o .pds) producido por el \emph{Editor de Modelos} y produce el programa que corre la simulación. Básicamente traduce el archivo .pdm a un archivo de cabecera .h que enlaza el simulador y el coordinador de acuerdo a la estructura del modelo pasando además los parámetros.
+El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual invoca el compilador para generar el programa que implementa la simulación. 
+
 
 \end{itemize}
 
