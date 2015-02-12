@@ -35,7 +35,7 @@ PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el 
 La resolución de ecuaciones diferenciales ordinarias, requiere el uso de métodos de integración numérica. Todos los algoritmos tradicionales de integración se basan en la discretización de la variable independiente (que generalmente representa el tiempo). Las rutinas que implementan estos algoritmos, se denominan solvers y existen gran variedad de implementaciones de los mismos en diferentes lenguajes de programación. Los Métodos de Integración Numérica QSS (Quantized State System), a diferencia de los métodos de integración tradicionales, realizan la discretización sobre las variables de estado. En consecuencia, convierten los sistemas continuos en sistemas de eventos discretos, y tienen grandes ventajas para simular sistemas con discontinuidades.
 Si bien PowerDEVS, implementa la totalidad de los algoritmos de QSS, resultan ineficientes, dado que malgastan gran parte de la carga computacional en la transmisión de eventos entre submodelos.
 Para solventar este hecho se desarrollo una familia de QSS stand-solver, el cual requiere un modelo descripto en lenguaje C el cual contiene las equaciones difereciales, las funciones de cruce de cero asi como la información estructural requerida por los algoritmos QSS. Estos solvers obtienen una mejora de performace de hasta un orden de maginitud comparado con otras implementaciones DEVS.
-Sobre este se desarrollo una herramineta la cual genera a partir de un modelo $\mu$-Modedelica (un subconjunto del lenguaje Modelica) el modelo requerido para el QSS solver.
+Sobre este se desarrollo una herramienta la cual genera a partir de un modelo $\mu$-Modedelica (un subconjunto del lenguaje Modelica) el modelo requerido para el QSS solver.
 Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amigable con el usuario, se creo una herramienta capas de convertir un modelo PowerDEVS en un modelo $\mu$-Modelica.
 
 
@@ -264,6 +264,10 @@ El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual
 \end{itemize}
 
 \section{Modelica}
+Modelica es un lenguaje para el modelado de sistemas físicos, diseñado para soportar el desarrollo eficiente de librerías e intercambio de modelos. Es un lenguaje moderno con ecuaciones  matemáticas y características orientadas a objetos para facilitar la re-utilización de los modelos.
+
+%TODO : mencionar implementaciones¿?
+
 \section{QSS Stand Alone Solver}
 QSSPaper
 
