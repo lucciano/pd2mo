@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage[spanish]{babel}
 \usepackage{amssymb}
+\usepackage{minted}
 %\renewcommand{\abstractname}{Resumen: }
 
 \begin{document}
@@ -301,8 +302,33 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
 
 
 \chapter{Conversión de modelos DEVS}
+
+En este capitulo se describe la conversión de los modelos DEVS.
+
 \section{Modelos Atómicos}
-Cómo se traducen (es conocimiento del modelador, no automático)
+Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
+
+\begin{itemize}
+\item El código debe ser Modelica valido y estar ubicado en el mismo directorio del código C, con el mismo nombre que el archivo .h, pero con extensión .mo
+\item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$
+\item Los valores de entrada del modelo son asociados a la variable $u$
+\item Los valores de salida del modelos son asociados a la variable $y$
+% \item La cantidad de ecuaciones y variables debe ser igual.
+\end{itemize}
+
+Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo ambos dentro del directorio qss.
+
+\begin{minted}{modelica}
+class QSSIntegrator
+	parameter Real p[4]={0,0,0,0};
+  parameter Real x0 = p[4];
+  Real u[1];
+  Real y[1](start = {x0});
+equation
+  der(y[1]) = u[1];
+end QSSIntegrator;
+\end{minted}
+
 \section{Modelos Vectoriales}
 Consideraciones  y anotaciones en modelica, modificaciones
 
