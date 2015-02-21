@@ -334,7 +334,15 @@ Los parámetros son remplazadas en el modelo, evaluados en Scilab, lo que los tr
 Los modelos no encontrados son ignorados en la traducción.
 
 \section{Modelos Vectoriales}
-Consideraciones  y anotaciones en modelica, modificaciones
+Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Estos modelos pueden tener tanto la entrada como la salida de sus conectores de forma vectorial, por lo que los modelos vectoriales deben indicarlos con la anotación de Modelica $PD2MO$, por ejemplo:
+\begin{itemize}
+\item $annotation(PD2MO = {Scalar, Vector});$ cuando la entrada es escalar, es decir no vectorial y la salida vectorial
+\item $annotation(PD2MO = {Vector, Scalar});$ cuando la entrada es vectorial y la salida vectorial
+\item $annotation(PD2MO = {Vector, Vector});$ cuando ambos, la entrada y salida son vectoriales.
+\item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son ambas escalares, este es el caso por defecto y no es necesario declararlo.
+\end{itemize}
+
+Además las variables de entradas $u$ y de salidas $y$ que sean vectoriales deben ser definidas como vectores en Modelica.
 
 \section{Modelos Acoplados Planos}
 Modelos acoplados solo con modelos atómicos adentro.	
