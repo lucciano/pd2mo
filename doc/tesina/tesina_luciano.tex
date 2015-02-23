@@ -303,7 +303,7 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
 
 \chapter{Conversión de modelos DEVS}
 
-En este capitulo se describe la conversión de los modelos DEVS.
+En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
 
 \section{Modelos Atómicos}
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
@@ -342,12 +342,38 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son ambas escalares, este es el caso por defecto y no es necesario declararlo.
 \end{itemize}
 
-Además las variables de entradas $u$ y de salidas $y$ que sean vectoriales deben ser definidas como vectores en Modelica.
+Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo.
+
+
+\begin{minted}{modelica}
+class VecInt
+  parameter Real p[5] = {0, 10, 0, 0, 10};
+  constant Integer N = p[5];
+  parameter Real x0 = p[4];
+  Real u[N, 1];
+  Real y[N, 1];
+initial algorithm
+  for i in 1:N loop
+    y[i, 1] := x0;
+  end for;
+equation
+  for i in 1:N loop
+    der(y[i, 1]) = u[i, 1];
+  end for;
+  annotation(PD2MO = {Vector, Vector});
+end VecInt;
+\end{minted}
 
 \section{Modelos Acoplados Planos}
-Modelos acoplados solo con modelos atómicos adentro.	
 
-Mencionar el algoritmo (traducción de conexiones y ``aplanado'' de cada uno de los atómicos hijos``)	
+Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
+\begin{itemize}
+	\item Se incluye el código Modelica del cuerpo del modelo.
+	\item Se remplazan los parámetros $p$ por los de la simulación.
+	\item Se reescriben todas las variables (excepto la variable $time$) con un prefijo que incluye la posición del Modelo Atómico dentro del Modelo Acoplado y El nombre del modelo (en Modelica).
+\end{itemize}
+
+Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
 
 \section{Equivalencia semántica de la conversión}
 
