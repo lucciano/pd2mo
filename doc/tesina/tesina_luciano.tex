@@ -375,10 +375,21 @@ Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contie
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
 
-\section{Equivalencia semántica de la conversión}
-
 \section{Modelos Acoplados Jerárquicos}
-Explicar cuándo se utilzan y que resolvemos el problema aplanando los acoplados
+%XXX : Demostración por inducción.
+
+En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
+
+Para realizar el aplanado, se recorre recursivamente los modelos acoplados
+
+\begin{itemize}
+\item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
+\item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
+\end{itemize} 
+
+De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
+
+\section{Equivalencia semántica de la conversión}
 
 \subsection{Algoritmo de aplanado}
 Describir el algoritmo para PDS
