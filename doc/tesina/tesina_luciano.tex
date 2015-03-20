@@ -1,11 +1,17 @@
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
-
+% XXX agregar una parametrizacion en (i) a las variables u e y Modelos Atómicos
+% XXX agregar el desfazage de puertos entre modelica y powerdevs.
+% XXX poner ejemplos (en general)
+% XXX Agregar sitas
+% XXX Agregar power line citation (buscar en el vect-devs paper) LC-line
+% XXX Agregar citas del mail.
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage[spanish]{babel}
 \usepackage{amssymb}
 \usepackage{minted}
+\usepackage[hidelinks]{hyperref}
 %\renewcommand{\abstractname}{Resumen: }
 
 \begin{document}
@@ -41,7 +47,8 @@ Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amiga
 
 
 \section{Trabajo relacionado}
-¿Cuales?
+% XXX Google.
+
 \section{Alcance}
 DEVS, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerarquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos mediantes que pueden ser descriptos mediantes equaciones diferenciales.
 En el formalismo clasico DEVS, los modelos atómicos capturan el comportamiento del sistema, mientras los modelos Acoplados describen la estructura del sistema.
@@ -82,7 +89,7 @@ x(t = t 0 ) = x 0
 \end{equation}
 
 Sea $x_i (t)$ la trayectoria del estado $i$-esimo expresada como función de tiempo simulado. 
-Mientras que la ecuación \eqref{eq1} no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria
+Mientras que la ecuación \eqref{ eq1 } no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria
 
 Denominando $t^{\ast}$ al instante de tiempo en torno al cual se aproxima la trayectoria mediante una serie de Taylor, y siendo $t^{\ast} + h$ el instante de tiempo en el cual se quiere evaluar la aproximación, entonces, la trayectoria en dicho punto puede expresarse como sigue:
 
@@ -306,6 +313,7 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
 En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
 
 \section{Modelos Atómicos}
+% XXX : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
 
 \begin{itemize}
@@ -332,6 +340,32 @@ end QSSIntegrator;
 Los parámetros son remplazadas en el modelo, evaluados en Scilab, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
 Los modelos no encontrados son ignorados en la traducción.
+
+
+\section{Modelos Acoplados Planos}
+
+Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
+\begin{itemize}
+	\item Se incluye el código Modelica del cuerpo del modelo.
+	\item Se remplazan los parámetros $p$ por los de la simulación.
+	\item Se reescriben todas las variables (excepto la variable $time$) con un prefijo que incluye la posición del Modelo Atómico dentro del Modelo Acoplado y El nombre del modelo (en Modelica).
+\end{itemize}
+
+Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
+
+\section{Modelos Acoplados Jerárquicos}
+%XXX : Demostración por inducción.
+
+En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
+
+Para realizar el aplanado, se recorre recursivamente los modelos acoplados
+
+\begin{itemize}
+\item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
+\item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
+\end{itemize} 
+
+De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
 
 \section{Modelos Vectoriales}
 Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Estos modelos pueden tener tanto la entrada como la salida de sus conectores de forma vectorial, por lo que los modelos vectoriales deben indicarlos con la anotación de Modelica $PD2MO$, por ejemplo:
@@ -364,30 +398,7 @@ equation
 end VecInt;
 \end{minted}
 
-\section{Modelos Acoplados Planos}
-
-Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
-\begin{itemize}
-	\item Se incluye el código Modelica del cuerpo del modelo.
-	\item Se remplazan los parámetros $p$ por los de la simulación.
-	\item Se reescriben todas las variables (excepto la variable $time$) con un prefijo que incluye la posición del Modelo Atómico dentro del Modelo Acoplado y El nombre del modelo (en Modelica).
-\end{itemize}
-
-Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
-
-\section{Modelos Acoplados Jerárquicos}
-%XXX : Demostración por inducción.
-
-En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
-
-Para realizar el aplanado, se recorre recursivamente los modelos acoplados
-
-\begin{itemize}
-\item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
-\item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
-\end{itemize} 
-
-De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
+\chapter{Resultados}
 
 \section{Equivalencia semántica de la conversión}
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
@@ -414,7 +425,7 @@ tamaños de las vectores y comparativas de
 \subsection{Vector/airs}
 \subsection{Vector/lcline}
 \nocite{*}
-\section{Conclusiones y Trabajo a futuro}
+\chapter{Conclusiones y Trabajo a futuro}
 
 
 \bibliographystyle{plain}
