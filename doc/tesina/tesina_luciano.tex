@@ -150,7 +150,7 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
 
 \subsection{Acoplados}
 La descripción de un sistema puede ser completamente realizada utilizando modelos atómicos, aunque esto resulta un poco incómodo y confuso. Los conjuntos de estados y las funciones de transición se vuelven inmanejables en sistemas complejos, y nunca podemos asegurar haber cubierto todos los posibles estados.
-Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados (ver Figura 2.6) que es una forma de agrupar modelos DEVS y generar nuevos modelos a partir de este agrupamiento.
+Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados, que es una forma de agrupar modelos DEVS y generar nuevos modelos a partir de este agrupamiento.
 Hay dos formas de acoplamiento, la más general, en la cual se utilizan funciones de traducción entre los sub–sistemas y otra clase que adopta el uso de puertos para la comunicación entre sub–sistemas. Aunque estas dos formas son equivalentes entre sí, describiremos la segunda clase, ya que es la más simple y es la utilizada en el presente trabajo.
 Formalmente un modelo acoplado está representado por la octo-upla:
 
@@ -188,8 +188,6 @@ donde no se permite que $a = b$.
 \end{itemize}
 
 $InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$ Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
-
-%XXX : Falta figura 2.6 - Ber12, pag. 24
 
 En esta Sección introducimos una extensión al formalismo DEVS para especificar modelos vectoriales fácilmente.
 
@@ -245,8 +243,13 @@ q_j(t) = \left\{
 
 donde $q_j (t^{-})$ es el límite por izquierda de $q_j$ en $t$.
 
-%TODO Figura Ber12 p. 17
-En la Figura 2.2 vemos la relación entrada-salida de una función de cuantificación de orden cero.
+\begin{figure}[!htbp]
+  \includegraphics[scale=0.5]{histeresis0}
+  \caption{Comportamiento de un modelo DEVS atómico}
+   \label{fig:fig2-2}
+\end{figure}
+
+En la Figura \ref{fig:fig2-2} vemos la relación entrada-salida de una función de cuantificación de orden cero.
 
 Notar que un cuantificador con histéresis tiene memoria. Es decir, calcula $q(t)$ no sólo en función del valor actual de $x(t)$ sino también de su valor pasado.
 La presencia de esta función que relaciona $q_j (t)$ y $x_j (t)$ implica que $q_j (t)$ sigue una trayectoria constante a trozos que sólo cambia cuando difiere con $x_j (t)$ en un parámetro $\Delta Q_j$ llamado quantum.
