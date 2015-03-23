@@ -34,23 +34,22 @@
 \tableofcontents
 
 \begin{abstract}
-%\section{Resumen}
 En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprovechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
 \end{abstract}
 
 
 \chapter{Introducción}
 \section{Motivación y Objetivos}
-PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parametros, posibilidad de conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
+PowerDEVS es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parámetros, posibilidad de conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 La resolución de ecuaciones diferenciales ordinarias, requiere el uso de métodos de integración numérica. Todos los algoritmos tradicionales de integración se basan en la discretización de la variable independiente (que generalmente representa el tiempo). Las rutinas que implementan estos algoritmos, se denominan solvers y existen gran variedad de implementaciones de los mismos en diferentes lenguajes de programación. Los Métodos de Integración Numérica QSS (Quantized State System), a diferencia de los métodos de integración tradicionales, realizan la discretización sobre las variables de estado. En consecuencia, convierten los sistemas continuos en sistemas de eventos discretos, y tienen grandes ventajas para simular sistemas con discontinuidades.
 Si bien PowerDEVS, implementa la totalidad de los algoritmos de QSS, resultan ineficientes, dado que malgastan gran parte de la carga computacional en la transmisión de eventos entre submodelos.
-Para solventar este hecho se desarrollo una familia de QSS stand-solver, el cual requiere un modelo descripto en lenguaje C el cual contiene las equaciones difereciales, las funciones de cruce de cero asi como la información estructural requerida por los algoritmos QSS. Estos solvers obtienen una mejora de performace de hasta un orden de maginitud comparado con otras implementaciones DEVS.
+Para solventar este hecho se desarrollo una familia de QSS stand-solver, el cual requiere un modelo descripto en lenguaje C el cual contiene las ecuaciones diferenciales, las funciones de cruce de cero asi como la información estructural requerida por los algoritmos QSS. Estos solvers obtienen una mejora de performace de hasta un orden de maginitud comparado con otras implementaciones DEVS.
 Sobre este se desarrollo una herramienta la cual genera a partir de un modelo $\mu$-Modedelica (un subconjunto del lenguaje Modelica) el modelo requerido para el QSS solver.
 Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amigable con el usuario, se creo una herramienta capas de convertir un modelo PowerDEVS en un modelo $\mu$-Modelica.
 
 
 \section{Trabajo relacionado}
-% XXX Google.
+%TODO ...
 
 \section{Alcance}
 DEVS, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerarquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos mediantes que pueden ser descriptos mediantes equaciones diferenciales.
