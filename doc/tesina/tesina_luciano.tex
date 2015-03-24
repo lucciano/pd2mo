@@ -1,8 +1,7 @@
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
-% XXX agregar una parametrizacion en (i) a las variables u e y Modelos Atómicos
+% XXX Ejemplo de conversion del modelo atomico.
 % XXX agregar el desfazage de puertos entre modelica y powerdevs.
-% XXX poner ejemplos (en general)
 % XXX Agregar sitas
 % XXX Agregar power line citation (buscar en el vect-devs paper) LC-line
 % XXX Agregar citas del mail.
@@ -49,7 +48,7 @@ Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amiga
 
 
 \section{Trabajo relacionado}
-%TODO ...
+%TODO 	...
 
 \section{Alcance}
 DEVS, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerarquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos mediantes que pueden ser descriptos mediantes equaciones diferenciales.
@@ -355,10 +354,11 @@ Los modelos no encontrados son ignorados en la traducción.
 \section{Modelos Acoplados Planos}
 
 Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
+Para el $i$-esimo modelo atómico del modelo acoplado
 \begin{itemize}
-	\item Se incluye el código Modelica del cuerpo del modelo.
-	\item Se remplazan los parámetros $p$ por los de la simulación.
-	\item Se reescriben todas las variables (excepto la variable $time$) con un prefijo que incluye la posición del Modelo Atómico dentro del Modelo Acoplado y El nombre del modelo (en Modelica).
+	\item Se incluye el código Modelica del $i$-esimo modelo atómico
+	\item Se remplazan los parámetros $p$ por los del $i$-esimo modelo atómico.
+	\item Se reescriben todas las variables (excepto la variable $time$) construido con $i$ y el nombre del modelo (en Modelica).
 \end{itemize}
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
