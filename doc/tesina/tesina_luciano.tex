@@ -4,7 +4,6 @@
 % XXX agregar el desfazage de puertos entre modelica y powerdevs.
 % XXX Agregar sitas
 % XXX Agregar power line citation (buscar en el vect-devs paper) LC-line
-% XXX Agregar citas del mail.
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage[spanish]{babel}
@@ -33,7 +32,7 @@
 \tableofcontents
 
 \begin{abstract}
-En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más especificamente en $\mu$Modelica, con el fin de aprovechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
+En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica\ref{Fritzson02modelica--}, más especificamente en $\mu$Modelica, con el fin de aprovechar la velocidad de simulación del 'QSS Solver', permitiendo describir las simulaciones en el entorno PowerDEVS y ejecutando las simulaciones en 'QSS Solver'
 \end{abstract}
 
 
@@ -48,7 +47,9 @@ Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amiga
 
 
 \section{Trabajo relacionado}
-%TODO 	...
+En \ref{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a $\mu$-modelica. DESLib (https://github.com/modelica-3rdparty/DESLib) es una librería para realizar simulaciones en parallel DEVS en Modelica.
+%TODO 	... más referencias?.
+% 
 
 \section{Alcance}
 DEVS, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerarquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos mediantes que pueden ser descriptos mediantes equaciones diferenciales.
@@ -433,10 +434,12 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 \section{Ejemplos de Aplicación}
 tamaños de las vectores y comparativas de 
 \subsection{Vector/airs}
+\ref{PKBW12}
 \subsection{Vector/lcline}
-\nocite{*}
+\ref{Cel06}
 \chapter{Conclusiones y Trabajo a futuro}
 
+\nocite{*}
 
 \bibliographystyle{plain}
 \bibliography{tesina_luciano}
