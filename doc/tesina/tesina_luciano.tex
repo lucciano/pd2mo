@@ -226,7 +226,6 @@ donde:
 	
 \section{Métodos de integración QSS}
 Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación la por:
-%Agregar la referencia de la equación
 
 \begin{equation}
 \dot{x}(t) = f (q(t), v(t))
@@ -255,7 +254,6 @@ En la Figura \ref{fig:fig2-2} vemos la relación entrada-salida de una función 
 Notar que un cuantificador con histéresis tiene memoria. Es decir, calcula $q(t)$ no sólo en función del valor actual de $x(t)$ sino también de su valor pasado.
 La presencia de esta función que relaciona $q_j (t)$ y $x_j (t)$ implica que $q_j (t)$ sigue una trayectoria constante a trozos que sólo cambia cuando difiere con $x_j (t)$ en un parámetro $\Delta Q_j$ llamado quantum.
 
-%XXX Que es un sistema ralo.
 Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante a trozos de la variable de estado correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes a trozos de las componentes correspondientes de $u(t)$.  Los pasos de integración en los métodos de QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de estado correspondiente $x_j (t)$ difiere de $q_j(t^{-})$ en un quantum. Ese cambio implica también que algunas derivadas de estado (aquellas que dependen de $x_j$ ) también son modificadas. Luego, cada paso involucra un cambio en sólo una variable cuantificada y en algunas derivadas de estado. Por lo tanto cuando un gran sistema ralo (o sparse) posee sólo actividad en unos pocos estados mientras que el resto del sistema se mantiene intacto, los métodos de QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
 Otra ventaja importante de los métodos de QSS es que tratan las discontinuidades de una manera muy eficiente. Dependiendo del orden del método, las variables de estado siguen trayectorias lineal a trozos, parabólica a trozos o constante a trozos. Debido a ello, detectar los cruces por cero es sencillo ya que se debe resolver una ecuación cúbica en el peor caso. Una vez que la discontinuidad es detectada, el algoritmo la trata como un paso normal ya que cada paso es de hecho una discontinuidad en una variable cuantificada. Por lo tanto la ocurrencia de una discontinuidad implica sólo algunos cálculos locales para re-computar las derivadas de estados que están directamente afectadas por ese evento.
 Estas ventajas resultan en una aceleración notable en el tiempo de simulación contra los algoritmos de integración numérica clásicos. En modelos con discontinuidades frecuentes como sistemas de electrónica de potencia, los métodos de alto orden que veremos a continuación, pueden simular hasta 20 veces más rápido que los métodos convencionales.
@@ -283,6 +281,7 @@ El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual
 \item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados. 
 \end{itemize}
 
+%TODO Citar Dymola / OpenModelica
 \section{Modelica}
 Modelica es un lenguaje de alto nivel, orientado a objetos para el modelado de grandes, complejos y sistemas heterogéneos.
 Modelos en Modelica son descriptos matemáticamente por ecuaciones diferenciales, algebraicas y discretas. Sub-modelos pueden ser interconectados para crear modelos más complejos y hay varias herramientas para combinar modelos en forma gráfica. 
@@ -325,7 +324,7 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
 En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
 
 \section{Modelos Atómicos}
-% XXX : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
+%TODO : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
 
 \begin{itemize}
@@ -352,7 +351,6 @@ end QSSIntegrator;
 Los parámetros son remplazadas en el modelo, evaluados en Scilab, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
 Los modelos no encontrados son ignorados en la traducción.
-
 
 \section{Modelos Acoplados Planos}
 
@@ -439,6 +437,7 @@ tamaños de las vectores y comparativas de
 \cite{PKBW12}
 \subsection{Vector/lcline}
 \cite{Cel06}
+
 \chapter{Conclusiones y Trabajo a futuro}
 
 \nocite{*}
