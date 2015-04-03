@@ -1,4 +1,4 @@
-% XXX Ejemplo de conversion del modelo atomico.
+% XXX Ejemplo de conversion del modelo integrador.
 % XXX agregar el desfazage de puertos entre modelica y powerdevs.
 % XXX Agregar power line citation (buscar en el vect-devs paper) LC-line
 \documentclass[a4paper,	11pt]{report}
@@ -28,6 +28,9 @@
 \author{Tesinista: Luciano Andrade \\ Director: Federico Bergero, Co-Director: Ernesto Kofman} 
 
 \maketitle
+
+%\includegraphics[scale=0.25]{logo-unr}
+
 \tableofcontents
 
 \begin{abstract}
@@ -363,6 +366,14 @@ Para el $i$-esimo modelo atómico del modelo acoplado
 \end{itemize}
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
+
+\begin{figure}[!htbp]
+\begin{center}
+  \includegraphics[scale=0.5]{integrator-devs}
+  \caption{DEVS Ejemplo de Integrador}
+  \end{center}
+   \label{fig:integrator}
+\end{figure}
 
 \section{Modelos Acoplados Jerárquicos}
 %TODO : Demostración por inducción.
