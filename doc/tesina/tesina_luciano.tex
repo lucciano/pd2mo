@@ -327,7 +327,7 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
 En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
 
 \section{Modelos Atómicos}
-%TODO : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
+
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
 
 \begin{itemize}
@@ -367,6 +367,8 @@ Para el $i$-esimo modelo atómico del modelo acoplado
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
 
+Veamos como se realiza la transformación paso a paso con un ejemplo de un integrador.
+
 \begin{figure}[!htbp]
 \begin{center}
   \includegraphics[scale=0.5]{integrator-devs}
@@ -374,6 +376,16 @@ Luego cada conexión entre Modelos Atómicos es replicada en el código de Model
   \end{center}
    \label{fig:integrator}
 \end{figure}
+
+Este modelo incluye los siguientes modelos atómicos:
+\begin{itemize}
+	\item Constante: Constant0
+	\item Sumador: WSum0
+	\item Integrador: QSSIntegrator0
+	\item Gnu Plot : GNUPlot0
+\end{itemize}
+
+%TODO : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
 
 \section{Modelos Acoplados Jerárquicos}
 %TODO : Demostración por inducción.
