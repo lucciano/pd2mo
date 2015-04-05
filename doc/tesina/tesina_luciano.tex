@@ -380,12 +380,122 @@ Veamos como se realiza la transformación paso a paso con un ejemplo de un integ
 Este modelo incluye los siguientes modelos atómicos:
 \begin{itemize}
 	\item Constante: Constant0
+\begin{minted}{modelica}	
+class Constant
+  parameter Real k = 1;
+  Real y[1];
+equation
+  y[1] = k;
+end Constant;	
+\end{minted}
+
 	\item Sumador: WSum0
+\begin{minted}{modelica}	
+class WSum
+  parameter Real p[9]={0,0,0,0,0,0,0,0};
+  parameter Integer n= integer(p[9]);
+  parameter Real w[n] = p[1:n];
+  Real u[n];
+  Real y[1];
+equation
+  y[1]=u*w;
+end WSum;
+\end{minted}
+
 	\item Integrador: QSSIntegrator0
-	\item Gnu Plot : GNUPlot0
+\begin{minted}{modelica}	
+class QSSIntegrator
+  parameter Real p[4]={0,0,0,0,0,0,0,0};
+  parameter Real x0 = p[4];
+  Real u[1];
+  Real y[1](start = {x0});
+equation
+  der(y[1]) = u[1];
+end QSSIntegrator;
+\end{minted}
+
+	\item Gnu Plot : GNUPlot0, el cual no va a ser convertido debido a que no tiene un modelo equivalente en modelica.
 \end{itemize}
 
-%TODO : Hacer ejemplo del integrador mostrado la transformacion, paso a paso
+
+El integrador es el primero en la lista de atómicos dentro del PowerDEVS, por lo que es el primero en procesarse y por lo tanto obtiene el prefijo $<nombre modelo>\_0\_$ para sus variables, también remplazamos los parámetros provenientes de la simulación de PowerDEVS:
+
+\begin{minted}{modelica}	
+class QSSIntegrator
+  parameter Real QSSIntegrator_0_p[4]={0,1e-06,0.001,0};
+  parameter Real QSSIntegrator_0_x0 = 0;
+  Real QSSIntegrator_0_u[1];
+  Real QSSIntegrator_0_y[1](start = {QSSIntegrator_0_x0});
+equation
+  der(y[1]) = QSSIntegrator_0_u[1];
+end QSSIntegrator;
+\end{minted}
+
+\begin{minted}{modelica}	
+class WSum
+  parameter Real WSum_1_p[9]={1,(-1),0,0,0,0,0,0,2};
+  parameter Integer WSum_1_n= integer(2);
+  parameter Real WSum_1_w[WSum_1_n] = p[1:WSum_1_n];
+  Real WSum_1_u[WSum_1_n];
+  Real WSum_1_y[1];
+equation
+  WSum_1_y[1]=WSum_1_u*WSum_1_w;
+end WSum;
+\end{minted}
+
+\begin{minted}{modelica}	
+class Constant
+  parameter Real Constant_2_k = 1;
+  Real Constant_2_y[1];
+equation
+  Constant_2_y[1] = Constant_2_k;
+end Constant;	
+\end{minted}
+
+En este punto podemos juntar las declaraciones y ecuaciones dentro de un nuevo modelo, el cual llamaremos con el nombre del modelo a convertir.
+
+\begin{minted}{modelica}	
+class Integrador
+  parameter Real QSSIntegrator_0_p[4]={0,1e-06,0.001,0};
+  parameter Real QSSIntegrator_0_x0 = 0;
+  Real QSSIntegrator_0_u[1];
+  Real QSSIntegrator_0_y[1](start = {QSSIntegrator_0_x0});
+  parameter Real WSum_1_p[9]={1,(-1),0,0,0,0,0,0,2};
+  parameter Integer WSum_1_n= integer(2);
+  parameter Real WSum_1_w[WSum_1_n] = p[1:WSum_1_n];
+  Real WSum_1_u[WSum_1_n];
+  Real WSum_1_y[1];
+equation
+  der(y[1]) = QSSIntegrator_0_u[1];
+  WSum_1_y[1]=WSum_1_u*WSum_1_w;
+  Constant_2_y[1] = Constant_2_k;
+end QSSIntegrator;
+\end{minted}
+
+Luego de agregar las equaciones correspondientes a las interconecciones de los modelos atómicos, obtenemos el siguiente modelo
+	
+\begin{minted}{modelica}
+model Integrador
+  parameter Real QSSIntegrator_0_p[4] = {0,1e-06,0.001,0};
+  parameter Real QSSIntegrator_0_x0 = 0;
+  Real QSSIntegrator_0_u[1];
+  Real QSSIntegrator_0_y[1](start = {0});
+  parameter Real WSum_1_p[9] = {1,(-1),0,0,0,0,0,0,2};
+  parameter Integer WSum_1_n = integer(2);
+  parameter Real WSum_1_w[WSum_1_n] = WSum_1_p[1:WSum_1_n];
+  Real WSum_1_u[WSum_1_n];
+  Real WSum_1_y[1];
+  parameter Real Constant_2_k = 1;
+  Real Constant_2_y[1];
+  equation
+    der(QSSIntegrator_0_y[1]) = QSSIntegrator_0_u[1];
+    WSum_1_y[1] = WSum_1_u*WSum_1_w;
+    Constant_2_y[1] = 1;
+    QSSIntegrator_0_u[1] = WSum_1_y[1];
+    WSum_1_u[2] = QSSIntegrator_0_y[1];
+    WSum_1_u[1] = Constant_2_y[1];
+end Integrador;
+\end{minted}
 
 \section{Modelos Acoplados Jerárquicos}
 %TODO : Demostración por inducción.
@@ -442,8 +552,6 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 
 \item Modelo Jerárquico : En este caso si podemos probar la equivalencia semántica, entre el modelo original, es decir un modelo acoplado que incluye más modelos acoplados, con un modelo "aplanado" (solo con modelos atómicos). Esto se debe a que el formalismo DEVS es cerrado bajo el acoplamiento \cite{Zeigler:2000:TMS:580780} y \cite{zeigler1984multifacetted}, lo que permite remplazar un modelos acoplado por equivalentes atómicos, conectados apropiadamente. %TODO : Verificar.
 \end{itemize}
-
-% \subsection{Algoritmo de aplanado} ¿Esto deberia estar demostrado en algun paper DEVS?
 
 
 \section{Comparación de performance}
