@@ -137,7 +137,7 @@ Un modelo atómico representa la unidad "indivisible" de especificación, en el 
 \end{itemize}
 
 Los conjuntos $S$, $X$ e $Y$ son arbitrarios, y en general infinitos. Cada posible estado $s$ ($s \in S$) tiene asociado un Avance de Tiempo calculado por la Función de Avance de Tiempo $ta(s)$.
-En la Figura \ref{fig2-5} vemos la evolución de un modelo atómico. Si el estado toma el valor $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. La función $\delta_{int}$ se llama Función de Transición Interna.
+En la Figura \ref{fig:fig2-5} vemos la evolución de un modelo atómico. Si el estado toma el valor $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. La función $\delta_{int}$ se llama Función de Transición Interna.
 
 Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
 
@@ -150,14 +150,12 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
    \label{fig:fig2-5}
 \end{figure}
 
-% XXX Agregar sitas
-
 \subsection{Acoplados}
 La descripción de un sistema puede ser completamente realizada utilizando modelos atómicos, aunque esto resulta un poco incómodo y confuso. Los conjuntos de estados y las funciones de transición se vuelven inmanejables en sistemas complejos, y nunca podemos asegurar haber cubierto todos los posibles estados.
 Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados, que es una forma de agrupar modelos DEVS y generar nuevos modelos a partir de este agrupamiento.
 Hay dos formas de acoplamiento, la más general, en la cual se utilizan funciones de traducción entre los sub–sistemas y otra clase que adopta el uso de puertos para la comunicación entre sub–sistemas. Aunque estas dos formas son equivalentes entre sí, describiremos la segunda clase, ya que es la más simple y es la utilizada en el presente trabajo.
 Formalmente un modelo acoplado está representado por la octo-upla:
-
+% XXX Agregar sitas
 \begin{equation}
 N = (X_N , Y_N , D, {M_d }, EIC, EOC, IC, Select)
 \end{equation}
@@ -542,9 +540,11 @@ equation
 end VecInt;
 \end{minted}
 
+
 \chapter{Resultados}
 
 \section{Equivalencia semántica de la conversión}
+%TODO ¿Este va en resultados?
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
 \begin{itemize}
 \item Modelos Atómicos : Los modelos atómicos son convertidos por el usuario, los que se han propuesto en el código mantienen una conservación de la semántica que no es estricta y se trató manualmente. 
@@ -552,7 +552,6 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 
 \item Modelo Jerárquico : En este caso si podemos probar la equivalencia semántica, entre el modelo original, es decir un modelo acoplado que incluye más modelos acoplados, con un modelo "aplanado" (solo con modelos atómicos). Esto se debe a que el formalismo DEVS es cerrado bajo el acoplamiento \cite{Zeigler:2000:TMS:580780} y \cite{zeigler1984multifacetted}, lo que permite remplazar un modelos acoplado por equivalentes atómicos, conectados apropiadamente. %TODO : Verificar.
 \end{itemize}
-
 
 \section{Comparación de performance}
 
@@ -563,11 +562,40 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 
 
 \section{Ejemplos de Aplicación}
-tamaños de las vectores y comparativas de 
+En esta Sección presentamos dos ejemplos motivadores para la implementación de la conversión, el primer un modelo de una línea de transmisión LC (circuito resonante compuesto por una bobina y un capacitor) utilizando el Método de Líneas DEVS para grandes sistemas \cite{Cel06}, el cual resulta en $N$ segmentos cada uno representado con Vectorial DEVS. Luego analizaremos un ejemplo de un control de potencia de un conjunto de N aires acondicionados tomado de \cite{PKBW12}.
+
+\subsection{Línea de Transmisión LC}
+El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
+
+\begin{equation*}
+\begin{split}
+\dot{v}_{j} &= \frac{i_{j} - i_{j+1}}{C} \\
+\dot{i}_{j} &= \frac{v_{j-1} - v_{j}}{L} \\	
+\end{split}
+\end{equation*}
+
+para $j = 1 \dots N$
+
+Consideramos también un pulso de entrada:
+\begin{equation}
+v_0(t) = \left\{ 
+  \begin{array}{l l}
+    1 \text{ si } t < 1 \\
+    0 \text{ en caso contrario }
+  \end{array} \right.
+\end{equation}
+
+Este modelo es representado en un modelo PowerDEVS como el que se puede ver en la figura \ref{fig:lclines}.
+
+\begin{figure}[!htbp]
+  \includegraphics[scale=0.40]{lclines}
+  \caption{Modelo PowerDEVS LC Lines }
+   \label{fig:lclines}
+\end{figure}
+
 \subsection{Vector/airs}
-\cite{PKBW12}
-\subsection{Vector/lcline}
-\cite{Cel06}
+
+
 
 \chapter{Conclusiones y Trabajo a futuro}
 
