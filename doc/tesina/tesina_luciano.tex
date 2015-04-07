@@ -593,8 +593,47 @@ Este modelo es representado en un modelo PowerDEVS como el que se puede ver en l
    \label{fig:lclines}
 \end{figure}
 
-\subsection{Vector/airs}
+\subsection{Control de Energía de un Conjunto de Aires Acondicionados}
+Este modelo permite estudiar la dinámica y control del consumo energético de un grupo de equipos de Aire Acondicionados (AA). Consideramos un gran número de equipos de aire acondicionado utilizados para controlar la temperatura de distintas habitaciones. La temperatura en la habitación $i$-ésima $\theta_i(t)$ sigue la ecuación:
+%TODO Eliminar el ruido?
+\begin{equation*}
+\frac{d\theta_i(t)}{dt} = \frac{1}{C_i \cdot R_i } [ \theta_i(t) - \theta_a + R_i \cdot P_i \cdot m_i(t) + w_i(t) ]
+\end{equation*}
+donde$R_i$ y $C_i$ son parámetros que representan la resistencia y capacitancia térmica de la habitación $i$ respectivamente. $P_i$ es la potencia del equipo de aire acondicionado $i$ cuando se encuentra encendido. $\theta_a$ es la temperatura del ambiente y $w_i(t)$ es un termino de ruido que representa la perturbación térmica.
 
+La variable $m_i (t)$ es el estado del $i$-ésimo equipo de aire acondicionado, que toma como valor $1$ cuando el equipo está encendido ó $0$ en caso contrario. Sigue una ley prendido-apagado de control con histéresis:
+
+\begin{equation}
+m_i(t^{+}) = \left\{ 
+  \begin{array}{l l}
+    0 \text{ si } \theta_i(t) \leq \theta_r(t) - 0.5 \text{ y } m_i(t)=1 \\
+    1 \text{ si } \theta_i(t) \geq \theta_r(t) - 0.5 \text{ y } m_i(t)=1 \\
+    m_i (t) \text{ caso contrario } 
+  \end{array} \right.
+\end{equation}
+
+donde $\theta_r(t)$ es la temperatura de referencia calculando por un sistema de control global.
+El consumo energético del grupo completo de aires acondicionado se calcula como :
+
+\begin{equation*}
+P(t) = \sum_{i=1}^{N}  m_i(t) \cdot P_i
+\end{equation*}
+
+Para lograr esto se utiliza una ley de control Proporcional Integral (PI) que calcula la temperatura de referencia como:
+
+\begin{equation*}
+\theta_r(t) = K_p \cdot [P_r(t) - P(t)] + K_I \cdot \int_{\tau = 0}^t [P_r(\tau) - P(\tau)] d\tau
+\end{equation*}
+
+donde $K_P$ y $K_I$ son parámetros del controlador $PI$.
+
+En este ejemplo utilizamos $N = 2400$ equipos de aires acondicionados y utilizamos los parámetros dados en \cite{PKBW12}, con la excepción del ruido, el cual ignoramos para simplificar la simulación. El modelo resultante es el mostrado en la figura \ref{fig:airs}.
+
+\begin{figure}[!htbp]
+  \includegraphics[scale=0.40]{Airs}
+  \caption{Modelo PowerDEVS Aires Acondicionado }
+   \label{fig:airs}
+\end{figure}
 
 
 \chapter{Conclusiones y Trabajo a futuro}
