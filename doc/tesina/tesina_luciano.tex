@@ -1,6 +1,4 @@
-% XXX Ejemplo de conversion del modelo integrador.
-% XXX agregar el desfazage de puertos entre modelica y powerdevs.
-% XXX Agregar power line citation (buscar en el vect-devs paper) LC-line
+%TODO agregar el desfazage de puertos entre modelica y powerdevs.
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
 \usepackage[utf8]{inputenc}
@@ -155,7 +153,7 @@ La descripción de un sistema puede ser completamente realizada utilizando model
 Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados, que es una forma de agrupar modelos DEVS y generar nuevos modelos a partir de este agrupamiento.
 Hay dos formas de acoplamiento, la más general, en la cual se utilizan funciones de traducción entre los sub–sistemas y otra clase que adopta el uso de puertos para la comunicación entre sub–sistemas. Aunque estas dos formas son equivalentes entre sí, describiremos la segunda clase, ya que es la más simple y es la utilizada en el presente trabajo.
 Formalmente un modelo acoplado está representado por la octo-upla:
-% XXX Agregar sitas
+%TODO Agregar sitas
 \begin{equation}
 N = (X_N , Y_N , D, {M_d }, EIC, EOC, IC, Select)
 \end{equation}
@@ -415,7 +413,6 @@ end QSSIntegrator;
 	\item Gnu Plot : GNUPlot0, el cual no va a ser convertido debido a que no tiene un modelo equivalente en modelica.
 \end{itemize}
 
-
 El integrador es el primero en la lista de atómicos dentro del PowerDEVS, por lo que es el primero en procesarse y por lo tanto obtiene el prefijo $<nombre modelo>\_0\_$ para sus variables, también remplazamos los parámetros provenientes de la simulación de PowerDEVS:
 
 \begin{minted}{modelica}	
@@ -497,6 +494,7 @@ end Integrador;
 
 \section{Modelos Acoplados Jerárquicos}
 %TODO : Demostración por inducción.
+%TODO : ¿Que sea cerrado sobre acoplado es lo mismo que sea equivalente?
 
 En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
 
