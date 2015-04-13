@@ -142,21 +142,10 @@ int main (int argc, char* argv[]) {
     AST_StoredDefinition sd = parseFile(src_outfile.c_str(),&r);
 
     mda *m = new mda();
-    range *ran = new range();
     prodint *  prod = new prodint();
     If *i = new If();
-    uda *u = new uda();
     outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
-    outfile << m->visitClass(
-		//u->visitClass(
-		//ran->visitClass(
-		prod->visitClass(
-		i->visitClass(
-			*sd->models()->begin()
-				)
-				)
-				)
-				/*))*/ << endl;
+    outfile << m->visitClass( prod->visitClass( i->visitClass( *sd->models()->begin()))) << endl;
 
     outfile.close();
 

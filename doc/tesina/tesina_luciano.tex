@@ -544,10 +544,10 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \item $annotation(PD2MO = {Scalar, Vector});$ cuando la entrada es escalar, es decir no vectorial y la salida vectorial
 \item $annotation(PD2MO = {Vector, Scalar});$ cuando la entrada es vectorial y la salida vectorial
 \item $annotation(PD2MO = {Vector, Vector});$ cuando ambos, la entrada y salida son vectoriales.
-\item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son ambas escalares, este es el caso por defecto y no es necesario declararlo.
+\item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son ambas escalares, este es el caso por omisión y no es necesario declararlo.
 \end{itemize}
 
-Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo.
+Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradors y es la version vectorial del integrador atómico mostrado antes.
 
 
 \begin{minted}{modelica}
@@ -585,9 +585,24 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 \section{Comparación de performance}
 
 %\chapter{Detalles de Implementación}
-%API Powerdevs, AST Modelica
-%Traverser
-%Modelica Transformer
+%API Powerdevs, AST Modelica, programa principal
+%modelCoupled *cm = parsePDS(QString::fromStdString(src_infile));
+%modelCoupled *qm = flatter::flat(cm);
+%generateCode(qm, QString::fromStdString(flatted), false, true);
+%
+%ofstream oFlogfile;
+%oFlogfile.open(logfile.c_str(), ios::trunc);
+%
+%Pd2Mo q = Pd2Mo();
+%q.setPath(path);     
+%
+% q.transform(flatted, modelname, &outfile, &oFlogfile);
+%
+%mda *m = new mda();
+%prodint *  prod = new prodint();
+%If *i = new If();
+%outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
+%outfile << m->visitClass( prod->visitClass( i->visitClass( *sd->models()->begin()))) << endl;
 
 
 \section{Ejemplos de Aplicación}
