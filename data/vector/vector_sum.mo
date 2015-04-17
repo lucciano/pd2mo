@@ -3,7 +3,7 @@ class vector_sum
   constant Integer N = p[2];
   Real u[N, 1];
   Real y[1];
-  Real K = p[1];
+  parameter Real K = p[1];
 equation
   y[1] = K * sum(u[:,1]);
   annotation(PD2MO = {Vector, Scalar});

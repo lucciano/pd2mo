@@ -13,6 +13,18 @@ equation
     y[i, 1] = pre(state[i]);
   end for;
 algorithm
+  when time>0 then
+    for i in 1:N loop
+      if u[i, 1] > xu then
+        state[i] := yu;
+      end if;
+    end for;
+    for i in 1:N loop
+      if u[i, 1] < xl then
+        state[i] := yl;
+      end if;
+    end for;
+  end when;
   for i in 1:N loop
     when u[i, 1] > xu then
       state[i] := yu;

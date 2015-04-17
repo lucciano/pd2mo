@@ -10,6 +10,14 @@ model hysteretic
 equation
   y[1] = state;
 algorithm
+  when time > 0  then
+    if u[1] > xu then
+      state := yu;
+    end if;
+    if u[1] < xl then
+      state := yl;
+    end if;
+  end when;
   when u[1] > xu then
     state := yu;
   end when;
