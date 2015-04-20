@@ -42,8 +42,7 @@ modelCoupled * flatter::flat(modelCoupled * c){
 
 		//Remapeo de las Conecciones Internas
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
-			ic != c->lsIC.end();
-			ic++){
+			ic != c->lsIC.end(); ){
 
 			// cout << atomic << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << "), (" <<
 			// 	(*ic)->childSink << ","<<(*ic)->sinkPort <<")" << endl;
@@ -56,8 +55,11 @@ modelCoupled * flatter::flat(modelCoupled * c){
 				cNew->sourcePort = (*ic)->sourcePort;
 				cNew->childSink += ((*ic)->childSink > atomic)?delta:0;
 				cNew->sinkPort = (*ic)->sinkPort;
+				ic++;
 				continue;
 			}
+
+			bool eraseIc = false;
 
 			if((*ic)->childSource == atomic){
 			// internal connection with a coupled (sub) module.
@@ -73,7 +75,8 @@ modelCoupled * flatter::flat(modelCoupled * c){
 							+ (((*ic)->childSink > atomic)?delta:0);
 						cNew->sinkPort = (*ic)->sinkPort;
 						rtr->lsIC.append(cNew);
-						c->lsIC.erase(ic);
+						//c->lsIC.erase(ic);
+						eraseIc = true;
 					}
 				}
 			} 
@@ -90,9 +93,15 @@ modelCoupled * flatter::flat(modelCoupled * c){
 						cNew->childSink = (*eic)->childSink + atomic;
 						cNew->sinkPort = (*eic)->sinkPort;
 						rtr->lsIC.append(cNew);
-						c->lsIC.erase(ic);
+						//c->lsIC.erase(ic);
+						eraseIc = true;
 					}
 				}
+			}
+			if(eraseIc){
+				ic = c->lsIC.erase(ic);
+			}else{ 
+				ic++;
 			}
 		}
 		
