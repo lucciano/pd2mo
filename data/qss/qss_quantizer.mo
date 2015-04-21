@@ -6,6 +6,13 @@ class qss_quantizer
   Real y[1];
 equation
   y[1]=pre(level);
+initial algorithm
+  if u[1]>level+dQ then
+    level:=level+dQ;
+  end if ;
+  if u[1]<level then
+    level:=level-dQ;
+  end if ;
 algorithm
   when u[1]>level+dQ then
     level:=level+dQ;
