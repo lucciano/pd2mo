@@ -187,7 +187,7 @@ Coupled
             Description = Coupled DEVS model
             Graphic
                 {
-                Position = 2970; 4095
+                Position = 2970; 4065
                 Dimension = 675; 720
                 Direction = Left
                 Color = 15
@@ -214,7 +214,7 @@ Coupled
                 Inport
                     {
                     Name = Inport 1
-                    CoupledPort = 1
+                    CoupledPort = 2
                     Description = 
                     Graphic
                         {
@@ -349,7 +349,7 @@ Coupled
                     Parameters
                         {
                         K[0] = Str; 30 ; 
-                        K[1] = Str; 10000 ; 
+                        K[1] = Str; 1000000 ; 
                         K[2] = Str; 0 ; 
                         K[3] = Str; 0 ; 
                         K[4] = Str; 0 ; 
@@ -380,7 +380,7 @@ Coupled
                     }
                 Point
                     {
-                    ConectedLines = 9 ; 10 ; 7
+                    ConectedLines = 7 ; 9 ; 10
                     ConectedExtrems = Org ; Org ; Org
                     Position = -2475 ; -3450
                     }
@@ -593,8 +593,8 @@ Coupled
                     {
                     Source = Cmp ;  8 ;  2 ; -1
                     Sink = Pnt ;  3 ; -1 ; 0
-                    PointX = 3765 ; 7350 ; 7350 ; 4125
-                    PointY = 4425 ; 4425 ; 675 ; 675
+                    PointX = 3765 ; 7350 ; 7350 ; 4125 ; 4125
+                    PointY = 4425 ; 4425 ; 1050 ; 1050 ; 675
                     }
                 Line
                     {

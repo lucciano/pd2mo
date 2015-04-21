@@ -60,7 +60,7 @@ Root-Coordinator
       Simulator
        {
         Path = qss/qss_wsum.h
-        Parameters = "30","10000","0","0","0","0","0","0",2.000000e+00
+        Parameters = "30","1000000","0","0","0","0","0","0",2.000000e+00
        }
       Simulator
        {
