@@ -7,10 +7,10 @@ class qss_quantizer
 equation
   y[1]=pre(level);
 algorithm
-  when u[1]>level+dQ then
+  when u[1]>level+0.5*dQ then
     level:=level+dQ;
   end when;
-  when u[1]<level then
+  when u[1]<=level+0.5*dQ then
     level:=level-dQ;
   end when;
 

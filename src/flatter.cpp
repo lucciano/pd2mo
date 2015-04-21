@@ -44,22 +44,21 @@ modelCoupled * flatter::flat(modelCoupled * c){
 		for(QList < modelConnection * >::iterator ic = c->lsIC.begin();
 			ic != c->lsIC.end(); ){
 
-			// cout << atomic << "(" << (*ic)->childSource << "," << (*ic)->sourcePort << "), (" <<
-			// 	(*ic)->childSink << ","<<(*ic)->sinkPort <<")" << endl;
+			bool eraseIc = false;
 
 			if(((*ic)->childSource > atomic or (*ic)->childSink > atomic)
 			and ((*ic)->childSource != atomic and (*ic)->childSink != atomic))
 			{
 				modelConnection * cNew = *ic;
+				cout << "HELLO" << cNew->childSource << "," << cNew->sourcePort << ";" << cNew->childSink <<","<< cNew->sinkPort << "->";
 				cNew->childSource += ((*ic)->childSource > atomic)?delta:0;
 				cNew->sourcePort = (*ic)->sourcePort;
 				cNew->childSink += ((*ic)->childSink > atomic)?delta:0;
 				cNew->sinkPort = (*ic)->sinkPort;
-				ic++;
-				continue;
+				cout << cNew->childSource << "," << cNew->sourcePort << ";" << cNew->childSink <<","<< cNew->sinkPort << endl;
+				eraseIc = true;
+				rtr->lsIC.append(cNew);
 			}
-
-			bool eraseIc = false;
 
 			if((*ic)->childSource == atomic){
 			// internal connection with a coupled (sub) module.
@@ -147,6 +146,5 @@ modelCoupled * flatter::flat(modelCoupled * c){
 
 	}
     }
-    //rtr->lsIC.append(c->lsIC);
     return rtr;
 }

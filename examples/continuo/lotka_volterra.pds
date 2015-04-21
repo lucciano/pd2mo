@@ -1,0 +1,52 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = qss/qss_multiplier.h
+    Parameters = "Purely static","1e-6","1e-3"
+   }
+  Simulator
+   {
+    Path = qss/qss_integrator.h
+    Parameters = "QSS3","1e-6","1e-3","0.5"
+   }
+  Simulator
+   {
+    Path = qss/qss_integrator.h
+    Parameters = "QSS3","1e-6","1e-3","0.5"
+   }
+  Simulator
+   {
+    Path = qss/qss_wsum.h
+    Parameters = "0.1","-0.1","0","0","0","0","0","0",2.000000e+00
+   }
+  Simulator
+   {
+    Path = qss/qss_wsum.h
+    Parameters = "0.1","-0.1","0","0","0","0","0","0",2.000000e+00
+   }
+  Simulator
+   {
+    Path = sinks\gnuplot.h
+    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Lotka Volterra Model'","with lines title 'Preys'","with lines title 'Predators'","","",""
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (3,0);(1,0)
+    (4,0);(2,0)
+    (0,0);(4,0)
+    (0,0);(3,1)
+    (1,0);(5,0)
+    (1,0);(0,0)
+    (1,0);(3,0)
+    (2,0);(5,1)
+    (2,0);(0,1)
+    (2,0);(4,1)
+   }
+ }

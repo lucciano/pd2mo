@@ -89,8 +89,8 @@ model bball_downstairs
     WSum_4_u[1] = Constant_6_y[1];
     qss_quantizer_8_u[1] = QSSIntegrator_3_y[1];
     WSum_4_u[2] = qss_switch_7_y[1];
+    WSum_11_u[1] = QSSIntegrator_1_y[1];
     WSum_9_u[1] = QSSIntegrator_0_y[1];
-    WSum_11_u[1] = QSSIntegrator_0_y[1];
     WSum_9_u[2] = qss_quantizer_8_y[1];
     WSum_9_u[3] = Constant_10_y[1];
     qss_switch_7_u[3] = WSum_11_y[1];
