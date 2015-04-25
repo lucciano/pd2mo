@@ -10,8 +10,7 @@
 \usepackage{amssymb}
 \usepackage{minted}
 \usepackage[hidelinks]{hyperref}
-\usepackage[]{algorithm2e}
-
+\usepackage[lined,boxed,spanish,onelanguage]{algorithm2e} 
 \usepackage{graphicx}
 %\renewcommand{\abstractname}{Resumen: }
 
@@ -691,6 +690,35 @@ En este ejemplo utilizamos $N = 2400$ equipos de aires acondicionados y utilizam
 
 \chapter{Detalles de la implementación}
 A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}
+
+El programa esta separado en 4 módulos:
+\begin{itemize}
+\item Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
+
+\item La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
+
+\item La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
+
+\item La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
+\end{itemize}
+
+\begin{algorithm}[H]
+ \SetAlgoLined
+ modelCoupled *cm = parsePDS(QString::fromStdString(src\_infile))\;
+ modelCoupled *qm = flatter::flat(cm)\;
+ Pd2Mo q = Pd2Mo()\;
+ q.transform(flatted, modelname, \&outfile, \&oFlogfile)\;
+ AST\_StoredDefinition sd = parseFile(src\_outfile.c\_str(),\&amp;r)\;
+ mda *m = new mda()\;
+ prodint *  prod = new prodint()\;
+ If *i = new If()\;
+ outfile $<<$ m$->$visitClass( 
+ 	prod$->$visitClass( 
+ 		i$->$visitClass( 
+ 		\*sd$->$models()$->$begin()))) $<<$ endl\;
+ \caption{Esquema general}
+\end{algorithm}
+
 
 \chapter{Conclusiones y Trabajo a futuro}
 
