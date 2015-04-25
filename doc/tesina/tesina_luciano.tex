@@ -1,4 +1,6 @@
 %TODO agregar el desfazage de puertos entre modelica y powerdevs.
+% agregar pseudo codigo
+% agregar trabajos futuros
 % agregar: bball_downstairs  lotka_volter  otros ejemplos (simples)
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
@@ -8,7 +10,7 @@
 \usepackage{amssymb}
 \usepackage{minted}
 \usepackage[hidelinks]{hyperref}
-\usepackage{algorithmicx}
+\usepackage[]{algorithm2e}
 
 \usepackage{graphicx}
 %\renewcommand{\abstractname}{Resumen: }
@@ -552,7 +554,7 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \item $annotation(PD2MO = {Scalar, Vector});$ cuando la entrada es escalar, es decir no vectorial y la salida vectorial
 \item $annotation(PD2MO = {Vector, Scalar});$ cuando la entrada es vectorial y la salida vectorial
 \item $annotation(PD2MO = {Vector, Vector});$ cuando ambos, la entrada y salida son vectoriales.
-\item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son ambas escalares, este es el caso por omisión y no es necesario declararlo.
+\item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
 \end{itemize}
 
 Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradors y es la version vectorial del integrador atómico mostrado antes.
@@ -581,7 +583,6 @@ end VecInt;
 \chapter{Resultados}
 
 \section{Equivalencia semántica de la conversión}
-%TODO ¿Este va en resultados?
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
 \begin{itemize}
 \item Modelos Atómicos : Los modelos atómicos son convertidos por el usuario, los que se han propuesto en el código mantienen una conservación de la semántica que no es estricta y se trató manualmente. 
@@ -688,6 +689,8 @@ En este ejemplo utilizamos $N = 2400$ equipos de aires acondicionados y utilizam
    \label{fig:airs}
 \end{figure}
 
+\chapter{Detalles de la implementación}
+A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}
 
 \chapter{Conclusiones y Trabajo a futuro}
 
