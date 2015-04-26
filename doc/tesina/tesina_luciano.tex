@@ -703,7 +703,6 @@ El programa esta separado en 4 módulos:
 \end{itemize}
 
 \begin{algorithm}[H]
- \SetAlgoLined
  modelCoupled *cm = parsePDS(QString::fromStdString(src\_infile))\;
  modelCoupled *qm = flatter::flat(cm)\;
  Pd2Mo q = Pd2Mo()\;
@@ -712,12 +711,38 @@ El programa esta separado en 4 módulos:
  mda *m = new mda()\;
  prodint *  prod = new prodint()\;
  If *i = new If()\;
+ 
  outfile $<<$ m$->$visitClass( 
  	prod$->$visitClass( 
  		i$->$visitClass( 
  		\*sd$->$models()$->$begin()))) $<<$ endl\;
  \caption{Esquema general}
 \end{algorithm}
+
+\begin{algorithm}[H]
+ \caption{flatter::flat}
+\end{algorithm}
+
+\begin{algorithm}[H]
+ \caption{Pd2Mo::transform}
+\end{algorithm}
+
+Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común, la cual retorna una copia del AST y remplaza una parte este.
+
+\begin{algorithm}[H]
+ \caption{mda::visitClass}
+\end{algorithm}
+
+\begin{algorithm}[H]
+ \caption{prodint::visitClass}
+\end{algorithm}
+
+\begin{algorithm}[H]
+ \caption{If::visitClass}
+\end{algorithm}
+
+
+
 
 
 \chapter{Conclusiones y Trabajo a futuro}
