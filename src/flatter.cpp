@@ -50,7 +50,6 @@ modelCoupled * flatter::flat(modelCoupled * c){
 			and ((*ic)->childSource != atomic and (*ic)->childSink != atomic))
 			{
 				modelConnection * cNew = *ic;
-				cout << "HELLO" << cNew->childSource << "," << cNew->sourcePort << ";" << cNew->childSink <<","<< cNew->sinkPort << "->";
 				cNew->childSource += ((*ic)->childSource > atomic)?delta:0;
 				cNew->sourcePort = (*ic)->sourcePort;
 				cNew->childSink += ((*ic)->childSink > atomic)?delta:0;

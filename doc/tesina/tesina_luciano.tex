@@ -695,12 +695,6 @@ El programa esta separado en 4 módulos:
 \begin{itemize}
 \item Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
 
-\item La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
-
-\item La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
-
-\item La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
-\end{itemize}
 
 \begin{algorithm}[H]
  modelCoupled *cm = parsePDS(QString::fromStdString(src\_infile))\;
@@ -719,13 +713,51 @@ El programa esta separado en 4 módulos:
  \caption{Esquema general}
 \end{algorithm}
 
-\begin{algorithm}[H]
- \caption{flatter::flat}
-\end{algorithm}
+
+\item La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 
 \begin{algorithm}[H]
  \caption{Pd2Mo::transform}
 \end{algorithm}
+
+\item La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
+
+\begin{algorithm}[H]
+ \ForEach{ModeloHijo en Lista de Modelos}{
+ 	\If{Tipo de ModeloHijo es COUPLED}{
+ 		\ForEach{ModeloHijo2 en Lista de ModeloHijo$->$ModeloHijo}{
+ 			 	\If{Tipo de ModeloHijo2 es ATOMIC}{
+ 			 		Copiamos el ModeloHijo2 al ModeloResultado\;
+ 			 	}\Else{
+ 			 		Copiamos el aplanado de ModeloHijo2\;
+ 			 	}
+ 			 	\ForEach{Conexión del Modelo}{
+ 			 		\If{Si la conexión involucra un modelo "aun no procesado"}{
+ 			 			Las conexiones deben ser modificadas teniendo en cuenta los modelos agregados en el aplanado\;
+ 			 		}
+ 			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}{
+ 			 			Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión\;
+ 			 			La conexión se marca para ser borrada\;
+ 			 		}
+ 			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}{
+ 			 			Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión\;
+ 			 			La conexión se marca para ser borrada
+ 			 		}
+ 			 		\If{Si la conexión fue marcada}{Se borra la conexión}
+ 			 	}
+ 		}
+ 		
+ 	}\Else{
+ 		Copiamos el nodo ModeloHijo al ModeloResultado \;
+ 		Copiamos las conexiones del ModeloHijo y cualquier otro ModeloHijo que ya haya sido procesado
+ 	}
+ }
+ return ModeloResultado
+ \caption{flatter::flat}
+\end{algorithm}
+
+\item La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
+\end{itemize}
 
 Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común, la cual retorna una copia del AST y remplaza una parte este.
 
