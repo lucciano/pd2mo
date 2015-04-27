@@ -291,7 +291,7 @@ AST_ClassList Pd2Mo::getAsClassList(modelCoupled * c, map<string, string> * m, o
 			(*log) << "FILE EXISTS "  <<  endl;
                         st->insert(st->end(), *(sd->models()->begin()));
                 }else{
-			(*log) << "FILE NO EXISTS" << endl;
+			(*log) << "FILE DOSEN'T EXISTS" << endl;
                         st->insert(st->end(), NULL);
                 }
 		modelId++;
