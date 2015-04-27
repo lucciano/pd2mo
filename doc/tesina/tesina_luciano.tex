@@ -696,7 +696,7 @@ El programa esta separado en 4 módulos:
 \item Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
 
 
-\begin{algorithm}[H]
+\begin{function*}[H]
  modelCoupled *cm = parsePDS(QString::fromStdString(src\_infile))\;
  modelCoupled *qm = flatter::flat(cm)\;
  Pd2Mo q = Pd2Mo()\;
@@ -710,15 +710,42 @@ El programa esta separado en 4 módulos:
  	prod$->$visitClass( 
  		i$->$visitClass( 
  		\*sd$->$models()$->$begin()))) $<<$ endl\;
- \caption{Esquema general}
-\end{algorithm}
+ \caption{main(src\_infile)}
+\end{function*}
 
 
 \item La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 
-\begin{algorithm}[H]
- \caption{Pd2Mo::transform}
-\end{algorithm}
+\begin{function}[H]
+ modelCoupled *model = parsePDS(qfilename)\;
+ AST\_ClassList classList = getAsClassList(model)\; 
+ int j = 0\;
+ \ForEach{class en classList}{
+ 	\If{La clase esta traducida a $\mu$Modelica}{
+ 		Prefijamos las variables con el nombre del modelo $class$ y la posición $j$ que ocupan en la lista\;
+ 		Remplazamos la entrada $class$ dentro de la lista por su copia producida en el paso anterior\;
+ 	}
+ }
+ Creamos un modelo $modeloMo$\;
+ \ForEach{class en classList}{ 
+ 	Combinamos el modelo $class$ con el $modeloMo$\;
+ }
+ 
+
+ \ForEach{ic en Conexión Interna del Modelo}{
+	\tcc{Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan}
+	\If{Si los modelos de ic son Escalares}{
+		Se agrega la ecuación que representa la conexión entre los modelos\;
+	}\ElseIf{Si los modelos de ic son Vectoriales}{
+		Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos mediante una sentencia For\;
+	}\Else{
+		No se conoce la conexión;
+	}
+ 	
+ }
+ 
+ \caption{Pd2Mo::transform()}
+\end{function}
 
 \item La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
 
