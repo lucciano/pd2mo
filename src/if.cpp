@@ -22,7 +22,7 @@ AST_EquationList If::visitEquationList (AST_EquationList eqList){
 				}else{
 					bool foundCond = false;
 					// TODO : handle stIf ->else_if()
-					AST_Equation_ElseList eq_elseList = eqIf->equationElseIf(); 
+					AST_Equation_ElseList eq_elseList = eqIf->equationElseIf();
 					AST_Equation_ElseListIterator it_else;
 					foreach(it_else, eq_elseList){
 						AST_Equation_Else exp_else = current_element(it_else);

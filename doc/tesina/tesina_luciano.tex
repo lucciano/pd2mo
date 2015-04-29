@@ -713,7 +713,7 @@ El programa esta separado en 4 módulos:
  \caption{main(src\_infile)}
 \end{function*}
 
-
+\newpage
 \item La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 
 \begin{function}[H]
@@ -741,9 +741,7 @@ El programa esta separado en 4 módulos:
 	}\Else{
 		No se conoce la conexión;
 	}
- 	
  }
- 
  \caption{Pd2Mo::transform()}
 \end{function}
 
@@ -786,22 +784,15 @@ El programa esta separado en 4 módulos:
 \item La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
 \end{itemize}
 
-Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común, la cual retorna una copia del AST y remplaza una parte este.
+Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común (Traverser), la cual retorna una copia del AST y remplaza una parte este.
 
-\begin{algorithm}[H]
- \caption{mda::visitClass}
-\end{algorithm}
-
-\begin{algorithm}[H]
- \caption{prodint::visitClass}
-\end{algorithm}
-
-\begin{algorithm}[H]
- \caption{If::visitClass}
-\end{algorithm}
-
-
-
+ \begin{itemize}
+ 	\item  $mda$: Remplaza expresiones de la forma $X[N,k]$, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión $\in \mathbb{N}$, es remplazado por $X_k[N]$
+ 	
+ 	\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión $\in \mathbb{N}$
+ 	
+ 	\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evaluá a un booleano (a partir de parámetros o constantes, es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
+ \end{itemize}
 
 
 \chapter{Conclusiones y Trabajo a futuro}
