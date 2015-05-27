@@ -1,7 +1,7 @@
 class Scalar2Vector
   constant Real p[2] = {-1, 10};
   constant Integer N = integer(p[2]);
-  parameter Integer Index = integer(p[1]);
+  constant Integer Index = integer(p[1]);
   Real u[1];
   Real y[N, 1];
 equation
