@@ -1,7 +1,13 @@
 %TODO agregar el desfazage de puertos entre modelica y powerdevs.
-% agregar pseudo codigo
+% agregar una guia con detalles de cada capitulo con los aportes.
+%agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
+%powerdevs implemente los modelos vectorials, más detalles del tamaño
+%presentar los bloques vectoriales que se usan
+
+% 
 % agregar trabajos futuros
-% agregar: bball_downstairs  lotka_volter  otros ejemplos (simples)
+% Agregar size a los modelos powerdevs que transforman conexiones vectores en escalares
+
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
 \usepackage[utf8]{inputenc}
@@ -73,7 +79,13 @@ En este trabajo se describe la implementación de una aplicación para convertir
 \end{abstract}
 
 
+
+
+
 \chapter{Introducción}
+
+En este trabajo se describe la implementación de una aplicación para convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fritzson02modelica--}, más especificamente en $\mu$Modelica\cite{Ber12}, en el primer capitulo presentamos las principales motivaciones y objetivos, así como trabajos relacionados y el alcance de este trabajo. En el capitulo dos se recorren conceptos previos, principalmente los formalismo DEVS. En el capitulo tres es donde se muestra en detalles el proceso de conversión de modelos, por ultimo, en el capitulo cuatro, vemos los resultados del trabajo comparando los tiempos de ejecución de los modelos originales y las versiones convertidas a $\mu$-modelica.
+
 \section{Motivación y Objetivos}
 PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler:2000:TMS:580780}, con una interfaz grafica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado los parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 
