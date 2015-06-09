@@ -808,21 +808,97 @@ Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico 
 
 
 \chapter{Conclusiones y Trabajo a futuro}
+En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y comparamos los resultados obtenidos.
 
-lcline_qss 1200s, N=1000, 
-powerdevs: 40994ms qss-solver: 18458.9ms
-           
-inversers : N=1000, 250s
-powerdevs: 4749ms  qss-solver : 1897.22ms
+\section{Resultados}
 
-adr: 10s N=1000 
-powerdevs: 7467 qss-solver : 1412.06 (LIQSS2)
+\subsection{lcline}
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lcline-pd}
+\caption{lcline PowerDEVS}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lcline-qss}
+\caption{lcline QSS-Solver}
+\end{minipage}
+\end{figure}
 
-buck_disk : 0.01s N=1
-powerdevs: 343ms qss-solver : 15.2497ms
+\subsection{inversers}
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{inversers-pd}
+\caption{inversers PowerDEVS}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{inversers-qss}
+\caption{inversers QSS-Solver}
+\end{minipage}
+\end{figure}
 
-lotka_voltera : 300s N=1
-powerdevs: 52ms qss-solver : 	0.476385ms
+\subsection{adr}
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{adr-pd}
+\caption{adr PowerDEVS}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{adr-qss}
+\caption{adr QSS-Solver}
+\end{minipage}
+\end{figure}
+
+\subsection{buck\_disk}
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{buck_disk-pd}
+\caption{buck\_disk PowerDEVS}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{buck_disk-qss}
+\caption{buck\_disk QSS-Solver}
+\end{minipage}
+\end{figure}
+
+\subsection{lotka\_voltera}
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-pd}
+\caption{lotka\_voltera PowerDEVS}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-qss}
+\caption{lotka\_voltera QSS-Solver}
+\end{minipage}
+\end{figure}
+
+\begin{table}[h]
+\centering	
+\label{my-label}
+\begin{tabular}{llllll}
+{\bf Modelos}  & {\bf S} & {\bf N} & {\bf PowerDEVS(ms)} & {\bf QSS-Solver (ms)} & {\bf Mejora (\%)} \\
+lcline         & 1200 & 1000 & 40994         & 18458.9         & 45          \\
+inversers      & 250  & 1000 & 4749          & 1897.22         & 39.9        \\
+adr (LIQSS2)   & 10   & 1000 & 7467          & 1412.06         & 18.9        \\
+buck\_disk     & 0.1  & 1    & 343           & 15.2497         & 4.4         \\
+lotka\_voltera & 300  & 1    & 52            & 0.476385        &            
+\end{tabular}
+\end{table}
 
 \nocite{*}
 
