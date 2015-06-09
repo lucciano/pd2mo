@@ -4,11 +4,11 @@ model lotka_volterra
   parameter Real QSSIntegrator_1_p[4];
   parameter Real QSSIntegrator_1_x0 = 0.5;
   Real QSSIntegrator_1_u[1];
-  Real QSSIntegrator_1_y[1](start = {QSSIntegrator_1_x0});
+  Real QSSIntegrator_1_y[1](start = QSSIntegrator_1_x0);
   parameter Real QSSIntegrator_2_p[4];
   parameter Real QSSIntegrator_2_x0 = 0.5;
   Real QSSIntegrator_2_u[1];
-  Real QSSIntegrator_2_y[1](start = {QSSIntegrator_2_x0});
+  Real QSSIntegrator_2_y[1](start = QSSIntegrator_2_x0);
   parameter Real WSum_3_p[9];
   constant Integer WSum_3_n = 2;
   parameter Real WSum_3_w[WSum_3_n];

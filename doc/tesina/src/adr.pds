@@ -1,0 +1,99 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = hybrid\runscilabjob.h
+    Parameters = "N=1000;dx=10/N","",""
+   }
+  Simulator
+   {
+    Path = vector\qss_integrator_vec.h
+    Parameters = "LIQSS2","1e-6","1e-6","0","N"
+   }
+  Simulator
+   {
+    Path = vector/index_shift.h
+    Parameters = "1","N"
+   }
+  Simulator
+   {
+    Path = vector\scalar2vec.h
+    Parameters = "0","N"
+   }
+  Simulator
+   {
+    Path = sources\constant_sci.h
+    Parameters = "1"
+   }
+  Simulator
+   {
+    Path = vector\vec2scalar.h
+    Parameters = "0","N"
+   }
+  Simulator
+   {
+    Path = vector\vector_pow2.h
+    Parameters = "N"
+   }
+  Simulator
+   {
+    Path = vector/qss_multiplier_vec.h
+    Parameters = 2.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = vector\qss_sum_vec.h
+    Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = vector\scalar2vec.h
+    Parameters = "-1","N"
+   }
+  Simulator
+   {
+    Path = sources\constant_sci.h
+    Parameters = "1"
+   }
+  Simulator
+   {
+    Path = vector\vec2scalar.h
+    Parameters = "N-1","N"
+   }
+  Simulator
+   {
+    Path = vector\qss_sum_vec.h
+    Parameters = "1/dx","-1/dx","1/dx","1000","0","0","0","0",4.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = sinks/gnuplot.h
+    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'First output'","with lines title 'Last output'","","",""
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (2,0);(12,0)
+    (12,0);(1,0)
+    (3,0);(12,2)
+    (4,0);(3,0)
+    (6,0);(7,1)
+    (7,0);(12,3)
+    (8,0);(7,0)
+    (10,0);(9,0)
+    (9,0);(8,0)
+    (5,0);(13,0)
+    (11,0);(13,1)
+    (1,0);(11,0)
+    (1,0);(5,0)
+    (1,0);(2,0)
+    (1,0);(12,1)
+    (1,0);(6,0)
+    (1,0);(8,1)
+   }
+ }

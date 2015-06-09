@@ -189,7 +189,7 @@ equation
 
 	experiment(
 		MMO_Description="",
-		MMO_Solver=QSS3,
+		MMO_Solver=LIQSS2,
 		MMO_Output={VecInt_1_y_1[1],VecInt_1_y_1[1000]},
 		StartTime=0.0,
 		StopTime=10,
