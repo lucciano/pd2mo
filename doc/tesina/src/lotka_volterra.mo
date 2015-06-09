@@ -71,7 +71,7 @@ equation
 	experiment(
 		MMO_Description="",
 		MMO_Solver=QSS3,
-		MMO_Output={QSSIntegrator_2_y[1]},
+		MMO_Output={QSSIntegrator_2_y[1], QSSIntegrator_1_y[1]},
 		StartTime=0.0,
 		StopTime=300,
 		Tolerance={1e-3},
