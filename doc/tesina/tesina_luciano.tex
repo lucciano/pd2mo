@@ -18,6 +18,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[lined,boxed,spanish,onelanguage]{algorithm2e} 
 \usepackage{graphicx}
+\usepackage{booktabs}
 %\renewcommand{\abstractname}{Resumen: }
 
 \begin{document}
@@ -815,7 +816,8 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \section{Modelos}
 
 \subsubsection{lcline}
-\begin{figure}[!htbp]
+
+\begin{figure}[htbp]
 \centering
 \begin{minipage}{0.5\textwidth}
 \centering
@@ -828,7 +830,8 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \end{figure}
 
 \subsubsection{inversers}
-\begin{figure}[!htbp]
+
+\begin{figure}[htbp]
 \centering
 \begin{minipage}{0.5\textwidth}
 \centering
@@ -841,7 +844,8 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \end{figure}
 
 \subsubsection{adr}
-\begin{figure}[!htbp]
+
+\begin{figure}[htbp]
 \centering
 \begin{minipage}{0.5\textwidth}
 \centering
@@ -854,6 +858,7 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \end{figure}
 
 \subsubsection{buck\_disk}
+
 \begin{figure}[!htbp]
 \centering
 \begin{minipage}{0.5\textwidth}
@@ -867,6 +872,7 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \end{figure}
 
 \subsubsection{lotka\_voltera}
+
 \begin{figure}[!htbp]
 \centering
 \begin{minipage}{0.5\textwidth}
@@ -884,12 +890,14 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 \centering	
 \label{my-label}
 \begin{tabular}{llllll}
-{\bf Modelos}  & {\bf S} & {\bf N} & {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
-lcline         & 1200 & 1000 & 40994         & 18458.9         & 45          \\
-inversers      & 250  & 1000 & 4749          & 1897.22         & 39.9        \\
-adr (LIQSS2)   & 10   & 1000 & 7467          & 1412.06         & 18.9        \\
-buck\_disk     & 0.1  & 1    & 343           & 15.2497         & 4.4         \\
-lotka\_voltera & 300  & 1    & 52            & 0.476385        &            
+\toprule
+{\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
+\toprule
+lcline 1200s, N=1000     & 40994         & 18458.9         & 45          \\
+inversers 250s, N=1000   & 4749          & 1897.22         & 39.9        \\
+adr (LIQSS2) 10s, N=1000 & 7467          & 1412.06         & 18.9        \\
+buck\_disk  0.1s,        & 343           & 15.2497         & 4.4         \\
+lotka\_voltera 300s      & 52            & 0.476385        & 0.916125
 \end{tabular}
 \end{table}
 
