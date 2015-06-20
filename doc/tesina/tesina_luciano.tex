@@ -115,15 +115,15 @@ DESlib \cite{Sanz09paralleldevs} es una librería para la descripción de modelo
 
 \section{Alcance}
 DEVS\cite{Zeigler:2000:TMS:580780}, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerárquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos que pueden ser descriptos por ecuaciones diferenciales.
-En el formalismo clásico DEVS, los modelos atómicos capturan el comportamiento del sistema, mientras los modelos Acoplados describen la estructura del sistema.
+En el formalismo clásico DEVS, los modelos atómicos capturan el comportamiento del sistema, mientras los modelos Acoplados describen la estructura del mismo.
 En particular los modelos atómicos en PowerDEVS son descriptos en clases C++, mientras que la estructura se encuentra definida en archivos pds y pdm.
 Modelica es un lenguaje de modelado, orientado a objetos, declarativo, para el modelado orientado a componentes de sistemas complejos.
-Para poder realizar nuestro objetivo es necesario primero contar con un modelo  en modelica\cite{Fritzson02modelica--} para cada atómico PowerDEVS\cite{BK11} que deseemos convertir. 
+Para poder realizar nuestro objetivo es necesario primero contar con un modelo en modelica\cite{Fritzson02modelica--} para cada atómico PowerDEVS\cite{BK11} que deseemos convertir. 
 
 De esto se desprenden las siguientes limitaciones importantes:
 \begin{itemize}
 	\item La semántica de los modelos convertidos depende de los modelos equivalentes a los DEVS atómicos 
-	\item Solamente podemos convertir modelos cuyos componentes atómicos estén o puedan ser convertidos a $\mu$modelica.
+	\item Solamente podemos convertir modelos cuyos componentes atómicos hayan sido convertidos a $\mu$modelica.
 \end{itemize}
 
 	
@@ -131,7 +131,7 @@ De esto se desprenden las siguientes limitaciones importantes:
 En este capítulo introducimos algunos conceptos básicos, necesarios para poder comprender este trabajo, modelado y los formalismos y simulación de sistemas y clasificación.
 
 \section{Modelado y Simulación}
-Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego simulado, de forma de obtener datos sobre el sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en si.
+Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en si.
 
 \subsection{Sistemas Continuos y Discretos}
 Se considera un sistema continuo si las variables de este son conocidas en cada instante de tiempo, mientras que se considera discreto si las variables son conocidas en instantes de tiempo determinados.
