@@ -229,7 +229,7 @@ donde cada componente es:
       \begin {itemize}
           \item EIC (o External Input Coupling) son las conexiones de entrada al acoplado, es decir, conecta un puerto de entrada del acoplado con un puerto de entrada de un modelo perteneciente al acoplado.
           \item EOC (o External Output Coupling) son las conexiones de salida del acoplado. Conecta un puerto de salida de un modelo interno del acoplado con un puerto de salida del acoplado. Formalmente:
-          $ EIC \in \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} $
+          $EIC \in \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} $
           $EOC \in \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d \} $
     
     	donde N es el modelo acoplado.
@@ -244,7 +244,7 @@ donde no se permite que $a = b$.
 \item Select es una función $(D \times D \to D)$ que decide qué modelo realizará primero su transición interna, si se da el caso de eventos simultáneos. Es una función de "desempate" que en ciertos modelos es necesaria.
 \end{itemize}
 
-$InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$ Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
+$InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$. Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
 
 En esta Sección introducimos una extensión al formalismo DEVS para especificar modelos vectoriales fácilmente.
 
@@ -273,13 +273,13 @@ donde:
 
 \item $XV = X \times Index$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
 
-\item $YV = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. %TODO : check Index = 0...N?
+\item $YV = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
 
 \item $P$ es un conjunto de parámetros arbitrario.
 
 \item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
 \end{itemize}
-	
+	 
 \section{Métodos de integración QSS}
 Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
 
@@ -310,7 +310,7 @@ En la Figura \ref{fig:fig2-2} vemos la relación entrada-salida de una función 
 Notar que un cuantificador con histéresis tiene memoria. Es decir, calcula $q(t)$ no sólo en función del valor actual de $x(t)$ sino también de su valor pasado.
 La presencia de esta función que relaciona $q_j (t)$ y $x_j (t)$ implica que $q_j (t)$ sigue una trayectoria constante a trozos que sólo cambia cuando difiere con $x_j (t)$ en un parámetro $\Delta Q_j$ llamado quantum.
 
-Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante a trozos de la variable de estado correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes a trozos de las componentes correspondientes de $u(t)$.  Los pasos de integración en los métodos de QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de estado correspondiente $x_j (t)$ difiere de $q_j(t^{-})$ en un quantum. Ese cambio implica también que algunas derivadas de estado (aquellas que dependen de $x_j$ ) también son modificadas. Luego, cada paso involucra un cambio en sólo una variable cuantificada y en algunas derivadas de estado. Por lo tanto cuando un gran sistema ralo (o sparse) posee sólo actividad en unos pocos estados mientras que el resto del sistema se mantiene intacto, los métodos de QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
+Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante a trozos de la variable de estado correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes a trozos de las componentes correspondientes de $u(t)$. Los pasos de integración en los métodos de QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de estado correspondiente $x_j (t)$ difiere de $q_j(t^{-})$ en un quantum. Ese cambio implica también que algunas derivadas de estado (aquellas que dependen de $x_j$ ) también son modificadas. Luego, cada paso involucra un cambio en sólo una variable cuantificada y en algunas derivadas de estado. Por lo tanto cuando un gran sistema ralo (o sparse) posee sólo actividad en unos pocos estados mientras que el resto del sistema se mantien	e intacto, los métodos de QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
 Otra ventaja importante de los métodos de QSS es que tratan las discontinuidades de una manera muy eficiente. Dependiendo del orden del método, las variables de estado siguen trayectorias lineal a trozos, parabólica a trozos o constante a trozos. Debido a ello, detectar los cruces por cero es sencillo ya que se debe resolver una ecuación cúbica en el peor caso. Una vez que la discontinuidad es detectada, el algoritmo la trata como un paso normal ya que cada paso es de hecho una discontinuidad en una variable cuantificada. Por lo tanto la ocurrencia de una discontinuidad implica sólo algunos cálculos locales para re-computar las derivadas de estados que están directamente afectadas por ese evento.
 Estas ventajas resultan en una aceleración notable en el tiempo de simulación contra los algoritmos de integración numérica clásicos. En modelos con discontinuidades frecuentes como sistemas de electrónica de potencia, los métodos de alto orden que veremos a continuación, pueden simular hasta 20 veces más rápido que los métodos convencionales.
 
@@ -326,15 +326,15 @@ También existen algunas características avanzadas que pueden ser manejadas des
 La ventana del Modelo provee todas las funcionalidades típicas para la edición gráfica para poder copiar, cambiar el tamaño, rotar, etc. mientras que las conexiones pueden ser dibujadas entre los diferentes puertos.
 La ventana de Edición de Bloques, nos permite configurar la apariencia gráfica y elegir los parámetros del bloque y, en el caso de los modelos atómicos, seleccionar el archivo que contiene el código asociado con la definición DEVS.
 
-\item El \emph{Editor de Atómico} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario solo debe definir las variables que forman el estado y la salida del modelo DEVS. Luego, el código C++ de la transición de avance de tiempo y la función de salida deben se completados. Hay dos ventanas adicionales init y exit, donde se puede completar con código que sera ejecutado al inicio y fin de la simulación.
+\item El \emph{Editor de Modelos Atómico} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario solo debe definir las variables que forman el estado y la salida del modelo DEVS. Luego, el código C++ de la transición de avance de tiempo y la función de salida deben se completados. Hay dos ventanas adicionales init y exit, donde se puede completar con código que sera ejecutado al inicio y fin de la simulación.
 Cuando el modelo se guarda, el código es guardado en los archivos .cpp y .h. 
 
 \item El \emph{Pre procesador}, toma un archivo .pdm (o .pds) producido por el \emph{Editor de Modelos} y produce el programa que corre la simulación. Básicamente traduce el archivo .pdm a un archivo de cabecera .h que enlaza el simulador y el coordinador de acuerdo a la estructura del modelo pasando además los parámetros definidos para el modelo.
-El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual invoca el compilador para generar el programa que implementa la simulación. 
+El \emph{Pre procesador}, además produce un makefile (Makefile.include) el cual invoca el compilador para generar el programa que implementa la simulación.
 
 \item La \emph{interfaz de simulación}, que corre el programa que implementa la simulación y permite variar parámetros de la simulación como tiempo final, números de simulación a ejecutar, y el modo de simulación (normal, cronometrada, pasa o paso, etc.).
 
-\item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados. 
+\item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados.
 \end{itemize}
 
 \section{Modelica}
@@ -373,17 +373,14 @@ El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Mode
  \item Discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos clausulas solo pueden ser relaciones ($<$, $\leqslant$, $>$ $\geqslant$) y, dentro de la clausula, solo asignaciones de variables discretas y $reinit$ de estados continuos son permitidos
 \end{itemize}
 
-
 \chapter{Conversión de modelos DEVS}
-
 En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
 
 \section{Modelos Atómicos}
-
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
 
 \begin{itemize}
-\item El código debe ser Modelica ($\mu$modelica) valido y estar ubicado en el mismo directorio del código C que el modelo atómico PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo
+\item El código debe ser Modelica ($\mu$modelica) valido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo
 \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$
 \item Los valores de entrada del modelo son asociados a la variable $u$
 \item Los valores de salida del modelos son asociados a la variable $y$
@@ -438,7 +435,7 @@ class Constant
   Real y[1];
 equation
   y[1] = k;
-end Constant;	
+end Constant;
 \end{minted}
 
 	\item Sumador: WSum0
@@ -549,12 +546,9 @@ end Integrador;
 \end{minted}
 
 \section{Modelos Acoplados Jerárquicos}
-%TODO : Demostración por inducción.
-%TODO : ¿Que sea cerrado sobre acoplado es lo mismo que sea equivalente?
-
 En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos, vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
 
-Para realizar el aplanado, se recorre recursivamente los modelos acoplados
+Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
 
 \begin{itemize}
 \item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
@@ -572,8 +566,8 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \item $annotation(PD2MO = {Scalar, Scalar});$ cuando ambas entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
 \end{itemize}
 
-Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradors y es la version vectorial del integrador atómico mostrado antes.
-
+Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradores y es la version vectorial del integrador atómico mostrado antes.
+%TODO : Integrador Mostrado donde?
 
 \begin{minted}{modelica}
 class VecInt
@@ -595,40 +589,16 @@ end VecInt;
 \end{minted}
 
 
-\chapter{Resultados}
+%\chapter{Resultados} 
 
 \section{Equivalencia semántica de la conversión}
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
 \begin{itemize}
 \item Modelos Atómicos : Los modelos atómicos son convertidos por el usuario, los que se han propuesto en el código mantienen una conservación de la semántica que no es estricta y se trató manualmente. 
-\item Modelos Acoplado - Plano : Como fue descripto en la sección Modelos Acoplados Planos, los modelos son conectados por una ecuación en caso de ser un modelo escalar, o por un conjunto de ecuaciones (expresadas en una sentencia $for$). En este caso esta conversión (conexión por igualdad) solo mantiene una semántica relativa, pues la semántica de una conexión (o grupo de conexiones en el caso vectorial) es diferente de la semántica de un ecuación (o grupos de ecuaciones).
+\item Modelos Acoplado - Plano : Como fue descripto en la sección Modelos Acoplados Planos, los modelos son conectados por una ecuación en caso de ser un modelo escalar, o por un conjunto de ecuaciones (expresadas en una sentencia $for$). En este caso esta conversión (conexión por igualdad) no mantiene la semántica, pues la semántica de una conexión (o grupo de conexiones en el caso vectorial) es diferente de la semántica de un ecuación (o grupos de ecuaciones).
 
-\item Modelo Jerárquico : En este caso si podemos probar la equivalencia semántica, entre el modelo original, es decir un modelo acoplado que incluye más modelos acoplados, con un modelo "aplanado" (solo con modelos atómicos). Esto se debe a que el formalismo DEVS es cerrado bajo el acoplamiento \cite{Zeigler:2000:TMS:580780} y \cite{zeigler1984multifacetted}, lo que permite remplazar un modelos acoplado por equivalentes atómicos, conectados apropiadamente. %TODO : Verificar.
+\item Modelo Jerárquico : En este caso si podemos probar la equivalencia semántica, entre el modelo original, es decir un modelo acoplado que incluye más modelos acoplados, con un modelo "aplanado" (solo con modelos atómicos). Esto se debe a que el formalismo DEVS es cerrado bajo el acoplamiento \cite{Zeigler:2000:TMS:580780} y \cite{zeigler1984multifacetted}, lo que permite remplazar un modelos acoplado por equivalentes atómicos, conectados apropiadamente.
 \end{itemize}
-
-\section{Comparación de performance}
-
-%\chapter{Detalles de Implementación}
-%API Powerdevs, AST Modelica, programa principal
-
-%modelCoupled *cm = parsePDS(QString::fromStdString(src_infile));
-%modelCoupled *qm = flatter::flat(cm);
-%generateCode(qm, QString::fromStdString(flatted), false, true);
-%
-%ofstream oFlogfile;
-%oFlogfile.open(logfile.c_str(), ios::trunc);
-%
-%Pd2Mo q = Pd2Mo();
-%q.setPath(path);     
-%
-% q.transform(flatted, modelname, &outfile, &oFlogfile);
-%
-%mda *m = new mda();
-%prodint *  prod = new prodint();
-%If *i = new If();
-%outfile.open(mmodelica_src_outfile.c_str(), ios::trunc);
-%outfile << m->visitClass( prod->visitClass( i->visitClass( *sd->models()->begin()))) << endl;
-
 
 \section{Ejemplos de Aplicación}
 En esta Sección presentamos dos ejemplos motivadores para la implementación de la conversión, el primer un modelo de una línea de transmisión LC (circuito resonante compuesto por una bobina y un capacitor) utilizando el Método de Líneas DEVS para grandes sistemas \cite{Cel06}, el cual resulta en $N$ segmentos cada uno representado con Vectorial DEVS. Luego analizaremos un ejemplo de un control de potencia de un conjunto de N aires acondicionados tomado de \cite{PKBW12}.
@@ -664,7 +634,7 @@ Este modelo es representado en un modelo PowerDEVS como el que se puede ver en l
 
 \subsection{Control de Energía de un Conjunto de Aires Acondicionados}
 Este modelo permite estudiar la dinámica y control del consumo energético de un grupo de equipos de Aire Acondicionados (AA). Consideramos un gran número de equipos de aire acondicionado utilizados para controlar la temperatura de distintas habitaciones. La temperatura en la habitación $i$-ésima $\theta_i(t)$ sigue la ecuación:
-%TODO Eliminar el ruido?
+
 \begin{equation*}
 \frac{d\theta_i(t)}{dt} = \frac{1}{C_i \cdot R_i } [ \theta_i(t) - \theta_a + R_i \cdot P_i \cdot m_i(t) + w_i(t) ]
 \end{equation*}
@@ -811,12 +781,10 @@ Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico 
  \end{itemize}
 
 
-\chapter{Conclusiones y Trabajo a futuro}
+\chapter{Conclusiones}
 En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y comparamos los resultados obtenidos.
 
-\section{Resultados}
-
-\section{Modelos}
+\section{Comparación de performance}
 A continuación por cada uno de los modelos se muestra una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver.
 
 \subsubsection{lcline}
