@@ -1,7 +1,4 @@
-%TODO agregar el desfazage de puertos entre modelica y powerdevs.
-% agregar una guia con detalles de cada capitulo con los aportes.
 %agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
-%powerdevs implemente los modelos vectorials, más detalles del tamaño
 %presentar los bloques vectoriales que se usan
 
 % 
@@ -86,8 +83,13 @@ En este trabajo se describe la implementación de una aplicación capaz de conve
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=\linewidth]{esquema}
+ \includegraphics[width=0.75\linewidth]{esquema}
+ \caption{Esquema de conversiones}
+ \label{fig:esquema}
 \end{figure}
+
+En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS y Modelica) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS, en PowerDEVSe el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. Desde la perspectiva de Modelica (o $\mu$-Modelica, debemos pasar el sistema a modelica (o $\mu$-Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
+El actual trabajo esta representado por la flecha que sale de PowerDEVS hacia $\mu$-Modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el solver QSS, en el lenguaje $\mu$-Modelica.
 
 
 \section{Motivación y Objetivos}

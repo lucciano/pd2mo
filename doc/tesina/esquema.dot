@@ -20,7 +20,7 @@ digraph G {
 	b0_1 [label="C/C++"]
 	b0_2 [label="Plot"]
         b1 [label="µModelica"]
-	a1 -> b1 [ label="PowerDEVS a Modelica" ];
+ 	a1 -> b1 //[ label="PowerDEVS a Modelica" ];
 	b2 [label="C/C++"]
 	b3 [label="Plot"]
 	start [label="f(x) = dx"];
