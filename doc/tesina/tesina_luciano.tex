@@ -1,4 +1,4 @@
-%agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
+%DONE:agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
 %presentar los bloques vectoriales que se usan, mostrar los modelos que se usa (p12 del paper de devs vectorial). 3.4 de esta doc, agregar los modelos en modelica y su relacion.
 
 %trabajos futuros,
@@ -152,7 +152,7 @@ En general los sistemas en estudio serán continuos, pero deberemos utilizar sis
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
 \begin{equation} \label{eq1}
-x(t) = f (x(t), u(t))
+\dot{x(t)} = f (x(t), u(t))
 \end{equation}
 
 donde $x \in \Re^n$  es el vector de estados, $u \in \Re^m$ es una función de entradas conocidas,
@@ -289,6 +289,17 @@ donde:
 
 \item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
 \end{itemize}
+
+\subsubsection{Interfaz entre DEVS Vectorial y DEVS}
+Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo.
+
+\begin{itemize}
+ \item Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parametro entero.
+ \item Escalar a Vector (Scalar to Vector): Este vector simplemente agrega al indice $i$ al evento escalar que recive, transformandolo en un evento vectorial. Este modelo tambien poseen un comportamiento especial para enviar el mismo evento en todas las componentes vectorial al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
+ \item Vectot a escalar (Vector to Scalar): Este bloque tiene un parametro $i$ que contiene el indice del vector de eventos a retrasmitir, cuando recibe un evento con indice $j=i$, remoeve el indice y retrasmite el evento escalar.
+\end{itemize}
+
+A todos estos eventos se la ha agregado la dimensión $N$ como parametro, esto es necesario para realizar la conversión de los modelos, de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaria en un modelo con menos equaciones que variables, es decir un modelo no balanceado.
 	 
 \section{Métodos de integración QSS}
 Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
@@ -567,6 +578,25 @@ Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
 
 De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
 
+A modo de ejemplo se muestran, el esquema del integrador de la sección anterior con un modelo acoplado en \ref{fig:acomplado} y luego el mismo modelo en \ref{fig:aplanado}, aplanado, el cual puede ser convertido pues ya no presenta jerarquias.
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.5\linewidth]{integrator-sample}
+ \caption{Representación de un modelo simple de integrador acoplado}
+ \label{fig:acomplado}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.5\linewidth]{integrator-expanded}
+ \caption{Representación del modelo de integrador aplanado }
+ \label{fig:aplanado}
+\end{figure}
+
+
+
 \section{Modelos Vectoriales}
 Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Estos modelos pueden tener tanto la entrada como la salida de sus conectores de forma vectorial, por lo que los modelos vectoriales deben indicarlos con la anotación de Modelica $PD2MO$, por ejemplo:
 \begin{itemize}
@@ -577,7 +607,6 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \end{itemize}
 
 Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradores y es la version vectorial del integrador atómico mostrado antes.
-%TODO : Integrador Mostrado donde?
 
 \begin{minted}{modelica}
 class VecInt
