@@ -1,6 +1,6 @@
 %DONE:agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
 %presentar los bloques vectoriales que se usan, mostrar los modelos que se usa (p12 del paper de devs vectorial). 3.4 de esta doc, agregar los modelos en modelica y su relacion.
-
+%¿presentar otros bloques?
 %trabajos futuros,
 %	desarrollar mas modelos (modelica)
 %	integrarlo con powerdevs
@@ -291,12 +291,13 @@ donde:
 \end{itemize}
 
 \subsubsection{Interfaz entre DEVS Vectorial y DEVS}
-Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo.
+Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo, además, introducimos un bloque necesario para realizar modelos más complejos y conectar los diferentes componentes de un modelo vectorial entre si.
 
 \begin{itemize}
- \item Index Shift: El modelo má1s simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parametro entero.
  \item Escalar a Vector (Scalar to Vector): Este vector simplemente agrega al indice $i$ al evento escalar que recive, transformandolo en un evento vectorial. Este modelo tambien poseen un comportamiento especial para enviar el mismo evento en todas las componentes vectorial al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
  \item Vectot a escalar (Vector to Scalar): Este bloque tiene un parametro $i$ que contiene el indice del vector de eventos a retrasmitir, cuando recibe un evento con indice $j=i$, remoeve el indice y retrasmite el evento escalar.
+  \item Index Shift: El modelo má1s simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parametro entero.
+
 \end{itemize}
 
 A todos estos eventos se la ha agregado la dimensión $N$ como parametro, esto es necesario para realizar la conversión de los modelos, de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaria en un modelo con menos equaciones que variables, es decir un modelo no balanceado.
@@ -627,8 +628,6 @@ equation
 end VecInt;
 \end{minted}
 
-
-%\chapter{Resultados} 
 
 \section{Equivalencia semántica de la conversión}
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
