@@ -1,24 +1,6 @@
 %DONE:agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
 %presentar los bloques vectoriales que se usan, mostrar los modelos que se usa (p12 del paper de devs vectorial). 3.4 de esta doc, agregar los modelos en modelica y su relacion.
-% scalar_to_vector, vector_to_scalar
-% Vector_sum
-% Vector_QSS
-% Index_Shift
-% WSum
-% Vector_WSum
-% QSS Integrator
-% Vector_Multiplier
-% Vector_2Pow
-% Vector_Hysteresis
-% Vector_Sum
-% Ramp
-% Constant
-% Vector_Saturation
-% Pulse
-% Square
-% qss_switch
-% Inverse
-% Multiplier
+
 % agregar modelo acoplado buck_disk
 %trabajos futuros,
 %	desarrollar mas modelos (modelica)
@@ -840,6 +822,127 @@ Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico 
 
 \chapter{Conclusiones}
 En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y comparamos los resultados obtenidos.
+
+\section{Modelos creados}
+A continuación mostramos los modelos $\mu$Modelica, utilizados para realizar la comparación de performance:
+
+\begin{listing}[H]    
+     \caption{data/sources/constant\_sci.mo}    
+     \inputminted{modelica}{../../data/sources/constant_sci.mo}
+     \label{lst:constant_sci.mo}
+\end{listing} 
+
+\begin{listing}[H]    
+	\caption{data/sources/pulse\_sci.mo}
+	\inputminted{modelica}{../../data/sources/pulse_sci.mo}
+	\label{lst:pulse_sci.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/sources/ramp\_sci.mo}
+	\inputminted{modelica}{../../data/sources/ramp_sci.mo}
+	\label{lst:ramp_sci.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/sources/square\_sci.mo}
+	\inputminted{modelica}{../../data/sources/square_sci.mo}
+	\label{lst:square_sci.mo}
+\end{listing} 
+
+
+\begin{listing}[H]    
+	\caption{data/qss/hysteretic.mo}
+	\inputminted{modelica}{../../data/qss/hysteretic.mo}
+	\label{lst:hysteretic.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/inverse\_function.mo}
+	\inputminted{modelica}{../../data/qss/inverse_function.mo}
+	\label{lst:inverse_function.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_integrator.mo}
+	\inputminted{modelica}{../../data/qss/qss_integrator.mo}
+	\label{lst:qss_integrator.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_multiplier.mo}
+	\inputminted{modelica}{../../data/qss/qss_multiplier.mo}
+	\label{lst:qss_multiplier.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_quantizer.mo}
+	\inputminted{modelica}{../../data/qss/qss_quantizer.mo}
+	\label{lst:qss_quantizer.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_switch.mo}
+	\inputminted{modelica}{../../data/qss/qss_switch.mo}
+	\label{lst:qss_switch.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_wsum.mo}
+	\inputminted{modelica}{../../data/qss/qss_wsum.mo}
+	\label{lst:qss_wsum.mo}
+\end{listing} 
+
+\begin{listing}[H]    
+	\caption{data/vector/IndexSelector.mo}
+	\inputminted{modelica}{../../data/vector/IndexSelector.mo}
+	\label{lst:ndexSelector.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vec2scalar.mo}
+	\inputminted{modelica}{../../data/vector/vec2scalar.mo}
+	\label{lst:ec2scalar.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/scalar2vec.mo}
+	\inputminted{modelica}{../../data/vector/scalar2vec.mo}
+	\label{lst:calar2vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_sum.mo}
+	\inputminted{modelica}{../../data/vector/vector_sum.mo}
+	\label{lst:ector_sum.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_integrator\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_integrator_vec.mo}
+	\label{lst:ss_integrator_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/index\_shift.mo}
+	\inputminted{modelica}{../../data/vector/index_shift.mo}
+	\label{lst:ndex_shift.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_sum\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_sum_vec.mo}
+	\label{lst:qss_sum_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_multiplier\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_multiplier_vec.mo}
+	\label{lst:ss_multiplier_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_pow2.mo}
+	\inputminted{modelica}{../../data/vector/vector_pow2.mo}
+	\label{lst:ector_pow2.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/hyst\_vec.mo}
+	\inputminted{modelica}{../../data/vector/hyst_vec.mo}
+	\label{lst:yst_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_sat.mo}
+	\inputminted{modelica}{../../data/vector/vector_sat.mo}
+	\label{lst:ector_sat.mo}
+\end{listing} 
+
+
+
 
 \section{Comparación de performance}
 A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
