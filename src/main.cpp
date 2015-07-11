@@ -132,7 +132,7 @@ int main (int argc, char* argv[]) {
     //modelname.copy( src_infile.c_str(), (sizeof src_infile) - 3, 0);
     string modelname(mname); // = string(src_infile);
 
-    cout << modelname << "....."<<  endl;
+    //cout << modelname << "....."<<  endl;
 
 
     q.transform(flatted, modelname, &outfile, &oFlogfile);

@@ -58,7 +58,6 @@ AST_Expression prodint::visitExpression(AST_Expression exp){
 						wlist->insert(wlist->end(), new AST_Expression_Integer_(k));
 						w->append(nr,wlist);
 						AST_Expression_BinOp mult = new AST_Expression_BinOp_(u,w,BINOPMULT);
-						//cout << mult << endl;
 						summan->insert(summan->end(), mult);
 					}
 					AST_ExpressionListIterator it;

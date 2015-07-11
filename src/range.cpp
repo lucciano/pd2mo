@@ -56,7 +56,6 @@ AST_Expression range::visitExpression(AST_Expression exp){
 					break;
 				}
 			}
-			cout << endl;
 			j++;
 		}
 		i++;

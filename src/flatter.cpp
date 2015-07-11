@@ -54,7 +54,6 @@ modelCoupled * flatter::flat(modelCoupled * c){
 				cNew->sourcePort = (*ic)->sourcePort;
 				cNew->childSink += ((*ic)->childSink > atomic)?delta:0;
 				cNew->sinkPort = (*ic)->sinkPort;
-				cout << cNew->childSource << "," << cNew->sourcePort << ";" << cNew->childSink <<","<< cNew->sinkPort << endl;
 				eraseIc = true;
 				rtr->lsIC.append(cNew);
 			}

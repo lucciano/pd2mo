@@ -62,7 +62,6 @@ void evalp::setParams(QStringList x){
 			param = param.mid(1,param.length()-2);
 		}
 		strcpy (d_str,  param.toStdString().c_str());
-		std::cout << d_str << std::endl;
 		double d = getScilabVar(d_str);
 		free(d_str);
 		AST_Expression_Real ra = new AST_Expression_Real_(d);//TODO : check if is INT or REAL

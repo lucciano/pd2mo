@@ -2,8 +2,6 @@
 #include <uda.h>
 #include <string>
 
-//TODO : expandir el for ... :(
-
 namespace pd2mo{
 
 AST_DeclarationList uda::visitDeclarationList(AST_DeclarationList decList){
@@ -27,7 +25,6 @@ AST_ElementList uda::visitElementList(AST_ElementList elementList){
 				foreach(itexpl, explist){
 					if(current_element(itexpl)->expressionType() == EXPINTEGER and
 					   current_element(itexpl)->getAsInteger()->val() == 1){
-						//cout << dec->name() << endl;
 						var[dec->name()].insert(var[dec->name()].end(),j);
 					}else{
 						altExpList->insert(altExpList->end(), visitExpression(current_element(itexpl)));
@@ -74,7 +71,6 @@ AST_Expression_ComponentReference
 			j++;
 		}
 		rVal->append(varname, nplist);
-		//cout << varname << endl;
 		return rVal;
 	}else{
 		return Traverser::visitExpression_ComponentReference(compRefExp);
@@ -82,9 +78,6 @@ AST_Expression_ComponentReference
 }
 
 AST_Statement_For uda::visitStatement_For(AST_Statement_For stFor){
-//	cout << "------------------stFor-----------------"<< endl;
-//	cout << stFor << endl;
-//	cout << "------------------stFor-----------------"<< endl;
 	return Traverser::visitStatement_For(stFor);
 }
 

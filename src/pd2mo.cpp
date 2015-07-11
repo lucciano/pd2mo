@@ -351,7 +351,6 @@ void Pd2Mo::setModelParameters(modelCoupled * model,
 
 		evalp ep = evalp();
 		if (found==std::string::npos){
-			cout << atomic->paramsString.toStdString() << endl;
 			ps.setParametersList(atomic->paramsString.split(","));
 
 			ep.setParams(atomic->paramsString.split(","));
@@ -401,7 +400,6 @@ map<int, tConnection*> Pd2Mo::getClassConnections(AST_ClassList classlist){
 						AST_Expression_Brace br = mc->exp()->getAsBrace();
 						AST_ExpressionList expList = br->arguments();
 						int position = 0;
-						//cout << "Annotation params found!!!";
 						for(AST_ExpressionListIterator it = expList->begin();
 							it != expList->end() ; it++){
 							if(EXPCOMPREF == (*it)->expressionType()){

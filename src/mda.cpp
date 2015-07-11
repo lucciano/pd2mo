@@ -18,7 +18,6 @@ AST_Expression mda::lookUpVar (AST_Expression exp){
 		return new AST_Expression_Integer_(expInt);
 	}else{
 		if(exp->expressionType() == EXPCOMPREF and var.find(exp->getAsComponentReference()->name()) != var.end()){
-			//cout << "no found @ var " << exp->getAsComponentReference()->name() << (NULL == var[exp->getAsComponentReference()->name()]) << endl;
 		}
 		return exp;
 	}
@@ -40,7 +39,6 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					AST_ExpressionListIterator a1_it= std::next(indexes->begin(),1);
 					AST_Expression a1 = lookUpVar(*a1_it);
 					if(a1->expressionType() == EXPINTEGER){
-						//cout << comp->name() << "[" <<a1 <<"]" << endl;
 						
 						skyp_element = true;
 						AST_DeclarationList decList = new std::list<AST_Declaration>();
@@ -73,7 +71,6 @@ AST_ElementList mda::visitElementList(AST_ElementList elementList){
 					if(dec->modification() and dec->modification()->modificationType() == MODEQUAL and
 					   lookUpVar(dec->modification()->getAsEqual()->exp())->expressionType() == EXPINTEGER){
 						var[dec->name()] = lookUpVar(dec->modification()->getAsEqual()->exp())->getAsInteger();
-						//cout << "var <- " << dec->name() << " <- " << var[dec->name()] << endl;
 					}
 				}
 				
