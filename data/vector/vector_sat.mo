@@ -24,7 +24,11 @@ initial algorithm
   end for;
 equation
   for i in 1:N loop
-    y[i, 1] = pre(under[i]) * xl + (1 - pre(under[i])) * (pre(above[i]) * xu + (1 - pre(above[i])) * u[i, 1]);
+    y[i, 1] = pre(under[i]) * 
+		xl + (1 - pre(under[i])) * 
+		(pre(above[i]) * 
+		xu + (1 - pre(above[i])) * 
+		u[i, 1]);
   end for;
 algorithm
   for i in 1:N loop

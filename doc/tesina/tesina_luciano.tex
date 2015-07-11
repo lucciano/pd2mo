@@ -1,6 +1,7 @@
-%agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
+%DONE:agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
 %presentar los bloques vectoriales que se usan, mostrar los modelos que se usa (p12 del paper de devs vectorial). 3.4 de esta doc, agregar los modelos en modelica y su relacion.
 
+% agregar modelo acoplado buck_disk
 %trabajos futuros,
 %	desarrollar mas modelos (modelica)
 %	integrarlo con powerdevs
@@ -152,7 +153,7 @@ En general los sistemas en estudio serán continuos, pero deberemos utilizar sis
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
 \begin{equation} \label{eq1}
-x(t) = f (x(t), u(t))
+\dot{x(t)} = f (x(t), u(t))
 \end{equation}
 
 donde $x \in \Re^n$  es el vector de estados, $u \in \Re^m$ es una función de entradas conocidas,
@@ -289,6 +290,18 @@ donde:
 
 \item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
 \end{itemize}
+
+\subsubsection{Interfaz entre DEVS Vectorial y DEVS}
+Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo, además, introducimos un bloque necesario para realizar modelos más complejos y conectar los diferentes componentes de un modelo vectorial entre si.
+
+\begin{itemize}
+ \item Escalar a Vector (Scalar to Vector): Este vector simplemente agrega al indice $i$ al evento escalar que recive, transformandolo en un evento vectorial. Este modelo tambien poseen un comportamiento especial para enviar el mismo evento en todas las componentes vectorial al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
+ \item Vectot a escalar (Vector to Scalar): Este bloque tiene un parametro $i$ que contiene el indice del vector de eventos a retrasmitir, cuando recibe un evento con indice $j=i$, remoeve el indice y retrasmite el evento escalar.
+  \item Index Shift: El modelo má1s simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parametro entero.
+
+\end{itemize}
+
+A todos estos eventos se la ha agregado la dimensión $N$ como parametro, esto es necesario para realizar la conversión de los modelos, de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaria en un modelo con menos equaciones que variables, es decir un modelo no balanceado.
 	 
 \section{Métodos de integración QSS}
 Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
@@ -567,6 +580,25 @@ Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
 
 De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
 
+A modo de ejemplo se muestran, el esquema del integrador de la sección anterior con un modelo acoplado en \ref{fig:acomplado} y luego el mismo modelo en \ref{fig:aplanado}, aplanado, el cual puede ser convertido pues ya no presenta jerarquias.
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.5\linewidth]{integrator-sample}
+ \caption{Representación de un modelo simple de integrador acoplado}
+ \label{fig:acomplado}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.5\linewidth]{integrator-expanded}
+ \caption{Representación del modelo de integrador aplanado }
+ \label{fig:aplanado}
+\end{figure}
+
+
+
 \section{Modelos Vectoriales}
 Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Estos modelos pueden tener tanto la entrada como la salida de sus conectores de forma vectorial, por lo que los modelos vectoriales deben indicarlos con la anotación de Modelica $PD2MO$, por ejemplo:
 \begin{itemize}
@@ -577,7 +609,6 @@ Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Esto
 \end{itemize}
 
 Además las variables de entradas $u$ y salidas $y$ vectoriales deben ser definidas como vectores en Modelica. A modo de ejemplo se muestra a continuación el archivo vector/qss\_integrator\_vec.mo. Este modelo atómico representa $N$ integradores y es la version vectorial del integrador atómico mostrado antes.
-%TODO : Integrador Mostrado donde?
 
 \begin{minted}{modelica}
 class VecInt
@@ -598,8 +629,6 @@ equation
 end VecInt;
 \end{minted}
 
-
-%\chapter{Resultados} 
 
 \section{Equivalencia semántica de la conversión}
 Hay tres situaciones que debemos considera al momento de verificar la equivalencia semántica
@@ -793,6 +822,127 @@ Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico 
 
 \chapter{Conclusiones}
 En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y comparamos los resultados obtenidos.
+
+\section{Modelos creados}
+A continuación mostramos los modelos $\mu$Modelica, utilizados para realizar la comparación de performance:
+
+\begin{listing}[H]    
+     \caption{data/sources/constant\_sci.mo}    
+     \inputminted{modelica}{../../data/sources/constant_sci.mo}
+     \label{lst:constant_sci.mo}
+\end{listing} 
+
+\begin{listing}[H]    
+	\caption{data/sources/pulse\_sci.mo}
+	\inputminted{modelica}{../../data/sources/pulse_sci.mo}
+	\label{lst:pulse_sci.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/sources/ramp\_sci.mo}
+	\inputminted{modelica}{../../data/sources/ramp_sci.mo}
+	\label{lst:ramp_sci.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/sources/square\_sci.mo}
+	\inputminted{modelica}{../../data/sources/square_sci.mo}
+	\label{lst:square_sci.mo}
+\end{listing} 
+
+
+\begin{listing}[H]    
+	\caption{data/qss/hysteretic.mo}
+	\inputminted{modelica}{../../data/qss/hysteretic.mo}
+	\label{lst:hysteretic.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/inverse\_function.mo}
+	\inputminted{modelica}{../../data/qss/inverse_function.mo}
+	\label{lst:inverse_function.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_integrator.mo}
+	\inputminted{modelica}{../../data/qss/qss_integrator.mo}
+	\label{lst:qss_integrator.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_multiplier.mo}
+	\inputminted{modelica}{../../data/qss/qss_multiplier.mo}
+	\label{lst:qss_multiplier.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_quantizer.mo}
+	\inputminted{modelica}{../../data/qss/qss_quantizer.mo}
+	\label{lst:qss_quantizer.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_switch.mo}
+	\inputminted{modelica}{../../data/qss/qss_switch.mo}
+	\label{lst:qss_switch.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/qss/qss\_wsum.mo}
+	\inputminted{modelica}{../../data/qss/qss_wsum.mo}
+	\label{lst:qss_wsum.mo}
+\end{listing} 
+
+\begin{listing}[H]    
+	\caption{data/vector/IndexSelector.mo}
+	\inputminted{modelica}{../../data/vector/IndexSelector.mo}
+	\label{lst:ndexSelector.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vec2scalar.mo}
+	\inputminted{modelica}{../../data/vector/vec2scalar.mo}
+	\label{lst:ec2scalar.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/scalar2vec.mo}
+	\inputminted{modelica}{../../data/vector/scalar2vec.mo}
+	\label{lst:calar2vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_sum.mo}
+	\inputminted{modelica}{../../data/vector/vector_sum.mo}
+	\label{lst:ector_sum.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_integrator\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_integrator_vec.mo}
+	\label{lst:ss_integrator_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/index\_shift.mo}
+	\inputminted{modelica}{../../data/vector/index_shift.mo}
+	\label{lst:ndex_shift.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_sum\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_sum_vec.mo}
+	\label{lst:qss_sum_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/qss\_multiplier\_vec.mo}
+	\inputminted{modelica}{../../data/vector/qss_multiplier_vec.mo}
+	\label{lst:ss_multiplier_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_pow2.mo}
+	\inputminted{modelica}{../../data/vector/vector_pow2.mo}
+	\label{lst:ector_pow2.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/hyst\_vec.mo}
+	\inputminted{modelica}{../../data/vector/hyst_vec.mo}
+	\label{lst:yst_vec.mo}
+\end{listing} 
+\begin{listing}[H]    
+	\caption{data/vector/vector\_sat.mo}
+	\inputminted{modelica}{../../data/vector/vector_sat.mo}
+	\label{lst:ector_sat.mo}
+\end{listing} 
+
+
+
 
 \section{Comparación de performance}
 A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
