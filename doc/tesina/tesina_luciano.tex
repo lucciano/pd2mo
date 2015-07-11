@@ -1,18 +1,4 @@
-%DONE:agregar ejemplo jerarquico de un nivel : ejemplo con powerdevs.
-%presentar los bloques vectoriales que se usan, mostrar los modelos que se usa (p12 del paper de devs vectorial). 3.4 de esta doc, agregar los modelos en modelica y su relacion.
-
 % agregar modelo acoplado buck_disk
-%trabajos futuros,
-%	desarrollar mas modelos (modelica)
-%	integrarlo con powerdevs
-%   extension de las plantillas en modelos vectoriales para mas flexibilidad
-%	nuevo parser
-%   logs...(quitar debug), errores fatales....
-%   depende del causalizador
-
-
-% 
-% Agregar size a los modelos powerdevs que transforman conexiones vectores en escalares
 
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
@@ -823,7 +809,116 @@ Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico 
 \chapter{Conclusiones}
 En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y comparamos los resultados obtenidos.
 
-\section{Modelos creados}
+
+\section{Comparación de performance}
+A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
+
+\subsubsection{lcline}
+
+ \includegraphics[width=0.75\linewidth]{lclines}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lcline-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lcline-qss}
+\end{minipage}
+\end{figure}
+
+\subsubsection{inversers}
+
+ \includegraphics[width=0.75\linewidth]{inverters}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{inversers-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{inversers-qss}
+\end{minipage}
+\end{figure}
+
+\subsubsection{adr}
+
+
+ \includegraphics[width=0.75\linewidth]{adr-pwd}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{adr-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{adr-qss}
+\end{minipage}
+\end{figure}
+
+\subsubsection{buck\_disk}
+
+ \includegraphics[width=0.75\linewidth]{buck_disk}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{buck_disk-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{buck_disk-qss}
+\end{minipage}
+\end{figure}
+
+\subsubsection{lotka\_voltera}
+
+ \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-qss}
+\end{minipage}
+\end{figure}
+
+\subsection{Resultados}
+\begin{table}[H]
+\centering	
+\label{my-label}
+\begin{tabular}{llllll}
+\toprule
+{\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
+\toprule
+lcline 1200s, N=1000     & 40994         & 18458.9         & 45          \\
+inversers 250s, N=1000   & 4749          & 1897.22         & 39.9        \\
+adr (LIQSS2) 10s, N=1000 & 7467          & 1412.06         & 18.9        \\
+buck\_disk  0.1s,        & 343           & 15.2497         & 4.4         \\
+lotka\_voltera 300s      & 52            & 0.476385        & 0.91
+\end{tabular}
+\end{table}
+
+\section{Trabajos Futuros}
+Para poder convertir una mayor variedad de modelos, en PowerDEVS, es necesario escribir más modelos en modelica.
+Para convertir modelos de tiempo real sera necesario expandir expandir el QSSSolver para soportarlo.
+Para facilitar la integración se planeo integrar el conversor de forma que pueda ser ejecutado desde la interfaz gráfica de PowerDEVS, posiblemente con la opción de ejecutarlo en el QSS SOlver.
+Durante el desarrollo de este trabajo, la libreria modelicacc (http://sourceforge.net/projects/modelicacc/?source=directory ) , ha sido actualizada con un nuevo parser, el cual deberá ser remplazado.
+La expansi´on de variables vectoriales, donde los valores provienen de expresiones del entorno scilab, es siempre tratado como un valor escalar, y no como uno vectorial, para determinar como se lo deber´ia tratar es necesario realizar un analisis de los tipos de las variables expandidas. Lo cual podria mejorar los mensajes de error en el caso de que se conecten modulos vectoriales con modulos escalares.
+
+\appendix
+\chapter{Modelos Creados}
 A continuación mostramos los modelos $\mu$Modelica, utilizados para realizar la comparación de performance:
 
 \begin{listing}[H]    
@@ -941,108 +1036,8 @@ A continuación mostramos los modelos $\mu$Modelica, utilizados para realizar la
 	\label{lst:ector_sat.mo}
 \end{listing} 
 
+\newpage
 
-
-
-\section{Comparación de performance}
-A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
-
-\subsubsection{lcline}
-
- \includegraphics[width=0.75\linewidth]{lclines}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lcline-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lcline-qss}
-\end{minipage}
-\end{figure}
-
-\subsubsection{inversers}
-
- \includegraphics[width=0.75\linewidth]{inverters}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{inversers-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{inversers-qss}
-\end{minipage}
-\end{figure}
-
-\subsubsection{adr}
-
-
- \includegraphics[width=0.75\linewidth]{adr-pwd}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{adr-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{adr-qss}
-\end{minipage}
-\end{figure}
-
-\subsubsection{buck\_disk}
-
- \includegraphics[width=0.75\linewidth]{buck_disk}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{buck_disk-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{buck_disk-qss}
-\end{minipage}
-\end{figure}
-
-\subsubsection{lotka\_voltera}
-
- \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lotka_voltera-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lotka_voltera-qss}
-\end{minipage}
-\end{figure}
-
-\subsection{Resultados}
-\begin{table}[H]
-\centering	
-\label{my-label}
-\begin{tabular}{llllll}
-\toprule
-{\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
-\toprule
-lcline 1200s, N=1000     & 40994         & 18458.9         & 45          \\
-inversers 250s, N=1000   & 4749          & 1897.22         & 39.9        \\
-adr (LIQSS2) 10s, N=1000 & 7467          & 1412.06         & 18.9        \\
-buck\_disk  0.1s,        & 343           & 15.2497         & 4.4         \\
-lotka\_voltera 300s      & 52            & 0.476385        & 0.91
-\end{tabular}
-\end{table}
 
 \nocite{*}
 
