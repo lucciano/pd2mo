@@ -383,11 +383,11 @@ algorithm
 
 	experiment(
 		MMO_Description="",
-		MMO_Solver=LIQSS3,
+		MMO_Solver=LIQSS2,
 		MMO_Output={VecInt_2_y_1[1],VecInt_2_y_1[1000]},
 		StartTime=0.0,
 		StopTime=250,
-		Tolerance={1e-3},
-		AbsTolerance={1e-3}
+		Tolerance={1e-6},
+		AbsTolerance={1e-6}
 	));
 end inverters;

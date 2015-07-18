@@ -194,7 +194,7 @@ algorithm
 		MMO_Output={VecInt_1_y_1[1],VecInt_1_y_1[1000]},
 		StartTime=0.0,
 		StopTime=1200,
-		Tolerance={1e-5},
-		AbsTolerance={1e-5}
+		Tolerance={1e-6},
+		AbsTolerance={1e-6}
 	));
 end lcline_qss;

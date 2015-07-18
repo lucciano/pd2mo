@@ -1,0 +1,141 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = hybrid\runscilabjob.h
+    Parameters = "N=1000,w0=6.247e-3*ones(N,1),w0(1:2:N)=5","",""
+   }
+  Simulator
+   {
+    Path = vector\index_shift.h
+    Parameters = "1"
+   }
+  Simulator
+   {
+    Path = vector\qss_integrator_vec.h
+    Parameters = "LIQSS2","1e-6","1e-6","w0","N"
+   }
+  Simulator
+   {
+    Path = vector\qss_sum_vec.h
+    Parameters = "1","-100","100","-1","0","0","0","0",4.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = vector/vector_sat.h
+    Parameters = "0","1e6","N"
+   }
+  Simulator
+   {
+    Path = vector\scalar2vec.h
+    Parameters = "0"
+   }
+  Simulator
+   {
+    Path = vector/vec2scalar.h
+    Parameters = "0"
+   }
+  Simulator
+   {
+    Path = vector\vector_pow2.h
+    Parameters = "N"
+   }
+  Simulator
+   {
+    Path = vector\vector_pow2.h
+    Parameters = "N"
+   }
+  Simulator
+   {
+    Path = vector\vector_sat.h
+    Parameters = "0","1e6","N"
+   }
+  Simulator
+   {
+    Path = vector\qss_sum_vec.h
+    Parameters = "1","-1","1","0","0","0","0","0",3.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = vector\qss_sum_vec.h
+    Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00,"N"
+   }
+  Simulator
+   {
+    Path = vector\scalar2vec.h
+    Parameters = "-1"
+   }
+  Simulator
+   {
+    Path = sources\ramp_sci.h
+    Parameters = "5","5","5","QSS",".01"
+   }
+  Simulator
+   {
+    Path = sources\ramp_sci.h
+    Parameters = "15","2","5","QSS",".01"
+   }
+  Simulator
+   {
+    Path = sources/constant_sci.h
+    Parameters = "1"
+   }
+  Simulator
+   {
+    Path = sources\constant_sci.h
+    Parameters = "5"
+   }
+  Simulator
+   {
+    Path = vector\scalar2vec.h
+    Parameters = "-1"
+   }
+  Simulator
+   {
+    Path = vector\vec2scalar.h
+    Parameters = "N-1"
+   }
+  Simulator
+   {
+    Path = sinks\gnuplot.h
+    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'Voltage u1'","with lines title 'Voltage uN'","","",""
+   }
+  Simulator
+   {
+    Path = qss/qss_wsum.h
+    Parameters = "1","-1","0","0","0","0","0","0",2.000000e+00
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (3,0);(2,0)
+    (4,0);(7,0)
+    (9,0);(8,0)
+    (8,0);(3,2)
+    (7,0);(3,1)
+    (11,0);(9,0)
+    (1,0);(10,2)
+    (5,0);(10,0)
+    (12,0);(10,1)
+    (15,0);(12,0)
+    (16,0);(17,0)
+    (17,0);(3,0)
+    (6,0);(19,0)
+    (18,0);(19,1)
+    (20,0);(5,0)
+    (13,0);(20,0)
+    (14,0);(20,1)
+    (10,0);(11,0)
+    (10,0);(4,0)
+    (2,0);(18,0)
+    (2,0);(11,1)
+    (2,0);(1,0)
+    (2,0);(3,3)
+    (2,0);(6,0)
+   }
+ }

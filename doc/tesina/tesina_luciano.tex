@@ -922,11 +922,14 @@ A continuación por cada uno de los modelos se muestra su modelo en Powerdevs se
 \toprule
 {\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
 \toprule
-lcline 1200s, N=1000     & 40994         & 18458.9         & 45          \\
-inversers 250s, N=1000   & 4749          & 1897.22         & 39.9        \\
-adr (LIQSS2) 10s, N=1000 & 7467          & 1412.06         & 18.9        \\
-buck\_disk  0.1s,        & 343           & 15.2497         & 4.4         \\
-lotka\_voltera 300s      & 52            & 0.476385        & 0.91
+lcline 1200s, N=1000     & 76402         & 34982.5         & 54          \\
+inversers(LIQSS2) 250s, N=1000   & 25046          & 7694.44         & 69        \\
+adr (LIQSS2) 10s, N=1000 & 6089          & 568.772         & 90        \\
+buck\_disk  0.01s,        & 268           & 10.3802         & 96         \\
+lotka\_voltera 300s      & 11            & 2.75132        & 81
+
+% Mejora esta calculada a partir de 1 - qsssolver / pwdevs
+%excepto indicado, se utiliza QSS3
 \end{tabular}
 \end{table}
 

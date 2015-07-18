@@ -74,7 +74,7 @@ equation
 		MMO_Output={QSSIntegrator_2_y[1], QSSIntegrator_1_y[1]},
 		StartTime=0.0,
 		StopTime=300,
-		Tolerance={1e-3},
+		Tolerance={1e-6},
 		AbsTolerance={1e-3}
 	));
 end lotka_volterra;
