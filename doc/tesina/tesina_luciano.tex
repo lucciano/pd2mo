@@ -899,7 +899,24 @@ A continuación por cada uno de los modelos se muestra su modelo en Powerdevs se
 
 \subsubsection{lotka\_voltera}
 
- \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+El sistema de ecuaciones Lotka-Volter, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+
+\begin{align*}
+\frac{dx}{dt} & = x(\alpha - \beta y)\\
+\frac{dy}{dt} & =y(\gamma - \delta  x)
+\end{align*}
+
+donde:
+\begin{itemize}
+	\item y es el número de algún predador (por ejemplo, un lobo);
+    \item x es el número de sus presas (por ejemplo, conejos);
+    \item t representa el tiempo; y
+    \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
+\end{itemize}
+
+Este sistema es representado por el modelo siguiente:
+
+\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
 
 \begin{figure}[H]
 \centering
