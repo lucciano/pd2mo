@@ -859,7 +859,11 @@ A continuación por cada uno de los modelos se muestra su modelo en Powerdevs se
 \subsubsection{adr}
 El modelo de equaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenomenos de tranferencias de calor y masa, donde la cantidad de interes $u(x,t)$ puede ser temeratura en la conducción de calor o concentración de una sustancia química.
 
-%copiar ADR eq 7 (pag 11)
+La ecuación 
+\begin{equation*}
+\frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
+\end{equation*}
+corresponde al modelo ADR, donde $a$,$d$ y $r$ son parametros expresando coeficientes de advección, difusión y reactión
 
  \includegraphics[width=0.75\linewidth]{adr-pwd}
 
