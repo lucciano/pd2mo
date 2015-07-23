@@ -635,80 +635,6 @@ Hay tres situaciones que debemos considera al momento de verificar la equivalenc
 \item Modelo Jerárquico : En este caso si podemos probar la equivalencia semántica, entre el modelo original, es decir un modelo acoplado que incluye más modelos acoplados, con un modelo "aplanado" (solo con modelos atómicos). Esto se debe a que el formalismo DEVS es cerrado bajo el acoplamiento \cite{Zeigler:2000:TMS:580780} y \cite{zeigler1984multifacetted}, lo que permite remplazar un modelos acoplado por equivalentes atómicos, conectados apropiadamente.
 \end{itemize}
 
-\section{Ejemplos de Aplicación}
-En esta Sección presentamos dos ejemplos motivadores para la implementación de la conversión, el primer un modelo de una línea de transmisión LC (circuito resonante compuesto por una bobina y un capacitor) utilizando el Método de Líneas DEVS para grandes sistemas \cite{Cel06}, el cual resulta en $N$ segmentos cada uno representado con Vectorial DEVS. Luego analizaremos un ejemplo de un control de potencia de un conjunto de N aires acondicionados tomado de \cite{PKBW12}.
-
-\subsection{Línea de Transmisión LC}
-El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
-
-\begin{equation*}
-\begin{split}
-\dot{v}_{j} &= \frac{i_{j} - i_{j+1}}{C} \\
-\dot{i}_{j} &= \frac{v_{j-1} - v_{j}}{L} \\	
-\end{split}
-\end{equation*}
-
-para $j = 1 \dots N$
-
-Consideramos también un pulso de entrada:
-\begin{equation}
-v_0(t) = \left\{ 
-  \begin{array}{l l}
-    1 \text{ si } t < 1 \\
-    0 \text{ en caso contrario }
-  \end{array} \right.
-\end{equation}
-
-Este modelo es representado en un modelo PowerDEVS como el que se puede ver en la figura \ref{fig:lclines}.
-
-\begin{figure}[!htbp]
-  \includegraphics[scale=0.40]{lclines}
-  \caption{Modelo PowerDEVS LC Lines }
-   \label{fig:lclines}
-\end{figure}
-
-\subsection{Control de Energía de un Conjunto de Aires Acondicionados}
-Este modelo permite estudiar la dinámica y control del consumo energético de un grupo de equipos de Aire Acondicionados (AA). Consideramos un gran número de equipos de aire acondicionado utilizados para controlar la temperatura de distintas habitaciones. La temperatura en la habitación $i$-ésima $\theta_i(t)$ sigue la ecuación:
-
-\begin{equation*}
-\frac{d\theta_i(t)}{dt} = \frac{1}{C_i \cdot R_i } [ \theta_i(t) - \theta_a + R_i \cdot P_i \cdot m_i(t) + w_i(t) ]
-\end{equation*}
-donde$R_i$ y $C_i$ son parámetros que representan la resistencia y capacitancia térmica de la habitación $i$ respectivamente. $P_i$ es la potencia del equipo de aire acondicionado $i$ cuando se encuentra encendido. $\theta_a$ es la temperatura del ambiente y $w_i(t)$ es un termino de ruido que representa la perturbación térmica.
-
-La variable $m_i (t)$ es el estado del $i$-ésimo equipo de aire acondicionado, que toma como valor $1$ cuando el equipo está encendido ó $0$ en caso contrario. Sigue una ley prendido-apagado de control con histéresis:
-
-\begin{equation}
-m_i(t^{+}) = \left\{ 
-  \begin{array}{l l}
-    0 \text{ si } \theta_i(t) \leq \theta_r(t) - 0.5 \text{ y } m_i(t)=1 \\
-    1 \text{ si } \theta_i(t) \geq \theta_r(t) - 0.5 \text{ y } m_i(t)=1 \\
-    m_i (t) \text{ caso contrario } 
-  \end{array} \right.
-\end{equation}
-
-donde $\theta_r(t)$ es la temperatura de referencia calculando por un sistema de control global.
-El consumo energético del grupo completo de aires acondicionado se calcula como :
-
-\begin{equation*}
-P(t) = \sum_{i=1}^{N}  m_i(t) \cdot P_i
-\end{equation*}
-
-Para lograr esto se utiliza una ley de control Proporcional Integral (PI) que calcula la temperatura de referencia como:
-
-\begin{equation*}
-\theta_r(t) = K_p \cdot [P_r(t) - P(t)] + K_I \cdot \int_{\tau = 0}^t [P_r(\tau) - P(\tau)] d\tau
-\end{equation*}
-
-donde $K_P$ y $K_I$ son parámetros del controlador $PI$.
-
-En este ejemplo utilizamos $N = 2400$ equipos de aires acondicionados y utilizamos los parámetros dados en \cite{PKBW12}, con la excepción del ruido, el cual ignoramos para simplificar la simulación. El modelo resultante es el mostrado en la figura \ref{fig:airs}.
-
-\begin{figure}[!htbp]
-  \includegraphics[scale=0.40]{Airs}
-  \caption{Modelo PowerDEVS Aires Acondicionado }
-   \label{fig:airs}
-\end{figure}
-
 \chapter{Detalles de la implementación}
 A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}
 
@@ -823,6 +749,25 @@ En este capitulo mostramos los resultados del presente trabajo, comparamos los r
 A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones, a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
 
 \subsubsection{lcline}
+El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
+
+\begin{equation*}
+\begin{split}
+\dot{v}_{j} &= \frac{i_{j} - i_{j+1}}{C} \\
+\dot{i}_{j} &= \frac{v_{j-1} - v_{j}}{L} \\	
+\end{split}
+\end{equation*}
+
+para $j = 1 \dots N$
+
+Consideramos también un pulso de entrada:
+\begin{equation}
+v_0(t) = \left\{ 
+  \begin{array}{l l}
+    1 \text{ si } t < 1 \\
+    0 \text{ en caso contrario }
+  \end{array} \right.
+\end{equation}
 
  \includegraphics[width=0.75\linewidth]{lclines}
 
