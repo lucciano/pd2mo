@@ -1,8 +1,6 @@
 % ejemplos de aplicacion (3.6) mover a cap5
 % lcline vector devs
 % adr parallel_v2.pdf lcline acceleration
-% lotka voltera 
-% agregar los pde para cada modelo
 % separa los modulos del programa por seccion (en detalles de la implementación)
 %inversers no es inverters
  
@@ -840,9 +838,16 @@ A continuación por cada uno de los modelos se muestra su modelo en Powerdevs se
 \end{minipage}
 \end{figure}
 
-\subsubsection{inversers}
+\subsubsection{inverters}
+El siguiente modelo representa una cadena de $m$ inversores lógicos, 
 
- \includegraphics[width=0.75\linewidth]{inverters}
+\begin{align*}
+\dot{\omega}_1 & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
+\dot{\omega}_j & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
+\end{align*}
+
+
+\includegraphics[width=0.75\linewidth]{inverters}
 
 \begin{figure}[H]
 \centering
