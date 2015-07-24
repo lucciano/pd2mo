@@ -830,12 +830,21 @@ corresponde al modelo ADR, donde $a$,$d$ y $r$ son parametros expresando coefici
 \end{figure}
 
 \subsubsection{buck\_disk}
-
 El modelo buck-disk es un tipo de convertidor DC - DC que obtiene a su  salida  un  voltaje  continuo  menor  que  a  su entrada, manteniendo una una  alta eficiencia (superior al 95\% con circuitos integrados) y autoregulación.
+
+\begin{align*}
+\frac{di_{L}}{dt} & = \frac{-u_{C} - R_D i_D }{L}\\
+\frac{du_C}{dt} & =i_D \frac{i_D}{C} - \frac{u_C}{R_L C }
+\end{align*}
+donde
+\begin{align*}
+i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
+\end{align*}
+
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.40\linewidth]{Buckboost_conventions}
+ \includegraphics[width=.70\linewidth]{Buckboost_conventions}
  \caption{Esquema electrico de convertidor buck}
 \end{figure}
 
