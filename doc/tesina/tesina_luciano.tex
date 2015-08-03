@@ -1,4 +1,4 @@
-% legajo
+% legajo, commillas
 % resumen + 
 % introduccion + 
 % al final de cap 1 organizacion de la tesis (general)
@@ -183,19 +183,19 @@ En general los sistemas en estudio serán continuos, pero deberemos utilizar sis
 \subsection{Métodos de Integración numérica}
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
-\begin{equation} \label{eq1}
+\begin{equation} \label{eq:eq1}
 \dot{x(t)} = f (x(t), u(t))
 \end{equation}
 
 donde $x \in \Re^n$  es el vector de estados, $u \in \Re^m$ es una función de entradas conocidas,
 $t$ representa el tiempo y con sus condiciones iniciales:
 
-\begin{equation} \label{eq2}
+\begin{equation} \label{eq:eq2}
 x(t = t_0 ) = x_0
 \end{equation}
 
 Sea $x_i (t)$ la trayectoria del estado $i$-esimo expresada como función de tiempo simulado. 
-Mientras que la ecuación \eqref{ eq1 } no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria
+Mientras que la ecuación  \eqref{eq:eq1} no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria
 
 Denominando $t^{\ast}$ al instante de tiempo en torno al cual se aproxima la trayectoria mediante una serie de Taylor, y siendo $t^{\ast} + h$ el instante de tiempo en el cual se quiere evaluar la aproximación, entonces, la trayectoria en dicho punto puede expresarse como sigue:
 
@@ -203,7 +203,7 @@ Denominando $t^{\ast}$ al instante de tiempo en torno al cual se aproxima la tra
 x_i(t^* + h) = x_i(t^*) + \frac{dx_i (t^*)}{dt} \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
 \end{equation}
 
-Reemplazando con la ecuación de estado \eqref{eq1}, la serie \eqref{eq3} queda:
+Reemplazando con la ecuación de estado \ref{eq:eq1}, la serie \eqref{eq3} queda:
 
 \begin{equation} \label{eq4}
 x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
