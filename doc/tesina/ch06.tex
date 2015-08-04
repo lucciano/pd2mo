@@ -1,0 +1,11 @@
+
+\section{Conclusiones}
+
+En el presente trabajo se mostro la implementación de una conversion de modelos que permite un ahorro en el tiempo de simulacion cercana al 90\% en modelos grandes.
+
+\section{Trabajos Futuros}
+Para poder convertir una mayor variedad de modelos, en PowerDEVS, es necesario escribir más modelos en modelica.
+Para convertir modelos de tiempo real sera necesario expandir expandir el QSSSolver para soportarlo.
+Para facilitar la integración se planeo integrar el conversor de forma que pueda ser ejecutado desde la interfaz gráfica de PowerDEVS, posiblemente con la opción de ejecutarlo en el QSS SOlver.
+Durante el desarrollo de este trabajo, la libreria modelicacc (http://sourceforge.net/projects/modelicacc/?source=directory ) , ha sido actualizada con un nuevo parser, el cual deberá ser remplazado.
+La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno scilab, es siempre tratado como un valor escalar, y no como uno vectorial, para determinar como se lo debería tratar es necesario realizar un analisis de los tipos de las variables expandidas. Lo cual podria mejorar los mensajes de error en el caso de que se conecten modulos vectoriales con modulos escalares.
