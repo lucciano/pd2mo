@@ -22,32 +22,24 @@ Veamos algunas razones por las cuales utilización de simulaciones es deseable o
 	\item Eliminación de efectos de segundo orden. Usualmente, se utilizan simulaciones porque nos permite eliminar efectos de segundo orden (como no linealidades de componentes del sistema). Nuevamente esto ayuda a obtener un mejor entendimiento del comportamiento general del sistema.
 \end{itemize}
 
-Es por esto que cuando corremos un modelo es deseable que pueda ser ejecutado de la forma más rapida y eficiente posible.
+Es por esto que cuando corremos un modelo es deseable que pueda ser simulado de la forma más rapida y eficiente posible.
 
 
+Pero, para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguage de proposito general, usualmente C o C++). 
 
-% XXX explicar como se desarrolla un modelo en Modelica / µ-Modelica
-% XXX explicar la como se desarrolla un modelo en PowerDEVS, 
-% TODO explicar que el QSS Solver nos puede ahorrar un orden de magnitud en el tiempo de ejecución de la simulación
+El modelo generamente inicia como una función matemática de la forma 
+\begin{equation*}
+	\dot{x} = f(x, u, t)
+\end{equation*}
+donde $x$ representan las variables del sistema, $u$ el estado inicial y $t$ el tiempo, este modelo, puede ser convertido en un modelo Modelica de forma textual o gráfica, dependiendo de las herramientas con las que contemos y como nos resulte más simple de describir.
 
-The Stand–Alone QSS solver presented here overcomes this problem, improving in more than one order of magnitude the computation times of the previous discrete event implementations.
+En particular nos interesa poder utilizar el entorno PowerDEVS, el cual nos permite describir nuestro sistemas de forma gráfica, conectando bloques de forma gerarquica, o describiendo los bloques más básico en lenguage C++. 
+Esto es debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
 
+En este aspecto, contamos con la herramienta \quotes{QSS-Solver}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
 
+Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fritzson02modelica--}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver, obteniendo lo mejor de los dos mundos.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-En este trabajo se describe la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fritzson02modelica--}, más específicamente en $\mu$Modelica\cite{Ber12}, en el primer capitulo presentamos las principales motivaciones y objetivos, así como trabajos relacionados y el alcance de este trabajo. En el capitulo dos se recorren conceptos previos, principalmente los formalismo DEVS implementados en PowerDEVS, es decir, DEVS parametrizado y DEVS Vectorial. En el capítulo tres se muestra en detalles el proceso de conversión de modelos, por ultimo, en el capitulo cuatro, vemos los resultados del trabajo comparando los tiempos de ejecución de los modelos originales y las versiones convertidas a $\mu$modelica.
 
 \begin{figure}[H]
 \centering
