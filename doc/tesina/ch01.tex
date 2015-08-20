@@ -1,3 +1,44 @@
+
+
+While the scientist is happy to simply observe and understand the world, i.e., create a model of the world, the engineer wants to modify it to his or her advantage.
+
+Let me state a number of good reasons for using simulation as a problem-solving tool.
+(1) The physical system is not available. Often, simulations are used to determine whether a projected system should ever be built. So obviously, experimentation is out of the question. This is common practice for engineering systems (for example, an electrical circuit) with well-established and widely applicable meta-knowledge. It is very dangerous to rely on such a decision in the case of systems from soft sciences (the so-called ill-defined systems) since the meta-knowledge available for these types of systems is usually not validated for an extension into unknown territory.
+
+(2) The experiment may be dangerous. Often, simulations are performed in order to find out whether the real experiment might "blow up," placing the experimenter and/or the equipment under danger of injury/ damage or death/ destruction (for example, an atomic reactor or an aircraft flown by an inexperienced person for training purposes).
+
+(3) The cost of experimentation is too high. Often, simulations are used where real experiments are too expensive. The necessary measurement tools may not be available or are expensive to buy.
+It is possible that the system is used all the time and taking it "off-line" would involve unacceptable cost (for example, a power plant or a commercial airliner).
+
+( 4) The time constants (eigenvalues) of the system are not compatible with those of the experimenter. Often, simulations are performed because the real experiment executes so quickly that it can hardly be observed (for example, an explosion) or because the real experiment executes so slowly that the experimenter is long dead before the experiment is completed (for example, a transgression of two galaxies). Simulations allow us to speed up or slow down experiments at will.
+
+(5) Control variables (disturbances), state variables, and/or system parameters may be inaccessible. Often, simulations are performed because they allow us to access all inputs and all state variables, whereas, in the real system, some inputs ( disturbances) may not be accessible to manipulation (for example, the time of sunrise) and some state variables may not be accessible to measurement. Simulation allows us to manipulate the model outside the feasible range of the physical system. For example, we can decide to change the mass of a body at will from 50  kg to 400 kg and repeat the simulation at the stroke of a key. In the physical system, such a modification is either not feasible at all or it involves a costly and lengthy alteration to the system.
+
+(6) Suppression of disturbances. Often, simulations are performed because they allow us to suppress disturbances that are unavoidable in the real system. This allows us to isolate particular effects, and may lead to a better insight (intuition) into the generic system behavior than would be possible through obscured measurements taken from the real process.
+
+(7) Suppression of second-order effects. Often, simulations are performed because they allow us to suppress second-order effects (such as nonlinearities of system components). Again, this can help with the understanding of the primary underlying functionality of the system.
+
+% XXX explicar como se desarrolla un modelo en Modelica / µ-Modelica
+% XXX explicar la como se desarrolla un modelo en PowerDEVS, 
+% TODO explicar que el QSS Solver nos puede ahorrar un orden de magnitud en el tiempo de ejecución de la simulación
+
+The Stand–Alone QSS solver presented here overcomes this problem, improving in more than one order of magnitude the computation times of the pre- vious discrete event implementations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 En este trabajo se describe la implementación de una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fritzson02modelica--}, más específicamente en $\mu$Modelica\cite{Ber12}, en el primer capitulo presentamos las principales motivaciones y objetivos, así como trabajos relacionados y el alcance de este trabajo. En el capitulo dos se recorren conceptos previos, principalmente los formalismo DEVS implementados en PowerDEVS, es decir, DEVS parametrizado y DEVS Vectorial. En el capítulo tres se muestra en detalles el proceso de conversión de modelos, por ultimo, en el capitulo cuatro, vemos los resultados del trabajo comparando los tiempos de ejecución de los modelos originales y las versiones convertidas a $\mu$modelica.
 
 \begin{figure}[H]
