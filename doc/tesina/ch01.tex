@@ -24,8 +24,7 @@ Veamos algunas razones por las cuales utilización de simulaciones es deseable o
 
 Es por esto que cuando corremos un modelo es deseable que pueda ser simulado de la forma más rapida y eficiente posible.
 
-
-Pero, para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguage de proposito general, usualmente C o C++). 
+Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
 El modelo generamente inicia como una función matemática de la forma 
 \begin{equation*}
@@ -48,8 +47,11 @@ Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de con
  \label{fig:esquema}
 \end{figure}
 
-En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS y Modelica) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS, en PowerDEVSe el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. Desde la perspectiva de Modelica (o $\mu$modelica, debemos pasar el sistema a modelica (o $\mu$Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
-El actual trabajo esta representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el solver QSS, en el lenguaje $\mu$modelica.
+En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS y Modelica) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS, en PowerDEVSe el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. 
+
+Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a Modelica (o $\mu$-Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
+
+El actual trabajo esta representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$modelica.
 
 \section{Organización del presente trabajo}
 
