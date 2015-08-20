@@ -13,7 +13,7 @@ digraph G {
 	start -> a0;
 	start -> b0;
 	a0 [label="Diagrama \n de bloques"]
-	a1 [label="DEVS"]
+	a1 [label="PowerDEVS"]
 	a2 [label="C++"]
 	a3 [label="Plot"]
 	b0 [label="Modelica"] 
