@@ -1,28 +1,36 @@
 
+El modelado y simulación se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 
-While the scientist is happy to simply observe and understand the world, i.e., create a model of the world, the engineer wants to modify it to his or her advantage.
+Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del sistema antes de que sea construido.
+El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
 
-Let me state a number of good reasons for using simulation as a problem-solving tool.
-(1) The physical system is not available. Often, simulations are used to determine whether a projected system should ever be built. So obviously, experimentation is out of the question. This is common practice for engineering systems (for example, an electrical circuit) with well-established and widely applicable meta-knowledge. It is very dangerous to rely on such a decision in the case of systems from soft sciences (the so-called ill-defined systems) since the meta-knowledge available for these types of systems is usually not validated for an extension into unknown territory.
+Veamos algunas razones por las cuales utilización de simulaciones es deseable o incluso requerido:
 
-(2) The experiment may be dangerous. Often, simulations are performed in order to find out whether the real experiment might "blow up," placing the experimenter and/or the equipment under danger of injury/ damage or death/ destruction (for example, an atomic reactor or an aircraft flown by an inexperienced person for training purposes).
+\begin{itemize}
+	\item El sistema físico no se encuentra disponible, se debido a que el sistema no fue aun construido o si el sistema debería ser construido. 
+	
+	\item El experimento puede ser peligroso. Usualmente, simulaciones son realizadas para determinar si el experimento real \quotes{explotara}, poniendo al experimentador en peligro.
 
-(3) The cost of experimentation is too high. Often, simulations are used where real experiments are too expensive. The necessary measurement tools may not be available or are expensive to buy.
-It is possible that the system is used all the time and taking it "off-line" would involve unacceptable cost (for example, a power plant or a commercial airliner).
+	\item El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas. Tambien es posible que el sistema se encuentra siendo utilizado y tomar el tiempo para experimentar sería inaceptable.
 
-( 4) The time constants (eigenvalues) of the system are not compatible with those of the experimenter. Often, simulations are performed because the real experiment executes so quickly that it can hardly be observed (for example, an explosion) or because the real experiment executes so slowly that the experimenter is long dead before the experiment is completed (for example, a transgression of two galaxies). Simulations allow us to speed up or slow down experiments at will.
+	\item Los tiempos del sistema no son compatibles con el del experimentador. Usualmente simulaciones son utilizadas debido a que el experimento real se realiza tan rapido que no es posible observarlo (por ejemplo una explosión) o porque el experimento toma tanto tiempo que el experimmentador estaria muerto cuando el experimento se encuentre completado.
 
-(5) Control variables (disturbances), state variables, and/or system parameters may be inaccessible. Often, simulations are performed because they allow us to access all inputs and all state variables, whereas, in the real system, some inputs ( disturbances) may not be accessible to manipulation (for example, the time of sunrise) and some state variables may not be accessible to measurement. Simulation allows us to manipulate the model outside the feasible range of the physical system. For example, we can decide to change the mass of a body at will from 50  kg to 400 kg and repeat the simulation at the stroke of a key. In the physical system, such a modification is either not feasible at all or it involves a costly and lengthy alteration to the system.
+	\item Variables de control, de estado y/o del sistema pueden encontrarse inaccesibles. Usualmente simulaciones son utilizadas debido a que nos permite acceder todas las variables de entrada y todos los estados, mientras que el sistema real, algunas entradas ( ruidos, por ejemplo) no son manipulables y algunas variables internas del sistema no son accesibles a la medición. Simulaciones tambien nos permite manipular el modelo en formas que no podriamos manipular el sistema real, por ejemplo, podemos decidir cambiar la masa de un objeto de 50 kg a 400 kg y repetir la simulación. En un sistema físico, la modificación anterior es imposible o requiere una costoza y larga alteración del sistema.
 
-(6) Suppression of disturbances. Often, simulations are performed because they allow us to suppress disturbances that are unavoidable in the real system. This allows us to isolate particular effects, and may lead to a better insight (intuition) into the generic system behavior than would be possible through obscured measurements taken from the real process.
+	\item Eliminación de perturbaciones. Usualmente, se llevan adelante simulaciones que nos permite eliminar perturbaciones que son inevitables en el sistema real. Lo que nos permite aislar efectos particulares, y puede conducir a mejores apreciaciones sobre el comportamiento general del sistema.
 
-(7) Suppression of second-order effects. Often, simulations are performed because they allow us to suppress second-order effects (such as nonlinearities of system components). Again, this can help with the understanding of the primary underlying functionality of the system.
+	\item Eliminación de efectos de segundo orden. Usualmente, se utilizan simulaciones porque nos permite eliminar efectos de segundo orden (como no linealidades de componentes del sistema). Nuevamente esto ayuda a obtener un mejor entendimiento del comportamiento general del sistema.
+\end{itemize}
+
+Es por esto que cuando corremos un modelo es deseable que pueda ser ejecutado de la forma más rapida y eficiente posible.
+
+
 
 % XXX explicar como se desarrolla un modelo en Modelica / µ-Modelica
 % XXX explicar la como se desarrolla un modelo en PowerDEVS, 
 % TODO explicar que el QSS Solver nos puede ahorrar un orden de magnitud en el tiempo de ejecución de la simulación
 
-The Stand–Alone QSS solver presented here overcomes this problem, improving in more than one order of magnitude the computation times of the pre- vious discrete event implementations.
+The Stand–Alone QSS solver presented here overcomes this problem, improving in more than one order of magnitude the computation times of the previous discrete event implementations.
 
 
 
