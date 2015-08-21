@@ -1,4 +1,4 @@
-
+\section{Motivación}
 El modelado y simulación se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 
 Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del sistema antes de que sea construido.
@@ -32,8 +32,9 @@ El modelo generamente inicia como una función matemática de la forma
 \end{equation*}
 donde $x$ representan las variables del sistema, $u$ el estado inicial y $t$ el tiempo, este modelo, puede ser convertido en un modelo Modelica de forma textual o gráfica, dependiendo de las herramientas con las que contemos y como nos resulte más simple de describir.
 
-En particular nos interesa poder utilizar el entorno PowerDEVS, el cual nos permite describir nuestro sistemas de forma gráfica, conectando bloques de forma gerarquica, o describiendo los bloques más básico en lenguage C++. 
-Esto es debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
+PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler:2000:TMS:580780}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
+
+Nos interesa poder utilizar el entorno PowerDEVS, debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
 
 En este aspecto, contamos con la herramienta \quotes{QSS-Solver}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
 
@@ -54,41 +55,25 @@ Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a 
 El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$modelica.
 
 \section{Organización del presente trabajo}
-
-\section{Motivación y Objetivos}
-PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler:2000:TMS:580780}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
-
-La resolución de ecuaciones diferenciales ordinarias, requiere el uso de métodos de integración numérica. Todos los algoritmos tradicionales de integración se basan en la discretización de la variable independiente (que generalmente representa el tiempo).
-
-Las rutinas que implementan estos algoritmos, se denominan solvers y existen gran variedad de implementaciones de los mismos en diferentes lenguajes de programación. Los Métodos de Integración Numérica QSS (Quantized State System), a diferencia de los métodos de integración tradicionales, realizan la discretización sobre las variables de estado. En consecuencia, convierten los sistemas continuos en sistemas de eventos discretos, y tienen grandes ventajas para simular sistemas con discontinuidades.
-
-Si bien PowerDEVS, implementa la totalidad de los algoritmos de QSS, resultan ineficientes, dado que malgastan gran parte de la carga computacional en la transmisión de eventos entre submodelos.
-
-Para solventar este hecho se desarrollo una familia de QSS stand-solver, el cual requiere un modelo descripto en lenguaje C el cual contiene las ecuaciones diferenciales, las funciones de cruce de cero así como la información estructural requerida por los algoritmos QSS. Estos solvers obtienen una mejora de rendimiento de hasta un orden de magnitud comparado con otras implementaciones DEVS.
-
-Sobre este se desarrollo una herramienta la cual genera a partir de un modelo $\mu$-Modedelica \cite{Ber12} (un subconjunto del lenguaje Modelica) el modelo requerido para el QSS solver.
-
-Con el objetivo de utilizar los mejoras de velocidad y mantener un entorno amigable con el usuario, se creo una herramienta capas de convertir un modelo PowerDEVS en un modelo $\mu$modelica.
-
+%TODO
 
 \section{Trabajo relacionado}
-En \cite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a $\mu$modelica. 
-ModelicaDEVS \cite{Beltrame06quantisedstate} es una librería Dymola que permite describir simulaciones DEVS en el Modelica, más específicamente en el entorno Dymola.
-M/CD++ \cite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS.
-DESlib \cite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS en Modelica.
+En \cite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
 
 
-\section{Alcance}
-DEVS\cite{Zeigler:2000:TMS:580780}, Discrete Event System Specification (Especificación de Sistemas de Eventos Discretos), es un formalismo modular y jerárquico para modelar y analizar sistemas que pueden ser de eventos de tiempo discreto mediante tablas de transición, y con estados continuos que pueden ser descriptos por ecuaciones diferenciales.
-En el formalismo clásico DEVS, los modelos atómicos capturan el comportamiento del sistema, mientras los modelos Acoplados describen la estructura del mismo.
-En particular los modelos atómicos en PowerDEVS son descriptos en clases C++, mientras que la estructura se encuentra definida en archivos pds y pdm.
-Modelica es un lenguaje de modelado, orientado a objetos, declarativo, para el modelado orientado a componentes de sistemas complejos.
-Para poder realizar nuestro objetivo es necesario primero contar con un modelo en modelica\cite{Fritzson02modelica--} para cada atómico PowerDEVS\cite{BK11} que deseemos convertir. 
+ModelicaDEVS \cite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
 
-De esto se desprenden las siguientes limitaciones importantes:
+DESlib \cite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
+La librería contiene cuatro paquetes que pueden ser utilizados para modelar sistemas de eventos discretos:
 \begin{itemize}
-	\item La semántica de los modelos convertidos depende de los modelos equivalentes a los DEVS atómicos 
-	\item Solamente podemos convertir modelos cuyos componentes atómicos hayan sido convertidos a $\mu$modelica.
+\item RandomLib puede generar números y variables aleatorias, siguiendo distribuciones de probabilidades discretas y continuas.
+\item DEVSLib puede ser utilizado para modelar sistemas de eventos discretos (DEVS) siguiendo el formalismo de parallel DEVS.
+\item SIMANLib y ARENALib puede ser utilizado para modelar sistemas de eventos discretos (DEVS) siguiendo el enfoque orientado al proceso.
 \end{itemize}
 
+Estas dos librerías llevan los formalismos DEVS hacia Modelica, pero no utilizan la herramienta powerdevs, ni se ejecutan en QSS-Solver.
+Podríamos desarrollar los modelos utilizando estas librerías y ejecutar la simulación del modelo convertido en $\mu$-Modelica con el QSS-Solver, pero esto no permite re-utilizar los modelos desarrollados en PowerDEVS.
+
+
+M/CD++ \cite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver.
 
