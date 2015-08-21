@@ -54,10 +54,19 @@ Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a 
 
 El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$modelica.
 
-\section{Organización del presente trabajo}
-%TODO
+\section{Organización del trabajo}
+El presente trabajo se organiza en 6 capítulos:
+\begin{itemize}
+\item \emph{Introducción} en la cual ya vimos una visión general del objetivo así como las herramientas que utilizaremos y algunas herramientas relacionadas
+\item \emph{Conceptos previos} en este capítulo veremos los fundamentos matemáticos y profundizaremos sobre las dos herramientas principales que conciernen este trabajo.
+\item \emph{Conversión de modelos DEVS} en este capítulo veremos en detalles la conversión de un modelo desde su formulación matemática, en su modelo en PowerDEVS y veremos las conversiones necesarias para llevar adelante la conversión a $\mu$-Modelica.
+\item \emph{Detalles de la implementación} en este capítulo se muestra los componentes de software que forman la aplicación, y descripción en pseudo-código de los principales componentes.
+\item \emph{Ejemplos y Resultados} en este capítulo vemos varios ejemplos y realizamos una comparación de los resultados obtenidos a partir de compara los tiempos de simulaciones de los modelos originales, en PowerDEVS, y los modelos convertidos en }$mu$-Modelica.
+\item \emph{Conclusiones}, por último revisamos nuestras conclusiones y proponemos trabajos a futuro.
+\end{itemize}
 
 \section{Trabajo relacionado}
+%XXX Agregar las librerías mmo
 En \cite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
 
 
