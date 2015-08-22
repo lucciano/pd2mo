@@ -198,9 +198,11 @@ $EIC$, $EOC$ y $IC$ son conjunto de pares de pares que señalan como se encuentr
 
 
 \subsection{Modelos DEVS parametrizados}
-Definimos aquí primero un modelo DEVS parametrizado. Dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
+Definirmos primero los modelos DEVS parametrizados como un paso previo hacia el formalismo DEVS vectorial (Vectorial DEVS or VECDEVS), el cua es una herramienta que nos facilitará representar modelos de gran escala en forma gráfica, en particular este formalismo se encuentra implementado en la herramienta PowerDEVS.
+
+Dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
 \begin{equation}
-M (p) = \{X, Y, S, \delta_{int} p , \delta_{ext} p ,\lambda p , ta p\}
+M (p) = \{X, Y, S, \delta_{int}, \delta_{ext} ,\lambda , ta, p\}
 \end{equation}
 
 donde $p \in P$ es un parámetro que pertenece a un conjunto de parámetros arbitrario tal que $\delta_{int}$ , $\delta_{ext}$ , $\lambda$ y $ta$ dependen también de $p$.
@@ -214,15 +216,15 @@ M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
 
 definimos un modelo Vectorial DEVS como la estructura:
 \begin{equation}
-V D = \{N, XV, Y V, P, {M i }\},
+V_D = \{N, X_V, Y_V, P, \{M_i\}\},
 \end{equation}
 donde:
 \begin{itemize}
-\item $N \in N$ es la dimensión del modelo vectorial.
+\item $N \in \mathbb{N}$ es la dimensión del modelo vectorial.
 
-\item $XV = X \times Index$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
+\item $X_V = X \times Index \bigcup \{-1\}$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
 
-\item $YV = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
+\item $Y_V = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
 
 \item $P$ es un conjunto de parámetros arbitrario.
 
@@ -230,16 +232,15 @@ donde:
 \end{itemize}
 
 \subsubsection{Interfaz entre DEVS Vectorial y DEVS}
-Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo, además, introducimos un bloque necesario para realizar modelos más complejos y conectar los diferentes componentes de un modelo vectorial entre si.
+Para conectar bloques vectoriales y bloques escalares es necesarios bloques que hagan de interfaz entre los dos formalismo, además, introducimos un bloque necesario para realizar modelos más complejos y conectar los diferentes componentes de un modelo vectorial entre sí.
 
 \begin{itemize}
- \item Escalar a Vector (Scalar to Vector): Este vector simplemente agrega al indice $i$ al evento escalar que recive, transformandolo en un evento vectorial. Este modelo tambien poseen un comportamiento especial para enviar el mismo evento en todas las componentes vectorial al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
- \item Vectot a escalar (Vector to Scalar): Este bloque tiene un parametro $i$ que contiene el indice del vector de eventos a retrasmitir, cuando recibe un evento con indice $j=i$, remoeve el indice y retrasmite el evento escalar.
-  \item Index Shift: El modelo má1s simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parametro entero.
-
+	\item Escalar a Vector (Scalar to Vector): Este boque simplemente agrega al indice $i$ al evento escalar que recive, transformándolo en un evento vectorial. Este modelo también posee un comportamiento especial para enviar el mismo evento en todas las componentes vectorial al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
+	\item Vector a escalar (Vector to Scalar): Este bloque tiene un parámetro $i$ que contiene el índice del vector de eventos a retransmitir, cuando recibe un evento con indice $j=i$, remueve el indice y retransmite el evento escalar.
+	\item Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, donde $sh$ es un parámetro entero.
 \end{itemize}
 
-A todos estos eventos se la ha agregado la dimensión $N$ como parametro, esto es necesario para realizar la conversión de los modelos, de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaria en un modelo con menos equaciones que variables, es decir un modelo no balanceado.
+En este trabajo todos estos bloques se la ha agregado la dimensión $N$ como parámetro, esto es necesario para realizar la conversión de los modelos, de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaría en un modelo con menos ecuaciones que variables, es decir un modelo no balanceado.
 	 
 \section{Métodos de integración QSS}
 Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
