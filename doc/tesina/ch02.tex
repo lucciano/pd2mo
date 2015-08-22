@@ -1,18 +1,18 @@
 En este capítulo introducimos algunos conceptos básicos, necesarios para poder comprender este trabajo, modelado y los formalismos y simulación de sistemas y clasificación.
 
 \section{Modelado y Simulación}
-Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en si.
+El Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en sí.
 
 \subsection{Sistemas Continuos y Discretos}
-Se considera un sistema continuo si las variables de este son conocidas en cada instante de tiempo, mientras que se considera discreto si las variables son conocidas en instantes de tiempo determinados.
+Se considera un sistema continuo si las variables de éste son conocidas en cada instante de tiempo, mientras que se considera discreto si las variables son conocidas en instantes de tiempo determinados.
 
-En general los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos puesto que la simulación en computadora así lo requiere, puesto que la misma computadora es un sistema discreto.
+En general los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos puésto que la simulación en computadora así lo requiere, puesto que la misma computadora es un sistema discreto.
 
 \subsection{Métodos de Integración numérica}
 Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
 \begin{equation} \label{eq:eq1}
-\dot{x(t)} = f (x(t), u(t))
+\dot{x}(t) = f (x(t), u(t))
 \end{equation}
 
 donde $x \in \Re^n$  es el vector de estados, $u \in \Re^m$ es una función de entradas conocidas,
@@ -61,8 +61,8 @@ Como sería muy incomodo para el usuario proveer esta información estructural, 
 
 La interfaz permite al usuario describir el modelo utilizando un subconjunto del lenguaje estándar de Modelica ($\mu$Modelica) y automáticamente genera el código C del modelo incluyendo la estructura.
 
-\subsection{$\mu$Modelica}
-El lenguaje $\mu$Modelica tiene las siguientes restricciones con respecto a Modelica:
+\subsection{$\mu$-Modelica}
+El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
 
 \begin{itemize}
  \item El modelo es plano, es decir no permite clases.
@@ -96,10 +96,10 @@ Un modelo atómico representa la unidad \quotes{indivisible} de especificación,
 \item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
 \item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
 \item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
-\item $ta$ es una función $S \to R^{+}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún evento de entrada. Esta función puede asociarse también al tiempo de vida de un estado.
-\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. Sería el análogo a una tabla de transición en otros autómatas.
-\item $\delta_{ext}$ es una función $(S \times R^{+} \times X) \to S$, que indica el cambio de estado ante la presencia de un evento externo.
-\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado.
+\item $ta$ es una función $S \to R^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
+\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
+\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(R^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento externo, esta es la \emph{Función de Transición Externa}.
+\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
 \end{itemize}
 
 Los conjuntos $S$, $X$ e $Y$ son arbitrarios, y en general infinitos. Cada posible estado $s$ ($s \in S$) tiene asociado un Avance de Tiempo calculado por la Función de Avance de Tiempo $ta(s)$.
@@ -139,25 +139,63 @@ donde cada componente es:
 \item EIC y EOC son el conjuntos de conexiones entre los modelos internos y los puertos del modelo acoplado:
       \begin {itemize}
           \item EIC (o External Input Coupling) son las conexiones de entrada al acoplado, es decir, conecta un puerto de entrada del acoplado con un puerto de entrada de un modelo perteneciente al acoplado.
-          \item EOC (o External Output Coupling) son las conexiones de salida del acoplado. Conecta un puerto de salida de un modelo interno del acoplado con un puerto de salida del acoplado. Formalmente:
-          $EIC \in \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} $
-          $EOC \in \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d \} $
-    
-    	donde N es el modelo acoplado.
-      \end{itemize}
+          \item EOC (o External Output Coupling) son las conexiones de salida del acoplado. Conecta un puerto de salida de un modelo interno del acoplado con un puerto de salida del acoplado.  
+     \end{itemize}
 
-\item $IC$ representa las conexiones internas del modelo acoplado donde:
-\begin{equation}
-IC \in \{((a, ip_a ), (b, ip_b )) | a, b \in D, ip a \in OutPorts_a , ip_b \in InPorts_b \}
-\end{equation}
-donde no se permite que $a = b$.
+\item $IC$ representa las conexiones internas del modelo acoplado.
 
-\item Select es una función $(D \times D \to D)$ que decide qué modelo realizará primero su transición interna, si se da el caso de eventos simultáneos. Es una función de \quotes{desempate} que en ciertos modelos es necesaria.
+\item Select es una función $(\mathcal{P}((D)) \to D)$ que decide qué modelo realizará primero su transición interna, si se da el caso de eventos simultáneos. Es una función de \quotes{desempate} que en ciertos modelos es necesaria.
 \end{itemize}
+
+Formalmente:
+\begin{align*}
+EIC \in& \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} \\
+EOC \in& \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d \}
+\end{align*}
+donde N es el modelo acoplado.
+\begin{equation*}
+IC \in \{((a, ip_a ), (b, ip_b )) | a, b \in D, ip a \in OutPorts_a , ip_b \in InPorts_b \}
+\end{equation*}
+donde no se permite que $a = b$.
 
 $InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$. Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
 
-En esta Sección introducimos una extensión al formalismo DEVS para especificar modelos vectoriales fácilmente.
+$EIC$, $EOC$ y $IC$ son conjunto de pares de pares que señalan como se encuentran conectados los modelos (atómicos o acoplados) a través de sus puertos con los puertos de entrada, salida y con otros modelos (atómicos o acoplados) respectivamente.
+
+\begin{figure}[H]
+
+\begin{minipage}{0.5\textwidth}
+\centering
+\TBox{%
+  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {Root-Coordinator}
+    child { node {Acoplado2}		
+    child { node {Acoplado1}
+      child { node {Atómico1}}
+      child { node {Atómico2}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child { node {Atómico3}}};
+\end{tikzpicture}
+\end{minipage}
+
+\caption{Ejemplo de un modelo jerarquico.}
+
+\end{figure}
+
 
 \subsection{Modelos DEVS parametrizados}
 Definimos aquí primero un modelo DEVS parametrizado. Dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
