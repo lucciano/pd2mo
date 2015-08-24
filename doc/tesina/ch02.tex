@@ -75,11 +75,27 @@ Estas ventajas resultan en una aceleración notable en el tiempo de simulación 
 
 
 \section{Modelica}
-Modelica es un lenguaje orientado a objetos desarrollado para describir de manera sencilla modelos de sistemas dinamicos eventualmente muy complejos. Además de las características básicas de todo lenguaje orientado a objetos, Modelica contiene herramientas específicas que permiten describir las relaciones constitutivas de los distintos componentes de cada modelo y las relaciones estructurales que definen la interacción entre dichos componentes.
-De esta manera, el lenguaje permite asociar cada componente de un sistema a una instancia de una clase de Modelica.
-Adicionalmente, los componentes típicos de los sistemas de distintos dominios de la física y de la técnica pueden agruparse en librerías de clases para ser reutilizados. De hecho, existe una librería estándar de clases de Modelica, que contiene los principales componentes básicos de sistemas eléctricos, mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graphs, y diagramas de bloques. Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de petri, etc. Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
-manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
-Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores más o menos completos de Modelica: \textit{Dymola}, \textit{MathModelica} y \textit{OpenModelica}. Los dos primeros son herramientas comerciales que cuentan con interfaces gráficas para construir los modelos. \textit{OpenModelica} es una herramienta libre, de código abierto, que aún está en desarrollo y que no cuenta en principio con interface gráfica (aunque puede utilizarse con una versión gratuita de \textit{MathModelica} denominada \textit{MathModelica Lite}).	
+
+	Modelica es un lenguaje orientado a objetos desarrollado para describir de manera sencilla modelos de sistemas dinámicos eventualmente muy complejos.
+	Además de las características básicas de todo lenguaje orientado a objetos, Modelica contiene herramientas específicas que permiten describir las relaciones
+	constitutivas de los distintos componentes de cada modelo y las relaciones estructurales que definen la interacción entre dichos componentes.
+	De esta manera, el lenguaje permite asociar cada componente de un sistema a una instancia de una clase de Modelica.
+	Adicionalmente, los componentes típicos de los sistemas de distintos dominios de la física y de la técnica pueden agruparse en librerías de clases para ser
+	reutilizados. De hecho, existe una librería estándar de clases de Modelica, que contiene los principales componentes básicos de sistemas eléctricos,
+	mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graphs, y diagramas de bloques. 
+	Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de petri, etc.
+	Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
+	manera totalmente gráafica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
+	Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores
+	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales que cuentan con interfaces
+	gráficas para construir los modelos. OpenModelica es una herramienta libre, de código abierto.
+
+\begin{listing}[H]    
+	\caption{LotkaVolterra.mo}
+	\inputminted{modelica}{src/LotkaVolterra.mo}
+	\label{lst:LotkaVolterra.mo}
+\end{listing} 
+
 
 \section{$\mu$-Modelica}
 El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
