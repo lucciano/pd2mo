@@ -1,7 +1,7 @@
 En este capítulo introducimos algunos conceptos básicos, necesarios para poder comprender este trabajo, modelado y los formalismos y simulación de sistemas y clasificación.
 
 \section{Modelado y Simulación}
-El Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en sí.
+	El Modelado y Simulación de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en sí.
 
 \subsection{Sistemas Continuos y Discretos}
 Se considera un sistema continuo si las variables de éste son conocidas en cada instante de tiempo, mientras que se considera discreto si las variables son conocidas en instantes de tiempo determinados.
@@ -81,8 +81,7 @@ Adicionalmente, los componentes típicos de los sistemas de distintos dominios d
 manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
 Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores más o menos completos de Modelica: \textit{Dymola}, \textit{MathModelica} y \textit{OpenModelica}. Los dos primeros son herramientas comerciales que cuentan con interfaces gráficas para construir los modelos. \textit{OpenModelica} es una herramienta libre, de código abierto, que aún está en desarrollo y que no cuenta en principio con interface gráfica (aunque puede utilizarse con una versión gratuita de \textit{MathModelica} denominada \textit{MathModelica Lite}).	
 
-%Lotka Volterra ejemplo
-\subsection{$\mu$-Modelica}
+\section{$\mu$-Modelica}
 El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
 
 \begin{itemize}
@@ -195,7 +194,7 @@ donde no se permite que $a = b$.
 
 $InPorts$ y $Outports$ son conjuntos que describen los posibles puertos de entrada y salida respectivamente. En general se utilizan números enteros para representar los puertos posibles por lo cual $InPorts = \mathbb{N}$ y $Outports = \mathbb{N}$. Los modelos acoplados son en sí mismos modelos DEVS válidos; formalmente el acoplamiento (como lo definimos antes) es una operación cerrada sobre el conjunto de modelos DEVS. Acoplar modelos DEVS forma nuevos modelos DEVS. Sin esta cualidad el acoplamiento resultaría inútil desde del punto de vista del formalismo. También trae muchas ventajas a la hora de describir modelos DEVS y a la hora de simularlos. El acoplamiento da lugar a una estructura jerárquica de desarrollo.
 
-$EIC$, $EOC$ y $IC$ son conjunto de pares de pares que señalan como se encuentran conectados los modelos (atómicos o acoplados) a través de sus puertos con los puertos de entrada, salida y con otros modelos (atómicos o acoplados) respectivamente.
+$EIC$, $EOC$ y $IC$ son conjunto de pares, de pares, como se encuentran conectados los modelos (atómicos o acoplados) a través de sus puertos con los puertos de entrada, salida y con otros modelos (atómicos o acoplados) respectivamente. Tanto los puertos como los modelos son señalados por números dentro de PowerDEVS, por lo que estos conjuntos estan comprendidos por elementos de la forma $(m_a, p_a), (m_b, p_b)$, donde $m_a$ y $m_b$ son modelos (atomicos o no) en el actual modelo y $p_a$ y $p_b$ son sus correspondientes puertos.
 
 \begin{figure}[H]
 
