@@ -95,7 +95,19 @@ Estas ventajas resultan en una aceleración notable en el tiempo de simulación 
 	\inputminted{modelica}{src/LotkaVolterra.mo}
 	\label{lst:LotkaVolterra.mo}
 \end{listing} 
+	
+	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el listado \ref{lst:LotkaVolterra.mo} se muestra el equivalente modelo en Modelica, 
+	en el se pueden observar algunas particularidades del lenguaje.
+	
+	En la primera linea se puede ver que el modelo, en este caso una \quotes{clase}, y su nombre LotkaVolterra.
+	Modelica, utiliza 7 clases restringidas:
+	\textbf{block}, \textbf{connector}, \textbf{function}, \textbf{model}, \textbf{package}, \textbf{record} y \textbf{type}.
+	Cada una de estas clases restringidas permite declarar clases más específicas cualquiera de ellas puede reemplazarse
+	por \textbf{class}, pero siempre es mejor especificar de que tipo de clase se trata para mejorar la legibilidad y facilitar la depuración de código.
 
+
+	
+	
 
 \section{$\mu$-Modelica}
 El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
