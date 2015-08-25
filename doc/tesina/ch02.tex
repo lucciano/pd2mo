@@ -92,7 +92,7 @@ Estas ventajas resultan en una aceleración notable en el tiempo de simulación 
 
 \begin{listing}[H]    
 	\caption{LotkaVolterra.mo}
-	\inputminted{modelica}{src/LotkaVolterra.mo}
+	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
 	\label{lst:LotkaVolterra.mo}
 \end{listing} 
 	
@@ -105,12 +105,22 @@ Estas ventajas resultan en una aceleración notable en el tiempo de simulación 
 	Cada una de estas clases restringidas permite declarar clases más específicas cualquiera de ellas puede reemplazarse
 	por \textbf{class}, pero siempre es mejor especificar de que tipo de clase se trata para mejorar la legibilidad y facilitar la depuración de código.
 
-	Las siguientes dos lineas declaran las variables $x$ e $y$ del tipo $Real$, ambas con valor de inicio $0.5$
+	Las siguientes dos lineas declaran las variables \texttt{x} e \texttt{y} del tipo \texttt{Real}, ambas con valor de inicio \texttt{0.5}, las lineas 4 a 7, 
+	son los parámetros \texttt{a}, \texttt{b}, \texttt{c} y \texttt{d} a diferencia de \texttt{x} e \texttt{y}, estos parámetros no pueden cambiar durante la 
+	simulación, pero pueden cambiar de simulación en simulación.
 
+	Esta primera parte (lineas 2 a 7) del modelo constituye la sección de declaraciones, se encuentra la sección de ecuaciones (luego de la palabra clave 
+	\texttt{equation}), esta sección describe el sistema de ecuaciones de nuestro modelo. Donde la expresión \texttt{der(x)} representa la derivada \texttt{x} 
+	respecto del tiempo y análogamente con \texttt{y}.
+	Es importante notar que el símbolo \texttt{=} no es el símbolo de asignación, sino de igualdad matemática (es decir acausal), a diferencia de la mayoría 
+	de  los lenguajes de programación modernos.  Para realizar asignaciones se utiliza una sección \texttt{algorithm}, que contiene asignaciones ordenadas. 
+	Con el fin de distinguir de las ecuaciones de la sección \texttt{equation}, se utiliza el operador \texttt{:=}, 
+	varias asignaciones puede ser ejecutadas en la sección de \texttt{algorithm}. Ademas la sección \texttt{algorithm} puede tener expresiones if-then-else, 
+	construcciones if-then-else, y bucles.
 
+	Por supuesto Modelica es un lenguaje mucho más extenso de lo que hemos descripto, pero los conceptos que utilizamos a lo largo de este trabajo son los
+	expresados en la presente sección.
 	
-	
-
 \section{$\mu$-Modelica}
 El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
 

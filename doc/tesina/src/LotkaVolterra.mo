@@ -7,5 +7,5 @@ class LotkaVolterra
   parameter Real d = 0.1;
 equation
   der(x) = x * (a - b * y);
-  der(y) = y * (c * x - d);
+  der(y) = - y * (d - c * x);
 end LotkaVolterra;
