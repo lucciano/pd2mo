@@ -96,7 +96,7 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	por \textbf{class}, pero siempre es mejor especificar de que tipo de clase se trata para mejorar la legibilidad y facilitar la depuración de código.
 
 	Las siguientes dos lineas declaran las variables \texttt{x} e \texttt{y} del tipo \texttt{Real}, ambas con valor de inicio \texttt{0.5}, las lineas 4 a 7, 
-	son los parámetros \texttt{a}, \texttt{b}, \texttt{c} y \texttt{d} a diferencia de \texttt{x} e \texttt{y}, estos parámetros no pueden cambiar durante la 
+	declaran los parámetros \texttt{a}, \texttt{b}, \texttt{c} y \texttt{d} a diferencia de \texttt{x} e \texttt{y}, estos parámetros no pueden cambiar durante la 
 	simulación, pero pueden cambiar de simulación en simulación.
 
 	Esta primera parte (lineas 2 a 7) del modelo constituye la sección de declaraciones, se encuentra la sección de ecuaciones (luego de la palabra clave 
@@ -111,7 +111,7 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	Por supuesto Modelica es un lenguaje mucho más extenso de lo que hemos descripto, pero los conceptos que utilizamos a lo largo de este trabajo son los
 	expresados en la presente sección.
 
-\section{Métodos de integración DASSL}
+%\section{Métodos de integración DASSL}
 
 
 \section{Métodos de integración QSS}
@@ -200,47 +200,56 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	Como sería muy incomodo para el usuario proveer esta información estructural, el solver tiene una interfaz que automáticamente obtiene la matriz de
 	 incidencia desde una definición estándar de modelos.
 
-	La interfaz permite al usuario describir el modelo utilizando un subconjunto del lenguaje estándar de Modelica ($\mu$Modelica) y automáticamente 
-	genera el código C del modelo incluyendo la estructura.
+	La interfaz permite al usuario describir el modelo utilizando ($\mu$-Modelica) y automáticamente genera el código C del modelo incluyendo la estructura.
 
 
 \section{Formalismo DEVS}
-DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, ocurren una cantidad finita de eventos).
-Un modelo DEVS puede ser visto como un autómata que procesa una serie de eventos de entrada y genera una serie de eventos de salida. Este procesamiento está regido por la estructura interna de cada una de las partes que componen el modelo general.
-Un modelo DEVS está descripto por dos clases de componentes, modelos atómicos y modelos acoplados.
+	DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
+	ocurren una cantidad finita de eventos).
+	Un modelo DEVS puede ser visto como un autómata que procesa una serie de eventos de entrada y genera una serie de eventos de salida. 
+	Este procesamiento está regido por la estructura interna de cada una de las partes que componen el modelo general.
+	Un modelo DEVS está descripto por dos clases de componentes, modelos atómicos y modelos acoplados.
 
-\subsection{Atómicos}
-Un modelo atómico representa la unidad \quotes{indivisible} de especificación, en el sentido que es la pieza fundamental y más básica de un modelo DEVS. Formalmente un modelo atómico está conformado por la 7-upla:
+	\subsection{Atómicos}
+	Un modelo atómico representa la unidad \quotes{indivisible} de especificación, en el sentido que es la pieza fundamental y más básica de un modelo DEVS. 
+	Formalmente un modelo atómico está conformado por la 7-upla:
 
-\begin{equation} 
-(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
-\end{equation}
+	\begin{equation} 
+	(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
+	\end{equation}
 
-\begin{itemize}
-\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
-\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
-\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
-\item $ta$ es una función $S \to R^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
-\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
-\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(R^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento externo, esta es la \emph{Función de Transición Externa}.
-\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
-\end{itemize}
+	\begin{itemize}
+	\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
+	\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
+	\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
+	\item $ta$ es una función $S \to R^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún 
+	evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
+	\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. 
+	Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
+	\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(R^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
+	externo, esta es la \emph{Función de Transición Externa}.
+	\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
+	\end{itemize}
 
-Los conjuntos $S$, $X$ e $Y$ son arbitrarios, y en general infinitos. Cada posible estado $s$ ($s \in S$) tiene asociado un Avance de Tiempo calculado por la Función de Avance de Tiempo $ta(s)$.
-En la Figura \ref{fig:fig2-5} vemos la evolución de un modelo atómico. Si el estado toma el valor $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. La función $\delta_{int}$ se llama Función de Transición Interna.
+	Los conjuntos $S$, $X$ e $Y$ son arbitrarios, y en general infinitos. Cada posible estado $s$ ($s \in S$) tiene asociado un Avance de Tiempo calculado 
+	por la Función de Avance de Tiempo $ta(s)$.
+	En la Figura \ref{fig:fig2-5} vemos la evolución de un modelo atómico. Si el estado toma el valor $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de 
+	tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. 
+	La función $\delta_{int}$ se llama Función de Transición Interna.
 
-Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
+	Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
 
-Cuando llega un evento de entrada, el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino también del valor anterior del estado y del tiempo transcurrido desde la última transición.
+	Cuando llega un evento de entrada, el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino también del valor anterior del estado y del tiempo transcurrido desde la última transición.
 
-Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento de entrada en el instante $t_3 + e$ con un valor $x_1$ , el nuevo estado se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
-\begin{figure}[!htbp]
-  \includegraphics[scale=0.5]{devs-atomic}
-  \caption{Comportamiento de un modelo DEVS atómico}
-   \label{fig:fig2-5}
-\end{figure}
+	Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento de entrada en el instante $t_3 + e$ con un valor $x_1$ , el nuevo estado se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
 
-\subsection{Acoplados}
+	\begin{figure}[!htbp]
+	  \includegraphics[scale=0.5]{devs-atomic}
+	  \caption{Comportamiento de un modelo DEVS atómico}
+	   \label{fig:fig2-5}
+	\end{figure}
+
+	\subsection{Acoplados}
 	La descripción de un sistema puede ser completamente realizada utilizando modelos atómicos, aunque esto resulta un poco incómodo y confuso. 
 	Los conjuntos de estados y las funciones de transición se vuelven inmanejables en sistemas complejos, y nunca podemos asegurar haber cubierto todos 
 	los posibles estados.
@@ -435,9 +444,19 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
 		\item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados.
 	\end{itemize}
 
+
+	En la figura \ref{fig:lk-powerdevs} se puede ver el modelo Lotka Volterra que acompaña la instalación de PowerDEVS, este modelo (aunque no visible en la imagen)
+	tiene valores iguales a los expresados en el modelo equivalente anteriormente presentado en el listado \ref{lst:LotkaVolterra.mo}. 
+	las dos conecciones contra el bloque \texttt{GnuPlot 0} representando las variables \texttt{x} e \texttt{y} es decir presa y depredadores, ambas variables 
+	son el resultado de la integración por lo que los integradores \texttt{QSS Integrato 0} y \texttt{QSS Integrato 1} possen a la entrada los valores
+	\texttt{dx/dt} y \texttt{dy/dt}. Los bloques \texttt{WSum 0} y \texttt{WSum 1}, tiene constante de forma que el valor de salida (\texttt{y}) queda definido como
+	$y = K[0] * u0 + K[1] * u1 + \dots + K[7] * u7$ y en nuestro modelo son $K[0] = 0.1$ y $K[1] = -0.1$ en ambos bloques \texttt{WSum 0} y \texttt{WSum 1}.
+	Replicando nuestra la equación de nuestro modelo.
+	
+
 	\begin{figure}[!htbp]
 	  \includegraphics[width=\textwidth]{lk-powerdevs}
 	  \caption{Modelo Lotka Volterra descripto en PowerDEVS}
-	   \label{fig:powerdevsgui}
+	   \label{fig:lk-powerdevs}
 	\end{figure}
 
