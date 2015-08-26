@@ -12,24 +12,6 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	En general los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos puésto que la simulación en computadora así lo 
 	requiere, dado que la misma computadora es un sistema discreto.
 
-	A modo de ejemplos introducimos un ejemplo el cual desarrollamos desde distintas herramientas el sistema de ecuaciones de Lotka-Volterra, también 
-	conocidas como ecuaciones predador-presa o presa-predador, son un par de ecuaciones diferenciales de primer orden no lineales que se usan para 
-	describir dinámicas de sistemas biológicos en el que dos especies interactúan, una como presa y otra como depredador.
-
-	\begin{align*}
-		\frac{dx}{dt} &= x(\alpha - \beta y) \\
-		\frac{dy}{dt} &= - y(\gamma - \delta  x)
-	\end{align*}
-
-	donde:
-	\begin{itemize}
-		\item $y$ es el número de algún predador (por ejemplo, un lobo)
-		\item $x$ es el número de sus presas (por ejemplo, conejos)
-		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
-		\item t representa el tiempo y
-		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
-	\end{itemize}
-
 	\subsection{Métodos de Integración numérica}
 	Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
@@ -64,6 +46,23 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
 	 términos de la serie de Taylor que consideran para la aproximación.
 
+	A modo de ejemplos introducimos un ejemplo el cual desarrollamos desde distintas herramientas el sistema de ecuaciones de Lotka-Volterra, también 
+	conocidas como ecuaciones predador-presa o presa-predador, son un par de ecuaciones diferenciales de primer orden no lineales que se usan para 
+	describir dinámicas de sistemas biológicos en el que dos especies interactúan, una como presa y otra como depredador.
+
+	\begin{align*}
+		\frac{dx}{dt} &= x(\alpha - \beta y) \\
+		\frac{dy}{dt} &= - y(\gamma - \delta  x)
+	\end{align*}
+
+	donde:
+	\begin{itemize}
+		\item $y$ es el número de algún predador (por ejemplo, un lobo)
+		\item $x$ es el número de sus presas (por ejemplo, conejos)
+		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
+		\item t representa el tiempo y
+		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
+	\end{itemize}
 
 \section{Modelica}
 
@@ -436,3 +435,10 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
 
 		\item Una instancia de Scilab, que actua como un espacio de trabajo, donde los parámetros pueden ser leídos, y los resultados pueden ser exportados.
 	\end{itemize}
+
+	\begin{figure}[!htbp]
+	  \includegraphics[width=\textwidth]{lk-powerdevs}
+	  \caption{Modelo Lotka Volterra descripto en PowerDEVS}
+	   \label{fig:powerdevsgui}
+	\end{figure}
+
