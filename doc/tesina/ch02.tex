@@ -163,12 +163,14 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 
 	\begin{itemize}
 	 \item El modelo es plano, es decir no permite clases.
-	 \item Todas las variables pertenecen al tipo predefinido Real y solo hay tres categorías de variables: estado continuo, estado discreto y variables algebraicas.
+	 \item Todas las variables pertenecen al tipo predefinido Real y solo hay tres categorías de variables: estado continuo, estado discreto y variables 
+	algebraicas.
 	 \item Los parámetros también son de tipo Real. 
-	 \item Arreglos están permitidos. Indices en los arreglos dentro de clausulas for están restringidos a la forma $\alpha \cdot i + \beta$, donde $\alpha$ y $\beta$ son expresiones enteras y $i$ es el indicie de la iteración.
-	 \item La sección de ecuaciones esta compuesta de :
+	 \item Arreglos están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
+	donde $\alpha$ y $\beta$ son expresiones enteras y \texttt{i} es el índice de la iteración.
+	 \item La sección de ecuaciones está compuesta de :
 	 \begin{itemize}
-		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explicita
+		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
 		\item Definición algebraica : $(a_1 , \dots , a_n ) = g(x(t), d, a(t), t);$
 	 \end{itemize}
 	 con la restricción de que cada variable algebraica solo puede depender del estado y de variables algebraicas previamente definidas.
@@ -178,7 +180,7 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	de estados continuos son permitidos
 	\end{itemize}
 
-	\section{Stand–Alone QSS solver}
+\section{Stand–Alone QSS solver}
 	Como mencionamos antes los métodos QSS de integración remplazan la discretización del tiempo de los métodos clásicos por una quantificación de las 
 	variables del sistema. De esta forma, estos métodos generan aproximaciones del sistema continuo y tienen algunas ventajas sobre sus contra partes clásicas.
 
@@ -396,6 +398,12 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
 \section{PowerDEVS}
 	PowerDEVS es un programa, concebido para ser utilizado por expertos programadores DEVS, así como usuarios finales que solo quieren conectar bloques y simular.
 
+	\begin{figure}[!htbp]
+	  \includegraphics[width=\textwidth]{powerdevs}
+	  \caption{Interfaz gráfica de PowerDEVS}
+	   \label{fig:powerdevsgui}
+	\end{figure}
+
 	PowerDEVS esta compuesto por varios programas independientes:
 	\begin{itemize}
 		\item El \emph{editor de modelos}, es desde el punto de vista del usuario, el principal programa de PowerDEVS, pues provee la interfaz gráfica 
@@ -404,24 +412,13 @@ Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento
 		elementales hasta su definición atómica de modelo (invocando el \emph{Editor Atómico}).
 		La ventana principal de \emph{Editor de Modelo} permite al usuario crear y abrir modelos y librerías. También permite a las librerías ser 
 		exploradas y los bloques arrastrados de las librerías a los modelos.
-		También existen algunas características avanzadas que pueden ser manejadas desde la ventana principal como establecer cual es la librería activa, 
-		y configurar las barras de herramientas y menúes para invocar aplicaciones externas.
 		La ventana del Modelo provee todas las funcionalidades típicas para la edición gráfica para poder copiar, cambiar el tamaño, rotar, etc. mientras 
 		que las conexiones pueden ser dibujadas entre los diferentes puertos.
 		La ventana de Edición de Bloques, nos permite configurar la apariencia gráfica y elegir los parámetros del bloque y, en el caso de los modelos 
 		atómicos, seleccionar el archivo que contiene el código asociado con la definición DEVS.
 
-	\begin{figure}[!htbp]
-	  \includegraphics[width=\textwidth]{powerdevs}
-	  \caption{Interfaz gráfica de PowerDEVS}
-	   \label{fig:powerdevsgui}
-	\end{figure}
-
-
-		\item El \emph{Editor de Modelos Atómico} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario solo debe 
-		definir las variables que forman el estado y la salida del modelo DEVS. Luego, el código C++ de la transición de avance de tiempo y la función 
-		de salida deben se completados. Hay dos ventanas adicionales init y exit, donde se puede completar con código que sera ejecutado al inicio y fin 
-		de la simulación.
+		\item El \emph{Editor de Modelos Atómicos} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario debe 
+		definir las variables que forman el estado y parametros y 6 funciones en sus correspondientes solapas, Init, Time Advance, Internal transition, External transition, Output y Exit  
 		Cuando el modelo se guarda, el código es guardado en los archivos .cpp y .h. 
 
 		\item El \emph{Pre procesador}, toma un archivo .pdm (o .pds) producido por el \emph{Editor de Modelos} y produce el programa que corre 
