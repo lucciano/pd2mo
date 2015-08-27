@@ -202,6 +202,17 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 
 	La interfaz permite al usuario describir el modelo utilizando ($\mu$-Modelica) y automáticamente genera el código C del modelo incluyendo la estructura.
 
+	Continuando con nuestro ejemplo sobre el sistema Lotka Volterra, incluimos el modelo proporcionado en la instalación del QSS-Solver, este es equivalente 
+	al modelo anterior, excepto que la variable \texttt{x} es un arreglo de dos dimensiones juando el papel de \texttt{x} e \texttt{y}.
+	Tambien se puede apreciar un bloque extra \texttt{initial algorithm} el cual inicializa las variables (en lugar de utilizar la inicialización estandar).
+
+	\begin{listing}[H]    
+		\caption{LotkaVolterra.mo}
+		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
+		\label{lst:LotkaVolterra.mo}
+	\end{listing} 
+
+
 
 \section{Formalismo DEVS}
 	DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
@@ -237,11 +248,15 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. 
 	La función $\delta_{int}$ se llama Función de Transición Interna.
 
-	Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
+	Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se 
+	llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
 
-	Cuando llega un evento de entrada, el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino también del valor anterior del estado y del tiempo transcurrido desde la última transición.
+	Cuando llega un evento de entrada, el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino 
+	también del valor anterior del estado y del tiempo transcurrido desde la última transición.
 
-	Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento de entrada en el instante $t_3 + e$ con un valor $x_1$ , el nuevo estado se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
+	Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento de entrada en el instante $t_3 + e$ con un valor $x_1$ , el nuevo estado 
+	se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. 
+	La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
 
 	\begin{figure}[!htbp]
 	  \includegraphics[scale=0.5]{devs-atomic}
@@ -429,7 +444,8 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 		atómicos, seleccionar el archivo que contiene el código asociado con la definición DEVS.
 
 		\item El \emph{Editor de Modelos Atómicos} facilita la edición del código C++ correspondiente a cada modelo atómico DEVS, el usuario debe 
-		definir las variables que forman el estado y parametros y 6 funciones en sus correspondientes solapas, Init, Time Advance, Internal transition, External transition, Output y Exit  
+		definir las variables que forman el estado y parametros y 6 funciones en sus correspondientes solapas, Init, Time Advance, Internal transition, 
+		External transition, Output y Exit  
 		Cuando el modelo se guarda, el código es guardado en los archivos .cpp y .h. 
 
 		\item El \emph{Pre procesador}, toma un archivo .pdm (o .pds) producido por el \emph{Editor de Modelos} y produce el programa que corre 
