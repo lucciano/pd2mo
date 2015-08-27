@@ -213,7 +213,6 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 	\end{listing} 
 
 
-
 \section{Formalismo DEVS}
 	DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
 	ocurren una cantidad finita de eventos).
@@ -364,11 +363,11 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 
 
 	\subsection{Modelos DEVS parametrizados}
-	Definirmos primero los modelos DEVS parametrizados como un paso previo hacia el formalismo DEVS vectorial (Vectorial DEVS or VECDEVS), el cua es una 
+	Definiremos primero los modelos DEVS parametrizados como un paso previo hacia el formalismo DEVS vectorial (Vectorial DEVS or VECDEVS), el cua es una 
 	herramienta que nos facilitará representar modelos de gran escala en forma gráfica, en particular este formalismo se encuentra implementado en la 
 	herramienta PowerDEVS.
 
-	Dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
+	Formalmente : dado un modelo DEVS atómico $M$ obtenemos un Modelo DEVS Parametrizado:
 	\begin{equation}
 	M (p) = \{X, Y, S, \delta_{int}, \delta_{ext} ,\lambda , ta, p\}
 	\end{equation}
@@ -416,6 +415,9 @@ En este capítulo introducimos algunos conceptos básicos, necesarios para poder
 		\item Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, envia un evento de salida $(x, i+sh)$, 
 			donde $sh$ es un parámetro entero.
 	\end{itemize}
+
+	Es importante ver que los mensajes entre bloques vectoriales es un par donde uno de sus componenetes es un número natural, que funciona como índice,
+	el cual nos permite determinar en que posición del vector se encuentra la otra componente.
 
 	En este trabajo todos estos bloques se la ha agregado la dimensión $N$ como parámetro, esto es necesario para realizar la conversión de los modelos,
 	 de forma que no existan desconexiones a nivel Modelica, lo cual se reflejaría en un modelo con menos ecuaciones que variables, es decir un modelo 
