@@ -156,3 +156,18 @@ and Ward, John K.},
   year = {2013},
   address = {Mendoza, Argentina}
 }
+
+@article{BKC12,
+author = {Bergero, Federico and Kofman, Ernesto and Cellier, François}, 
+title = {A novel parallelization technique for DEVS simulation of continuous and hybrid systems},
+volume = {89}, 
+number = {6}, 
+pages = {663-683}, 
+year = {2013}, 
+doi = {10.1177/0037549712454931}, 
+abstract ={In this paper, we introduce a novel parallelization technique for Discrete Event System Specification (DEVS) simulation of continuous and hybrid systems. Here, like in most parallel discrete event simulation methodologies, the models are first split into several sub-models which are then concurrently simulated on different processors. In order to avoid the cost of the global synchronization of all processes, the simulation time of each sub-model is locally synchronized in a real-time fashion with a scaled version of physical time, which implicitly synchronizes all sub-models. The new methodology, coined Scaled Real-Time Synchronization (SRTS), does not ensure a perfect synchronization in its implementation. However, under certain conditions, the synchronization error introduced only provokes bounded numerical errors in the simulation results. SRTS uses the same physical time-scaling parameter throughout the entire simulation. We also developed an adaptive version of the methodology (Adaptive-SRTS) 
+where this parameter automatically evolves during the simulation according to the workload. We implemented the SRTS and Adaptive-SRTS techniques in PowerDEVS, a DEVS simulation tool, under a real-time operating system called the Real-Time Application Interface. We tested their performance by simulating three large-scale models, obtaining in all cases a considerable speedup.}, 
+URL = {http://sim.sagepub.com/content/89/6/663.abstract}, 
+eprint = {http://sim.sagepub.com/content/89/6/663.full.pdf+html}, 
+journal = {SIMULATION} 
+}

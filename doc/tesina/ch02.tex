@@ -115,7 +115,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 
 
 \section{Métodos de integración QSS}
-	Quantized State System methods (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de 
+	Quantized State System methods \cite{Fer12}, \cite{Ber12}, \cite{Beltrame06quantisedstate}, \cite{Cel06} (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de 
 	eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
 	
 	\begin{equation}
@@ -161,7 +161,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 
 
 \section{$\mu$-Modelica}
-	El lenguaje $\mu$-Modelica tiene las siguientes restricciones con respecto a Modelica:
+	El lenguaje $\mu$-Modelica\cite{Ber12} tiene las siguientes restricciones con respecto a Modelica:
 
 	\begin{itemize}
 	 \item El modelo es plano, es decir no permite clases.
@@ -189,7 +189,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	La forma más simple de implementar algoritmos QSS es mediante el uso de un simulador DEVS, de hecho PowerDEVS implementa la totalidad de la familia de 
 	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues desperdician mucho poder computacional en sincronizar y transmisión de eventos.
 
-	Estas desventajas motivo el desarrollo del \emph{Stand–Alone QSS solver}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
+	Estas desventajas motivo el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
 	toda la familia de métodos QSS y permite que los modelos contengan discontinuidades de tiempo y estado.
 
 	Una dificultad impuesta por los métodos QSS es que hace uso de información estructural del modelo. Cada paso en un método QSS involucra un cambio 
@@ -214,7 +214,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 
 
 \section{Formalismo DEVS}
-	DEVS es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
+	DEVS\cite{Zeigler} es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
 	ocurren una cantidad finita de eventos).
 	Un modelo DEVS puede ser visto como un autómata que procesa una serie de eventos de entrada y genera una serie de eventos de salida. 
 	Este procesamiento está regido por la estructura interna de cada una de las partes que componen el modelo general.
@@ -363,7 +363,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 
 
 	\subsection{Modelos DEVS parametrizados}
-	Definiremos primero los modelos DEVS parametrizados como un paso previo hacia el formalismo DEVS vectorial (Vectorial DEVS or VECDEVS), el cua es una 
+	Definiremos primero los modelos DEVS parametrizados\cite{BKC12} como un paso previo hacia el formalismo DEVS vectorial (Vectorial DEVS or VECDEVS), el cua es una 
 	herramienta que nos facilitará representar modelos de gran escala en forma gráfica, en particular este formalismo se encuentra implementado en la 
 	herramienta PowerDEVS.
 
@@ -383,7 +383,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 		M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
 		\end{equation}
 
-		definimos un modelo Vectorial DEVS como la estructura:
+		definimos un modelo Vectorial DEVS\cite{BKC12} como la estructura:
 		\begin{equation}
 		V_D = \{N, X_V, Y_V, P, \{M_i\}\},
 		\end{equation}
@@ -424,7 +424,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	no balanceado.
 	 
 \section{PowerDEVS}
-	PowerDEVS es un programa, concebido para ser utilizado por expertos programadores DEVS, así como usuarios finales que solo quieren conectar bloques y simular.
+	PowerDEVS\cite{BK11}  es un programa, concebido para ser utilizado por expertos programadores DEVS, así como usuarios finales que solo quieren conectar bloques y simular.
 
 	\begin{figure}[!htbp]
 	  \includegraphics[width=\textwidth]{powerdevs}
