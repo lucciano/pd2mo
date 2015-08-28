@@ -1,5 +1,5 @@
 \section{Motivación}
-El modelado y simulación se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
+El modelado y simulación\cite{Zeigler} se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 
 Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del sistema antes de que sea construido.
 El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
@@ -26,19 +26,19 @@ Es por esto que cuando corremos un modelo es deseable que pueda ser simulado de 
 
 Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
-El modelo generamente inicia como una función matemática de la forma 
+El modelo inicia como una función matemática de la forma 
 \begin{equation*}
 	\dot{x} = f(x, u, t)
 \end{equation*}
-donde $x$ representan las variables del sistema, $u$ el estado inicial y $t$ el tiempo, este modelo, puede ser convertido en un modelo Modelica de forma textual o gráfica, dependiendo de las herramientas con las que contemos y como nos resulte más simple de describir.
+donde $x$ representan las variables del sistema, $u$ el estado inicial y $t$ el tiempo, este modelo, puede ser convertido en un modelo Modelica\cite{Fri98}\cite{Fritzson02modelica} de forma textual o gráfica, dependiendo de las herramientas con las que contemos y como nos resulte más simple de describir.
 
-PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler:2000:TMS:580780}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
+PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 
-Nos interesa poder utilizar el entorno PowerDEVS, debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
+Nos interesa poder utilizar el entorno PowerDEVS\cite{BK11}, debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
 
-En este aspecto, contamos con la herramienta \quotes{QSS-Solver}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
+En este aspecto, contamos con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
 
-Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fritzson02modelica--}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver, obteniendo lo mejor de los dos mundos.
+Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fri98}\cite{Fritzson02modelica}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver\cite{Ber12}, obteniendo lo mejor de los dos mundos.
 
 
 \begin{figure}[H]
@@ -48,7 +48,7 @@ Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de con
  \label{fig:esquema}
 \end{figure}
 
-En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS y Modelica) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS, en PowerDEVSe el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. 
+En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS\cite{BK11} y Modelica\cite{Fri98}) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS\cite{Zeigler}, en PowerDEVS el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. 
 
 Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a Modelica (o $\mu$-Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
 
@@ -83,5 +83,5 @@ Estas dos librerías llevan los formalismos DEVS hacia Modelica, pero no utiliza
 Podríamos desarrollar los modelos utilizando estas librerías y ejecutar la simulación del modelo convertido en $\mu$-Modelica con el QSS-Solver, pero esto no permite re-utilizar los modelos desarrollados en PowerDEVS.
 
 
-M/CD++ \cite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver.
+M/CD++ \cite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver\cite{Ber12}.
 
