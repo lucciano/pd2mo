@@ -1,4 +1,49 @@
-En este capitulo se describe la conversión de los modelos DEVS a modelos Modelica.
+En este capitulo describimos en detalles los pasos para realizar la transformación, utilizaremos el modelo ya presentado e introduciremos un modelo PowerDEVS con componentes vectoriales con el fin de ilustrar la transformación de estos componentes.
+
+\section{Modelos DEVS}
+
+        \subsection{Archivos PDS}
+        PowerDEVS trabaja principalmente con dos archivos, .PDM y .PDS.
+        Los archivos PDM es utilizado por el editor de modelos, pues contiene información estructural, así como información de posición de los modelos dentro del 
+        editor, sus parámetros, lo cual indica nombre, tipo y valor, descripción de los modelos, la cantidad de puertos de cada modelo y las conexiones
+        entre los modelos, los detalles de como esas conexiones son visualizadas por lineas y los detalles del recorrido de esas lineas. 
+        Todos estos elementos son utilizados en primera medida con el editor de modelos, pero tambien son utilizados para generar el archivo PDS el cual es el 
+        genera el código de la simulación.
+        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación, en el listado \ref{lst:pdsstruc} se pueden ver su estructura.
+        
+\begin{listing}[H]
+\begin{minted}{console}
+Root-Coordinator
+ {
+  Simulator
+   {
+        ...
+   }
+   ...
+  Simulator
+   {
+        ...
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+        ...
+   }
+ }
+\end{minted}
+\caption{Estructura de un archivo PDS.}
+\label{lst:pdsstruc}
+\end{listing}
+
+        Se puede observar un \texttt{Root-Coordinator} el cual contiene (marcado con los paréntesis) una lista de \texttt{Simulator}, tres listas de 
+        conexiones \texttt{EIC}, \texttt{EOC} y \texttt{IC}, conexiones de entrada externa (External Input Connections), 
+        conexiones de salida externa (external output connections) y conexiones internas (Internal Connections).
+
 
 \section{Modelos Atómicos}
 Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
@@ -33,9 +78,9 @@ Los modelos no encontrados son ignorados en la traducción.
 Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
 Para el $i$-esimo modelo atómico del modelo acoplado
 \begin{itemize}
-	\item Se incluye el código Modelica del $i$-esimo modelo atómico
-	\item Se remplazan los parámetros $p$ por los del $i$-esimo modelo atómico.
-	\item Se reescriben todas las variables (excepto la variable $time$) construido con $i$ y el nombre del modelo (en Modelica).
+        \item Se incluye el código Modelica del $i$-esimo modelo atómico
+        \item Se remplazan los parámetros $p$ por los del $i$-esimo modelo atómico.
+        \item Se reescriben todas las variables (excepto la variable $time$) construido con $i$ y el nombre del modelo (en Modelica).
 \end{itemize}
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
@@ -52,8 +97,8 @@ Veamos como se realiza la transformación paso a paso con un ejemplo de un integ
 
 Este modelo incluye los siguientes modelos atómicos:
 \begin{itemize}
-	\item Constante: Constant0
-\begin{minted}{modelica}	
+        \item Constante: Constant0
+\begin{minted}{modelica}        
 class Constant
   parameter Real k = 1;
   Real y[1];
@@ -62,8 +107,8 @@ equation
 end Constant;
 \end{minted}
 
-	\item Sumador: WSum0
-\begin{minted}{modelica}	
+        \item Sumador: WSum0
+\begin{minted}{modelica}        
 class WSum
   parameter Real p[9]={0,0,0,0,0,0,0,0};
   parameter Integer n= integer(p[9]);
@@ -75,8 +120,8 @@ equation
 end WSum;
 \end{minted}
 
-	\item Integrador: QSSIntegrator0
-\begin{minted}{modelica}	
+        \item Integrador: QSSIntegrator0
+\begin{minted}{modelica}        
 class QSSIntegrator
   parameter Real p[4]={0,0,0,0,0,0,0,0};
   parameter Real x0 = p[4];
@@ -87,12 +132,12 @@ equation
 end QSSIntegrator;
 \end{minted}
 
-	\item Gnu Plot : GNUPlot0, el cual no va a ser convertido debido a que no tiene un modelo equivalente en modelica.
+        \item Gnu Plot : GNUPlot0, el cual no va a ser convertido debido a que no tiene un modelo equivalente en modelica.
 \end{itemize}
 
 El integrador es el primero en la lista de atómicos dentro del PowerDEVS, por lo que es el primero en procesarse y por lo tanto obtiene el prefijo $<nombre modelo>\_0\_$ para sus variables, también remplazamos los parámetros provenientes de la simulación de PowerDEVS:
 
-\begin{minted}{modelica}	
+\begin{minted}{modelica}        
 class QSSIntegrator
   parameter Real QSSIntegrator_0_p[4]={0,1e-06,0.001,0};
   parameter Real QSSIntegrator_0_x0 = 0;
@@ -115,18 +160,18 @@ equation
 end WSum;
 \end{minted}
 
-\begin{minted}{modelica}	
+\begin{minted}{modelica}        
 class Constant
   parameter Real Constant_2_k = 1;
   Real Constant_2_y[1];
 equation
   Constant_2_y[1] = Constant_2_k;
-end Constant;	
+end Constant;   
 \end{minted}
 
 En este punto podemos juntar las declaraciones y ecuaciones dentro de un nuevo modelo, el cual llamaremos con el nombre del modelo a convertir.
 
-\begin{minted}{modelica}	
+\begin{minted}{modelica}        
 class Integrador
   parameter Real QSSIntegrator_0_p[4]={0,1e-06,0.001,0};
   parameter Real QSSIntegrator_0_x0 = 0;
@@ -145,7 +190,7 @@ end QSSIntegrator;
 \end{minted}
 
 Luego de agregar las equaciones correspondientes a las interconecciones de los modelos atómicos, obtenemos el siguiente modelo
-	
+        
 \begin{minted}{modelica}
 model Integrador
   parameter Real QSSIntegrator_0_p[4] = {0,1e-06,0.001,0};
