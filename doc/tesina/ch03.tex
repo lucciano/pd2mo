@@ -13,12 +13,13 @@ En este capitulo describimos en detalles los pasos para realizar la transformaci
         esbozo de su estructura.
         
 \begin{listing}[H]
-\begin{minted}{console}
+\begin{minted}{text}
 Root-Coordinator
  {
   Simulator
    {
-        ...
+    Path = vector\qss_sum_vec.h
+    Parameters = "1","-1","1","0","0","0","0","0",3.000000e+00,"N"
    }
    ...
     Coordinator
@@ -46,27 +47,38 @@ Root-Coordinator
 \label{lst:pdsstruc}
 \end{listing}
 
-        Se puede observar un \texttt{Root-Coordinator} el cual contiene (marcado entre llaves) una lista de \texttt{Simulator} que representan los modelos atómicos
-        y/o \texttt{Coordinator} que representan los modelos acoplados y tres listas de 
+        Se puede observar un elemento \texttt{Root-Coordinator} el cual contiene (marcado entre llaves) una lista de \texttt{Simulator} que representan 
+	los modelos atómicos y/o \texttt{Coordinator} que representan los modelos acoplados y tres listas de 
         conexiones \texttt{EIC}, \texttt{EOC} y \texttt{IC}, conexiones de entrada externa (External Input Connections), 
         conexiones de salida externa (external output connections) y conexiones internas (Internal Connections).
 
-        Los modelos acoplados dado que también son modelos DEVS, replican la estructura listado \ref{lst:pdsstruc}.
+	Las lista de conexiones internas (IC) es una lista de par de pares de números naturales, de la forma $(a,b);(c,d)$.
+	Donde el primer par se refiere al origen de la conexión (puerto $b$ de salida) del modelo $a$ y el segundo al fin de la conexion (puerto $d$ de entrada) 
+	del modelo $c$, ambos modelos se refiere a la lista de modelos (atómicos o acoplados) del actual modelo.
+	Es decir el par $(0,0);(1,0)$ indica que el puerto $0$ del segundo modelo (posición 1) es de entrada  y esta conectado al puerto $0$ del primer modelo.
 
+	Tanto EIC y EOC siguen el mismo patron excepto que replazan el modelo de los puertos de salida y extrada respectivamente por $0$. Es decir el elemento 
+	$(6,0);(0,1)$ en EOC indica que el puerto $0$ del modelo $6$ (septima posición)  se encuentra conectado con el puerto $1$ de salida del modelo 
+	acoplado, y un par $(0,0);(2,1)$ en EIC indica que el primer puerto (puerto $0$) se encuentra conectado con el modelo 2 (tercera posición) en su puerto $1$.
+
+        Los modelos acoplados dado que también son modelos DEVS, replican la estructura listado \ref{lst:pdsstruc}.
 
         Para poder leer esta estructura se cuenta con la librería de PowerDEVS\footnote{http://sourceforge.net/p/powerdevs/code/HEAD/tree/} la cual nos permite acceder
         a la estructura desde C++. 
 
-
 \section{Modelos Atómicos}
-Los modelos atómicos no son traducidos automáticamente, deben ser provistos siguiendo la siguiente especificación:
+	
+	Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la tradución de este modelo se utiliza 
+	un modelo Modelica el cual debe seguir la siguiente especificación:
 
 \begin{itemize}
-\item El código debe ser Modelica ($\mu$modelica) valido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo
-\item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$
-\item Los valores de entrada del modelo son asociados a la variable $u$
-\item Los valores de salida del modelos son asociados a la variable $y$
-% \item La cantidad de ecuaciones y variables debe ser igual.
+	\item El código debe ser Modelica ($\mu$-modelica) valido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
+	PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\\qss\_sum\_vec.h} utilizara un modelo 
+	\texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se replaza \quotes{\\} por \quotes{/} para permitir algunos modelos cuyos \texttt{Path} 
+	contiene ese separadores de directorios}
+	\item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$
+	\item Los valores de entrada del modelo son asociados a la variable $u$
+	\item Los valores de salida del modelos son asociados a la variable $y$
 \end{itemize}
 
 Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo ambos dentro del directorio qss.
