@@ -81,7 +81,8 @@ Root-Coordinator
 	\item Los valores de salida del modelos son asociados a la variable $y$
 \end{itemize}
 
-Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo ambos dentro del directorio qss.
+	Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo mostrado en el listado 
+	\ref{lst:qssintegrator.mo} ambos dentro del directorio qss.
 
 \begin{listing}[H]
 \begin{minted}{modelica}
@@ -95,7 +96,11 @@ equation
 end QSSIntegrator;
 \end{minted}
 \caption{Modelo qss\_integrator.mo}
+\label{lst:qssintegrator.mo}
 \end{listing}
+
+	El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el listado \ref{lst:qssint.pds}, en este se puede ver el \texttt{Path} y \texttt{Parameters}
+	que componen todos los modelos atómicos.
 
 \begin{listing}[H]
 \begin{minted}{text}
@@ -107,8 +112,12 @@ end QSSIntegrator;
    }
    ...
 \end{minted}
+\label{lst:qssint.pds}
 \caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}
 \end{listing}
+
+	Luego de remplazar los parámetros en la variable \texttt{p}, se prefijan todas las variables por el nombre del modelo y su posición en este caso con el prefijo 
+	\quotes{\texttt{QSSIntegrator\_1\_}}
 
 \begin{listing}[H]
 \begin{minted}{modelica}
