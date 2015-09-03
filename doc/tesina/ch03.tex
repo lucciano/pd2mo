@@ -116,7 +116,8 @@ end QSSIntegrator;
 \caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}
 \end{listing}
 
-	Luego de remplazar los parámetros en la variable \texttt{p}, se prefijan todas las variables por el nombre del modelo y su posición en este caso con el prefijo 
+	Luego de remplazar los parámetros en la variable \texttt{p}, se prefijan todas las variables del modelo\footnote{La única variable que no se prefijada 
+	es \texttt{time}} por el nombre del modelo y su posición en este caso con el prefijo 
 	\quotes{\texttt{QSSIntegrator\_1\_}}
 
 \begin{listing}[H]
@@ -133,12 +134,14 @@ end QSSIntegrator;
 \caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}
 \end{listing}
 
-
-
 	Los parámetros son remplazadas en el modelo, evaluados en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
 	provee (y utiliza) PowerDEVS.}, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
-	Los modelos no encontrados son ignorados en la traducción y se reportan en el registro (log) de la conversión.
+	Los modelos no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
+
+	Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
+	(dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivaletes.
+	\quotes{Plano}
 
 \section{Modelos Acoplados Planos}
 
