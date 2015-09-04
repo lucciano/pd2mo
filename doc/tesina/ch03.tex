@@ -118,7 +118,8 @@ end QSSIntegrator;
 
 	Luego de remplazar los parámetros en la variable \texttt{p}, se prefijan todas las variables del modelo\footnote{La única variable que no se prefijada 
 	es \texttt{time}} por el nombre del modelo y su posición en este caso con el prefijo 
-	\quotes{\texttt{QSSIntegrator\_1\_}}
+	\quotes{\texttt{QSSIntegrator\_1\_}}, de esta forma podremos combinar varios modelos atómicos de forma que no existan \quotes{colisión} de nombres de variables,
+	es decir dos variables de distintos modelos atómicos con el mismo nombre en Modelica. 
 
 \begin{listing}[H]
 \begin{minted}{modelica}
@@ -134,24 +135,21 @@ end QSSIntegrator;
 \caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}
 \end{listing}
 
-	Los parámetros son remplazados en el modelo, evaluandolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
+	Los parámetros son remplazados en el modelo, evaluándolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
 	provee (y utiliza) PowerDEVS.}, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
 	Los modelos no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
 
 	Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
-	(dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivaletes.
+	(dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivalentes.
 	\quotes{Plano}
 
 \section{Modelos Acoplados Planos}
 
-Llamamos \emph{Modelos Acoplados Planos} a los Modelos que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
-Para el $i$-esimo modelo atómico del modelo acoplado
-\begin{itemize}
-        \item Se incluye el código Modelica del $i$-esimo modelo atómico
-        \item Se remplazan los parámetros $p$ por los del $i$-esimo modelo atómico.
-        \item Se reescriben todas las variables (excepto la variable $time$) construido con $i$ y el nombre del modelo (en Modelica).
-\end{itemize}
+	Llamamos \emph{Modelos Acoplados Planos} a los Modelos que solo contienen \emph{Modelos Atómicos}. Es decir que no contienen Modelos acoplados.
+
+	Cada uno de los modelos atómicos que incluye se transforma de la misma forma que describimos en la sección anterior y dado que no existen \quotes{colisiones} 
+	de nombres variables.
 
 Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
 
@@ -205,7 +203,8 @@ end QSSIntegrator;
         \item Gnu Plot : GNUPlot0, el cual no va a ser convertido debido a que no tiene un modelo equivalente en modelica.
 \end{itemize}
 
-El integrador es el primero en la lista de atómicos dentro del PowerDEVS, por lo que es el primero en procesarse y por lo tanto obtiene el prefijo $<nombre modelo>\_0\_$ para sus variables, también remplazamos los parámetros provenientes de la simulación de PowerDEVS:
+El integrador es el primero en la lista de atómicos dentro del PowerDEVS, por lo que es el primero en procesarse y por lo tanto obtiene el 
+	prefijo $<nombre modelo>\_0\_$ para sus variables, también remplazamos los parámetros provenientes de la simulación de PowerDEVS:
 
 \begin{minted}{modelica}        
 class QSSIntegrator
