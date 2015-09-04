@@ -87,7 +87,7 @@ Root-Coordinator
 \begin{listing}[H]
 \begin{minted}{modelica}
 class QSSIntegrator
-        parameter Real p[4]={0,0,0,0,0,0,0,0};
+  parameter Real p[4]={0,0,0,0,0,0,0,0};
   parameter Real x0 = p[4];
   Real u[1];
   Real y[1](start = {x0});
@@ -100,7 +100,7 @@ end QSSIntegrator;
 \end{listing}
 
 	El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el listado \ref{lst:qssint.pds}, en este se puede ver el \texttt{Path} y \texttt{Parameters}
-	que componen todos los modelos atómicos.
+	que componen todos los modelos atómicos (por supuesto con los valores diferentes).
 
 \begin{listing}[H]
 \begin{minted}{text}
@@ -134,7 +134,7 @@ end QSSIntegrator;
 \caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}
 \end{listing}
 
-	Los parámetros son remplazadas en el modelo, evaluados en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
+	Los parámetros son remplazados en el modelo, evaluandolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
 	provee (y utiliza) PowerDEVS.}, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
 	Los modelos no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
@@ -145,7 +145,7 @@ end QSSIntegrator;
 
 \section{Modelos Acoplados Planos}
 
-Llamamos \emph{Modelos Acoplados Planos} a los Modelos Acoplados que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
+Llamamos \emph{Modelos Acoplados Planos} a los Modelos que solo contienen \emph{Modelos Atómicos}. Estos modelos son convertidos en modelos Modelica de la siguiente forma:
 Para el $i$-esimo modelo atómico del modelo acoplado
 \begin{itemize}
         \item Se incluye el código Modelica del $i$-esimo modelo atómico
