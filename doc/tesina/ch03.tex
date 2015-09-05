@@ -99,8 +99,8 @@ end QSSIntegrator;
 \label{lst:qssintegrator.mo}
 \end{listing}
 
-	El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el listado \ref{lst:qssint.pds}, en este se puede ver el \texttt{Path} y \texttt{Parameters}
-	que componen todos los modelos atómicos (por supuesto con los valores diferentes).
+	El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el listado \ref{lst:qssint.pds}, en este se puede ver 
+	el valores de \texttt{Path} y \texttt{Parameters} que componen todos los modelos atómicos (por supuesto con los valores diferentes).
 
 \begin{listing}[H]
 \begin{minted}{text}
@@ -152,6 +152,15 @@ end QSSIntegrator;
 	de nombres variables, podes combinar las diferentes secciones en un modelo compuesto el cual tendra todas las secciones \texttt{equation}, \texttt{initial equation} y declaraciones.
 	Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) son escalares son conectados con un ecuación 
 	del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, solo que dentro de un $for$.
+
+\begin{listing}[H]
+	\inputminted[linenos]{modelica}{src/lotka_volterra-orig.mo}
+	\caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
+	\label{lst:lotka_volterra-orig.mo}
+\end{listing}
+
+	En el listado \ref{lst:lotka_volterra-orig.mo}
+
 
 \section{Modelos Acoplados Jerárquicos}
 En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos, vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
