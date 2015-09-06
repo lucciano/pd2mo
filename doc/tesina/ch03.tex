@@ -53,7 +53,7 @@ Root-Coordinator
         conexiones de salida externa (external output connections) y conexiones internas (Internal Connections).
 
 	Las lista de conexiones internas (IC) es una lista de par de pares de números naturales, de la forma $(a,b);(c,d)$.
-	Donde el primer par se refiere al origen de la conexión (puerto $b$ de salida) del modelo $a$ y el segundo al fin de la conexion (puerto $d$ de entrada) 
+	Donde el primer par se refiere al origen de la conexión (puerto $b$ de salida) del modelo $a$ y el segundo al fin de la conexión (puerto $d$ de entrada) 
 	del modelo $c$, ambos modelos se refiere a la lista de modelos (atómicos o acoplados) del actual modelo.
 	Es decir el par $(0,0);(1,0)$ indica que el puerto $0$ del segundo modelo (posición 1) es de entrada  y esta conectado al puerto $0$ del primer modelo.
 
@@ -159,9 +159,19 @@ end QSSIntegrator;
 	\label{lst:lotka_volterra-orig.mo}
 \end{listing}
 
-	En el listado \ref{lst:lotka_volterra-orig.mo} se puede ver el resultado de la conversión del modelo Lotka Volterra, en el se puede apreciar en las lineas 
+	En el listado \ref{lst:lotka_volterra-orig.mo} se puede ver el resultado de la conversión del modelo Lotka Volterra, en el se puede apreciar en las líneas 
 	2 a 21 correspondientes a las declaraciones de las variables de los modelos atómicos y de las líneas 22 a 27 correspondientes a las ecuaciones de estos 
-	modelos.
+	modelos y de la línea 28 a 35 son las ecuaciones correspondientes a las conexiones entre modelos atómicos.
+
+	En las lineas de conexiones (28 a 35) se puede ver como se utilizan las variables \texttt{u} e \texttt{y} (prefijadas con sus correspondientes modelos
+	atómicos y posición). Tanto los puertos de entrada, \texttt{u}, como los puertos de salida, \texttt{y}, son representados en Modelica como arreglos,
+	permitiendo a modelos que cuentan con más de un puerto reflejar este hecho, asociando cada puerto con la posición correspondiente del arreglo. 
+	cabe mencionar que existe un desfase, ya que los puerto en PowerDEVS son enumerados desde el cero, mientras que Modelica inician los arreglos de uno, por lo
+	que el puerto $n$ corresponde a la variable $u[n+1]$ si es un puerto de entrada y $y[n+1]$ si es un puerto de salida.
+
+	En el ejemplo Lotka Volterra no hay modelos atómicos vectoriales, veremos más adelante un ejemplo, pero es oportuno mencionar que los modelos
+	vectoriales difieren en la forma en que se conectan, dado que la conexión debe realizarse iterando, con un \texttt{for}, sobre la primera dimensión del 
+	arreglo que representa el puerto. 
 
 
 \section{Modelos Acoplados Jerárquicos}
