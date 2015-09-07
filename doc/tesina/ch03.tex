@@ -175,34 +175,18 @@ end QSSIntegrator;
 
 
 \section{Modelos Acoplados Jerárquicos}
-En la sección anterior mostramos como son convertidos modelos acoplados compuestos por modelos atómicos, para convertir un modelo acoplado jerárquico, es decir con más modelos acoplados internos, vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
+	En la sección anterior mostramos como son convertidos modelos acoplados planos, para convertir un modelo acoplado jerárquico, es decir un modelos con más 
+	modelos acoplados internos, vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
 
-Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
+	Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
 
-\begin{itemize}
-\item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
-\item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
-\end{itemize} 
+	\begin{itemize}
+		\item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados 
+			sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
+		\item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
+	\end{itemize} 
 
-De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anterior.
-
-A modo de ejemplo se muestran, el esquema del integrador de la sección anterior con un modelo acoplado en \ref{fig:acomplado} y luego el mismo modelo en \ref{fig:aplanado}, aplanado, el cual puede ser convertido pues ya no presenta jerarquías.
-
-\begin{figure}[H]
-\centering
- \includegraphics[width=0.5\linewidth]{integrator-sample}
- \caption{Representación de un modelo simple de integrador acoplado}
- \label{fig:acomplado}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
- \includegraphics[width=0.5\linewidth]{integrator-expanded}
- \caption{Representación del modelo de integrador aplanado }
- \label{fig:aplanado}
-\end{figure}
-
+	De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anteriormente descripto.
 
 
 \section{Modelos Vectoriales}
