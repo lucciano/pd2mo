@@ -203,6 +203,7 @@ end QSSIntegrator;
         con mayores detalles en una sección posterios, y a la izquierda el modelo acoplado \texttt{Coupled0}.
 
 \begin{figure}[H]
+
   %\setcapwidth{0.6\textwidth}
   \makebox[\textwidth][c]{%
         \begin{minipage}[t][][b]{.59\textwidth}
@@ -255,15 +256,15 @@ end QSSIntegrator;
 	    child { node {Scilab Command0}}		
 	    child { node {QSS Integartor0}}
 	    child { node {QSS Integartor1}}		
-	      child { node {WSum0}}
-	      child { node {Inseverse0}}
-	      child { node {Multiplier0}}
-	      child { node {Multiplier1}}
-	      child { node {Multiplier2}}
-	      child { node {Inseverse1}}
-	      child { node {Multiplier3}}
-	      child { node {Multiplier4}}
-	      child { node {WSum1}}
+	    child { node {WSum0}}
+	    child { node {Inseverse0}}
+	    child { node {Multiplier0}}
+	    child { node {Multiplier1}}
+	    child { node {Multiplier2}}
+	    child { node {Inseverse1}}
+	    child { node {Multiplier3}}
+	    child { node {Multiplier4}}
+	    child { node {WSum1}}
 	    child { node {Switch0}}
 	    child { node {Ron}}
 	    child { node {Roff}}
@@ -275,7 +276,8 @@ end QSSIntegrator;
 	    child { node {WSum1}};
 	\end{tikzpicture}
         \end{minipage}%
-}
+}	
+	\caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha)}
         \label{fig:coupled-tree}
 \end{figure}
 
