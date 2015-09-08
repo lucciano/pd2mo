@@ -281,6 +281,72 @@ end QSSIntegrator;
         \label{fig:coupled-tree}
 \end{figure}
 
+	En la figure \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos a la jerarquía superior y se modifican
+	las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos listados despues del modelo acoplado deben ser ajustados para tomar en cuenta
+	los nuevos modelos atómicos agregados.
+
+\begin{minipage}[t]{0.5\linewidth}
+\centering
+\begin{minted}[linenos]{text}
+ IC
+   {
+   (13,0);(1,0)
+    (12,0);(2,0)
+    (8,0);(4,1)
+    (4,0);(3,0)
+    (5,0);(3,1)
+    (3,1);(11,2)
+    (11,0);(10,0)
+    (2,0);(9,0)
+    (2,0);(12,0)
+    (2,0);(13,1)
+    (3,0);(11,0)
+    (3,0);(13,0)
+    (10,0);(11,1)
+    (10,0);(5,1)
+    (1,0);(3,2)
+    (1,0);(12,1)
+    (1,0);(9,1)
+    (6,0);(5,2)
+    (6,0);(4,0)
+    (7,0);(5,0)
+    (7,0);(4,2)
+}
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.5\linewidth}
+\begin{minted}{text}
+     EIC
+       {
+        (0,2);(4,1)
+        (0,0);(2,1)
+        (0,0);(0,1)
+        (0,1);(3,1)
+        (0,1);(5,0)
+        (0,1);(7,0)
+        (0,1);(0,0)
+       }
+      EOC
+       {
+        (6,0);(0,1)
+        (8,0);(0,0)
+       }
+      IC
+       {
+        (0,0);(1,0)
+        (7,0);(8,0)
+        (2,0);(3,0)
+        (3,0);(4,0)
+        (5,0);(6,0)
+        (4,0);(8,1)
+        (1,0);(2,0)
+        (1,0);(7,1)
+        (8,0);(6,1)
+       }
+\end{minted}
+\end{minipage}
+
+
 
 \section{Modelos Vectoriales}
 Los modelos vectoriales difieren levemente de los atómicos no vectoriales. Estos modelos pueden tener tanto la entrada como la salida de sus conectores de forma vectorial, por lo que los modelos vectoriales deben indicarlos con la anotación de Modelica $PD2MO$, por ejemplo:
