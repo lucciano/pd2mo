@@ -1,5 +1,6 @@
 % modificar la caratula
-
+%\mathbb{R}
+%\begin{minipage}[t]{0.5\textwidth}
 %  2.2.4 mas coloquial no solo la definicion
 % 			explicar que los eventos vectoriales tienen un subindice
 
@@ -43,9 +44,16 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[lined,boxed,spanish,onelanguage]{algorithm2e} 
 \usepackage{graphicx}
+\usepackage[strict]{changepage}
+
 \usepackage{booktabs}
 \usepackage{tikz}
 \usetikzlibrary{trees}
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+
 \usepackage{listings}
 \usepackage{mdframed}
 %\renewcommand{\abstractname}{Resumen: }
