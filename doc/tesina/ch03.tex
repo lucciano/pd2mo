@@ -138,7 +138,7 @@ end QSSIntegrator;
         Los parámetros son remplazados en el modelo, evaluándolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
         provee (y utiliza) PowerDEVS.}, lo que los transforma en float, los cuales son presentados como reales (Real) en el código.
 
-        Los modelos no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
+        Los modelos (atómicos) no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
 
         Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
         (dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivalentes.
@@ -199,8 +199,8 @@ end QSSIntegrator;
  \caption{Ejemplo de Modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}
 \end{figure}
 
-        En la figura  se observa a la derecha el modelo de un convertidor Buck (o reductor) es un convertidor de potencia, el cual introduciremos
-        con mayores detalles en una sección posterios, y a la izquierda el modelo acoplado \texttt{Coupled0}.
+        En la figura \ref{fig:coupledsample}  se observa a la derecha el modelo de un convertidor Buck (o reductor) es un convertidor de potencia, 
+	el cual introduciremos con mayores detalles en una sección posterios, y a la izquierda el modelo acoplado \texttt{Coupled0}.
 
 \begin{figure}[H]
 
@@ -281,10 +281,11 @@ end QSSIntegrator;
         \label{fig:coupled-tree}
 \end{figure}
 
-	En la figure \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos a la jerarquía superior y se modifican
-	las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos listados despues del modelo acoplado deben ser ajustados para tomar en cuenta
-	los nuevos modelos atómicos agregados.
+	En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos 
+	a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
+	listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados.
 
+\begin{listing}
 \begin{minipage}[t]{0.5\linewidth}
 \centering
 \begin{minted}[linenos]{text}
@@ -315,7 +316,7 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \begin{minipage}[t]{0.5\linewidth}
-\begin{minted}{text}
+\begin{minted}[linenos]{text}
      EIC
        {
         (0,2);(4,1)
@@ -345,6 +346,10 @@ end QSSIntegrator;
        }
 \end{minted}
 \end{minipage}
+\label{lst:connections}
+\caption{Conexiones del modelo acoplado convertidor Buck de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
+	las conexiones, external entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
+\end{listing}
 
 
 

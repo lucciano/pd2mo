@@ -37,7 +37,6 @@
 %-----------Paquetes-------------------------
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage[spanish]{babel}
 \usepackage{amssymb}
 \usepackage{minted}
 \usemintedstyle{trac} 
@@ -54,10 +53,10 @@
 \tikzstyle{selected}=[draw=red,fill=red!30]
 \tikzstyle{optional}=[dashed,fill=gray!50]
 
-\usepackage{listings}
 \usepackage{mdframed}
-%\renewcommand{\abstractname}{Resumen: }
-\renewcommand{\lstlistingname}{Listado}
+
+\usepackage[spanish]{babel}
+\renewcommand\listingscaption{Listado}
 
 \newcommand\TBox[2][]{%
   \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
