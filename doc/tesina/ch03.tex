@@ -351,6 +351,62 @@ end QSSIntegrator;
 	las conexiones, external entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
 \end{listing}
 
+	En el modelos aplanado, se modificaran de listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, si pasan por un puerto de salida o de entrada.
+\begin{minted}[linenos]{text}
+ IC
+   {
+   (21,0);(1,0)
+    (20,0);(2,0)
+    (16,0);(12,1)
+
+    (4,0);(3,0)
+    (5,0);(3,1)
+    (3,1);(11,2)
+
+    (19,0);(18,0)
+    (2,0);(17,0)
+    (2,0);(20,0)
+    (2,0);(21,1)
+
+    (3,0);(19,0)
+    (3,0);(21,0)
+    (18,0);(19,1)
+
+    (18,0);(13,1)
+    (1,0);(3,2)
+
+    (1,0);(20,1)
+    (1,0);(17,1)
+    (14,0);(13,2)
+    (14,0);(12,0)
+    (15,0);(13,0)
+    (15,0);(12,2)
+}
+\end{minted}
+
+	Desplazar cada conexiones considerando los nuevos atómicos que se agregaran en la posición , en nuestro caso sumamos $8$ a los mayores que $3$, por lo que \texttt{(13,0);(1,0)} se combierte en \texttt{(21,0);(1,0)}, \texttt{(12,0);(2,0)} en \texttt{(20,0);(2,0)}, \texttt{(8,0);(4,1)} en \texttt{(16,0);(12,1)}, etc...
+
+	Agregamos las conexiones internas del modelo acoplado y desplazamos esta vez la posición del modelo acoplado, en nuestro caso $3$, por lo que la conexión interna del acoplado, por lo que la conexión \texttt{(0,0);(1,0)}, se combierte en \texttt{(3,0);(4,0)},
+\texttt{(7,0);(8,0)} en \texttt{(10,0);(11,0)}, \texttt{(2,0);(3,0)} en \texttt{(5,0);(6,0)}, etc.
+
+\begin{minted}{text}
+        (3,0);(4,0)
+        (10,0);(11,0)
+        (5,0);(6,0)
+        (6,0);(7,0)
+        (8,0);(9,0)
+        (7,0);(11,1)
+        (4,0);(5,0)
+        (4,0);(10,1)
+        (11,0);(9,1)
+\end{minted}
+
+	Cada conexión entrante o saliente del modelo acoplado (en nuestro caso conexiones de la forma \texttt{(3,$x_1$);($y_1$,$z_1$)} o \texttt{($x_2$,$y_2$);($z_2$,$3$)}) deben ser reemlazadas siguiendo las conexiones con los puertos de entrada y salida del modelo acoplado, es decir por cada conexión entrante al modelo acoplado, de la forma
+ \texttt{(3,$x_1$);($y_1$,$z_1$)} y por cada conexión de salida externa (EOC) del modelo atómico \texttt{($y_3$,$z_3$);(0,$z_1$)}, se debe agregar la conexión interna al modelo aplanado 
+        (6,0);(0,1)
+        (8,0);(0,0)
+
+o \texttt{($x_2$,$y_2$);($z_2$,$3$)}
 
 
 \section{Modelos Vectoriales}
