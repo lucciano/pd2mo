@@ -189,18 +189,18 @@ end QSSIntegrator;
         De esta forma obtenemos un modelo con solo modelos atómicos el cual podemos convertir con el procedimiento anteriormente descripto.
 
 \begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
+        \begin{minipage}{0.5\textwidth}
         \includegraphics[width=\linewidth]{buck_disk}
-	\end{minipage}
+        \end{minipage}
         \begin{minipage}{0.5\textwidth}
         \includegraphics[width=\linewidth]{buck_disk_coupled0}
-	\end{minipage}
+        \end{minipage}
  \label{fig:coupledsample}
  \caption{Ejemplo de Modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}
 \end{figure}
 
         En la figura \ref{fig:coupledsample}  se observa a la derecha el modelo de un convertidor Buck (o reductor) es un convertidor de potencia, 
-	el cual introduciremos con mayores detalles en una sección posterios, y a la izquierda el modelo acoplado \texttt{Coupled0}.
+        el cual introduciremos con mayores detalles en una sección posterios, y a la izquierda el modelo acoplado \texttt{Coupled0}.
 
 \begin{figure}[H]
 
@@ -209,81 +209,81 @@ end QSSIntegrator;
         \begin{minipage}[t][][b]{.59\textwidth}
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
-	  two children at (0.5,-0.7) and (0.5,-1.4)},
-	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-	  \node {Root-Coordinator}
-	    child { node {Scilab Command0}}		
-	    child { node {QSS Integartor0}}
-	    child { node {QSS Integartor1}}		
-	    child { node {Coupled0}
-	      child { node {WSum0}}
-	      child { node {Inseverse0}}
-	      child { node {Multiplier0}}
-	      child { node {Multiplier1}}
-	      child { node {Multiplier2}}
-	      child { node {Inseverse1}}
-	      child { node {Multiplier3}}
-	      child { node {Multiplier4}}
-	      child { node {WSum1}}
-	    }
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child { node {Switch0}}
-	    child { node {Ron}}
-	    child { node {Roff}}
-	    child { node {Square0}}
-	    child { node {GNUPlot0}}
-	    child { node {Hysteresis0}}
-	    child { node {Switch1}}
-	    child { node {WSum0}}
-	    child { node {WSum1}};
-	\end{tikzpicture}
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node {Scilab Command0}}             
+            child { node {QSS Integartor0}}
+            child { node {QSS Integartor1}}             
+            child { node {Coupled0}
+              child { node {WSum0}}
+              child { node {Inseverse0}}
+              child { node {Multiplier0}}
+              child { node {Multiplier1}}
+              child { node {Multiplier2}}
+              child { node {Inseverse1}}
+              child { node {Multiplier3}}
+              child { node {Multiplier4}}
+              child { node {WSum1}}
+            }
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child { node {Switch0}}
+            child { node {Ron}}
+            child { node {Roff}}
+            child { node {Square0}}
+            child { node {GNUPlot0}}
+            child { node {Hysteresis0}}
+            child { node {Switch1}}
+            child { node {WSum0}}
+            child { node {WSum1}};
+        \end{tikzpicture}
         \end{minipage} %
         \hfill
         \begin{minipage}[t][][b]{.59\textwidth}
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
-	  two children at (0.5,-0.7) and (0.5,-1.4)},
-	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-	  \node {Root-Coordinator}
-	    child { node {Scilab Command0}}		
-	    child { node {QSS Integartor0}}
-	    child { node {QSS Integartor1}}		
-	    child { node {WSum0}}
-	    child { node {Inseverse0}}
-	    child { node {Multiplier0}}
-	    child { node {Multiplier1}}
-	    child { node {Multiplier2}}
-	    child { node {Inseverse1}}
-	    child { node {Multiplier3}}
-	    child { node {Multiplier4}}
-	    child { node {WSum1}}
-	    child { node {Switch0}}
-	    child { node {Ron}}
-	    child { node {Roff}}
-	    child { node {Square0}}
-	    child { node {GNUPlot0}}
-	    child { node {Hysteresis0}}
-	    child { node {Switch1}}
-	    child { node {WSum0}}
-	    child { node {WSum1}};
-	\end{tikzpicture}
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node {Scilab Command0}}             
+            child { node {QSS Integartor0}}
+            child { node {QSS Integartor1}}             
+            child { node {WSum0}}
+            child { node {Inseverse0}}
+            child { node {Multiplier0}}
+            child { node {Multiplier1}}
+            child { node {Multiplier2}}
+            child { node {Inseverse1}}
+            child { node {Multiplier3}}
+            child { node {Multiplier4}}
+            child { node {WSum1}}
+            child { node {Switch0}}
+            child { node {Ron}}
+            child { node {Roff}}
+            child { node {Square0}}
+            child { node {GNUPlot0}}
+            child { node {Hysteresis0}}
+            child { node {Switch1}}
+            child { node {WSum0}}
+            child { node {WSum1}};
+        \end{tikzpicture}
         \end{minipage}%
-}	
-	\caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha)}
+}       
+        \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha)}
         \label{fig:coupled-tree}
 \end{figure}
 
-	En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos 
-	a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
-	listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados.
+        En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos 
+        a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
+        listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados.
 
 \begin{listing}
 \begin{minipage}[t]{0.5\linewidth}
@@ -348,48 +348,92 @@ end QSSIntegrator;
 \end{minipage}
 \label{lst:connections}
 \caption{Conexiones del modelo acoplado convertidor Buck de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
-	las conexiones, external entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
+        las conexiones, external entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
 \end{listing}
 
-	En el modelos aplanado, se modificaran de listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, si pasan por un puerto de salida o de entrada.
+        En el modelos aplanado, se modificaran de listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, si pasan por un puerto de salida o de entrada, vemos tres tipos de conexiones que deben ser modificadas:
+\begin{itemize}
+        \item Conexiones que involucran modelos atómicos ubicados después del modelo acoplado y no están relacionadas con el modelo acoplado, 
+        estas conexiones deben ser modificadas dado que insertaremos los modelos atómicos del modelo acoplado que estamos aplanando, 
+        ubicados después del modelo acoplado serán desplazados.
+        
+\begin{listing}[H]
+        \begin{minipage}{0.5\textwidth}
 \begin{minted}[linenos]{text}
- IC
-   {
-   (21,0);(1,0)
-    (20,0);(2,0)
-    (16,0);(12,1)
-
-    (4,0);(3,0)
-    (5,0);(3,1)
-    (3,1);(11,2)
-
-    (19,0);(18,0)
-    (2,0);(17,0)
-    (2,0);(20,0)
-    (2,0);(21,1)
-
-    (3,0);(19,0)
-    (3,0);(21,0)
-    (18,0);(19,1)
-
-    (18,0);(13,1)
-    (1,0);(3,2)
-
-    (1,0);(20,1)
-    (1,0);(17,1)
-    (14,0);(13,2)
-    (14,0);(12,0)
-    (15,0);(13,0)
-    (15,0);(12,2)
-}
+      IC
+        {
+         (13,0);(1,0)
+         (12,0);(2,0)
+         (8,0);(4,1)
+         (11,0);(10,0)
+         (2,0);(9,0)
+         (2,0);(12,0)
+         (2,0);(13,1)
+         (10,0);(11,1)
+         (10,0);(5,1)
+         (1,0);(12,1)
+         (1,0);(9,1)
+         (6,0);(5,2)
+         (6,0);(4,0)
+         (7,0);(5,0)
+         (7,0);(4,2)
+        }
 \end{minted}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+\begin{minted}[linenos]{text}
+      IC
+        {
+         (21,0);(1,0)
+         (20,0);(2,0)
+         (16,0);(12,1)
+         (19,0);(18,0)
+         (2,0);(17,0)
+         (2,0);(20,0)
+         (2,0);(21,1)
+         (18,0);(19,1)
+         (18,0);(13,1)
+         (1,0);(20,1)
+         (1,0);(17,1)
+         (14,0);(13,2)
+         (14,0);(12,0)
+         (15,0);(13,0)
+         (15,0);(12,2)
+       }
+\end{minted}
+        \end{minipage}
+\label{lst:conexiones1}
+\caption{Conexiones internas, como se encontraban originalmente a la izquierda y modificadas a la derecha}
+\end{listing}
 
-	Desplazar cada conexiones considerando los nuevos atómicos que se agregaran en la posición , en nuestro caso sumamos $8$ a los mayores que $3$, por lo que \texttt{(13,0);(1,0)} se combierte en \texttt{(21,0);(1,0)}, \texttt{(12,0);(2,0)} en \texttt{(20,0);(2,0)}, \texttt{(8,0);(4,1)} en \texttt{(16,0);(12,1)}, etc...
+        En el listado \ref{lst:conexiones1} se puede ver a la derecha las conexiones que fueron afectadas y a la izquierda como fueron afectadas, en nuestro ejemplo
+        se sumo $8$ (ya que insertaremos esa cantidad de modelos) a los modelos mayores que $3$ (ya que el modelos acoplado que estamos aplanando se encuentra en 
+        es posición).
 
-	Agregamos las conexiones internas del modelo acoplado y desplazamos esta vez la posición del modelo acoplado, en nuestro caso $3$, por lo que la conexión interna del acoplado, por lo que la conexión \texttt{(0,0);(1,0)}, se combierte en \texttt{(3,0);(4,0)},
-\texttt{(7,0);(8,0)} en \texttt{(10,0);(11,0)}, \texttt{(2,0);(3,0)} en \texttt{(5,0);(6,0)}, etc.
+        \item Agregamos las conexiones internas del modelo acoplado que eliminaremos al modelo acoplado \texttt{Root-Coordinator}, estas conexiones deben ser 
+        modificadas ya que los modelos atómicos insertados son insertados en la posición del modelo acoplado eliminado.
 
+\begin{listing}
+\begin{minipage}[t]{0.5\textwidth}
 \begin{minted}{text}
+      IC
+       {
+        (0,0);(1,0)
+        (7,0);(8,0)
+        (2,0);(3,0)
+        (3,0);(4,0)
+        (5,0);(6,0)
+        (4,0);(8,1)
+        (1,0);(2,0)
+        (1,0);(7,1)
+        (8,0);(6,1)
+       }
+\end{minted}
+        \end{minipage}
+        \begin{minipage}[t]{0.5\textwidth}
+\begin{minted}{text}
+      IC
+       {
         (3,0);(4,0)
         (10,0);(11,0)
         (5,0);(6,0)
@@ -399,14 +443,113 @@ end QSSIntegrator;
         (4,0);(5,0)
         (4,0);(10,1)
         (11,0);(9,1)
+       }
 \end{minted}
+        \end{minipage}
+        \label{lst:conexiones2}
+        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertados}
+\end{listing}
 
-	Cada conexión entrante o saliente del modelo acoplado (en nuestro caso conexiones de la forma \texttt{(3,$x_1$);($y_1$,$z_1$)} o \texttt{($x_2$,$y_2$);($z_2$,$3$)}) deben ser reemlazadas siguiendo las conexiones con los puertos de entrada y salida del modelo acoplado, es decir por cada conexión entrante al modelo acoplado, de la forma
- \texttt{(3,$x_1$);($y_1$,$z_1$)} y por cada conexión de salida externa (EOC) del modelo atómico \texttt{($y_3$,$z_3$);(0,$z_1$)}, se debe agregar la conexión interna al modelo aplanado 
+        En el listado \ref{lst:conexiones2} se pueden ver las conexiones como se encontraban originalmente (izquierda) y como serán insertadas (derecha)
+        estas son el resultados de desplazar los modelos en nuestro ejemplo $3$ posiciones por lo que sumamos ese desplazamiento a los modelos.
+
+        \item Cada conexión entrante o saliente del modelo acoplado a aplanar conecta un modelo atómicos al mismo nivel que el acoplado con otro
+        modelo atómico dentro del modelo acoplado, a través de un puerto de entrada o salida, por lo que para conexión se debe:
+
+        \begin{itemize}
+                \item desplazar el modelo del acoplado a insertar (en nuestro ejemplo $3$).
+                \item desplazar el modelo atómico la cantidad de modelos a insertar (en nuestro ejemplo $8$).
+        \end{itemize}
+
+                Luego para las conexiones salientes del modelo acoplado y las conexiones salientes externas que coincidan en los puertos, es decir la conexión 
+                interna \texttt{($x_1$,$y_1$);($j_1$, $k_1$)} y por cada conexión externa de salida del tipo \texttt{($x_2$,$y_2$);($0$,$k_1$)}, se agregara 
+                la conexión \texttt{($x_2$,$y_2$);($j_1$, $k_1$)}, siguiendo los dos desplazamientos que describimos anteriormente. 
+
+\begin{listing}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (3,1);(11,2)
+        (3,0);(11,0)
+        (3,0);(13,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      EOC
+       {
         (6,0);(0,1)
         (8,0);(0,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+    (9,0);(19,2)
+    (11,0);(19,0)
+    (11,0);(21,0)
+\end{minted}
+\end{minipage}
+\label{lst:conexiones3}
+\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando.}
+\end{listing}
 
-o \texttt{($x_2$,$y_2$);($z_2$,$3$)}
+                Análogamente para las conexiones entrantes del modelo acoplado y las conexiones entrantes que coincidan en los puertos, es decir la conexión 
+                interna \texttt{($x_1$,$y_1$);($j_1$, $k_1$)}, donde $j_1$ es el modelo acoplado y $k_1$ el puerto en el que coinciden, y por cada conexión 
+                externa de entrada de la forma \texttt{($0$,$y_1$);($h_1$,$k_1$)}, se agregara 
+                la conexión \texttt{($x_2$,$y_1$);($h_2$, $k_1$)}, siguiendo los dos desplazamientos que describimos anteriormente. 
+
+
+\begin{listing}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (4,0);(3,0)
+        (5,0);(3,1)
+        (1,0);(3,2)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      EIC
+       {
+        (0,2);(4,1)
+        (0,0);(2,1)
+        (0,0);(0,1)
+        (0,1);(3,1)
+        (0,1);(5,0)
+        (0,1);(7,0)
+        (0,1);(0,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (12,0);(5,1)
+        (12,0);(3,1)
+        (13,0);(6,1)
+        (13,0);(8,0)
+        (13,0);(10,0)
+        (13,0);(3,0)
+        (1,0);(7,1)
+       }
+\end{minted}
+\end{minipage}
+\label{lst:conexiones3}
+\caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando.}
+\end{listing}
+
+
+\end{itemize}
+
+
+
 
 
 \section{Modelos Vectoriales}
