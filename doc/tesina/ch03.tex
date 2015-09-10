@@ -453,17 +453,32 @@ end QSSIntegrator;
         En el listado \ref{lst:conexiones2} se pueden ver las conexiones como se encontraban originalmente (izquierda) y como serán insertadas (derecha)
         estas son el resultados de desplazar los modelos en nuestro ejemplo $3$ posiciones por lo que sumamos ese desplazamiento a los modelos.
 
-        \item Cada conexión entrante o saliente del modelo acoplado a aplanar conecta un modelo atómicos al mismo nivel que el acoplado con otro
-        modelo atómico dentro del modelo acoplado, a través de un puerto de entrada o salida, por lo que para conexión se debe:
+\begin{figure}[!htbp]
+\includegraphics[width=\textwidth]{text3418}
+\label{fig:aplanado-ports}
+\end{figure}
 
-        \begin{itemize}
-                \item desplazar el modelo del acoplado a insertar (en nuestro ejemplo $3$).
-                \item desplazar el modelo atómico la cantidad de modelos a insertar (en nuestro ejemplo $8$).
-        \end{itemize}
+	Se puede ver en la figura \ref{fig:aplanado-ports} un esquema de conexiones, donde el modelo $S2$ es un modelo acoplado que contiene el modelo $S3$. El modelo atómico $S1$ se conecta a travéz del puerto $p2$.
+	 Entonces si consideramos que $p2$ es un puerto de entrada externa, veremos las siguientes conexiones:
 
-                Luego para las conexiones salientes del modelo acoplado y las conexiones salientes externas que coincidan en los puertos, es decir la conexión 
-                interna \texttt{($x_1$,$y_1$);($j_1$, $k_1$)} y por cada conexión externa de salida del tipo \texttt{($x_2$,$y_2$);($0$,$k_1$)}, se agregara 
-                la conexión \texttt{($x_2$,$y_2$);($j_1$, $k_1$)}, siguiendo los dos desplazamientos que describimos anteriormente. 
+	\begin{itemize}
+	\item IC : \texttt{(S1,p1);(S2,p2)}
+	\item EIC : \texttt{(0,p2);(S3,p3)}
+	\end{itemize}
+
+	entonces la conexiones en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado segun la cantidad de modelos que contiene $S2$ y 
+	$S3$ debera ser desplazado segun la posición de $S2$.
+
+	Si consideramos que $p2$ es un puerto de salida las conexiones seran:
+
+	\begin{itemize}
+	\item IC : \texttt{(S2,p2);(S1,p1)}
+	\item EOC : \texttt{(S3,p3);(0,p2)}
+	\end{itemize}
+
+	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado segun la cantidad de modelos que contiene $S2$ y 
+	$S3$ debera ser desplazado segun la posición de $S2$.
+
 
 \begin{listing}
 \begin{minipage}[t]{0.3\linewidth}
@@ -496,14 +511,8 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \label{lst:conexiones3}
-\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando.}
+\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando(derecha).}
 \end{listing}
-
-                Análogamente para las conexiones entrantes del modelo acoplado y las conexiones entrantes que coincidan en los puertos, es decir la conexión 
-                interna \texttt{($x_1$,$y_1$);($j_1$, $k_1$)}, donde $j_1$ es el modelo acoplado y $k_1$ el puerto en el que coinciden, y por cada conexión 
-                externa de entrada de la forma \texttt{($0$,$y_1$);($h_1$,$k_1$)}, se agregara 
-                la conexión \texttt{($x_2$,$y_1$);($h_2$, $k_1$)}, siguiendo los dos desplazamientos que describimos anteriormente. 
-
 
 \begin{listing}
 \begin{minipage}[t]{0.3\linewidth}
@@ -545,10 +554,8 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \label{lst:conexiones3}
-\caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando.}
+\caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando(derecha).}
 \end{listing}
-
-
 \end{itemize}
 
 
