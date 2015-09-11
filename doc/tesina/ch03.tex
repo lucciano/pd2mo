@@ -457,6 +457,10 @@ end QSSIntegrator;
 \centering
 \includegraphics[width=.75\textwidth]{text3418}
 \label{fig:aplanado-ports}
+\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamo aplanando.\
+	\texttt{S1} y \texttt{S2} estan conectados a travéz de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
+	el exterior a travéz del modelo acoplado que lo contiene por el puerto \texttt{p2} y wl puerto  \texttt{p3}.
+	}
 \end{figure}
 
 	Se puede ver en la figura \ref{fig:aplanado-ports} un esquema de conexiones, donde el modelo $S2$ es un modelo acoplado que contiene el modelo $S3$. El modelo atómico $S1$ se conecta a travéz del puerto $p2$.
@@ -477,8 +481,8 @@ end QSSIntegrator;
 	\item EOC : \texttt{(S3,p3);(0,p2)}
 	\end{itemize}
 
-	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado segun la cantidad de modelos que contiene $S2$ y 
-	$S3$ debera ser desplazado segun la posición de $S2$.
+	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado segun la 
+	cantidad de modelos que contiene $S2$ y $S3$ debera ser desplazado segun la posición de $S2$.
 
 
 \begin{listing}
@@ -559,8 +563,8 @@ end QSSIntegrator;
 \end{listing}
 \end{itemize}
 
-	Agregando estas conexiones se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el árbol en profundidad, aplanando los modelos acoplado más profundos primero
-	podemos saber que solo estamos aplanando el modelo más profundo unicamente.
+	Agregando estas conexiones se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el árbol en profundidad, aplanando los modelos 
+	acoplado más profundos primero podemos saber que solo estamos aplanando el modelo más profundo unicamente.
 
 
 \section{Modelos Vectoriales}
