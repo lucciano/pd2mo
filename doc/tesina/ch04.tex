@@ -22,11 +22,8 @@ El Programa principal en el archivo main.cpp, el cual es responsable de la inter
  
  outfile $\ll$ m$\rightarrow$visitClass( 
  	prod$\rightarrow$visitClass( 
- 		i$
-ightarrow$visitClass( 
- 		\*sd$
-ightarrow$models()$
-ightarrow$begin()))) $\ll$ endl\;
+ 		i$\rightarrow$visitClass( 
+ 		\*sd$\rightarrow$models()$\rightarrow$begin()))) $\ll$ endl\;
  \caption{main(src\_infile)}
 \end{function*}
 
@@ -70,8 +67,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
 \begin{algorithm}[H]
  \ForEach{ModeloHijo en Lista de Modelos}{
  	\If{Tipo de ModeloHijo es COUPLED}{
- 		\ForEach{ModeloHijo2 en Lista de ModeloHijo$
-ightarrow$ModeloHijo}{
+ 		\ForEach{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}{
  			 	\If{Tipo de ModeloHijo2 es ATOMIC}{
  			 		Copiamos el ModeloHijo2 al ModeloResultado\;
  			 	}\Else{
