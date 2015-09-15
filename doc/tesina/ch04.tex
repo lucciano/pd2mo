@@ -1,4 +1,7 @@
-A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}
+	A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, 
+	el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerias, Modelica C Compiler 
+	\footnote{http://sourceforge.net/projects/modelicacc/} el cual nos permite manipular la estructura de los modelos y evaluar los parámetros.
+y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
 El programa esta separado en 4 módulos:
 
@@ -17,10 +20,13 @@ El Programa principal en el archivo main.cpp, el cual es responsable de la inter
  prodint *  prod = new prodint()\;
  If *i = new If()\;
  
- outfile $<<$ m$->$visitClass( 
- 	prod$->$visitClass( 
- 		i$->$visitClass( 
- 		\*sd$->$models()$->$begin()))) $<<$ endl\;
+ outfile $\ll$ m$\rightarrow$visitClass( 
+ 	prod$\rightarrow$visitClass( 
+ 		i$
+ightarrow$visitClass( 
+ 		\*sd$
+ightarrow$models()$
+ightarrow$begin()))) $\ll$ endl\;
  \caption{main(src\_infile)}
 \end{function*}
 
@@ -64,7 +70,8 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
 \begin{algorithm}[H]
  \ForEach{ModeloHijo en Lista de Modelos}{
  	\If{Tipo de ModeloHijo es COUPLED}{
- 		\ForEach{ModeloHijo2 en Lista de ModeloHijo$->$ModeloHijo}{
+ 		\ForEach{ModeloHijo2 en Lista de ModeloHijo$
+ightarrow$ModeloHijo}{
  			 	\If{Tipo de ModeloHijo2 es ATOMIC}{
  			 		Copiamos el ModeloHijo2 al ModeloResultado\;
  			 	}\Else{
