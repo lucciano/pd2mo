@@ -38,29 +38,29 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 \For{class en classList}
  	\If{La clase esta traducida a $\mu$Modelica}
 
- 		Prefijamos las variables con el nombre del modelo $class$ y la posición $j$ que ocupan en la lista;
- 		Remplazamos la entrada $class$ dentro de la lista por su copia producida en el paso anterior;
+ 		\State Prefijamos las variables con el nombre del modelo $class$ y la posición $j$ que ocupan en la lista;
+ 		\State Remplazamos la entrada $class$ dentro de la lista por su copia producida en el paso anterior;
  	\EndIf
 \EndFor
 \State Creamos un modelo $modeloMo$;
 \For{class en classList}
- 	Combinamos el modelo $class$ con el $modeloMo$;
+ 	\State Combinamos el modelo $class$ con el $modeloMo$;
 \EndFor
 
 \For{ic en Conexión Interna del Modelo}
 
-Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan
+	\State Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan.
   	\If{los modelos de ic son Escalares}
 
-  		Se agrega la ecuación que representa la conexión entre los modelos;
+  		\State Se agrega la ecuación que representa la conexión entre los modelos;
 
   	\ElsIf{los modelos de ic son Vectoriales}
 
-  		Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos mediante una sentencia \texttt{For};
+  		\State Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos mediante una sentencia \texttt{For};
 
   	\Else
 
-  		No se conoce la conexión;
+  		\State No se conoce la conexión;
 
 	\EndIf
 \EndFor
@@ -71,49 +71,70 @@ Las conexiones ic estan definidas como dos pares de números, cada par señalan 
 \section{Aplanado de modelos acoplados}
 La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
  
-% \begin{algorithm}[H]
-%  \ForEach{ModeloHijo en Lista de Modelos}{
-%  	\If{Tipo de ModeloHijo es COUPLED}{
-%  		\ForEach{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}{
-%  			 	\If{Tipo de ModeloHijo2 es ATOMIC}{
-%  			 		Copiamos el ModeloHijo2 al ModeloResultado\;
-%  			 	}\Else{
-%  			 		Copiamos el aplanado de ModeloHijo2\;
-%  			 	}
-%  			 	\ForEach{Conexión del Modelo}{
-%  			 		\If{Si la conexión involucra un modelo \quotes{aun no procesado}}{
-%  			 			Las conexiones deben ser modificadas teniendo en cuenta los modelos agregados en el aplanado\;
-%  			 		}
-%  			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}{
-%  			 			Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión\;
-%  			 			La conexión se marca para ser borrada\;
-%  			 		}
-%  			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}{
-%  			 			Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión\;
-%  			 			La conexión se marca para ser borrada
-%  			 		}
-%  			 		\If{Si la conexión fue marcada}{Se borra la conexión}
-%  			 	}
-%  		}
-%  		
-%  	}\Else{
-%  		Copiamos el nodo ModeloHijo al ModeloResultado \;
-%  		Copiamos las conexiones del ModeloHijo y cualquier otro ModeloHijo que ya haya sido procesado
-%  	}
-%  }
-%  return ModeloResultado
-%  \caption{flatter::flat}
-% \end{algorithm}
-% 
-% \section{Transformaciones para $\mu$Modelica}
-% La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
-% 
-% Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común (Traverser), la cual retorna una copia del AST y remplaza una parte este.
-% 
-%  \begin{itemize}
-%  	\item  $mda$: Remplaza expresiones de la forma $X[N,k]$, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión $\in \mathbb{N}$, es remplazado por $X_k[N]$
-%  	
-%  	\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión $\in \mathbb{N}$
-%  	
-%  	\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evaluá a un booleano (a partir de parámetros o constantes, es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
-%  \end{itemize}
+\begin{algorithm}
+\begin{algorithmic}[1]
+\For{ModeloHijo en Lista de Modelos}
+  	\If{Tipo de ModeloHijo es COUPLED}
+  		\For{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}
+  			 	\If{Tipo de ModeloHijo2 es ATOMIC}
+
+  			 		\State Copiamos el ModeloHijo2 al ModeloResultado;
+
+				\Else
+
+  			 		\State Copiamos el aplanado de ModeloHijo2;
+				
+				\EndIf
+  			 	\For{Conexión del Modelo}
+  			 		\If{Si la conexión involucra un modelo \quotes{aun no procesado}}
+
+  			 			\State Las conexiones deben ser modificadas teniendo en cuenta los modelos agregados en el aplanado;
+
+					\EndIf
+  			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}
+
+  			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión;
+  			 			\State La conexión se marca para ser borrada;
+					\EndIf
+  			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}
+
+  			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión;
+  			 			\State La conexión se marca para ser borrada;
+
+					\EndIf
+  			 		\If{Si la conexión fue marcada}
+						
+						\State Se borra la conexión
+					\EndIf
+				\EndFor
+		\EndFor
+  	\Else
+
+  		\State Copiamos el nodo ModeloHijo al ModeloResultado 
+  		\State Copiamos las conexiones del ModeloHijo y cualquier otro ModeloHijo que ya haya sido procesado
+
+	\EndIf
+\EndFor
+\Return ModeloResultado
+\end{algorithmic}
+\caption{flatter::flat}
+\end{algorithm}
+
+ 
+\section{Transformaciones para $\mu$Modelica}
+	 La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
+	 
+	Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común 
+	(Traverser), la cual retorna una copia del AST y remplaza una parte este.
+	 
+	  \begin{itemize}
+		\item  $mda$: Remplaza expresiones de la forma $X[N,k]$, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión 
+			$\in \mathbb{N}$, es remplazado por $X_k[N]$
+		
+		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
+			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
+			expresión $\in \mathbb{N}$
+		
+		\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evaluá a un booleano (a partir de parámetros o constantes, 
+			es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
+	  \end{itemize}
