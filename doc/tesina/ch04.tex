@@ -10,45 +10,43 @@ El programa esta separado en 4 módulos:
 El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
 
 
-\begin{function*}[H]
- modelCoupled *cm = parsePDS(QString::fromStdString(src\_infile))\;
- modelCoupled *qm = flatter::flat(cm)\;
- Pd2Mo q = Pd2Mo()\;
- q.transform(flatted, modelname, \&outfile, \&oFlogfile)\;
- AST\_StoredDefinition sd = parseFile(src\_outfile.c\_str(),\&amp;r)\;
- mda *m = new mda()\;
- prodint *  prod = new prodint()\;
- If *i = new If()\;
- 
- outfile $\ll$ m$\rightarrow$visitClass( 
- 	prod$\rightarrow$visitClass( 
- 		i$\rightarrow$visitClass( 
- 		\*sd$\rightarrow$models()$\rightarrow$begin()))) $\ll$ endl\;
- \caption{main(src\_infile)}
-\end{function*}
+\begin{algorithm}
+\begin{algorithmic}[1]
+\State modelCoupled *cm $\gets$ parsePDS(QString::fromStdString(src\_infile));
+\State modelCoupled *qm $\gets$ flatter::flat(cm);
+\State Pd2Mo q $\gets$ Pd2Mo();
+\State q.transform(flatted, modelname, \&outfile, \&oFlogfile);
+\State AST\_StoredDefinition sd $\gets$ parseFile(src\_outfile.c\_str(),\&amp;r);
+\State mda *m $\gets$ new mda();
+\State If *i $\gets$ new If();
+\State outfile $\ll$ m$\rightarrow$\Call{visitClass} 
+		{prod$\rightarrow$visitClass( i$\rightarrow$visitClass( 
+			*sd$\rightarrow$models()$\rightarrow$begin()))} $\ll$ endl;
 
-\newpage
+\end{algorithmic}
+\caption{main(src\_infile)}
+\end{algorithm}
 
 \section{Transformación Principal}
 La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 
-\begin{function}[H]
- modelCoupled *model = parsePDS(qfilename)\;
- AST\_ClassList classList = getAsClassList(model)\; 
- int j = 0\;
- \ForEach{class en classList}{
- 	\If{La clase esta traducida a $\mu$Modelica}{
- 		Prefijamos las variables con el nombre del modelo $class$ y la posición $j$ que ocupan en la lista\;
- 		Remplazamos la entrada $class$ dentro de la lista por su copia producida en el paso anterior\;
- 	}
- }
- Creamos un modelo $modeloMo$\;
- \ForEach{class en classList}{ 
- 	Combinamos el modelo $class$ con el $modeloMo$\;
- }
- 
+\begin{algorithm}
+\begin{algorithmic}[1]
+\State modelCoupled *model $\gets$ parsePDS(qfilename);
+\State AST\_ClassList classList $\gets$ getAsClassList(model); 
+\State int j $\gets$ 0\;
+\For{class en classList}
+ 	\If{La clase esta traducida a $\mu$Modelica}
+ 		Prefijamos las variables con el nombre del modelo $class$ y la posición $j$ que ocupan en la lista;
+ 		Remplazamos la entrada $class$ dentro de la lista por su copia producida en el paso anterior;
+ 	\EndIf
+\EndFor
+\State Creamos un modelo $modeloMo$;
+\For{class en classList}
+ 	Combinamos el modelo $class$ con el $modeloMo$;
+\EndFor
 
- \ForEach{ic en Conexión Interna del Modelo}{
+\For{ic en Conexión Interna del Modelo}{
 	\tcc{Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan}
 	\If{Si los modelos de ic son Escalares}{
 		Se agrega la ecuación que representa la conexión entre los modelos\;
@@ -57,7 +55,7 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 	}\Else{
 		No se conoce la conexión;
 	}
- }
+\EndFor
  \caption{Pd2Mo::transform()}
 \end{function}
 
