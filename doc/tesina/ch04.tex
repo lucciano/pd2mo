@@ -10,7 +10,7 @@ El programa esta separado en 4 módulos:
 El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
 
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \State modelCoupled *cm $\gets$ parsePDS(QString::fromStdString(src\_infile));
 \State modelCoupled *qm $\gets$ flatter::flat(cm);
@@ -30,7 +30,7 @@ El Programa principal en el archivo main.cpp, el cual es responsable de la inter
 \section{Transformación Principal}
 La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \State modelCoupled *model $\gets$ parsePDS(qfilename);
 \State AST\_ClassList classList $\gets$ getAsClassList(model); 
@@ -48,20 +48,13 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 \EndFor
 
 \For{ic en Conexión Interna del Modelo}
-
 	\State Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan.
   	\If{los modelos de ic son Escalares}
-
   		\State Se agrega la ecuación que representa la conexión entre los modelos;
-
   	\ElsIf{los modelos de ic son Vectoriales}
-
   		\State Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos mediante una sentencia \texttt{For};
-
   	\Else
-
   		\State No se conoce la conexión;
-
 	\EndIf
 \EndFor
 \end{algorithmic}
@@ -71,36 +64,27 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación.
 \section{Aplanado de modelos acoplados}
 La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
  
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \For{ModeloHijo en Lista de Modelos}
   	\If{Tipo de ModeloHijo es COUPLED}
   		\For{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}
   			 	\If{Tipo de ModeloHijo2 es ATOMIC}
-
   			 		\State Copiamos el ModeloHijo2 al ModeloResultado;
-
 				\Else
-
   			 		\State Copiamos el aplanado de ModeloHijo2;
-				
 				\EndIf
   			 	\For{Conexión del Modelo}
   			 		\If{Si la conexión involucra un modelo \quotes{aun no procesado}}
-
   			 			\State Las conexiones deben ser modificadas teniendo en cuenta los modelos agregados en el aplanado;
-
 					\EndIf
   			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}
-
   			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión;
   			 			\State La conexión se marca para ser borrada;
 					\EndIf
   			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}
-
   			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión;
   			 			\State La conexión se marca para ser borrada;
-
 					\EndIf
   			 		\If{Si la conexión fue marcada}
 						
@@ -121,15 +105,24 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
 \end{algorithm}
 
  
-\section{Transformaciones para $\mu$Modelica}
-	 La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$Modelica.
+\section{Transformaciones para $\mu$-Modelica}
+	 La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$-Modelica.
 	 
 	Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común 
 	(Traverser), la cual retorna una copia del AST y remplaza una parte este.
 	 
 	  \begin{itemize}
-		\item  $mda$: Remplaza expresiones de la forma $X[N,k]$, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión 
-			$\in \mathbb{N}$, es remplazado por $X_k[N]$
+		\item  $mda$: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión 
+			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]}.
+
+\begin{figure}[H]
+\begin{minted}{modelica}
+Real IndexShift_2_u_1[IndexShift_2_N];
+\end{minted}
+\begin{minted}{modelica}
+Real IndexShift_2_u[IndexShift_2_N,1];
+\end{minted}
+\end{figure}
 		
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
