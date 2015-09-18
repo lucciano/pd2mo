@@ -115,15 +115,20 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados.
 		\item  $mda$: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión 
 			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]}.
 
-\begin{figure}[H]
-\begin{minted}{modelica}
-Real IndexShift_2_u_1[IndexShift_2_N];
-\end{minted}
-\begin{minted}{modelica}
+\begin{figure}[htp]
+\centering
+\begin{cminted}{modelica}
 Real IndexShift_2_u[IndexShift_2_N,1];
-\end{minted}
+\end{cminted}
+
+$\Downarrow$
+
+\begin{cminted}{modelica}
+Real IndexShift_2_u_1[IndexShift_2_N];
+\end{cminted}
 \end{figure}
-		
+
+
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
 			expresión $\in \mathbb{N}$

@@ -33,6 +33,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{minted}
+
+\usepackage{xpatch,letltxmacro}
+\LetLtxMacro{\cminted}{\minted}
+\let\endcminted\endminted
+\xpretocmd{\cminted}{\RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}}{}{}
+
+
 \usemintedstyle{trac} 
 \usepackage[hidelinks]{hyperref}
 %\usepackage[lined,boxed,spanish,onelanguage]{algorithm2e} 
