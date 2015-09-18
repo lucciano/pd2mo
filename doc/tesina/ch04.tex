@@ -132,7 +132,63 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
 			expresión $\in \mathbb{N}$
+
+\begin{figure}[htp]
+\centering
+\begin{cminted}{modelica}
+    VectorSum_3_y_1[VectorSum_3_i] = VectorSum_3_u[VectorSum_3_i, 1:VectorSum_3_nin] * VectorSum_3_w;
+\end{cminted}
+
+(Donde \texttt{VectorSum_3_nin $ = 4}  y \texttt{VectorSum_3_w} tiene la misma dimensión 4 (lo que es necesario para que quede definida el producto de dos vectores en modelica.
+$\Downarrow$
+
+\begin{cminted}{modelica}
+    VectorSum_3_y[1,VectorSum_3_i] = VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+
+	VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+
+	VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+
+	VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
+\end{cminted}
+
+
+\end{figure}
+
+
+
+
 		
 		\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evaluá a un booleano (a partir de parámetros o constantes, 
 			es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
+
+\begin{cminted}{modelica}
+  if IndexShift_2_Shift > 0 then
+    for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
+    end for;
+    for IndexShift_2_i in 1:IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i] = 0;
+    end for;
+  else
+    for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i] = IndexShift_2_u_1[IndexShift_2_i - +IndexShift_2_Shift];
+    end for;
+    for IndexShift_2_i in IndexShift_2_N + IndexShift_2_Shift : IndexShift_2_N loop
+      IndexShift_2_y_1[IndexShift_2_i] = 0;
+    end for;
+  end if;
+\end{cminted}
+
+(Con \texttt{Shift $> 0$)
+
+$\Downarrow$
+
+\begin{cminted}{modelica}
+  for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+    IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
+  end for;
+  for IndexShift_2_i in 1:IndexShift_2_Shift loop
+    IndexShift_2_y_1[IndexShift_2_i] = 0;
+  end for;
+\end{cminted}
+
+
 	  \end{itemize}
