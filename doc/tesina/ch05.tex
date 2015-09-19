@@ -42,8 +42,8 @@ v_0(t) = \left\{
 \end{minipage}
 \end{figure}
 
-\section{inverters}
-El siguiente modelo representa una cadena de $m$ inversores lógicos, 
+\section{Inversores Lógicos}
+	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
 
 \begin{align*}
 \dot{\omega}_1 & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
@@ -65,8 +65,8 @@ El siguiente modelo representa una cadena de $m$ inversores lógicos,
 \end{minipage}
 \end{figure}
 
-\section{adr}
-El modelo de equaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenomenos de tranferencias de calor y masa, donde la cantidad de interes $u(x,t)$ puede ser temeratura en la conducción de calor o concentración de una sustancia química.
+\section{Advection-diffusion-reaction}
+	El modelo de equaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenomenos de tranferencias de calor y masa, donde la cantidad de interes $u(x,t)$ puede ser temeratura en la conducción de calor o concentración de una sustancia química.
 
 La ecuación 
 \begin{equation*}
@@ -88,8 +88,8 @@ corresponde al modelo ADR, donde $a$,$d$ y $r$ son parametros expresando coefici
 \end{minipage}
 \end{figure}
 
-\section{buck\_disk}
-El modelo buck-disk es un tipo de convertidor DC - DC que obtiene a su  salida  un  voltaje  continuo  menor  que  a  su entrada, manteniendo una una  alta eficiencia (superior al 95\% con circuitos integrados) y autoregulación.
+\section{Convertidor de Voltaje}
+	El siguiente modelo es un tipo de convertidor DC - DC que obtiene a su  salida  un  voltaje  continuo  menor  que  a  su entrada, manteniendo una una  alta eficiencia (superior al 95\% con circuitos integrados) y autoregulación.
 
 \begin{align*}
 \frac{di_{L}}{dt} & = \frac{-u_{C} - R_D i_D }{L}\\
@@ -103,7 +103,7 @@ i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=.70\linewidth]{Buckboost_conventions}
+ \includegraphics[width=.60\linewidth]{Buckboost_conventions}
  \caption{Esquema electrico de convertidor buck}
 \end{figure}
 
@@ -129,9 +129,9 @@ i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \end{minipage}
 \end{figure}
 
-\section{lotka\_voltera}
+\section{Ecuaciones Lotka-Volter}
 
-El sistema de ecuaciones Lotka-Volter, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+	El sistema de ecuaciones Lotka-Volter, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
 
 \begin{align*}
 \frac{dx}{dt} & = x(\alpha - \beta y)\\
@@ -146,7 +146,7 @@ donde:
     \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
 \end{itemize}
 
-Este sistema es representado por el modelo siguiente:
+	Este sistema es representado por el modelo siguiente:
 
 \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
 
