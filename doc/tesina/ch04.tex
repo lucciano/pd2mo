@@ -106,13 +106,20 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 
  
 \section{Transformaciones para $\mu$-Modelica}
-	 La clase \emph{mda}, \emph{prodint}, \emph{If} implementan transformaciones enfocadas en $\mu$-Modelica.
-	 
-	Tanto la clase $mda$, $prodint$ y $If$ recorren el árbol abstracto sintáctico (AST), por lo que cada clase es implementada heredando de una clase común 
-	(Traverser), la cual retorna una copia del AST y remplaza una parte este.
+	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patron de diseño de visitadores sobre 
+	el árbol sintáctico abstracto\footnote{un árbol de sintaxis abstracta (AST), o simplemente un árbol de sintaxis, es una representación 
+	de árbol de la estructura sintáctica abstracta (simplificada) del código fuente escrito en cierto lenguaje de programación.}, por lo que 
+	cada clase es implementada heredando de una clase común (Traverser), la cual retorna una copia del AST y remplaza una parte este según sea el 
+	objetivo de la clase.
+	
+	Estas transformaciones son necesarias dado que al momento de realizar este trabajo no son soportadas por el QSS-Solver, ya que no son $\mu$-Modelica
+	valido.
+	Arreglos multidimensionales no están soportados dado que no es $\mu$-Modelica valido, ya que los arreglos son de una sola dimensión, mientras que el producto 
+	vectorial de dos vectores no estaba implementado en un principio, ya se encuentra implementado en una versión de desarrollo, y la transformación \texttt{If}
+	fue implementada para simplificar le código final.
 	 
 	  \begin{itemize}
-		\item  $mda$: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evaluá a una variable que evaluá a una expresión 
+		\item  \texttt{mda}: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evalúa a una variable que evalúa a una expresión 
 			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]}.
 
 \begin{figure}[htp]
