@@ -164,11 +164,12 @@ donde:
 
 \section{Resultados}
 
-	Las pruebas fueron realizadas en una PC Intel(R) Core(TM) i7-3632QM CPU @ 2.20GHz con 16 GB de Memoria. Los tiempos observados no deben ser considerados 
+	Las pruebas fueron realizadas en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de memoria RAM. Los tiempos observados no deben ser considerados 
 	como absolutos ya que variaran de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
 
 	Los resultados obtenidos son los tiempos observados luego de ejecutar la simulación en PowerDEVS (P.DEVS) y QSS-Solver (QSS-S), ambas mediciones
-	son reportadas por los motores de simulación, en milisegundos (ms).
+	son reportadas por los motores de simulación, en milisegundos (ms), todas las simulaciones utilizan el método de integración QSS3 excepto los que 
+	se especifica LIQSS2.
 
 \begin{table}[H]
 \centering	
@@ -177,13 +178,15 @@ donde:
 \toprule
 {\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
 \toprule
-lcline 1200s, N=1000     & 76402         & 34982.5         & 54          \\
-inversers(LIQSS2) 250s, N=1000   & 25046          & 7694.44         & 69        \\
-adr (LIQSS2) 10s, N=1000 & 6089          & 568.772         & 90        \\
-buck\_disk  0.01s,        & 268           & 10.3802         & 96         \\
-lotka\_voltera 300s      & 11            & 2.75132        & 81
+Lineas de Transmisión 1200s, N=1000     & 76402         & 34982.5         & 54          \\
+Inversores(LIQSS2) 250s, N=1000   	& 25046         & 7694.44         & 69        \\
+ADR(LIQSS2) 10s, N=1000 		& 6089          & 568.772         & 90        \\
+Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         \\
+Lotka  Voltera 300s      		& 11            & 2.75132         & 81
 
 % Mejora esta calculada a partir de 1 - qsssolver / pwdevs
 %excepto indicado, se utiliza QSS3
 \end{tabular}
 \end{table}
+
+	En la tabla se puede ver una mejora entre 54 y 96\% entre todos los modelos, los modelos vectoriales 
