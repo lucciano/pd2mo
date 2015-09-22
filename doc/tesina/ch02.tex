@@ -19,7 +19,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	\dot{x}(t) = f (x(t), u(t))
 	\end{equation}
 
-	donde $x \in \Re^n$  es el vector de estados, $u \in \Re^m$ es una función de entradas conocidas,
+	donde $x \in \mathbb{R}^n$  es el vector de estados, $u \in \mathbb{R}^m$ es una función de entradas conocidas,
 	$t$ representa el tiempo y con sus condiciones iniciales:
 
 	\begin{equation} \label{eq:eq2}
@@ -232,11 +232,11 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
 	\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
 	\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
-	\item $ta$ es una función $S \to R^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún 
+	\item $ta$ es una función $S \to \mathbb{R}^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún 
 	evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
 	\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. 
 	Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
-	\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(R^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
+	\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(\mathbb{R}^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
 	externo, esta es la \emph{Función de Transición Externa}.
 	\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
 	\end{itemize}
