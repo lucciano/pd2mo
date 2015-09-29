@@ -580,14 +580,22 @@ end QSSIntegrator;
 	con la anotación de Modelica $PD2MO$, por ejemplo:
 
 \begin{itemize}
-\item \texttt{annotation(PD2MO = \{Scalar, Vector\});} entrada escalar y salida vectorial
-\item \texttt{annotation(PD2MO = \{Vector, Scalar\});} entrada escalar y salida vectorial
-\item \texttt{annotation(PD2MO = \{Vector, Vector\});} entrada y salida vectoriales.
-\item \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
+	\item \texttt{annotation(PD2MO = \{Scalar, Vector\});} entrada escalar y salida vectorial
+	\item \texttt{annotation(PD2MO = \{Vector, Scalar\});} entrada escalar y salida vectorial
+	\item \texttt{annotation(PD2MO = \{Vector, Vector\});} entrada y salida vectoriales.
+	\item \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
 \end{itemize}
 
 	De esta forma podemos realizar la conexiones correctamente y generar un error en caso de encontrar una conexión escalar con una vectorial. 
 
-%\section{Transformaciones Extras}
+\section{Transformaciones Extras}
+	
+	Existen dos tipos de transformaciones extras que deben ser aplicadas con el fin de que el código generado sea $\mu$-Modelica, en particular 
+	estas transformaciones se agrupan en dos:
+	\begin{itemize}
+	\item Causalización de variables, este es un programa descripto en \cite{Mod15}
+	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad este no implementa (al momento de escribir este texto)
+	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform}.
+	\end{itemize}
 %	\begin{itemize}
 %	\end{itemize}

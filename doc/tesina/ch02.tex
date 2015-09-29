@@ -12,7 +12,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	En general los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos puésto que la simulación en computadora así lo 
 	requiere, dado que la misma computadora es un sistema discreto.
 
-	\subsection{Métodos de Integración numérica}
+	\subsection{Métodos de Integración numérica} \label{sec:num_integ}
 	Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
 
 	\begin{equation} \label{eq:eq1}
@@ -44,7 +44,7 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 	\end{equation}
 
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
-	 términos de la serie de Taylor que consideran para la aproximación, entre los principales podemos mencionar Runge-Kutta, DASSL, DOPRI, etc.
+	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta, DASSL, DOPRI, etc.
 
 	A modo de ejemplos introducimos un ejemplo el cual desarrollamos desde distintas herramientas el sistema de ecuaciones de Lotka-Volterra, también 
 	conocidas como ecuaciones predador-presa o presa-predador, son un par de ecuaciones diferenciales de primer orden no lineales que se usan para 
@@ -115,8 +115,11 @@ En este capítulo, basado en \cite{Fer12}, \cite{Ber12Th}, \cite{BK11}, \cite{BK
 
 
 \section{Métodos de integración QSS}
-	Quantized State System methods \cite{Fer12}, \cite{Ber12}, \cite{Beltrame06quantisedstate}, \cite{Cel06} (métodos de QSS), pueden aproximar Ecuaciones Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de 
-	eventos discretos. Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
+	Los métodos Quantized State System \cite{Fer12}, \cite{Ber12}, \cite{Beltrame06quantisedstate}, \cite{Cel06}, pueden aproximar Ecuaciones 
+	Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos cuantificando los estados del sistema, 
+	a diferenencia de los métodos mencionados en la sección \ref{sec:num_integ}, los cuales realizan la integración sobre el timpo. 
+
+	Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
 	
 	\begin{equation}
 	\dot{x}(t) = f (q(t), v(t))
