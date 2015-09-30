@@ -1,18 +1,22 @@
 
 \section{Conclusiones}
 
-	En el presente trabajo se mostró, en detalles, la implementación de una herramienta capas de convertir modelos de PowerDEVS en modelos $\mu$-Modelicar.  La cual nos permite un ahorro 
-	en el tiempo de simulación cercana al 90\% en modelos grandes, mostramos además como se mantiene los valores de la simulación a través de comparar las gráficas de 
-	los resultados obtenidos.
+	En el presente trabajo se mostró, en detalles, la implementación de una herramienta capas de convertir modelos de PowerDEVS en modelos $\mu$-Modelicar.  
+	La cual nos permite un ahorro en el tiempo de simulación cercana al 90\% en modelos grandes, mostramos además como se mantiene los valores de la 
+	simulación a través de comparar las gráficas de los resultados obtenidos.
 
 \section{Trabajos Futuros}
-	Para poder convertir una mayor variedad de modelos, en PowerDEVS, es necesario escribir más modelos en modelica.
+	Para poder convertir una mayor variedad de modelos, de PowerDEVS, es necesario escribir más modelos en modelica.
 	Para convertir modelos de tiempo real sera necesario expandir el QSS-Solver para soportarlos.
-	Para facilitar la integración se planeo integrar el conversor de forma que pueda ser ejecutado desde la interfaz gráfica de PowerDEVS, posiblemente con la opción de ejecutarlo en el 
-	QSS SOlver.
-	Durante el desarrollo de este trabajo, la libreria modelicacc \footnote{http://sourceforge.net/projects/modelicacc/?source=directory}, ha sido actualizada con un nuevo parser, 
-	el cual deberá ser actualizado en este trabajo.
+	Para facilitar la integración se planeo integrar el conversor de forma que pueda ser ejecutado desde la interfaz gráfica de PowerDEVS, posiblemente 
+	con la opción de ejecutarlo en el QSS SOlver.
 
-	La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno scilab, es siempre tratado como un valor escalar, y no como uno vectorial, 
-	para determinar como se lo debería tratar es necesario realizar un analisis de los tipos de las variables expandidas. 
+	Durante el desarrollo de este trabajo, la libreria modelicacc \footnote{http://sourceforge.net/projects/modelicacc/?source=directory}, ha sido actualizada 
+	con un nuevo parser, el cual deberá ser actualizado en este trabajo.
+
+	La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno scilab, es siempre tratado como un valor escalar, y no como 
+	uno vectorial, para determinar como se lo debería tratar es necesario realizar un analisis de los tipos de las variables expandidas. 
 	Lo cual podria mejorar los mensajes de error cuando se genera el modelo final.
+
+	Además es deseable que podamos llamar a esta conversión desde el mismo PowerDEVS y ejecutar el modelo resultante en el QSS-Solver.
+
