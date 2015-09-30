@@ -1,7 +1,7 @@
 	A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, 
 	el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerias, Modelica C Compiler 
 	\footnote{http://sourceforge.net/projects/modelicacc/} el cual nos permite manipular la estructura de los modelos y evaluar los parámetros.
-y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
+	y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
 El programa esta separado en 4 módulos:
 
@@ -109,7 +109,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patron de diseño de visitadores sobre 
 	el árbol sintáctico abstracto\footnote{un árbol de sintaxis abstracta (AST), o simplemente un árbol de sintaxis, es una representación 
 	de árbol de la estructura sintáctica abstracta (simplificada) del código fuente escrito en cierto lenguaje de programación.}, por lo que 
-	cada clase es implementada heredando de una clase común (Traverser), la cual retorna una copia del AST y remplaza una parte este según sea el 
+	cada clase es implementada heredando de una clase común (\texttt{Traverser}), la cual retorna una copia del AST y remplaza una parte este según sea el 
 	objetivo de la clase.
 	
 	Estas transformaciones son necesarias dado que al momento de realizar este trabajo no son soportadas por el QSS-Solver, ya que no son $\mu$-Modelica
@@ -147,7 +147,8 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 	VectorSum_3_u[VectorSum_3_i, 1:VectorSum_3_nin] * VectorSum_3_w;
 \end{minted}
 
-(Donde \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión 4, lo que es necesario para que quede definida el producto de dos vectores en modelica.)
+	(Donde \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión 4, lo que es necesario para que quede definida el producto de dos 
+	vectores en modelica.)
 
 $\Downarrow$
 
