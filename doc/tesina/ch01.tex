@@ -1,13 +1,13 @@
 \section{Motivación}
-El modelado y simulación\cite{Zeigler} se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
+El modelado y simulación\cite{Zeigler} se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas, ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 
-Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del sistema antes de que sea construido.
+Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del mismo antes de que sea construido.
 El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
 
 Veamos algunas razones por las cuales utilización de simulaciones es deseable o incluso requerido:
 
 \begin{itemize}
-	\item El sistema físico no se encuentra disponible, se debido a que el sistema no fue aun construido o si el sistema debería ser construido. 
+	\item El sistema físico no se encuentra disponible, debido a que el sistema no fue aun construido o si el sistema debería ser construido. 
 	
 	\item El experimento puede ser peligroso. Usualmente, simulaciones son realizadas para determinar si el experimento real \quotes{explotara}, poniendo al experimentador en peligro.
 
@@ -22,7 +22,7 @@ Veamos algunas razones por las cuales utilización de simulaciones es deseable o
 	\item Eliminación de efectos de segundo orden. Usualmente, se utilizan simulaciones porque nos permite eliminar efectos de segundo orden (como no linealidades de componentes del sistema). Nuevamente esto ayuda a obtener un mejor entendimiento del comportamiento general del sistema.
 \end{itemize}
 
-Es por esto que cuando corremos un modelo es deseable que pueda ser simulado de la forma más rapida y eficiente posible.
+Es por esto que cuando simulamos un modelo es deseable que pueda ser simulado de la forma más rapida y eficiente posible.
 
 Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
@@ -36,9 +36,9 @@ PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, ba
 
 Nos interesa poder utilizar el entorno PowerDEVS\cite{BK11}, debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
 
-En este aspecto, contamos con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
+Contamos además con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
 
-Por lo cual enn este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fri98}\cite{Fritzson02modelica}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver\cite{Ber12}, obteniendo lo mejor de los dos mundos.
+Por lo cual en este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fri98}\cite{Fritzson02modelica}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver\cite{Ber12}, obteniendo lo mejor de los dos mundos, un entorno de modelado amigable y el menor tiempo de simulación posible.
 
 
 \begin{figure}[H]
@@ -52,7 +52,7 @@ En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (Pow
 
 Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a Modelica (o $\mu$-Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
 
-El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$modelica.
+El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$-Modelica.
 
 \section{Organización del trabajo}
 El presente trabajo se organiza en 6 capítulos:
