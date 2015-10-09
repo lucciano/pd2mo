@@ -4,10 +4,12 @@
 	y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
 El programa esta separado en 4 módulos:
+\todo[inline]{Yo haría un dibujito típico de pipeline de qué orden se corren las cosas. Parsing->flat->mda->if->prod. También los describiría en el orden que se aplican}
+
 
 \section{Programa Principal}
 
-El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, asi como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de powerDEVS y Modelica, respectivamente.
+El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
 
 
 \begin{algorithm}[H]
@@ -64,6 +66,7 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 \section{Aplanado de modelos acoplados}
 La clase \emph{flatter} implementa el aplanado de los modelos acoplados descripto en la sección \ref{aplanado}.
  
+\todo[inline]{La linea 15 poné algo que parezca pseudo codigo y luego lo explicás en el texto...queda muy largo}
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
 \For{ModeloHijo en Lista de Modelos}
@@ -106,18 +109,21 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 
  
 \section{Transformaciones para $\mu$-Modelica} \label{sec:transform}
-	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patron de diseño de visitadores sobre 
+	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patrón de diseño de visitadores sobre 
 	el árbol sintáctico abstracto\footnote{un árbol de sintaxis abstracta (AST), o simplemente un árbol de sintaxis, es una representación 
 	de árbol de la estructura sintáctica abstracta (simplificada) del código fuente escrito en cierto lenguaje de programación.}, por lo que 
 	cada clase es implementada heredando de una clase común (\texttt{Traverser}), la cual retorna una copia del AST y remplaza una parte este según sea el 
 	objetivo de la clase.
 	
-	Estas transformaciones son necesarias dado que al momento de realizar este trabajo no son soportadas por el QSS-Solver, ya que no son $\mu$-Modelica
-	valido.
+	Estas transformaciones son necesarias dado que al momento de realizar este trabajo 
+\todo[inline]{yo aclararía que ciertas expresiones no son soportados}
+    no son soportadas por el QSS-Solver, ya que no son $\mu$-Modelica
+	válido.
 	Arreglos multidimensionales no están soportados dado que no es $\mu$-Modelica valido, ya que los arreglos son de una sola dimensión, mientras que el producto 
 	vectorial de dos vectores no estaba implementado en un principio, ya se encuentra implementado en una versión de desarrollo, y la transformación \texttt{If}
 	fue implementada para simplificar le código final.
 	 
+\todo[inline]{Ojo que esto lo que hace es expandir los arreglos bidimensionales en varias variables unidimensionales. Luego para que sea consistente ajusta las aparciones del arreglo anterior a los nuevos arreglos}
 	  \begin{itemize}
 		\item  \texttt{mda}: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evalúa a una variable que evalúa a una expresión 
 			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]}.
@@ -136,6 +142,7 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 \end{figure}
 
 
+\todo[inline]{aclará que el $*$ entre vectores es el prod interno, por eso lo podés reemplzar}
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
 			expresión $\in \mathbb{N}$

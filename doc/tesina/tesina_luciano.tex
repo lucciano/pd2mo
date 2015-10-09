@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{minted}
+\usepackage{todonotes}
 
 \usepackage{xpatch,letltxmacro}
 \LetLtxMacro{\cminted}{\minted}
@@ -63,7 +64,7 @@
 
 \vfill
 
-Tesina de grado para la obtencion del grado de Licenciado en Ciencias de la Computación
+Tesina de grado para la obtención del grado de Licenciado en Ciencias de la Computación
 
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushleft} \large
@@ -106,8 +107,10 @@ El modelado y simulación son las únicas técnicas disponibles que nos permiten
 
 PowerDEVS es un entorno integrado para el modelado y simulación basada en el formalismo DEVS, permite definir modelos atómico en C++ que puede ser conectados gráficamente en bloques jerárquicos para crear sistemas más complejos. El entorno automáticamente transforma el modelo a código C++ que ejecuta la simulación.
 
+\todo[inline]{Desperdician no es la palabra correcta, si no que en el caso de la simualación continnua muchas cosas no hacen falta que en DEVS sí}
 QSS-Solver es una implementación de los métodos de integración por cuantificación de estados (Quantized State System) los cuales permiten, a diferencia de las implementaciones sobre eventos discretos no desperdician carga computacional en la simulación de eventos discretos.
 
+\todo[inline]{Falta decir qué vas a hacer en este trabajo. Introducís "esta herramienta" y no se entiende qué herramienta}
 Esta herramienta convierte los modelos, descriptos en PowerDEVS, en código Modelica, más especificamente código $\mu$-Modelica (un subconjunto de Modelica), permitiendo ejecutar este modelo (convertido) con alguno de los compiladores Modelica, OpenModelica o Dymola, o \quotes{QSS Solver}, este último nos permite ganar al menos un orden de magnitud en los tiempos incurridos en la simulación.
 
 \end{abstract}

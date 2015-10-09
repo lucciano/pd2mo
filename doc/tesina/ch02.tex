@@ -14,7 +14,7 @@
 	computadora así lo requiere, dado que la misma computadora es un sistema discreto.
 
 	\subsection{Métodos de Integración numérica} \label{sec:num_integ}
-	Un sistema continuo puede ser descripto por un modelo en espacios de estados de la forma:
+	Un sistema continuo puede ser descripto por una ecuación diferencial ordinaria de la forma:
 
 	\begin{equation} \label{eq:eq1}
 	\dot{x}(t) = f (x(t), u(t))
@@ -44,6 +44,7 @@
 		x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
 	\end{equation}
 
+\todo[inline]{Cita los algoritmos DASSL, RK, DOPRI}
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
 	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta, DASSL, DOPRI, etc.
 
@@ -61,7 +62,7 @@
 		\item $y$ es el número de algún predador (por ejemplo, un lobo)
 		\item $x$ es el número de sus presas (por ejemplo, conejos)
 		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
-		\item t representa el tiempo y
+		\item $t$ representa el tiempo y
 		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
 	\end{itemize}
 
@@ -75,18 +76,20 @@
 	Adicionalmente, los componentes típicos de los sistemas de distintos dominios de la física y de la técnica pueden agruparse en librerías de clases para ser
 	reutilizados. De hecho, existe una librería estándar de clases de Modelica, que contiene los principales componentes básicos de sistemas eléctricos,
 	mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graphs, y diagramas de bloques. 
-	Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de petri, etc.
+	Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de Petri, etc.
 	Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
 	manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
 	Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores
 	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales que cuentan con interfaces
 	gráficas para construir los modelos. OpenModelica es una herramienta libre, de código abierto.
+    \todo[inline]{Ojo pareciera que OM no tiene editor y sí lo tiene}
 
 \begin{listing}[H]    
 	\caption{LotkaVolterra.mo}
 	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
 	\label{lst:LotkaVolterra.mo}
 \end{listing}
+    \todo[inline]{Acá yo pondría una version del modelo que no esté ordenada, por ejemplo \texttt{0=-der(x)+ ... } }
 	
 	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el listado \ref{lst:LotkaVolterra.mo} se muestra el equivalente modelo en Modelica, 
 	en el se pueden observar algunas particularidades del lenguaje.
@@ -105,6 +108,7 @@
 	\texttt{equation}), esta sección describe el sistema de ecuaciones de nuestro modelo. Donde la expresión \texttt{der(x)} representa la derivada \texttt{x} 
 	respecto del tiempo y análogamente con \texttt{y}.
 	Es importante notar que el símbolo \texttt{=} no es el símbolo de asignación, sino de igualdad matemática (es decir acausal), a diferencia de la mayoría 
+    \todo[inline]{Acá esto queda claro mostrando el modelo no ordenado como antes...si ponés 0=... no estás asignando el cero claramente}
 	de  los lenguajes de programación modernos.  Para realizar asignaciones se utiliza una sección \texttt{algorithm}, que contiene asignaciones ordenadas. 
 	Con el fin de distinguir de las ecuaciones de la sección \texttt{equation}, se utiliza el operador de asignación \texttt{:=}, 
 	varias asignaciones puede ser ejecutadas en la sección de \texttt{algorithm}. Ademas la sección \texttt{algorithm} puede tener expresiones y construcciones 
@@ -164,6 +168,8 @@
 
 
 \section{$\mu$-Modelica}
+
+\todo[inline]{Mencionar que $mu$-Modelica es un subconjunto de Modelica!}
 	El lenguaje $\mu$-Modelica\cite{Ber12} tiene las siguientes restricciones con respecto a Modelica:
 
 	\begin{itemize}
@@ -171,30 +177,38 @@
 	 \item Todas las variables pertenecen al tipo predefinido Real y solo hay tres categorías de variables: estado continuo, estado discreto y variables 
 	algebraicas.
 	 \item Los parámetros también son de tipo Real. 
-	 \item Arreglos están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
-	donde $\alpha$ y $\beta$ son expresiones enteras y \texttt{i} es el índice de la iteración.
+	 \item 
+     
+\todo[inline]{Arreglos unidimensionales}
+     Arreglos están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
+	donde $\alpha$ y $\beta$ son expresiones enteras e \texttt{i} es el índice de la iteración.
 	 \item La sección de ecuaciones está compuesta de :
 	 \begin{itemize}
 		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
-		\item Definición algebraica : $(a_1 , \dots , a_n ) = g(x(t), d, a(t), t);$
+		\item 
+        
+\todo[inline]{Acá también se puede asignar solo una variable de la forma $a_2 = g(a_1)$}
+        Definición algebraica : $(a_1 , \dots , a_n ) = g(x(t), d, a(t), t);$
 	 \end{itemize}
-	 con la restricción de que cada variable algebraica solo puede depender del estado y de variables algebraicas previamente definidas.
+	 con la restricción de que cada variable algebraica solo puede depender de variables estado y de variables algebraicas previamente definidas.
 	 
 	 \item Discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos 
 	clausulas solo pueden ser relaciones ($<$, $\leqslant$, $>$ $\geqslant$) y, dentro de la clausula, solo asignaciones de variables discretas y $reinit$ 
 	de estados continuos son permitidos.
 	\end{itemize}
 
+\todo[inline]{Explicar que estas restricciones son para que la herramienta que vas a presentar luego pueda detectar la estructura fácilmente}
 \section{Stand–Alone QSS solver}
+\todo[inline]{Acá también quitar la palabra desperdician}
 	Como mencionamos antes los métodos QSS de integración remplazan la discretización del tiempo de los métodos clásicos por una cuantificación de las 
 	variables del sistema. De esta forma, estos métodos generan aproximaciones del sistema continuo y tienen algunas ventajas sobre sus contra partes clásicas.
-
 	La forma más simple de implementar algoritmos QSS es mediante el uso de un simulador DEVS, de hecho PowerDEVS implementa la totalidad de la familia de 
 	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues desperdician mucho poder computacional en sincronizar y transmisión de eventos.
 
-	Estas desventajas motivo el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
+	Estas desventajas motivó el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
 	toda la familia de métodos QSS y permite que los modelos contengan discontinuidades de tiempo y estado.
 
+\todo[inline]{Más que una dificultad es un requerimiento de los métodos}
 	Una dificultad impuesta por los métodos QSS es que hace uso de información estructural del modelo. Cada paso en un método QSS involucra un cambio 
 	en una variable de estado y en la derivada del estado que depende de el. Por lo que el modelo debe proveer no solo la expresión para calcular las 
 	derivadas del estado (como en un clásico ODE solver) pero además un matriz de incidencias para informar al solver que derivadas de estado han cambiado 
@@ -209,12 +223,14 @@
 	al modelo anterior, excepto que la variable \texttt{x} es un arreglo de dos dimensiones jugando el papel de \texttt{x} e \texttt{y} del anterior modelo.
 	También se puede apreciar un bloque extra \texttt{initial algorithm} el cual inicializa las variables (en lugar de utilizar la inicialización estándar).
 
+\todo[inline]{Ojo acá no hace falta que las variables de estado estén en un arreglo. En primeras versiones del solver sí pero ahora no. Quizás es mejor hacerlo lo más parecido al ejemplo inicial}
 	\begin{listing}[H]    
 		\caption{LotkaVolterra.mo}
 		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
 		\label{lst:LotkaVolterra.mo}
 	\end{listing} 
 
+\todo[inline]{Acá podés remarcar que en esta caso las ecuaciones sí deben ser de la forma var=f()} 
 
 \section{Formalismo DEVS}
 	DEVS\cite{Zeigler} es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
@@ -466,7 +482,7 @@
 
 	En la figura \ref{fig:lk-powerdevs} se puede ver el modelo Lotka Volterra que acompaña la instalación de PowerDEVS, este modelo (aunque no visible en la figura)
 	tiene valores iguales a los expresados en el modelo equivalente anteriormente presentado en el listado \ref{lst:LotkaVolterra.mo}. 
-	las dos conexiones contra el bloque \texttt{GnuPlot 0} representando las variables \texttt{x} e \texttt{y} es decir presa y depredadores, ambas variables 
+	Las dos conexiones contra el bloque \texttt{GnuPlot 0} representando las variables \texttt{x} e \texttt{y} es decir presa y depredadores, ambas variables 
 	son el resultado de la integración por lo que los integradores \texttt{QSS Integrato 0} y \texttt{QSS Integrato 1} contienen en sus puerto de entrada los 
 	valores \texttt{dx/dt} y \texttt{dy/dt}. 
 	Los bloques \texttt{WSum 0} y \texttt{WSum 1}, tiene constante de forma que el valor de salida (\texttt{y}) queda definido como

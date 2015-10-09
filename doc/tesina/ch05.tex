@@ -1,15 +1,21 @@
-	En este capitulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y 
+	En este capítulo mostramos los resultados del presente trabajo, comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución y 
 		comparamos los resultados obtenidos. Los modelos ejecutados tanto los originales, en PowerDEVS, y los modelos transformados en 
 		$\mu$-Modelilca se encuentran en \url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
 
 \section{Comparación de performance}
-	A continuación por cada uno de los modelos se muestra su modelo en Powerdevs seguido de una gráfica de valores en tiempo de las simulaciones 
+	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de una gráfica de valores en tiempo de las simulaciones 
 	(provista por ambas herramientas en GNUPlot), 
 	a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
 
+\todo[inline]{Una boludez pero trata de que las dos gráficas PD vs Solver tengan el mismo color para las mismas señales. es sólo cambiar el orden}
+\todo[inline]{Tratá de poner caption a todas las figuras y mencionarlas en el texto. En la figura tanto vemos el resultado de....} 
+\todo[inline]{Lo mismo para las tablas!}
 \section{Líneas de Transmisión}
 	El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
 
+\todo[inline]{Usá la notación $\frac{d v}{d t}$ como en el cap 2}
+
+\todo[inline]{Ojo que esa ecuación vale para j=2..N-1 para los bordes hay otras dos eq}
 \begin{equation*}
 \begin{split}
 \dot{v}_{j} &= \frac{i_{j} - i_{j+1}}{C} \\
@@ -45,6 +51,7 @@ v_0(t) = \left\{
 \section{Inversores Lógicos}
 	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
 
+\todo[inline]{Usá la notación $\frac{d v}{d t}$ como en el cap 2}
 \begin{align*}
 \dot{\omega}_1 & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
 \dot{\omega}_j & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
@@ -65,7 +72,7 @@ v_0(t) = \left\{
 \end{minipage}
 \end{figure}
 
-\section{Advection-diffusion-reaction}
+\section{Advection-Diffusion-Reaction}
 	El modelo de equaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenomenos de tranferencias de calor y masa, donde la cantidad de interes $u(x,t)$ puede ser temeratura en la conducción de calor o concentración de una sustancia química.
 
 La ecuación 
@@ -129,9 +136,10 @@ i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \end{minipage}
 \end{figure}
 
-\section{Ecuaciones Lotka-Volter}
+\section{Ecuaciones Lotka-Volterra}
 
-	El sistema de ecuaciones Lotka-Volter, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+\todo[inline]{Menciona que este es el sistema visto en el cap 2 y pasalo como primer ejemplo ya que es el más simple}
+	El sistema de ecuaciones Lotka-Volterra, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
 
 \begin{align*}
 \frac{dx}{dt} & = x(\alpha - \beta y)\\
@@ -164,8 +172,9 @@ donde:
 
 \section{Resultados}
 
+\todo[inline]{Qué pruebas? Explicá que vas a hacer una comparación de tiempo de simulación entre los dos enfoques}
 	Las pruebas fueron realizadas en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de memoria RAM. Los tiempos observados no deben ser considerados 
-	como absolutos ya que variaran de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
+	como absolutos ya que variarán de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
 
 	Los resultados obtenidos son los tiempos observados luego de ejecutar la simulación en PowerDEVS (P.DEVS) y QSS-Solver (QSS-S), ambas mediciones
 	son reportadas por los motores de simulación, en milisegundos (ms), todas las simulaciones utilizan el método de integración QSS3 excepto los que 
@@ -191,4 +200,4 @@ Lotka  Voltera 300s      		& 11            & 2.75132         & 81
 
 	En la tabla se puede ver una mejora entre 54 y 96\% entre todos los modelos, y entre 54 y 90\% para los modelos vectoriales que son nuestro principal objetivo,
 	ya que son la forma más simple de realizar grandes modelos, que es lo que esperaba dado que al cambiar de formalismo se evita todo los mensajes entre modelos 
-	caracteristico del formalismo DEVS, además de aprobechar la velocidad del QSS-Solver.
+	característico del formalismo DEVS, además de aprobechar la velocidad del QSS-Solver.

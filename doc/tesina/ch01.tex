@@ -4,18 +4,20 @@ El modelado y simulación\cite{Zeigler} se han convertido en una actividad centr
 Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del mismo antes de que sea construido.
 El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
 
-Veamos algunas razones por las cuales utilización de simulaciones es deseable o incluso requerido:
+Veamos algunas razones por las cuales la utilización de simulaciones es deseable o incluso requerido:
 
 \begin{itemize}
-	\item El sistema físico no se encuentra disponible, debido a que el sistema no fue aun construido o si el sistema debería ser construido. 
+	\item 
+    \todo[inline]{No se entiende muy bien esto. re-redactar}
+    El sistema físico no se encuentra disponible, debido a que el sistema no fue aún construido o si el sistema debería ser construido. 
 	
 	\item El experimento puede ser peligroso. Usualmente, simulaciones son realizadas para determinar si el experimento real \quotes{explotara}, poniendo al experimentador en peligro.
 
-	\item El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas. Tambien es posible que el sistema se encuentra siendo utilizado y tomar el tiempo para experimentar sería inaceptable.
+	\item El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas. También es posible que el sistema se encuentra siendo utilizado y tomar el tiempo para experimentar sería inaceptable.
 
-	\item Los tiempos del sistema no son compatibles con el del experimentador. Usualmente simulaciones son utilizadas debido a que el experimento real se realiza tan rapido que no es posible observarlo (por ejemplo una explosión) o porque el experimento toma tanto tiempo que el experimmentador estaria muerto cuando el experimento se encuentre completado.
+	\item Los tiempos del sistema no son compatibles con el del experimentador. Usualmente simulaciones son utilizadas debido a que el experimento real se realiza tan rápido que no es posible observarlo (por ejemplo una explosión) o porque el experimento toma tanto tiempo que el experimmentador estaría muerto cuando el experimento se encuentre completado.
 
-	\item Variables de control, de estado y/o del sistema pueden encontrarse inaccesibles. Usualmente simulaciones son utilizadas debido a que nos permite acceder todas las variables de entrada y todos los estados, mientras que el sistema real, algunas entradas ( ruidos, por ejemplo) no son manipulables y algunas variables internas del sistema no son accesibles a la medición. Simulaciones tambien nos permite manipular el modelo en formas que no podriamos manipular el sistema real, por ejemplo, podemos decidir cambiar la masa de un objeto de 50 kg a 400 kg y repetir la simulación. En un sistema físico, la modificación anterior es imposible o requiere una costoza y larga alteración del sistema.
+	\item Variables de control, de estado y/o del sistema pueden encontrarse inaccesibles. Usualmente simulaciones son utilizadas debido a que nos permite acceder todas las variables de entrada y todos los estados, mientras que el sistema real, algunas entradas ( ruidos, por ejemplo) no son manipulables y algunas variables internas del sistema no son accesibles a la medición. Simulaciones también nos permite manipular el modelo en formas que no podríamos manipular el sistema real, por ejemplo, podemos decidir cambiar la masa de un objeto de 50 kg a 400 kg y repetir la simulación. En un sistema físico, la modificación anterior es imposible o requiere una costosa y larga alteración del sistema.
 
 	\item Eliminación de perturbaciones. Usualmente, se llevan adelante simulaciones que nos permite eliminar perturbaciones que son inevitables en el sistema real. Lo que nos permite aislar efectos particulares, y puede conducir a mejores apreciaciones sobre el comportamiento general del sistema.
 
@@ -26,17 +28,17 @@ Es por esto que cuando simulamos un modelo es deseable que pueda ser simulado de
 
 Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
-El modelo inicia como una función matemática de la forma 
+El modelo se describe como una Ecuación Diferencial Ordinaria (o ODE) de la forma
 \begin{equation*}
 	\dot{x} = f(x, u, t)
 \end{equation*}
 donde $x$ representan las variables del sistema, $u$ el estado inicial y $t$ el tiempo, este modelo, puede ser convertido en un modelo Modelica\cite{Fri98}\cite{Fritzson02modelica} de forma textual o gráfica, dependiendo de las herramientas con las que contemos y como nos resulte más simple de describir.
 
-PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre si, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
+PowerDEVS\cite{BK11} es una herramienta de simulación de sistemas híbridos, basado en el formalismo DEVS\cite{Zeigler}, con una interfaz gráfica orientada a bloques, donde los bloques pueden ser conectados entre sí, modificado sus parámetros, además permite conectarse con el entorno Scilab para poder utilizar expresiones y herramientas de cálculo provistas por este entorno.
 
-Nos interesa poder utilizar el entorno PowerDEVS\cite{BK11}, debido a que no solo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
+Nos interesa poder utilizar el entorno PowerDEVS\cite{BK11}, debido a que no sólo la interfaz gráfica es más amena para usuarios que no estan necesariamente habituados a la programación, sino que tambien deseamos utilizar los modelos ya definidos en esta herramienta.
 
-Contamos además con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitiria ejectura simulaciones un orden de mágnitud más rápido, que otras implementaciones.
+Contamos además con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitirá ejecutar simulaciones un orden de mágnitud más rápido, que otras implementaciones.
 
 Por lo cual en este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS\cite{BK11} a modelos en el lenguaje Modelica\cite{Fri98}\cite{Fritzson02modelica}, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver\cite{Ber12}, obteniendo lo mejor de los dos mundos, un entorno de modelado amigable y el menor tiempo de simulación posible.
 
@@ -50,20 +52,21 @@ Por lo cual en este trabajo nos proponemos mostrar una aplicación capaz de conv
 
 En la figura \ref{fig:esquema}, se muestran los dos principales estrategias (PowerDEVS\cite{BK11} y Modelica\cite{Fri98}) para realizar una simulación. En el caso de PowerDEVS, el primer paso es convertir el sistema en diagramas de bloques, luego en DEVS\cite{Zeigler}, en PowerDEVS el cual puede automáticamente convertirlo en C++ y luego obtener los resultados ejecutando este modelo. 
 
-Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a Modelica (o $\mu$-Modelica) y luego el compilador se encargara de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
+Desde la perspectiva de Modelica (o $\mu$-Modelica), debemos pasar el sistema a Modelica (o $\mu$-Modelica) y luego el compilador se encargará de generar código (usualmente C o C++) capaz de correr la simulación y obtener resultados.
 
-El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$-Modelica.
+\todo[inline]{Mencionar que el resultado de la traducción es modelica válido por lo cual se puede simular en cualquier herramienta de modelica}
+El actual trabajo está representado por la flecha que sale de PowerDEVS hacia $\mu$-Modelica, permitiendo especificar la simulación en diagramas de bloques y ejecutar la simulación en el QSS-Solver, en el lenguaje $\mu$-Modelica.
 
 \section{Organización del trabajo}
 El presente trabajo se organiza en 6 capítulos:
-\begin{itemize}
+\begin{enumerate}
 \item \emph{Introducción} en la cual ya vimos una visión general del objetivo así como las herramientas que utilizaremos y algunas herramientas relacionadas
 \item \emph{Conceptos previos} en este capítulo veremos los fundamentos matemáticos y profundizaremos sobre las dos herramientas principales que conciernen este trabajo.
 \item \emph{Conversión de modelos DEVS} en este capítulo veremos en detalles la conversión de un modelo desde su formulación matemática, en su modelo en PowerDEVS y veremos las conversiones necesarias para llevar adelante la conversión a $\mu$-Modelica.
 \item \emph{Detalles de la implementación} en este capítulo se muestra los componentes de software que forman la aplicación, y descripción en pseudo-código de los principales componentes.
 \item \emph{Ejemplos y Resultados} en este capítulo vemos varios ejemplos y realizamos una comparación de los resultados obtenidos a partir de compara los tiempos de simulaciones de los modelos originales, en PowerDEVS, y los modelos convertidos en $\mu$-Modelica.
 \item \emph{Conclusiones y Trabajos futuros}, por último revisamos nuestras conclusiones y proponemos trabajos a futuro.
-\end{itemize}
+\end{enumerate}
 
 \section{Trabajo relacionado}
 En \cite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
