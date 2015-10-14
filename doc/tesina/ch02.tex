@@ -160,10 +160,7 @@
 
 \section{$\mu$-Modelica}
 
-\todo[inline]{Mencionar que $mu$-Modelica es un subconjunto de Modelica!}
-
-	El lenguaje $\mu$-Modelica se define como un subconjunto del lenguaje estandar Modelica, a diferencia de Modelica, 
-	$\mu$-Modelica\cite{Ber12} tiene las siguientes restricciones:
+	El lenguaje $\mu$-Modelica\cite{Ber12} se define como un subconjunto del lenguaje estandar Modelica, con las siguientes restricciones:
 
 	\begin{itemize}
 	 \item El modelo es plano, es decir no permite clases.
@@ -209,18 +206,15 @@
 
 	La interfaz permite al usuario describir el modelo utilizando ($\mu$-Modelica) y automáticamente genera el código C del modelo incluyendo la estructura.
 
-	Continuando con nuestro ejemplo sobre el sistema Lotka Volterra, incluimos el modelo proporcionado en la instalación del QSS-Solver, este es equivalente 
-	al modelo anterior, excepto que la variable \texttt{x} es un arreglo de dos dimensiones jugando el papel de \texttt{x} e \texttt{y} del anterior modelo.
-	También se puede apreciar un bloque extra \texttt{initial algorithm} el cual inicializa las variables (en lugar de utilizar la inicialización estándar).
+	Continuando con nuestro ejemplo sobre el sistema Lotka Volterra, incluimos el modelo anterior, esta vez modificado para que sea $\mu$-Modelica valido.
+	Se puede apreciar un bloque extra \texttt{initial algorithm} el cual inicializa las variables (en lugar de utilizar la inicialización estándar), además 
+	fue necesario escribir las equaciones de la forma \texttt{var=f()} para que sean $\mu$-Modelica valido.
 
-\todo[inline]{Ojo acá no hace falta que las variables de estado estén en un arreglo. En primeras versiones del solver sí pero ahora no. Quizás es mejor hacerlo lo más parecido al ejemplo inicial}
 	\begin{listing}[H]    
 		\caption{LotkaVolterra.mo}
 		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
 		\label{lst:LotkaVolterra.mo}
 	\end{listing} 
-
-\todo[inline]{Acá podés remarcar que en esta caso las ecuaciones sí deben ser de la forma var=f()} 
 
 \section{Formalismo DEVS}
 	DEVS\cite{Zeigler} es un formalismo para modelar y analizar sistemas de eventos discretos (es decir, sistemas en los cuales en un lapso finito de tiempo, 
