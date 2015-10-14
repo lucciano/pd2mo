@@ -6,6 +6,6 @@ class LotkaVolterra
   parameter Real c = 0.1;
   parameter Real d = 0.1;
 equation
-  der(x) = x * (a - b * y);
-  der(y) = - y * (d - c * x);
+  0 =  x * (a - b * y) - der(x);
+  0 = der(y) + y * (d - c * x);
 end LotkaVolterra;

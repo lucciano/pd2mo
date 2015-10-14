@@ -44,9 +44,8 @@
 		x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
 	\end{equation}
 
-\todo[inline]{Cita los algoritmos DASSL, RK, DOPRI}
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
-	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta, DASSL, DOPRI, etc.
+	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta\ref{Cel06}, DASSL\ref{DASSL}, DOPRI\ref{DP80}, etc.
 
 	A modo de ejemplos introducimos un ejemplo: el sistema de ecuaciones de Lotka-Volterra, también conocidas como ecuaciones predador-presa o presa-predador,
 	son un par de ecuaciones diferenciales de primer orden no lineales que se usan para describir la dinámicas de sistemas biológicos en el que dos 
@@ -80,16 +79,14 @@
 	Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
 	manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
 	Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores
-	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales que cuentan con interfaces
-	gráficas para construir los modelos. OpenModelica es una herramienta libre, de código abierto.
-    \todo[inline]{Ojo pareciera que OM no tiene editor y sí lo tiene}
+	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales mientras que OpenModelica es de código
+	abierto, todas cuentan con interfaces gráficas para construir los modelos, edición de código y compiladores para generar el código de las simulaciones.
 
 \begin{listing}[H]    
 	\caption{LotkaVolterra.mo}
 	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
 	\label{lst:LotkaVolterra.mo}
 \end{listing}
-    \todo[inline]{Acá yo pondría una version del modelo que no esté ordenada, por ejemplo \texttt{0=-der(x)+ ... } }
 	
 	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el listado \ref{lst:LotkaVolterra.mo} se muestra el equivalente modelo en Modelica, 
 	en el se pueden observar algunas particularidades del lenguaje.
@@ -107,13 +104,7 @@
 	Esta primera parte (lineas 2 a 7) del modelo constituye la sección de declaraciones, se encuentra la sección de ecuaciones (luego de la palabra clave 
 	\texttt{equation}), esta sección describe el sistema de ecuaciones de nuestro modelo. Donde la expresión \texttt{der(x)} representa la derivada \texttt{x} 
 	respecto del tiempo y análogamente con \texttt{y}.
-	Es importante notar que el símbolo \texttt{=} no es el símbolo de asignación, sino de igualdad matemática (es decir acausal), a diferencia de la mayoría 
-    \todo[inline]{Acá esto queda claro mostrando el modelo no ordenado como antes...si ponés 0=... no estás asignando el cero claramente}
-	de  los lenguajes de programación modernos.  Para realizar asignaciones se utiliza una sección \texttt{algorithm}, que contiene asignaciones ordenadas. 
-	Con el fin de distinguir de las ecuaciones de la sección \texttt{equation}, se utiliza el operador de asignación \texttt{:=}, 
-	varias asignaciones puede ser ejecutadas en la sección de \texttt{algorithm}. Ademas la sección \texttt{algorithm} puede tener expresiones y construcciones 
-	if-then-else y bucles.
-
+	
 	Por supuesto Modelica es un lenguaje mucho más extenso de lo que hemos descripto, pero los conceptos que utilizamos a lo largo de este trabajo son los
 	expresados en la presente sección.
 
@@ -170,7 +161,9 @@
 \section{$\mu$-Modelica}
 
 \todo[inline]{Mencionar que $mu$-Modelica es un subconjunto de Modelica!}
-	El lenguaje $\mu$-Modelica\cite{Ber12} tiene las siguientes restricciones con respecto a Modelica:
+
+	El lenguaje $\mu$-Modelica se define como un subconjunto del lenguaje estandar Modelica, a diferencia de Modelica, 
+	$\mu$-Modelica\cite{Ber12} tiene las siguientes restricciones:
 
 	\begin{itemize}
 	 \item El modelo es plano, es decir no permite clases.
@@ -179,16 +172,12 @@
 	 \item Los parámetros también son de tipo Real. 
 	 \item 
      
-\todo[inline]{Arreglos unidimensionales}
-     Arreglos están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
+    Solo Arreglos unidimensionales están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
 	donde $\alpha$ y $\beta$ son expresiones enteras e \texttt{i} es el índice de la iteración.
 	 \item La sección de ecuaciones está compuesta de :
 	 \begin{itemize}
 		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
-		\item 
-        
-\todo[inline]{Acá también se puede asignar solo una variable de la forma $a_2 = g(a_1)$}
-        Definición algebraica : $(a_1 , \dots , a_n ) = g(x(t), d, a(t), t);$
+		\item Definición algebraica : $a_2  = g(a_1);$
 	 \end{itemize}
 	 con la restricción de que cada variable algebraica solo puede depender de variables estado y de variables algebraicas previamente definidas.
 	 
@@ -197,19 +186,20 @@
 	de estados continuos son permitidos.
 	\end{itemize}
 
-\todo[inline]{Explicar que estas restricciones son para que la herramienta que vas a presentar luego pueda detectar la estructura fácilmente}
+	Estas restricciones son necesarias ya que el QSS-Solver necesita conocer la estructura del sistema para que luego de cada cambio de estado, solo deba evaluar
+	las variables que explicitamente dependan de ella.
+
 \section{Stand–Alone QSS solver}
-\todo[inline]{Acá también quitar la palabra desperdician}
 	Como mencionamos antes los métodos QSS de integración remplazan la discretización del tiempo de los métodos clásicos por una cuantificación de las 
 	variables del sistema. De esta forma, estos métodos generan aproximaciones del sistema continuo y tienen algunas ventajas sobre sus contra partes clásicas.
 	La forma más simple de implementar algoritmos QSS es mediante el uso de un simulador DEVS, de hecho PowerDEVS implementa la totalidad de la familia de 
-	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues desperdician mucho poder computacional en sincronizar y transmisión de eventos.
+	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues ya a diferencia de los sistemas DEVS no requieren de la sincronización y 
+	transmisión de eventos, permitiendo liberar parte de la carga computacional.
 
 	Estas desventajas motivó el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
 	toda la familia de métodos QSS y permite que los modelos contengan discontinuidades de tiempo y estado.
 
-\todo[inline]{Más que una dificultad es un requerimiento de los métodos}
-	Una dificultad impuesta por los métodos QSS es que hace uso de información estructural del modelo. Cada paso en un método QSS involucra un cambio 
+	Un requerimiento impuesto por los métodos QSS es que hace uso de información estructural del modelo. Cada paso en un método QSS involucra un cambio 
 	en una variable de estado y en la derivada del estado que depende de el. Por lo que el modelo debe proveer no solo la expresión para calcular las 
 	derivadas del estado (como en un clásico ODE solver) pero además un matriz de incidencias para informar al solver que derivadas de estado han cambiado 
 	luego de cada paso.
