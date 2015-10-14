@@ -10,43 +10,21 @@
         entre los modelos, los detalles de cómo esas conexiones son visualizadas por lineas y los detalles del recorrido de esas lineas. 
         Todos estos elementos son utilizados en primera medida con el editor de modelos, pero también son utilizados para generar el archivo PDS el cual es el 
         genera el código de la simulación.
-        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación, en el listado \ref{lst:pdsstruc} se pueden ver un 
-        esbozo de su estructura.
-        
-\todo[inline]{Para seguir una linea lógica mostra el pds del lotka volterra y lo podés relacionar con la figura del modelo 2.5}
+        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación, en el listado \ref{lst:pdsstruc} se pueden ver el
+	archivo que contiene la simulación generada para el modelo Lotka Volterra que corresponde al modelo presentado en la figura \ref{fig:lk-powerdevs} 
+	de la página \pageref{fig:lk-powerdevs}.
+
 \begin{listing}[H]
-\begin{minted}{text}
-Root-Coordinator
- {
-  Simulator
-   {
-    Path = vector\qss_sum_vec.h
-    Parameters = "1","-1","1","0","0","0","0","0",3.000000e+00,"N"
-   }
-   ...
-    Coordinator
-     {
-      ...
-     }
-   ...     
-  Simulator
-   {
-        ...
-   }
-  EIC
-   {
-   }
-  EOC
-   {
-   }
-  IC
-   {
-        ...
-   }
- }
-\end{minted}
-\caption{Estructura de un archivo PDS.}
+        \inputminted[linenos,breaklines=true,lastline=32]{modelica}{src/lotka_volterra.pds}
+\caption{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua).}
 \label{lst:pdsstruc}
+\end{listing}
+
+
+\begin{listing}[H]
+        \inputminted[firstline=33,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
+\caption{(continuación) conexiones del archivo lotka\_volterra.pds.}
+\label{lst:pdsstruc-cont}
 \end{listing}
 
         Se puede observar un elemento \texttt{Root-Coordinator} el cual contiene (marcado entre llaves) una lista de \texttt{Simulator}s que representan 
@@ -54,6 +32,7 @@ Root-Coordinator
         conexiones \texttt{EIC}, \texttt{EOC} y \texttt{IC}, conexiones de entrada externa (External Input Connections), 
         conexiones de salida externa (external output connections) y conexiones internas (Internal Connections).
 
+        \todo[inline]{revisar}
         Las lista de conexiones internas (IC) es una lista de par de pares de números naturales, de la forma $(a,b);(c,d)$.
         Donde el primer par se refiere al origen de la conexión (puerto $b$) del modelo $a$ y el segundo al fin de la conexión (puerto $d$) 
         del modelo $c$, ambos modelos se refiere a la lista de modelos (atómicos o acoplados) del actual modelo.
