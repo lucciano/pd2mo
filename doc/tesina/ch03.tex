@@ -61,14 +61,13 @@
         PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\textbackslash qss\_sum\_vec.h} 
 	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se replaza \quotes{\textbackslash} por \quotes{/} para permitir 
 	algunos modelos cuyos \texttt{Path} contiene ese separadores de directorios}
-        \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$
+        \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
         \item Los valores de entrada del modelo son asociados a la variable $u$
         \item Los valores de salida del modelos son asociados a la variable $y$
 \end{itemize}
 
-\todo[inline]{falta explicar que las variables de entrada y salida van a ser arreglos para representar los distintos puertos de entrada/salida}
-\todo[inline]{Lo mismo para p, decir que es un arreglo porque un bloque puede tener muchos (hasta 10) parámetros}
-
+	Tanto $p$, $u$ e $y$ son arreglos de Reales en el caso escalar, si el modelo es vectorial, entonces $u$ e $y$ son arreglos de dos dimensiones (ver la sección \ref{sec:modelos_vectoriales}).
+	
 \todo[inline]{el ejemplo del integrado está bien pero yo antes mencionaría cuántos puertos de entrada/salida tiene, cuales son sus parámetros y qué relación tiene su entrada con su salida. recién ahi mostrar el codigo}
 
 
@@ -565,7 +564,7 @@ end QSSIntegrator;
 	Agregando estas conexiones se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el esquema jerárquico de modelos en profundidad, 
 	aplanando los modelos acoplado más profundos primero, podemos utiliza el algoritmo de forma de aplanar el modelo más profundo únicamente.
 
-\section{Modelos Vectoriales}
+\section{Modelos Vectoriales} \label{sec:modelos_vectoriales}
 	Como ya mencionamos, los modelos vectoriales son modelos atómicos en el cual las entradas y/o salidas son vectoriales. En los modelos Modelica, 
 	las variables \texttt{u} e \texttt{y} representan los puertos de entrada y salida respectivamente, por lo que serán del tipo arreglo de arreglos de reales,
 	mientras que en los modelos atómicos no vectoriales (escalares) tienen variables que representan los puertos de entrada y salida como arreglos de reales. 
