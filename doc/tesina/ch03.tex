@@ -194,7 +194,6 @@ end QSSIntegrator;
         En la figura \ref{fig:coupledsample}  se observa a la derecha el modelo de un convertidor de potencia, el cual introduciremos con mayores
 	 detalles en una sección posterior, y a la izquierda el modelo acoplado \texttt{Coupled0}.
 
-\todo[inline]{Esta figura está perfecta pero yo agregaría a cada modelo qué numero de hijo es dentro de su acoplado padre. así queda más claro lo de las conexiones después}
 \begin{figure}[H]
 
   %\setcapwidth{0.6\textwidth}
@@ -246,37 +245,38 @@ end QSSIntegrator;
           two children at (0.5,-0.7) and (0.5,-1.4)},
           edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
           \node {Root-Coordinator}
-            child { node {Scilab Command0	(1)}}
-            child { node {QSS Integartor0	(2)}}
-            child { node {QSS Integartor1	(3)}}             
-            child { node {WSum0			(4)}}
-            child { node {Inseverse0		(5)}}
-            child { node {Multiplier0		(6)}}
-            child { node {Multiplier1		(7)}}
-            child { node {Multiplier2		(8)}}
-            child { node {Inseverse1		(9)}}
-            child { node {Multiplier3		(10)}}
-            child { node {Multiplier4		(11)}}
-            child { node {WSum1			(12)}}
-            child { node {Switch0		(13)}}
-            child { node {Ron			(14)}}
-            child { node {Roff			(15)}}
-            child { node {Square0		(16)}}
-            child { node {GNUPlot0		(17)}}
-            child { node {Hysteresis0		(18)}}
-            child { node {Switch1		(19)}}
-            child { node {WSum0			(20)}}
-            child { node {WSum1			(21)}};
+            child { node {Scilab Command0	(0)}}
+            child { node {QSS Integartor0	(1)}}
+            child { node {QSS Integartor1	(2)}}             
+            child { node {WSum0			(3)}}
+            child { node {Inseverse0		(4)}}
+            child { node {Multiplier0		(5)}}
+            child { node {Multiplier1		(6)}}
+            child { node {Multiplier2		(7)}}
+            child { node {Inseverse1		(8)}}
+            child { node {Multiplier3		(9)}}
+            child { node {Multiplier4		(10)}}
+            child { node {WSum1			(11)}}
+            child { node {Switch0		(12)}}
+            child { node {Ron			(13)}}
+            child { node {Roff			(14)}}
+            child { node {Square0		(15)}}
+            child { node {GNUPlot0		(16)}}
+            child { node {Hysteresis0		(17)}}
+            child { node {Switch1		(18)}}
+            child { node {WSum0			(19)}}
+            child { node {WSum1			(20)}};
         \end{tikzpicture}
         \end{minipage}%
 }
-        \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha)}
+        \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha), jutno al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
         \label{fig:coupled-tree}
 \end{figure}
 
-	En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, esencialmente se mueven los modelos atómicos 
+	En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, se puede ver como se mueven los modelos atómicos 
         a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
-        listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados.
+        listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados. 
+	En el lado derecho de la \ref{fig:coupled-tree}, se pueden ver como quedaron l
 \todo[inline]{En realidad para tener en cuenta que ahora tienen otro número de modelo. aclararlo}
 
 \begin{listing}
