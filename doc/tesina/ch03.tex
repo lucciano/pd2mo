@@ -67,12 +67,11 @@
 \end{itemize}
 
 	Tanto $p$, $u$ e $y$ son arreglos de Reales en el caso escalar, si el modelo es vectorial, entonces $u$ e $y$ son arreglos de dos dimensiones (ver la sección \ref{sec:modelos_vectoriales}).
-	
-\todo[inline]{el ejemplo del integrado está bien pero yo antes mencionaría cuántos puertos de entrada/salida tiene, cuales son sus parámetros y qué relación tiene su entrada con su salida. recién ahi mostrar el codigo}
-
 
         Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo 
-	mostrado en el listado \ref{lst:qssintegrator.mo} ambos dentro del directorio qss.
+	mostrado en el listado \ref{lst:qssintegrator.mo} ambos dentro del directorio qss. En el se puede ver que tiene un puerto de entrada \texttt{Real u[1]} y un puerto de 
+	salida \texttt{Real y[1]}. Si bien tiene cuatro parametros el unico utlizable dentro del modelo Modelica es la entrada 4, \texttt{p[4]}, el cual es el utilizado como valor
+	inicial de ingración.
 
 \begin{listing}[H]
 \begin{minted}{modelica}
