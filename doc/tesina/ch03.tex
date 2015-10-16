@@ -205,19 +205,19 @@ end QSSIntegrator;
           two children at (0.5,-0.7) and (0.5,-1.4)},
           edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
           \node {Root-Coordinator}
-            child { node {Scilab Command0}}             
-            child { node {QSS Integartor0}}
-            child { node {QSS Integartor1}}             
-            child { node {Coupled0}
-              child { node {WSum0}}
-              child { node {Inseverse0}}
-              child { node {Multiplier0}}
-              child { node {Multiplier1}}
-              child { node {Multiplier2}}
-              child { node {Inseverse1}}
-              child { node {Multiplier3}}
-              child { node {Multiplier4}}
-              child { node {WSum1}}
+            child { node {Scilab Command0 (0)}}             
+            child { node {QSS Integartor0 (1)}}
+            child { node {QSS Integartor1 (2)}}             
+            child { node {Coupled0        (3)}
+              child { node {WSum0       (0)}}
+              child { node {Inseverse0  (1)}}
+              child { node {Multiplier0 (2)}}
+              child { node {Multiplier1 (3)}}
+              child { node {Multiplier2 (4)}}
+              child { node {Inseverse1  (5)}}
+              child { node {Multiplier3 (6)}}
+              child { node {Multiplier4 (7)}}
+              child { node {WSum1       (8)}}
             }
             child [missing] {}                          
             child [missing] {}                          
@@ -228,15 +228,15 @@ end QSSIntegrator;
             child [missing] {}                          
             child [missing] {}                          
             child [missing] {}                          
-            child { node {Switch0}}
-            child { node {Ron}}
-            child { node {Roff}}
-            child { node {Square0}}
-            child { node {GNUPlot0}}
-            child { node {Hysteresis0}}
-            child { node {Switch1}}
-            child { node {WSum0}}
-            child { node {WSum1}};
+            child { node {Switch0    (4)}}
+            child { node {Ron        (5)}}
+            child { node {Roff       (6)}}
+            child { node {Square0    (7)}}
+            child { node {GNUPlot0   (8)}}
+            child { node {Hysteresis0(9)}}
+            child { node {Switch1    (10)}}
+            child { node {WSum0      (11)}}
+            child { node {WSum1      (12)}};
         \end{tikzpicture}
         \end{minipage} %
         \hfill
@@ -246,30 +246,30 @@ end QSSIntegrator;
           two children at (0.5,-0.7) and (0.5,-1.4)},
           edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
           \node {Root-Coordinator}
-            child { node {Scilab Command0}}             
-            child { node {QSS Integartor0}}
-            child { node {QSS Integartor1}}             
-            child { node {WSum0}}
-            child { node {Inseverse0}}
-            child { node {Multiplier0}}
-            child { node {Multiplier1}}
-            child { node {Multiplier2}}
-            child { node {Inseverse1}}
-            child { node {Multiplier3}}
-            child { node {Multiplier4}}
-            child { node {WSum1}}
-            child { node {Switch0}}
-            child { node {Ron}}
-            child { node {Roff}}
-            child { node {Square0}}
-            child { node {GNUPlot0}}
-            child { node {Hysteresis0}}
-            child { node {Switch1}}
-            child { node {WSum0}}
-            child { node {WSum1}};
+            child { node {Scilab Command0	(1)}}
+            child { node {QSS Integartor0	(2)}}
+            child { node {QSS Integartor1	(3)}}             
+            child { node {WSum0			(4)}}
+            child { node {Inseverse0		(5)}}
+            child { node {Multiplier0		(6)}}
+            child { node {Multiplier1		(7)}}
+            child { node {Multiplier2		(8)}}
+            child { node {Inseverse1		(9)}}
+            child { node {Multiplier3		(10)}}
+            child { node {Multiplier4		(11)}}
+            child { node {WSum1			(12)}}
+            child { node {Switch0		(13)}}
+            child { node {Ron			(14)}}
+            child { node {Roff			(15)}}
+            child { node {Square0		(16)}}
+            child { node {GNUPlot0		(17)}}
+            child { node {Hysteresis0		(18)}}
+            child { node {Switch1		(19)}}
+            child { node {WSum0			(20)}}
+            child { node {WSum1			(21)}};
         \end{tikzpicture}
         \end{minipage}%
-}       
+}
         \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha)}
         \label{fig:coupled-tree}
 \end{figure}
