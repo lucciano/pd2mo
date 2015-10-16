@@ -1,7 +1,7 @@
-FROM ubuntu:14.10
+FROM ubuntu:15.04
 
 RUN apt-get update && apt-get install -y wget
-RUN apt-get install -yq subversion git build-essential automake qt4-dev-tools bison++ libginac-dev libboost-dev libboost-test-dev
+RUN apt-get update && apt-get install -yq subversion git build-essential automake qt4-dev-tools bison++ libginac-dev libboost-dev libboost-test-dev libscotch-dev libmetis-dev
 
 
 

@@ -50,7 +50,9 @@
 \section{Modelos Atómicos}
         
 
-\todo[inline]{Acá falta explicar lo más importante antes de arrancar, esto es, que para cada modelo atómico DEVS HAY que escribir un modelo modelica equivalente. Remarcar que esto requiere conocimiento del bloque en sí.}
+	Dado que cada modelo atómico implementa su propia transición interna, en el caso de PowerDEVS en C++, esta \quotes{transición} debe ser provista para cada tipo de 
+	modelo atómico con anticipación y aderir a las convenciones que describiremos en esta sección, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
+
         Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la tradución de este modelo se utiliza 
         un modelo Modelica el cual debe seguir la siguiente especificación:
 
