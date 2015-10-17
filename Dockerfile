@@ -12,10 +12,11 @@ RUN svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code
 RUN cd modelicacc-code && autoreconf -f && ./configure && make install
 
 RUN svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code 
-#RUN cd powerdevs-code && make && make install-lib  
+RUN cp /usr/include/hdf5/serial/*.h /usr/include/
+RUN cd powerdevs-code && make && make install-lib  
 
 RUN apt-get update && apt-get install -y 
-#RUN wget http://downloads.sourceforge.net/project/powerdevs/powerdevs_amd64_953.deb && dpkg -i powerdevs_amd64_953.deb
+RUN wget http://downloads.sourceforge.net/project/powerdevs/powerdevs_amd64_953.deb && dpkg -i --force-depends powerdevs_amd64_953.deb
 
 
 

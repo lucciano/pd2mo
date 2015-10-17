@@ -30,7 +30,7 @@
         Se puede observar un elemento \texttt{Root-Coordinator} el cual contiene (marcado entre llaves) una lista de \texttt{Simulator}s que representan 
         los modelos atómicos y/o \texttt{Coordinator} que representan los modelos acoplados y tres listas de 
         conexiones \texttt{EIC}, \texttt{EOC} y \texttt{IC}, conexiones de entrada externa (External Input Connections), 
-        conexiones de salida externa (external output connections) y conexiones internas (Internal Connections).
+        conexiones de salida externa (External Output Connections) y conexiones internas (Internal Connections).
 
         Las lista de conexiones internas (IC) es una lista de par de pares de números naturales, de la forma $(a,b);(c,d)$.
         Donde el primer par se refiere al origen de la conexión (puerto $b$) del modelo $a$ y el segundo al fin de la conexión (puerto $d$) 
@@ -38,7 +38,7 @@
         Por ejemplo el par $(3,0);(1,0)$ indica que el puerto $0$ del cuarto modelo (posición $3$) está conectado al puerto $1$ (segundo puerto) del primer 
 	modelo (posición $0$).
 
-        Tanto EIC y EOC siguen el mismo patrón excepto que replazan el modelo de los puertos de salida y entrada respectivamente por $0$. Por ejemplo el par 
+        Tanto EIC y EOC siguen el mismo patrón excepto que remplazan el modelo de los puertos de salida y entrada respectivamente por $0$. Por ejemplo el par 
         $(6,0);(0,1)$ en EOC indica que el puerto $0$ del modelo $6$ (séptima posición)  se encuentra conectado con el puerto $1$ del modelo 
         acoplado, y un par $(0,0);(2,1)$ en EIC indica que el primer puerto (puerto $0$) se encuentra conectado con el modelo $2$ (tercera posición) en su puerto $1$.
 
@@ -51,15 +51,15 @@
         
 
 	Dado que cada modelo atómico implementa su propia transición interna, en el caso de PowerDEVS en C++, esta \quotes{transición} debe ser provista para cada tipo de 
-	modelo atómico con anticipación y aderir a las convenciones que describiremos en esta sección, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
+	modelo atómico con anticipación y adherir a las convenciones que describiremos en esta sección, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
 
-        Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la tradución de este modelo se utiliza 
+        Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la traducción de este modelo se utiliza 
         un modelo Modelica el cual debe seguir la siguiente especificación:
 
 \begin{itemize}
         \item El código debe ser Modelica ($\mu$-modelica) válido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
         PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\textbackslash qss\_sum\_vec.h} 
-	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se replaza \quotes{\textbackslash} por \quotes{/} para permitir 
+	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se remplaza \quotes{\textbackslash} por \quotes{/} para permitir 
 	algunos modelos cuyos \texttt{Path} contiene ese separadores de directorios}
         \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
         \item Los valores de entrada del modelo son asociados a la variable $u$
@@ -70,8 +70,8 @@
 
         Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo 
 	mostrado en el listado \ref{lst:qssintegrator.mo} ambos dentro del directorio qss. En el se puede ver que tiene un puerto de entrada \texttt{Real u[1]} y un puerto de 
-	salida \texttt{Real y[1]}. Si bien tiene cuatro parametros el unico utlizable dentro del modelo Modelica es la entrada 4, \texttt{p[4]}, el cual es el utilizado como valor
-	inicial de ingración.
+	salida \texttt{Real y[1]}. Si bien el integrador tiene cuatro parámetros, el único utilizable dentro del modelo Modelica es la entrada 4, \texttt{p[4]}, 
+	el cual es el utilizado como valor inicial de integración.
 
 \begin{listing}[H]
 \begin{minted}{modelica}
@@ -125,10 +125,12 @@ end QSSIntegrator;
 \end{listing}
 
         Los parámetros son remplazados en el modelo, evaluándolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
-        provee (y utiliza) PowerDEVS.}, lo que los transforma en float, los cuales son presentados como reales (\texttt{Real}) en el código.
+        provee (y utiliza) PowerDEVS.}, lo que los transforma en \texttt{float}, los cuales son presentados como reales (\texttt{Real}) en el código.
 
-\todo[inline]{Qué implciacia tiene esto? Porqué se puede ignorar un modelo? Qué pasa con las conexiones desde/hacia él?}
-        Los modelos (atómicos) no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión.
+        Los modelos (atómicos) no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión, todas
+	las conexiones entrantes y salientes del modelo, esto puede causar problemas si ignoramos (no traducimos) los modelos \quotes{fundamentales},
+	aunque si podemos ignorar modelos que funcionan como salida, en nuestro caso ignoramos el modelo que es utilizado para realizar las gráficas
+	en GNUPlot\footnote{http://www.gnuplot.info/}.
 
         Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
         (dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivalentes \quotes{Plano}, mediante la transformación
@@ -269,15 +271,15 @@ end QSSIntegrator;
         \end{tikzpicture}
         \end{minipage}%
 }
-        \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha), jutno al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
+        \caption{Modelo convertidor Buck de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
         \label{fig:coupled-tree}
 \end{figure}
 
 	En la figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, se puede ver como se mueven los modelos atómicos 
         a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
-        listados despues del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados. 
-	En el lado derecho de la \ref{fig:coupled-tree}, se pueden ver como quedaron l
-\todo[inline]{En realidad para tener en cuenta que ahora tienen otro número de modelo. aclararlo}
+        listados después del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados. 
+	En el lado derecho de la figura \ref{fig:coupled-tree}, se pueden ver como fueron modificados las posiciones de los modelos atómicos en relación a como se
+	encontraran antes de ser aplanados en el lado izquierdo de la figura \ref{fig:coupled-tree}.
 
 \begin{listing}
 \begin{minipage}[t]{0.5\linewidth}
@@ -341,8 +343,8 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \label{lst:connections}
-\caption{Conexiones del modelo acoplado convertidor Buck de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
-        las conexiones, external entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
+\caption{Conexiones del modelo acoplado convertidor de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
+        las conexiones, externas de entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
 \end{listing}
 
         En el modelo aplanado, se modificarán del listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, 
@@ -453,14 +455,14 @@ end QSSIntegrator;
 \centering
 \includegraphics[width=.75\textwidth]{text3418}
 \label{fig:aplanado-ports}
-\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamo aplanando.\
-	\texttt{S1} y \texttt{S2} están conectados a travéz de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
-	el exterior a travéz del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
+\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.\
+	\texttt{S1} y \texttt{S2} están conectados a través de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
+	el exterior a través del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
 	}
 \end{figure}
 
 	Se puede ver en la figura \ref{fig:aplanado-ports} un esquema de conexiones, donde el modelo $S2$ es un modelo acoplado que contiene el modelo $S3$.
-	 El modelo atómico $S1$ se conecta a travéz del puerto $p2$.
+	 El modelo atómico $S1$ se conecta a través del puerto $p2$.
 	 Entonces si consideramos que $p2$ es un puerto de entrada externa, veremos las siguientes conexiones:
 
 	\begin{itemize}
@@ -469,7 +471,7 @@ end QSSIntegrator;
 	\end{itemize}
 
 	entonces la conexiones en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado según la cantidad de modelos que contiene $S2$ y 
-	$S3$ deberá ser desplazado segun la posición de $S2$.
+	$S3$ deberá ser desplazado según la posición de $S2$.
 
 	Si consideramos que $p2$ es un puerto de salida las conexiones serán:
 
@@ -478,7 +480,7 @@ end QSSIntegrator;
 	\item EOC : \texttt{(S3,p3);(0,p2)}
 	\end{itemize}
 
-	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado segun la 
+	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado según la 
 	cantidad de modelos que contiene $S2$ y $S3$ deberá ser desplazado según la posición de $S2$.
 
 
