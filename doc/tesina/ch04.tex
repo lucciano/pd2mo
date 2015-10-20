@@ -151,10 +151,10 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 	
 	Estas transformaciones son necesarias dado que al momento de realizar este trabajo algunas expresiones Modelica no eran soportadas por el QSS-Solver.
 	 
-\todo[inline]{Ojo que esto lo que hace es expandir los arreglos bidimensionales en varias variables unidimensionales. Luego para que sea consistente ajusta las aparciones del arreglo anterior a los nuevos arreglos}
 	  \begin{itemize}
 		\item  \texttt{mda}: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evalúa a una variable que evalúa a una expresión 
-			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]}.
+			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]} en las secciones \texttt{equation}, \texttt{algorithm}, \texttt{initial algorithm} y 
+		declaraciones para hacer el código Modelica valido. En otras palabras remplaza arreglos bidimensionales por arreglos unidimensionales.
 
 \begin{figure}[htp]
 \centering
@@ -169,11 +169,9 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 \end{cminted}
 \end{figure}
 
-
-\todo[inline]{aclará que el $*$ entre vectores es el prod interno, por eso lo podés reemplzar}
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
-			expresión $\in \mathbb{N}$
+			expresión $\in \mathbb{N}$, es decir expande la operación de producto interno ($*$) entre los dos vectores.
 
 \begin{figure}[htp]
 \centering
