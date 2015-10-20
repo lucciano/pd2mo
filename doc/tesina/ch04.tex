@@ -146,16 +146,10 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patrón de diseño de visitadores sobre 
 	el árbol sintáctico abstracto\footnote{un árbol de sintaxis abstracta (AST), o simplemente un árbol de sintaxis, es una representación 
 	de árbol de la estructura sintáctica abstracta (simplificada) del código fuente escrito en cierto lenguaje de programación.}, por lo que 
-	cada clase es implementada heredando de una clase común (\texttt{Traverser}), la cual retorna una copia del AST y remplaza una parte este según sea el 
+	cada clase es implementada heredando de una clase común (\texttt{Traverser}), la cual retorna una copia del AST y remplaza una parte de este según sea el 
 	objetivo de la clase.
 	
-	Estas transformaciones son necesarias dado que al momento de realizar este trabajo 
-\todo[inline]{yo aclararía que ciertas expresiones no son soportados}
-    no son soportadas por el QSS-Solver, ya que no son $\mu$-Modelica
-	válido.
-	Arreglos multidimensionales no están soportados dado que no es $\mu$-Modelica valido, ya que los arreglos son de una sola dimensión, mientras que el producto 
-	vectorial de dos vectores no estaba implementado en un principio, ya se encuentra implementado en una versión de desarrollo, y la transformación \texttt{If}
-	fue implementada para simplificar le código final.
+	Estas transformaciones son necesarias dado que al momento de realizar este trabajo algunas expresiones Modelica no eran soportadas por el QSS-Solver.
 	 
 \todo[inline]{Ojo que esto lo que hace es expandir los arreglos bidimensionales en varias variables unidimensionales. Luego para que sea consistente ajusta las aparciones del arreglo anterior a los nuevos arreglos}
 	  \begin{itemize}
