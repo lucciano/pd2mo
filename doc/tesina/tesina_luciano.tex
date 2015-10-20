@@ -43,6 +43,14 @@
 \newcommand\TBox[2][]{%
   \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
 
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
 \begin{document}
 
 \renewcommand\floatpagefraction{.9}

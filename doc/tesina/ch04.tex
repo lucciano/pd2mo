@@ -3,18 +3,23 @@
 	\footnote{http://sourceforge.net/projects/modelicacc/} el cual nos permite manipular la estructura de los modelos y evaluar los parámetros.
 	y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
-El programa esta separado en 4 módulos:
-\todo[inline]{Yo haría un dibujito típico de pipeline de qué orden se corren las cosas. Parsing->flat->mda->if->prod. También los describiría en el orden que se aplican}
-\smartdiagramset{
-uniform color list=gray!60!black for 5 items,
-back arrow disabled=true,
-}
-\smartdiagram[flow diagram:horizontal]{Parsing,Flat,mda,if,prod}
-
 
 \section{Programa Principal}
 
 El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
+
+La transformación de la simulación se encuentra separada en disitintos modulos los cuales funcionan como una linea aplicandose uno detras del otro, lo cual se intenta
+describir en la figura \ref{fig:pipeline}.
+\begin{figure}[H]
+\centerfloat
+\smartdiagramset{
+uniform color list=gray!60!black for 6 items,
+back arrow disabled=true,
+}
+\smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensionales,Construcciones If,Producto Interno}
+\caption{Esquema de tranformaciones aplicadas}
+\label{fig:pipeline}
+\end{figure}
 
 
 \begin{algorithm}[H]
@@ -32,6 +37,71 @@ El Programa principal en el archivo main.cpp, el cual es responsable de la inter
 
 \end{algorithmic}
 \caption{main(src\_infile)}
+\end{algorithm}
+
+\section{Aplanado de modelos acoplados} 
+La clase \emph{flatter} implementa el aplanado de los modelos acoplados descripto en la sección \ref{aplanado}.
+ 
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\For{ModeloHijo en Lista de Modelos}
+  	\If{Tipo de ModeloHijo es COUPLED}
+  		\For{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}
+  			 	\If{Tipo de ModeloHijo2 es ATOMIC}
+  			 		\State Copiamos el ModeloHijo2 al ModeloResultado;
+				\Else
+  			 		\State Copiamos el aplanado de ModeloHijo2;
+				\EndIf
+				\State posicionModelo $\gets$ Posicion del ModeloHijo en el Modelo
+  			 	\For{Conexión Interna ic del Modelo}
+					\State (x,u);(y,v) $\gets$ ic
+  			 		\Comment{Si la conexión involucra un modelo \quotes{aun no procesado}}
+					\If{x > posicionModelo}
+						\State x $\gets$ x + posicionModelo
+					\EndIf
+					\If{y > posicionModelo}
+						\State y $\gets$ y + posicionModelo
+					\EndIf
+
+  			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}
+  			 			\Comment{Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión}
+						\For{Conexión Externa Entrante eic del ModeloHijo}
+							\State (0,u1);(x1,v1) $\gets$ eic
+							\If{u1 $==$ v}
+								\State icadd $\gets$ (x,u);(x1+posicionModelo,v1)
+								\State Agregamos icadd a las conexión del Modelo
+							\EndIf
+						\EndFor
+  			 			\State La conexión se marca para ser borrada;
+					\EndIf
+  			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}
+  			 			\Comment{Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión}
+						\For{Conexión Externa Saliente eoc del ModeloHijo}
+							\State (x1,u1);(0,v1) $\gets$ eic
+							\If{v1 $==$ u}
+								\State icadd $\gets$ (x1+posicionModelo,u1);(y,v)
+								\State Agregamos icadd a las conexión del Modelo
+							\EndIf
+
+						\EndFor
+
+  			 			\State La conexión se marca para ser borrada;
+					\EndIf
+  			 		\If{Si la conexión fue marcada para ser borrada}
+						\State Se borra la conexión
+					\EndIf
+				\EndFor
+		\EndFor
+  	\Else
+
+  		\State Copiamos el nodo ModeloHijo al ModeloResultado 
+  		\State Copiamos las conexiones del ModeloHijo y cualquier otro ModeloHijo que ya haya sido procesado
+
+	\EndIf
+\EndFor
+\Return ModeloResultado
+\end{algorithmic}
+\caption{flatter::flat}
 \end{algorithm}
 
 \section{Transformación Principal}
@@ -55,61 +125,20 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 \EndFor
 
 \For{ic en Conexión Interna del Modelo}
-	\State Las conexiones ic estan definidas como dos pares de números, cada par señalan número  de modelo y número de puerto, en este caso los puertos deben ser desfasados en uno, pues los puertos en nuestra representación son los sub-indices de $u$ e $y$ para cada modelo, pero el primer elemento de los arreglos en Modelica comienzan.
+	\State (x,u)(y,j) $\gets$ ic
+	\State u $\gets$ u + 1
+	\Comment{ Se incrementa el orden de los puerto, ya que Modelica los arreglos comienzan en 1}
+	\State j $\gets$ j + 1
   	\If{los modelos de ic son Escalares}
-  		\State Se agrega la ecuación que representa la conexión entre los modelos;
+  		\State Se agrega la ecuación que representa la conexión entre los modelos x con el puerto u y el modelo y con el puerto j;
   	\ElsIf{los modelos de ic son Vectoriales}
-  		\State Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos mediante una sentencia \texttt{For};
+  		\State Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos u y j mediante una sentencia \texttt{For};
   	\Else
   		\State No se conoce la conexión;
 	\EndIf
 \EndFor
 \end{algorithmic}
  \caption{Pd2Mo::transform()}
-\end{algorithm}
-
-\section{Aplanado de modelos acoplados} 
-La clase \emph{flatter} implementa el aplanado de los modelos acoplados descripto en la sección \ref{aplanado}.
- 
-\todo[inline]{La linea 15 poné algo que parezca pseudo codigo y luego lo explicás en el texto...queda muy largo}
-\begin{algorithm}[H]
-\begin{algorithmic}[1]
-\For{ModeloHijo en Lista de Modelos}
-  	\If{Tipo de ModeloHijo es COUPLED}
-  		\For{ModeloHijo2 en Lista de ModeloHijo$\rightarrow$ModeloHijo}
-  			 	\If{Tipo de ModeloHijo2 es ATOMIC}
-  			 		\State Copiamos el ModeloHijo2 al ModeloResultado;
-				\Else
-  			 		\State Copiamos el aplanado de ModeloHijo2;
-				\EndIf
-  			 	\For{Conexión del Modelo}
-  			 		\If{Si la conexión involucra un modelo \quotes{aun no procesado}}
-  			 			\State Las conexiones deben ser modificadas teniendo en cuenta los modelos agregados en el aplanado;
-					\EndIf
-  			 		\If{Si la conexión involucra como destino el modelo acoplado ModeloHijo}
-  			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de entrada del ModeloHijo y el origen de la conexión;
-  			 			\State La conexión se marca para ser borrada;
-					\EndIf
-  			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}
-  			 			\State Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión;
-  			 			\State La conexión se marca para ser borrada;
-					\EndIf
-  			 		\If{Si la conexión fue marcada}
-						
-						\State Se borra la conexión
-					\EndIf
-				\EndFor
-		\EndFor
-  	\Else
-
-  		\State Copiamos el nodo ModeloHijo al ModeloResultado 
-  		\State Copiamos las conexiones del ModeloHijo y cualquier otro ModeloHijo que ya haya sido procesado
-
-	\EndIf
-\EndFor
-\Return ModeloResultado
-\end{algorithmic}
-\caption{flatter::flat}
 \end{algorithm}
 
  
