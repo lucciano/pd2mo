@@ -1,14 +1,14 @@
 	A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, 
-	el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerias, Modelica C Compiler 
+	el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerías, Modelica C Compiler 
 	\footnote{http://sourceforge.net/projects/modelicacc/} el cual nos permite manipular la estructura de los modelos y evaluar los parámetros.
-	y libreria de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
+	y librería de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
 
 \section{Programa Principal}
 
 El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
 
-La transformación de la simulación se encuentra separada en disitintos modulos los cuales funcionan como una linea aplicandose uno detras del otro, lo cual se intenta
+La transformación de la simulación se encuentra separada en distintos módulos los cuales funcionan como una linea aplicándose uno detrás del otro, lo cual se intenta
 describir en la figura \ref{fig:pipeline}.
 \begin{figure}[H]
 \centerfloat
@@ -17,7 +17,7 @@ uniform color list=gray!60!black for 6 items,
 back arrow disabled=true,
 }
 \smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensionales,Construcciones If,Producto Interno}
-\caption{Esquema de tranformaciones aplicadas}
+\caption{Esquema de transformaciones aplicadas}
 \label{fig:pipeline}
 \end{figure}
 
@@ -52,7 +52,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 				\Else
   			 		\State Copiamos el aplanado de ModeloHijo2;
 				\EndIf
-				\State posicionModelo $\gets$ Posicion del ModeloHijo en el Modelo
+				\State posicionModelo $\gets$ Posición del ModeloHijo en el Modelo
   			 	\For{Conexión Interna ic del Modelo}
 					\State (x,u);(y,v) $\gets$ ic
   			 		\Comment{Si la conexión involucra un modelo \quotes{aun no procesado}}
@@ -105,7 +105,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 \end{algorithm}
 
 \section{Transformación Principal}
-La clase \emph{Pd2Mo} implementa las principales partes de la transformación, la cual incluye abrir el archivo PDS, e invocar el aplanado, obtener los diferentes modelos modelica que representan los modelos atómico, prevenir la colisión de nombres, crear el modelo final y realizar las conexiones.
+La clase \emph{Pd2Mo} implementa las principales partes de la transformación, la cual incluye abrir el archivo PDS, e invocar el aplanado, obtener los diferentes modelos Modelica que representan los modelos atómico, prevenir la colisión de nombres, crear el modelo final y realizar las conexiones.
 
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
@@ -170,7 +170,7 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 \end{figure}
 
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
-			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evaluá a una variable que evaluá a una 
+			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evalúa a una variable que evalúa a una 
 			expresión $\in \mathbb{N}$, es decir expande la operación de producto interno ($*$) entre los dos vectores.
 
 \begin{figure}[htp]
@@ -194,7 +194,7 @@ $\Downarrow$
 \end{minted}
 \end{figure}
 
-		\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evaluá a un booleano (a partir de parámetros o constantes, 
+		\item $If$: Remplaza expresiones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evalúa a un booleano (a partir de parámetros o constantes, 
 			es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
 
 \begin{figure}[htp]
