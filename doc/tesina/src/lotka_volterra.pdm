@@ -155,8 +155,8 @@ Coupled
                 {
                 Inputs = Str; %Inputs ; Number of inputs
                 Format = Str; set xrange [0:%tf] @ set grid @ set title 'Lotka Volterra Model' ; General Formatting (use @ as line break)
-                Format1 = Str; with lines title 'Predators' ; Formatting options for input 1
-                Format2 = Str; with lines title 'Preys' ; Formatting options for input 2
+                Format1 = Str; with lines title 'Preys' ; Formatting options for input 1
+                Format2 = Str; with lines title 'Predators' ; Formatting options for input 2
                 Format3 = Str;  ; Formatting options for input 3
                 Format4 = Str;  ; Formatting options for input 4
                 Format5 = Str;  ; Formatting options for input 5
@@ -184,13 +184,13 @@ Coupled
             {
             ConectedLines = 11 ; 12 ; 13
             ConectedExtrems = Org ; Org ; Org
-            Position = 4875 ; -3450
+            Position = 4875 ; -3000
             }
         Point
             {
             ConectedLines = 10 ; 14 ; 15
             ConectedExtrems = Org ; Org ; Org
-            Position = 4875 ; -675
+            Position = 4875 ; -225
             }
         Line
             {
@@ -260,42 +260,42 @@ Coupled
             Source = Pnt ;  3 ; -1 ; 0
             Sink = Pnt ;  5 ; -1 ; 0
             PointX = 2025 ; 4875 ; 4875
-            PointY = 525 ; 525 ; -675
+            PointY = 525 ; 525 ; -225
             }
         Line
             {
             Source = Pnt ;  2 ; -1 ; 0
             Sink = Pnt ;  4 ; -1 ; 0
             PointX = 2100 ; 4875 ; 4875
-            PointY = -3750 ; -3750 ; -3450
+            PointY = -3750 ; -3750 ; -3000
             }
         Line
             {
-            Source = Cmp ;  6 ;  2 ; -1
+            Source = Cmp ;  6 ;  1 ; -1
             Sink = Pnt ;  4 ; -1 ; 0
-            PointX = 6135 ; 5550 ; 5550 ; 4875
-            PointY = -1200 ; -1200 ; -3450 ; -3450
+            PointX = 6135 ; 4875 ; 4875
+            PointY = -1500 ; -1500 ; -3000
             }
         Line
             {
             Source = Pnt ;  4 ; -1 ; 0
             Sink = Cmp ;  2 ;  1 ; 0
-            PointX = 4875 ; 4875 ; 4725
-            PointY = -3450 ; -3000 ; -3000
+            PointX = 4875 ; 4875 ; 4875 ; 4725
+            PointY = -3000 ; -3000 ; -3000 ; -3000
             }
         Line
             {
-            Source = Cmp ;  6 ;  1 ; -1
+            Source = Cmp ;  6 ;  2 ; -1
             Sink = Pnt ;  5 ; -1 ; 0
-            PointX = 6135 ; 4875 ; 4875
-            PointY = -1500 ; -1500 ; -675
+            PointX = 6135 ; 5475 ; 5475 ; 4875
+            PointY = -1200 ; -1200 ; -225 ; -225
             }
         Line
             {
             Source = Pnt ;  5 ; -1 ; 0
             Sink = Cmp ;  3 ;  1 ; 0
-            PointX = 4875 ; 4875 ; 4875 ; 4725
-            PointY = -675 ; -675 ; -675 ; -675
+            PointX = 4875 ; 4875 ; 4725
+            PointY = -225 ; -675 ; -675
             }
         }
     }

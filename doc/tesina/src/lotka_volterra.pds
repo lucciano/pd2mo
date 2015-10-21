@@ -28,7 +28,7 @@ Root-Coordinator
   Simulator
    {
     Path = sinks\gnuplot.h
-    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Lotka Volterra Model'","with lines title 'Predators'","with lines title 'Preys'","","",""
+    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Lotka Volterra Model'","with lines title 'Preys'","with lines title 'Predators'","","",""
    }
   EIC
    {
@@ -42,10 +42,10 @@ Root-Coordinator
     (4,0);(2,0)
     (0,0);(4,0)
     (0,0);(3,1)
-    (1,0);(5,1)
+    (1,0);(5,0)
     (1,0);(0,0)
     (1,0);(3,0)
-    (2,0);(5,0)
+    (2,0);(5,1)
     (2,0);(0,1)
     (2,0);(4,1)
    }
