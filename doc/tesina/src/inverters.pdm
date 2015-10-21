@@ -157,7 +157,7 @@ Coupled
             Description = Vector to scalar signal
             Graphic
                 {
-                Position = 1770 ; -5880
+                Position = 1845 ; -2055
                 Dimension = 675 ; 675
                 Direction = Right
                 Color = 15
@@ -442,8 +442,8 @@ Coupled
                 {
                 Inputs = Str; %Inputs ; Number of inputs
                 Format = Str; set xrange [0:%tf] @ set grid @ set title 'Plot' ; General Formatting (use @ as line break)
-                Format1 = Str; with lines title 'Voltage u1' ; Formatting options for input 1
-                Format2 = Str; with lines title 'Voltage uN' ; Formatting options for input 2
+                Format1 = Str; with lines title 'Voltage uN' ; Formatting options for input 1
+                Format2 = Str; with lines title 'Voltage u1' ; Formatting options for input 2
                 Format3 = Str;  ; Formatting options for input 3
                 Format4 = Str;  ; Formatting options for input 4
                 Format5 = Str;  ; Formatting options for input 5
@@ -484,7 +484,7 @@ Coupled
             }
         Point
             {
-            ConectedLines = 12 ; 14 ; 26
+            ConectedLines = 12 ; 14 ; 24
             ConectedExtrems = Org ; Org ; Org
             Position = 900 ; -1650
             }
@@ -496,13 +496,13 @@ Coupled
             }
         Point
             {
-            ConectedLines = 2 ; 23 ; 24
+            ConectedLines = 2 ; 21 ; 22
             ConectedExtrems = Org ; Org ; Org
             Position = 900 ; -3075
             }
         Point
             {
-            ConectedLines = 24 ; 25 ; 26
+            ConectedLines = 22 ; 23 ; 24
             ConectedExtrems = Org ; Org ; Org
             Position = 900 ; -2550
             }
@@ -648,24 +648,10 @@ Coupled
             }
         Line
             {
-            Source = Cmp ;  7 ;  1 ; 0
-            Sink = Cmp ;  20 ;  1 ; -1
-            PointX = 2550 ; 2700 ; 2700 ; 3060
-            PointY = -5550 ; -5550 ; -5025 ; -5025
-            }
-        Line
-            {
-            Source = Cmp ;  20 ;  2 ; -1
-            Sink = Cmp ;  19 ;  1 ; 0
-            PointX = 3060 ; 2550 ; 2550
-            PointY = -4725 ; -4725 ; -4050
-            }
-        Line
-            {
             Source = Cmp ;  7 ;  1 ; -1
             Sink = Pnt ;  4 ; -1 ; 0
-            PointX = 1635 ; 900 ; 900
-            PointY = -5550 ; -5550 ; -3075
+            PointX = 1710 ; 900 ; 900
+            PointY = -1725 ; -1725 ; -3075
             }
         Line
             {
@@ -708,6 +694,20 @@ Coupled
             Sink = Cmp ;  15 ;  1 ; 0
             PointX = -10140 ; -10575 ; -10575
             PointY = -4275 ; -4275 ; -3675
+            }
+        Line
+            {
+            Source = Cmp ;  20 ;  1 ; -1
+            Sink = Cmp ;  19 ;  1 ; 0
+            PointX = 3060 ; 2550 ; 2550
+            PointY = -5025 ; -5025 ; -4050
+            }
+        Line
+            {
+            Source = Cmp ;  20 ;  2 ; -1
+            Sink = Cmp ;  7 ;  1 ; 0
+            PointX = 3060 ; 2775 ; 2775 ; 2625
+            PointY = -4725 ; -4725 ; -1725 ; -1725
             }
         }
     }
