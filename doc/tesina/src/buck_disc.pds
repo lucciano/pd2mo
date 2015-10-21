@@ -118,7 +118,7 @@ Root-Coordinator
   Simulator
    {
     Path = sinks/gnuplot.h
-    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'Voltage'","with lines title 'Current'","","",""
+    Parameters = 2.000000e+00,"set xrange [0:%tf] @ set grid @ set title 'Plot'","with lines title 'Current'","with lines title 'Voltage'","","",""
    }
   Simulator
    {
@@ -155,19 +155,19 @@ Root-Coordinator
     (5,0);(3,1)
     (3,1);(11,2)
     (11,0);(10,0)
-    (2,0);(9,0)
-    (2,0);(12,0)
-    (2,0);(13,1)
     (3,0);(11,0)
     (3,0);(13,0)
     (10,0);(11,1)
     (10,0);(5,1)
     (1,0);(3,2)
     (1,0);(12,1)
-    (1,0);(9,1)
+    (1,0);(9,0)
     (6,0);(5,2)
     (6,0);(4,0)
     (7,0);(5,0)
     (7,0);(4,2)
+    (2,0);(9,1)
+    (2,0);(12,0)
+    (2,0);(13,1)
    }
  }

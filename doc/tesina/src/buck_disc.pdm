@@ -669,7 +669,7 @@ Coupled
                     Description = Plot input signal using GnuPlot
                     Graphic
                         {
-                        Position = 8820 ; -1635
+                        Position = 10245 ; -1635
                         Dimension = 675 ; 720
                         Direction = Right
                         Color = 15
@@ -679,8 +679,8 @@ Coupled
                         {
                         Inputs = Str; %Inputs ; Number of inputs
                         Format = Str; set xrange [0:%tf] @ set grid @ set title 'Plot' ; General Formatting (use @ as line break)
-                        Format1 = Str; with lines title 'Voltage' ; Formatting options for input 1
-                        Format2 = Str; with lines title 'Current' ; Formatting options for input 2
+                        Format1 = Str; with lines title 'Current' ; Formatting options for input 1
+                        Format2 = Str; with lines title 'Voltage' ; Formatting options for input 2
                         Format3 = Str;  ; Formatting options for input 3
                         Format4 = Str;  ; Formatting options for input 4
                         Format5 = Str;  ; Formatting options for input 5
@@ -789,45 +789,45 @@ Coupled
                     }
                 Point
                     {
-                    ConectedLines = 10 ; 11 ; 25
-                    ConectedExtrems = Org ; Org ; Org
-                    Position = 8100 ; -525
-                    }
-                Point
-                    {
-                    ConectedLines = 4 ; 12 ; 24
+                    ConectedLines = 4 ; 22 ; 27
                     ConectedExtrems = Org ; Org ; Org
                     Position = 8025 ; -1950
                     }
                 Point
                     {
-                    ConectedLines = 15 ; 16 ; 17
+                    ConectedLines = 13 ; 14 ; 15
                     ConectedExtrems = Org ; Org ; Org
                     Position = 3750 ; -1875
                     }
                 Point
                     {
-                    ConectedLines = 8 ; 20 ; 21
+                    ConectedLines = 8 ; 18 ; 19
                     ConectedExtrems = Org ; Org ; Org
                     Position = 2100 ; 3225
                     }
                 Point
                     {
-                    ConectedLines = 22 ; 23 ; 24
+                    ConectedLines = 20 ; 21 ; 22
                     ConectedExtrems = Org ; Org ; Org
                     Position = 3600 ; 0
                     }
                 Point
                     {
-                    ConectedLines = 6 ; 26 ; 27
+                    ConectedLines = 6 ; 23 ; 24
                     ConectedExtrems = Org ; Org ; Org
                     Position = -450 ; -1200
                     }
                 Point
                     {
-                    ConectedLines = 7 ; 28 ; 29
+                    ConectedLines = 7 ; 25 ; 26
                     ConectedExtrems = Org ; Org ; Org
                     Position = -675 ; -750
+                    }
+                Point
+                    {
+                    ConectedLines = 10 ; 28 ; 29
+                    ConectedExtrems = Org ; Org ; Org
+                    Position = 8100 ; -375
                     }
                 Line
                     {
@@ -853,7 +853,7 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  2 ;  1 ; 0
-                    Sink = Pnt ;  3 ; -1 ; 0
+                    Sink = Pnt ;  2 ; -1 ; 0
                     PointX = 7875 ; 7875 ; 8025
                     PointY = -1950 ; -1950 ; -1950
                     }
@@ -867,21 +867,21 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  7 ;  1 ; 0
-                    Sink = Pnt ;  7 ; -1 ; 0
+                    Sink = Pnt ;  6 ; -1 ; 0
                     PointX = -1125 ; -450 ; -450
                     PointY = -1125 ; -1125 ; -1200
                     }
                 Line
                     {
                     Source = Cmp ;  8 ;  1 ; 0
-                    Sink = Pnt ;  8 ; -1 ; 0
+                    Sink = Pnt ;  7 ; -1 ; 0
                     PointX = -1125 ; -675 ; -675
                     PointY = 375 ; 375 ; -750
                     }
                 Line
                     {
                     Source = Cmp ;  11 ;  1 ; 0
-                    Sink = Pnt ;  5 ; -1 ; 0
+                    Sink = Pnt ;  4 ; -1 ; 0
                     PointX = 2625 ; 2625 ; 2100
                     PointY = 3225 ; 3225 ; 3225
                     }
@@ -895,23 +895,9 @@ Coupled
                 Line
                     {
                     Source = Pnt ;  1 ; -1 ; 0
-                    Sink = Pnt ;  2 ; -1 ; 0
+                    Sink = Pnt ;  8 ; -1 ; 0
                     PointX = 5250 ; 5250 ; 8100 ; 8100
-                    PointY = -900 ; -900 ; -900 ; -525
-                    }
-                Line
-                    {
-                    Source = Cmp ;  10 ;  1 ; -1
-                    Sink = Pnt ;  2 ; -1 ; 0
-                    PointX = 8685 ; 8100 ; 8100
-                    PointY = -1425 ; -1425 ; -525
-                    }
-                Line
-                    {
-                    Source = Cmp ;  10 ;  2 ; -1
-                    Sink = Pnt ;  3 ; -1 ; 0
-                    PointX = 8685 ; 8025 ; 8025
-                    PointY = -1125 ; -1125 ; -1950
+                    PointY = -900 ; -900 ; -900 ; -375
                     }
                 Line
                     {
@@ -930,20 +916,20 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  4 ;  1 ; 0
-                    Sink = Pnt ;  4 ; -1 ; 0
+                    Sink = Pnt ;  3 ; -1 ; 0
                     PointX = 3450 ; 3450 ; 3750
                     PointY = -1875 ; -1875 ; -1875
                     }
                 Line
                     {
                     Source = Cmp ;  12 ;  1 ; -1
-                    Sink = Pnt ;  4 ; -1 ; 0
+                    Sink = Pnt ;  3 ; -1 ; 0
                     PointX = 5385 ; 3750 ; 3750
                     PointY = 1350 ; 1350 ; -1875
                     }
                 Line
                     {
-                    Source = Pnt ;  4 ; -1 ; 0
+                    Source = Pnt ;  3 ; -1 ; 0
                     Sink = Cmp ;  14 ;  1 ; -1
                     PointX = 3750 ; 3900 ; 3900 ; 5385
                     PointY = -1875 ; -1875 ; -2025 ; -2025
@@ -965,13 +951,13 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  12 ;  2 ; -1
-                    Sink = Pnt ;  5 ; -1 ; 0
+                    Sink = Pnt ;  4 ; -1 ; 0
                     PointX = 5385 ; 2100 ; 2100
                     PointY = 1650 ; 1650 ; 3225
                     }
                 Line
                     {
-                    Source = Pnt ;  5 ; -1 ; 0
+                    Source = Pnt ;  4 ; -1 ; 0
                     Sink = Cmp ;  6 ;  2 ; -1
                     PointX = 2100 ; 375 ; 375 ; 660
                     PointY = 3225 ; 3225 ; -975 ; -975
@@ -979,41 +965,34 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  4 ;  3 ; -1
-                    Sink = Pnt ;  6 ; -1 ; 0
+                    Sink = Pnt ;  5 ; -1 ; 0
                     PointX = 2535 ; 2400 ; 2400 ; 3600
                     PointY = -1500 ; -1500 ; 0 ; 0
                     }
                 Line
                     {
-                    Source = Pnt ;  6 ; -1 ; 0
+                    Source = Pnt ;  5 ; -1 ; 0
                     Sink = Cmp ;  13 ;  2 ; -1
                     PointX = 3600 ; 3600 ; 5535
                     PointY = 0 ; 0 ; 0
                     }
                 Line
                     {
-                    Source = Pnt ;  3 ; -1 ; 0
-                    Sink = Pnt ;  6 ; -1 ; 0
+                    Source = Pnt ;  2 ; -1 ; 0
+                    Sink = Pnt ;  5 ; -1 ; 0
                     PointX = 8025 ; 8025 ; 8025 ; 3600 ; 3600
                     PointY = -1950 ; -1950 ; -2775 ; -2775 ; 0
                     }
                 Line
                     {
-                    Source = Pnt ;  2 ; -1 ; 0
-                    Sink = Cmp ;  3 ;  1 ; 0
-                    PointX = 8100 ; 8100 ; 8100 ; 7950
-                    PointY = -525 ; -525 ; -150 ; -150
-                    }
-                Line
-                    {
                     Source = Cmp ;  6 ;  3 ; -1
-                    Sink = Pnt ;  7 ; -1 ; 0
+                    Sink = Pnt ;  6 ; -1 ; 0
                     PointX = 660 ; -450 ; -450
                     PointY = -675 ; -675 ; -1200
                     }
                 Line
                     {
-                    Source = Pnt ;  7 ; -1 ; 0
+                    Source = Pnt ;  6 ; -1 ; 0
                     Sink = Cmp ;  5 ;  1 ; -1
                     PointX = -450 ; -450 ; 585
                     PointY = -1200 ; -2925 ; -2925
@@ -1021,16 +1000,37 @@ Coupled
                 Line
                     {
                     Source = Cmp ;  6 ;  1 ; -1
-                    Sink = Pnt ;  8 ; -1 ; 0
+                    Sink = Pnt ;  7 ; -1 ; 0
                     PointX = 660 ; -675 ; -675
                     PointY = -1275 ; -1275 ; -750
                     }
                 Line
                     {
-                    Source = Pnt ;  8 ; -1 ; 0
+                    Source = Pnt ;  7 ; -1 ; 0
                     Sink = Cmp ;  5 ;  3 ; -1
                     PointX = -675 ; -675 ; 585
                     PointY = -750 ; -2325 ; -2325
+                    }
+                Line
+                    {
+                    Source = Cmp ;  10 ;  1 ; -1
+                    Sink = Pnt ;  2 ; -1 ; 0
+                    PointX = 10110 ; 10110 ; 8025 ; 8025
+                    PointY = -1425 ; -1425 ; -1425 ; -1950
+                    }
+                Line
+                    {
+                    Source = Cmp ;  10 ;  2 ; -1
+                    Sink = Pnt ;  8 ; -1 ; 0
+                    PointX = 10110 ; 9225 ; 9225 ; 8100
+                    PointY = -1125 ; -1125 ; -375 ; -375
+                    }
+                Line
+                    {
+                    Source = Pnt ;  8 ; -1 ; 0
+                    Sink = Cmp ;  3 ;  1 ; 0
+                    PointX = 8100 ; 8100 ; 7950
+                    PointY = -375 ; -150 ; -150
                     }
         }
     }
