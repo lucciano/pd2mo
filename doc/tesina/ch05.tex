@@ -7,7 +7,6 @@
 	(provista por ambas herramientas en GNUPlot), 
 	a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
 
-\todo[inline]{Una boludez pero trata de que las dos gráficas PD vs Solver tengan el mismo color para las mismas señales. es sólo cambiar el orden}
 \todo[inline]{Tratá de poner caption a todas las figuras y mencionarlas en el texto. En la figura tanto vemos el resultado de....} 
 \todo[inline]{Lo mismo para las tablas!}
 \section{Líneas de Transmisión}
@@ -23,7 +22,7 @@
 \end{split}
 \end{equation*}
 
-para $j = 1 \dots N$
+para $j = 2 \dots N-1$
 
 Consideramos también un pulso de entrada:
 \begin{equation}
@@ -34,17 +33,23 @@ v_0(t) = \left\{
   \end{array} \right.
 \end{equation}
 
+\begin{figure}
  \includegraphics[width=0.75\linewidth]{lclines}
+\label{model:lclines}
+\caption{Modelo PowerDEVS de Líneas de Transmisión}
+\end{figure}
 
 \begin{figure}[H]
-\centering
+\centerfloat
 \begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lcline-pd}
+\includegraphics[width=\linewidth]{lcline-pd}
+\label{graph:lclines-pd}
+\caption{PowerDEVS}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{lcline-qss}
+\label{graph:lclines-qss}
+\caption{QSS-Solver}
 \end{minipage}
 \end{figure}
 
@@ -58,17 +63,22 @@ v_0(t) = \left\{
 \end{align*}
 
 
+\begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{inverters}
+\label{model:inverters}
+\caption{Modelo PowerDEVS de Inversores Lógicos}
+\end{figure}
 
 \begin{figure}[H]
-\centering
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{inversers-pd}
+\label{graph:inverters-pd}
+\caption{PowerDEVS}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{inversers-qss}
+\label{graph:inverters-qss}
+\caption{QSS-Solver}
 \end{minipage}
 \end{figure}
 
@@ -81,17 +91,22 @@ La ecuación
 \end{equation*}
 corresponde al modelo ADR, donde $a$,$d$ y $r$ son parametros expresando coeficientes de advección, difusión y reactión
 
+\begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{adr-pwd}
+\label{model:adr}
+\caption{Modelo PowerDEVS ADR}
+\end{figure}
 
 \begin{figure}[H]
-\centering
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{adr-pd}
+\label{graph:adr-pd}
+\caption{PowerDEVS}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{adr-qss}
+\label{graph:adr-qss}
+\caption{QSS-Solver}
 \end{minipage}
 \end{figure}
 
@@ -111,28 +126,34 @@ i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \begin{figure}[H]
 \centering
  \includegraphics[width=.60\linewidth]{Buckboost_conventions}
+ \label{buckdisk-squema}
  \caption{Esquema electrico de convertidor de voltaje}
 \end{figure}
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{buck_disk}
+ \label{model:buckdisk}
 \caption{Modelo Convertidor de voltaje}
 \end{figure}
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{buck_disk_coupled0}
 \caption{Coupled0 (Incluido en Convertidor de voltaje)}
+\label{model:buckdisk_coupled0}
 \end{figure}
 
 \begin{figure}[H]
 \centering
+Resultados de la simulación \\
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{buck_disk-pd}
+\caption{PowerDEVS}
+\label{model:buckdisk_coupled0}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
-\centering
  \includegraphics[width=\linewidth]{buck_disk-qss}
+\caption{QSS-Solver}
+\label{model:buckdisk_coupled0}
 \end{minipage}
 \end{figure}
 
@@ -156,17 +177,26 @@ donde:
 
 	Este sistema es representado por el modelo siguiente:
 
+\begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+\caption{Modelo PowerDEVS del Sistema Lotka Volterra}
+\label{model:lotka_voltera}
+\end{figure}
 
 \begin{figure}[H]
 \centering
+Resultados de la simulación \\
 \begin{minipage}{0.5\textwidth}
 \centering
  \includegraphics[width=\linewidth]{lotka_voltera-pd}
+\caption{PowerDEVS}
+\label{graph:lotka_voltera-pd}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
 \centering
  \includegraphics[width=\linewidth]{lotka_voltera-qss}
+\caption{QSS-Solver}
+\label{graph:lotka_voltera-qss}
 \end{minipage}
 \end{figure}
 
