@@ -9,6 +9,52 @@
 
 \todo[inline]{Tratá de poner caption a todas las figuras y mencionarlas en el texto. En la figura tanto vemos el resultado de....} 
 \todo[inline]{Lo mismo para las tablas!}
+
+\section{Ecuaciones Lotka-Volterra}
+
+\todo[inline]{Menciona que este es el sistema visto en el cap 2 y pasalo como primer ejemplo ya que es el más simple}
+	El sistema de ecuaciones Lotka-Volterra, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+
+\begin{align*}
+\frac{dx}{dt} & = x(\alpha - \beta y)\\
+\frac{dy}{dt} & =y(\gamma - \delta  x)
+\end{align*}
+
+donde:
+\begin{itemize}
+	\item y es el número de algún predador (por ejemplo, un lobo);
+    \item x es el número de sus presas (por ejemplo, conejos);
+    \item t representa el tiempo; y
+    \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
+\end{itemize}
+
+	Este sistema es representado por el modelo siguiente:
+
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+\caption{Modelo PowerDEVS del Sistema Lotka Volterra}
+\label{model:lotka_voltera}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+Resultados de la simulación \\
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-pd}
+\caption{PowerDEVS}
+\label{graph:lotka_voltera-pd}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-qss}
+\caption{QSS-Solver}
+\label{graph:lotka_voltera-qss}
+\end{minipage}
+\end{figure}
+
+
+
 \section{Líneas de Transmisión}
 	El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
 
@@ -154,49 +200,6 @@ Resultados de la simulación \\
  \includegraphics[width=\linewidth]{buck_disk-qss}
 \caption{QSS-Solver}
 \label{model:buckdisk_coupled0}
-\end{minipage}
-\end{figure}
-
-\section{Ecuaciones Lotka-Volterra}
-
-\todo[inline]{Menciona que este es el sistema visto en el cap 2 y pasalo como primer ejemplo ya que es el más simple}
-	El sistema de ecuaciones Lotka-Volterra, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
-
-\begin{align*}
-\frac{dx}{dt} & = x(\alpha - \beta y)\\
-\frac{dy}{dt} & =y(\gamma - \delta  x)
-\end{align*}
-
-donde:
-\begin{itemize}
-	\item y es el número de algún predador (por ejemplo, un lobo);
-    \item x es el número de sus presas (por ejemplo, conejos);
-    \item t representa el tiempo; y
-    \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
-\end{itemize}
-
-	Este sistema es representado por el modelo siguiente:
-
-\begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
-\caption{Modelo PowerDEVS del Sistema Lotka Volterra}
-\label{model:lotka_voltera}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-Resultados de la simulación \\
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lotka_voltera-pd}
-\caption{PowerDEVS}
-\label{graph:lotka_voltera-pd}
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
-\centering
- \includegraphics[width=\linewidth]{lotka_voltera-qss}
-\caption{QSS-Solver}
-\label{graph:lotka_voltera-qss}
 \end{minipage}
 \end{figure}
 
