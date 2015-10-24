@@ -58,19 +58,16 @@ Resultados de la simulación \\
 \section{Líneas de Transmisión}
 	El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
 
-\todo[inline]{Usá la notación $\frac{d v}{d t}$ como en el cap 2}
-
-\todo[inline]{Ojo que esa ecuación vale para j=2..N-1 para los bordes hay otras dos eq}
 \begin{equation*}
 \begin{split}
-\dot{v}_{j} &= \frac{i_{j} - i_{j+1}}{C} \\
-\dot{i}_{j} &= \frac{v_{j-1} - v_{j}}{L} \\	
+\frac{d v_{j}}{d t} &= \frac{i_{j} - i_{j+1}}{C} \\
+\frac{d i_{j}}{d t} &= \frac{v_{j-1} - v_{j}}{L} \\	
 \end{split}
 \end{equation*}
 
-para $j = 2 \dots N-1$
+para $j = 2 \dots N$
 
-Consideramos también un pulso de entrada:
+Consideramos un pulso de entrada:
 \begin{equation}
 v_0(t) = \left\{ 
   \begin{array}{l l}
@@ -79,7 +76,7 @@ v_0(t) = \left\{
   \end{array} \right.
 \end{equation}
 
-\begin{figure}
+\begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{lclines}
 \label{model:lclines}
 \caption{Modelo PowerDEVS de Líneas de Transmisión}
@@ -102,10 +99,9 @@ v_0(t) = \left\{
 \section{Inversores Lógicos}
 	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
 
-\todo[inline]{Usá la notación $\frac{d v}{d t}$ como en el cap 2}
 \begin{align*}
-\dot{\omega}_1 & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
-\dot{\omega}_j & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
+\frac{d \omega_1}{d t} & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
+\frac{d \omega_j}{d t} & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
 \end{align*}
 
 
