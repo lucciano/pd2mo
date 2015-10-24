@@ -3,17 +3,15 @@
 		$\mu$-Modelilca se encuentran en \url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
 
 \section{Comparación de performance}
-	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de una gráfica de valores en tiempo de las simulaciones 
-	(provista por ambas herramientas en GNUPlot), 
-	a la izquierda se muestra el resultado en PowerDEVS y a la derecha los de QSS-Solver convertidos por la herramienta desarrollada.
+	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de dos gráficas (ambas son generadas con GNUPlot), 
+	a la izquierda se muestra el resultado de la simulación de PowerDEVS y a la derecha el resultado del modelo transformado en el QSS-Solver.
 
 \todo[inline]{Tratá de poner caption a todas las figuras y mencionarlas en el texto. En la figura tanto vemos el resultado de....} 
 \todo[inline]{Lo mismo para las tablas!}
 
 \section{Ecuaciones Lotka-Volterra}
 
-\todo[inline]{Menciona que este es el sistema visto en el cap 2 y pasalo como primer ejemplo ya que es el más simple}
-	El sistema de ecuaciones Lotka-Volterra, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+	El sistema de ecuaciones Lotka-Volterra fue presentado en la página \pageref{lotka_volterra_ref}, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
 
 \begin{align*}
 \frac{dx}{dt} & = x(\alpha - \beta y)\\
@@ -28,7 +26,7 @@ donde:
     \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
 \end{itemize}
 
-	Este sistema es representado por el modelo siguiente:
+	Este sistema es representado en PowerDEVS por el modelo de la figura \ref{lotka_voltera_pwd}:
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
@@ -38,32 +36,32 @@ donde:
 
 \begin{figure}[H]
 \centering
-Resultados de la simulación \\
 \begin{minipage}{0.5\textwidth}
 \centering
  \includegraphics[width=\linewidth]{lotka_voltera-pd}
-\caption{PowerDEVS}
-\label{graph:lotka_voltera-pd}
+PowerDEVS \\
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
 \centering
  \includegraphics[width=\linewidth]{lotka_voltera-qss}
-\caption{QSS-Solver}
-\label{graph:lotka_voltera-qss}
+QSS-Solver \\
 \end{minipage}
+\label{graph:lotka_voltera}
+\caption{Resultados de la simulación del Modelo Lotka Volterra}
 \end{figure}
 
-
+En la figura \ref{graph:lotka_voltera} se pueden ver los dos resultados de la simulación de 300 segundos a la zquierda el resultado en PowerDEVS, el cual tomo 11ms,
+y a la derecha el resultado en QSS-Solver el cual tomo 2.75ms.
 
 \section{Líneas de Transmisión}
-	El siguiente sistema de ecuaciones representan un modelo a parámetros concentrados de una línea de transmisión formada por $N$ secciones de circuitos LC:
+	El siguiente sistema de ecuaciones representan un modelo de una línea de transmisión formada por $N$ secciones de circuitos LC:
 
-\begin{equation*}
+\begin{equation}
 \begin{split}
 \frac{d v_{j}}{d t} &= \frac{i_{j} - i_{j+1}}{C} \\
 \frac{d i_{j}}{d t} &= \frac{v_{j-1} - v_{j}}{L} \\	
 \end{split}
-\end{equation*}
+\end{equation}
 
 para $j = 2 \dots N$
 
@@ -76,6 +74,8 @@ v_0(t) = \left\{
   \end{array} \right.
 \end{equation}
 
+En la figura \ref{model:lclines} se puede ver el modelo de PowerDEVS para la simulación del modelo de Líneas de Transmisión.
+
 \begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{lclines}
 \label{model:lclines}
@@ -83,18 +83,22 @@ v_0(t) = \left\{
 \end{figure}
 
 \begin{figure}[H]
-\centerfloat
+\centering
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=\linewidth]{lcline-pd}
-\label{graph:lclines-pd}
-\caption{PowerDEVS}
+PowerDEVS\\
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{lcline-qss}
-\label{graph:lclines-qss}
-\caption{QSS-Solver}
+QSS-Solver\\
 \end{minipage}
+\caption{Resultados de la simulación de Líneas de Transmisión}
+\label{graph:lclines}
 \end{figure}
+
+En la figure \ref{graph:lclines} se puede ver el resultado de la simulación de 20 minutos (1200s) del Modelo de Líneas de Transmisión con 1000 segmentos en PowerDEVS,
+	la cual tomo 76402ms a la izquierda, mientras que a la derecha se encuentra el resultado del modelo convertido ejecutado en con los mismo parametros en
+	QSS-Solver, el cual tomo 34982.5ms.
 
 \section{Inversores Lógicos}
 	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
@@ -112,6 +116,8 @@ v_0(t) = \left\{
 \end{figure}
 
 \begin{figure}[H]
+\centering
+Resultados de la simulación \\
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{inversers-pd}
 \label{graph:inverters-pd}
@@ -140,6 +146,8 @@ corresponde al modelo ADR, donde $a$,$d$ y $r$ son parametros expresando coefici
 \end{figure}
 
 \begin{figure}[H]
+\centering
+Resultados de la simulación \\
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{adr-pd}
 \label{graph:adr-pd}
@@ -211,20 +219,21 @@ Resultados de la simulación \\
 
 \begin{table}[H]
 \centering	
-\label{my-label}
 \begin{tabular}{llllll}
 \toprule
 {\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
 \toprule
+Lotka  Voltera 300s      		& 11            & 2.75132         & 81 \\
 Lineas de Transmisión 1200s, N=1000     & 76402         & 34982.5         & 54          \\
 Inversores(LIQSS2) 250s, N=1000   	& 25046         & 7694.44         & 69        \\
 ADR(LIQSS2) 10s, N=1000 		& 6089          & 568.772         & 90        \\
-Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         \\
-Lotka  Voltera 300s      		& 11            & 2.75132         & 81
+Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         
 
 % Mejora esta calculada a partir de 1 - qsssolver / pwdevs
 %excepto indicado, se utiliza QSS3
 \end{tabular}
+\label{result}
+\caption{Comparacion de las diferentes simulaciones y sus mejoras}
 \end{table}
 
 	En la tabla se puede ver una mejora entre 54 y 96\% entre todos los modelos, y entre 54 y 90\% para los modelos vectoriales que son nuestro principal objetivo,
