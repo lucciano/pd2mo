@@ -1,9 +1,15 @@
 
 \section{Conclusiones}
 
-\todo[inline]{falta extender mucho más esto}
-	En el presente trabajo se mostró, en detalles, la implementación de una herramienta capaz de convertir modelos de PowerDEVS en modelos $\mu$-Modelica.  
-	La cual nos permite un ahorro en el tiempo de simulación cercana al 90\% en modelos grandes, mostramos además como se mantiene los valores de la 
+	Nos planteamos el objetivo de realizar una traducción para permitir ejecutar modelos PowerDEVS dentro de la herramienta de simulación QSS-Solver, para lo cual se generaron de forma
+	manual\footnote{La creación de estos modelos require conocimientos de PowerDEVS y de Modelica} los modelos Modelica equivalentes a los bloques PowerDEVS utilizados en los ejemplos 
+	del Capitulo 5, se desarrollo un algoritmo de traducción para la estructura de archivos PDS de PowerDEVS, el cual incluye la traducción de estructuras planas, es decir sin 
+	gerarquia, y la traducción de una gerarquia a estructuras planas, la cual nos permite encarar cualquier estructura del archivo PDS, mientras se cuenten con los modelos Modelica a utiliza
+	generados manualmente. Además se implementaron transformaciones automaticas sobre el código Modelica generado para soportar construcciones que no habian sido implementadas en QSS-Solver, 
+	condicional \texttt{if...then}, producto escalar y arreglos bidimensionales.
+
+	Se mostró, en detalles, la implementación de una herramienta capaz de convertir modelos de PowerDEVS en modelos $\mu$-Modelica.  
+	Se mostraron ejemplos mostrando las mejoras en el tiempo de simulación cercana al 90\% en modelos grandes, mostramos además como se mantiene los valores obtenidos de la 
 	simulación a través de comparar las gráficas de los resultados obtenidos.
 
 \section{Trabajos Futuros}
