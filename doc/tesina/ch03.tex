@@ -51,7 +51,26 @@
         
 
 	Dado que cada modelo atómico implementa su propia transición interna, en el caso de PowerDEVS en C++, esta \quotes{transición} debe ser provista para cada tipo de 
-	modelo atómico con anticipación y adherir a las convenciones que describiremos en esta sección, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
+	modelo atómico con anticipación y adherir a las convenciones que describiremos en la sección \ref{sec:atom-protocol}, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
+
+\subsection{Modelos Continuos}
+
+	Los modelos continuos son descriptos en general como una ecuación matemática, desde el punto de vista de Modelica, esto se describe en la sección 
+	\texttt{equation}, la cual utiliza la declaraciones realizadas anteriormente, como vimos en la sección \ref{sec:modelica}.
+
+\begin{listing}[H]
+        \inputminted[linenos]{modelica}{../../data/qss/qss_wsum.mo}
+        \caption{Modelo atómico sumador}
+        \label{lst:qss_wsum.mo}
+\end{listing}
+	
+	En la figura \ref{lst:qss_wsum} el sumador desarrollado para este trabajo, el cual 
+
+
+
+\subsection{Modelos Discontinuos}
+
+\subsection{Protocolo}\label{sec:atom-protocol}
 
         Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la traducción de este modelo se utiliza 
         un modelo Modelica el cual debe seguir la siguiente especificación:
