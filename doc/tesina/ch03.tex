@@ -59,16 +59,27 @@
 	\texttt{equation}, la cual utiliza la declaraciones realizadas anteriormente, como vimos en la sección \ref{sec:modelica}.
 
 \begin{listing}[H]
-        \inputminted[linenos]{modelica}{../../data/qss/qss_wsum.mo}
+        \inputminted[]{modelica}{../../data/qss/qss_wsum.mo}
         \caption{Modelo atómico sumador}
         \label{lst:qss_wsum.mo}
 \end{listing}
 	
-	En la figura \ref{lst:qss_wsum} el sumador desarrollado para este trabajo, el cual 
-
-
+	En la figura \ref{lst:qss_wsum.mo} el sumador desarrollado para este trabajo, el cual realiza la suma ponderada por los parametros \texttt{w} de los valores de entrada, \texttt{u}, en este caso el \texttt{*} es el producto interno, el cual es igualado (no asignado) a la variable de salida \texttt{y}, definiendo la ecuación que representa el modelo.
 
 \subsection{Modelos Discontinuos}
+
+	Los modelos discontinuos deben ser modelados con contrucciones especiales, en particular se utiliza la construcción \texttt{when...elsewhen}, la cual nos
+	permite definir cuando un conjunto de ecuaciones son validas. Tambien podemos utilizar el bloque \texttt{algorithm} para realizar el calculo necesario
+	para evaluar la condición en la construcción \texttt{when...elsewhen}.
+
+\begin{listing}[H]
+        \inputminted[]{modelica}{../../data/qss/qss_switch.mo}
+        \caption{Modelo atómico Switch}
+        \label{lst:qss_switch.mo}
+\end{listing}
+
+	En la figura \ref{lst:qss_switch.mo} se puede ver como las construcciones \texttt{algorithm} e \texttt{initial algorithm} para determinar el valor de 
+	\texttt{d}, el cual varia entre $0$ y $1$ dependiendo si \texttt{u[2]} ha superado o no el valor de referencia \texttt{level} establecido como parámetro.
 
 \subsection{Protocolo}\label{sec:atom-protocol}
 
