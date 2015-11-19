@@ -133,7 +133,7 @@
 	
 	donde $q_j (t^{-})$ es el límite por izquierda de $q_j$ en $t$.
 	
-	\begin{figure}[!htbp]
+	\begin{figure}[H]
 	  \includegraphics[scale=0.5]{histeresis1}
 	  \caption{Comportamiento de un modelo DEVS atómico}
 	   \label{fig:fig2-2}
@@ -259,16 +259,51 @@
 	se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. 
 	La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
 
-	\begin{figure}[!htbp]
+
+	\begin{figure}[H]
 	  \includegraphics[scale=0.5]{devs-atomic}
 	  \caption{Comportamiento de un modelo DEVS atómico}
 	   \label{fig:fig2-5}
 	\end{figure}
 
+
 	\subsection{Acoplados}
 	La descripción de un sistema puede ser completamente realizada utilizando modelos atómicos, aunque esto resulta un poco incómodo y confuso. 
 	Los conjuntos de estados y las funciones de transición se vuelven inmanejables en sistemas complejos, y nunca podemos asegurar haber cubierto todos 
 	los posibles estados.
+
+	\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	\centering
+	\TBox{%
+	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}
+	\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+	\centering
+
+	\begin{tikzpicture}[%
+	  grow via three points={one child at (0.5,-0.7) and
+	  two children at (0.5,-0.7) and (0.5,-1.4)},
+	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	  \node {Root-Coordinator}
+	    child { node {Acoplado2}		
+	    child { node {Acoplado1}
+	      child { node {Atómico1}}
+	      child { node {Atómico2}}
+	    }
+	    child [missing] {}				
+	    child [missing] {}				
+	    child [missing] {}				
+	    child { node {Atómico3}}};
+	\end{tikzpicture}
+	\end{minipage}
+
+	\caption{Ejemplo de un modelo jerárquico.}\label{jerarquia}
+
+	\end{figure}
+
+	A modo de ejemplo, se puede ver en la figura \ref{jerarquia} una jerarquía mostrando las relaciones entre los modelos acoplados y atómicos.
+
 	Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados, que es una forma de agrupar modelos DEVS y generar 
 	nuevos modelos a partir de este agrupamiento.
 	Hay dos formas de acoplamiento, la más general, en la cual se utilizan funciones de traducción entre los sub–sistemas y otra clase que adopta el 
@@ -329,36 +364,6 @@
 	puertos de entrada, salida y con otros modelos (atómicos o acoplados) respectivamente. Tanto los puertos como los modelos son señalados por números 
 	dentro de PowerDEVS, por lo que estos conjuntos estan comprendidos por elementos de la forma $(m_a, p_a), (m_b, p_b)$, donde $m_a$ y $m_b$ 
 	son modelos (atómicos o no) en el actual modelo y $p_a$ y $p_b$ son sus correspondientes puertos.
-
-	\begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
-	\centering
-	\TBox{%
-	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}
-	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
-	\centering
-
-	\begin{tikzpicture}[%
-	  grow via three points={one child at (0.5,-0.7) and
-	  two children at (0.5,-0.7) and (0.5,-1.4)},
-	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-	  \node {Root-Coordinator}
-	    child { node {Acoplado2}		
-	    child { node {Acoplado1}
-	      child { node {Atómico1}}
-	      child { node {Atómico2}}
-	    }
-	    child [missing] {}				
-	    child [missing] {}				
-	    child [missing] {}				
-	    child { node {Atómico3}}};
-	\end{tikzpicture}
-	\end{minipage}
-
-	\caption{Ejemplo de un modelo jerárquico.}
-
-	\end{figure}
 
 
 	\subsection{Modelos DEVS parametrizados}
