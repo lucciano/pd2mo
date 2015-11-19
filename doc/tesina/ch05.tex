@@ -120,10 +120,12 @@ En la figure \ref{graph:lclines} se puede ver el resultado de la simulación de 
 \centering
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{inversers-pd}
+\centering
 PowerDEVS
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{inversers-qss}
+\centering
 QSS-Solver
 \end{minipage}
 \caption{Resultados de la simulación de Inversores}
@@ -222,7 +224,7 @@ mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el 
 	Cada una de las simulaciones fue realizadas en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de
 	 memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
 
-	En la tabla \ref{result} se sumarizan los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capitulo en  
+	En el cuadro \ref{tab:result} se sumarizan los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capitulo en  
 	PowerDEVS (P.DEVS) y QSS-Solver (QSS-S), ambas mediciones son reportadas por los motores de simulación, en milisegundos (ms),
 	 todas las simulaciones utilizan el método de integración QSS3 excepto los que se especifica LIQSS2.
 
@@ -241,10 +243,9 @@ Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96
 % Mejora esta calculada a partir de 1 - qsssolver / pwdevs
 %excepto indicado, se utiliza QSS3
 \end{tabular}
-\label{result}
-\caption{Comparación de las diferentes simulaciones y sus mejoras}
+\caption{Comparación de las diferentes simulaciones y sus mejoras}\label{tab:result}
 \end{table}
 
-	En la tabla \ref{result} se puede ver una mejora entre 54 y 96\% entre todos los modelos, y entre 54 y 90\% para los modelos vectoriales que son nuestro 
+	En el cuadro \ref{tab:result} se puede ver una mejora entre 54 y 96\% entre todos los modelos, y entre 54 y 90\% para los modelos vectoriales que son nuestro 
 	principal objetivo, ya que son la forma más simple de describir grandes modelos, lo cual es lo esperado al cambiar de formalismo se evita todo los 
 	mensajes entre modelos característico del formalismo DEVS.
