@@ -10,21 +10,19 @@
         entre los modelos, los detalles de cómo esas conexiones son visualizadas por lineas y los detalles del recorrido de esas lineas. 
         Todos estos elementos son utilizados en primera medida con el editor de modelos, pero también son utilizados para generar el archivo PDS el cual es el 
         genera el código de la simulación.
-        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación, en el listado \ref{lst:pdsstruc} se pueden ver el
+        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación, en los listados \ref{lst:pdsstruc} y \ref{lst:pdsstruc-cont} se puede ver el
 	archivo que contiene la simulación generada para el modelo Lotka Volterra que corresponde al modelo presentado en la figura \ref{fig:lk-powerdevs} 
 	de la página \pageref{fig:lk-powerdevs}.
 
 \begin{listing}[H]
         \inputminted[linenos,breaklines=true,lastline=32]{modelica}{src/lotka_volterra.pds}
-\caption{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua).}
-\label{lst:pdsstruc}
+\caption{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua).}\label{lst:pdsstruc}
 \end{listing}
 
 
 \begin{listing}[H]
         \inputminted[firstline=33,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
-\caption{(continuación) conexiones del archivo lotka\_volterra.pds.}
-\label{lst:pdsstruc-cont}
+\caption{(continuación) conexiones del archivo lotka\_volterra.pds.}\label{lst:pdsstruc-cont}
 \end{listing}
 
         Se puede observar un elemento \texttt{Root-Coordinator} el cual contiene (marcado entre llaves) una lista de \texttt{Simulator}s que representan 
@@ -42,7 +40,7 @@
         $(6,0);(0,1)$ en EOC indica que el puerto $0$ del modelo $6$ (séptima posición)  se encuentra conectado con el puerto $1$ del modelo 
         acoplado, y un par $(0,0);(2,1)$ en EIC indica que el primer puerto (puerto $0$) se encuentra conectado con el modelo $2$ (tercera posición) en su puerto $1$.
 
-        Los modelos acoplados dado que también son modelos DEVS, replican la estructura listado \ref{lst:pdsstruc}.
+        Los modelos acoplados dado que también son modelos DEVS, replican la estructura del listado \ref{lst:pdsstruc}.
 
         Para poder leer esta estructura se cuenta con la librería de PowerDEVS\footnote{http://sourceforge.net/p/powerdevs/code/HEAD/tree/} la cual nos permite acceder
         a la estructura desde C++. 
@@ -60,11 +58,10 @@
 
 \begin{listing}[H]
         \inputminted[]{modelica}{../../data/qss/qss_wsum.mo}
-        \caption{Modelo atómico sumador}
-        \label{lst:qss_wsum.mo}
+        \caption{Modelo atómico sumador}\label{lst:qss_wsum.mo}
 \end{listing}
 	
-	En la figura \ref{lst:qss_wsum.mo} el sumador desarrollado para este trabajo, el cual realiza la suma ponderada por los parámetros \texttt{w} de los valores de entrada, \texttt{u}, en este caso el \texttt{*} es el producto interno, el cual es igualado (no asignado) a la variable de salida \texttt{y}, definiendo la ecuación que representa el modelo.
+	En el listado \ref{lst:qss_wsum.mo} el sumador desarrollado para este trabajo, el cual realiza la suma ponderada por los parámetros \texttt{w} de los valores de entrada, \texttt{u}, en este caso el \texttt{*} es el producto interno, el cual es igualado (no asignado) a la variable de salida \texttt{y}, definiendo la ecuación que representa el modelo.
 
 \subsection{Modelos Discontinuos}
 
@@ -74,11 +71,10 @@
 
 \begin{listing}[H]
         \inputminted[]{modelica}{../../data/qss/qss_switch.mo}
-        \caption{Modelo atómico Switch}
-        \label{lst:qss_switch.mo}
+        \caption{Modelo atómico Switch}\label{lst:qss_switch.mo}
 \end{listing}
 
-	En la figura \ref{lst:qss_switch.mo} se puede ver como las construcciones \texttt{algorithm} e \texttt{initial algorithm} para determinar el valor de 
+	En el listado \ref{lst:qss_switch.mo} se puede ver como las construcciones \texttt{algorithm} e \texttt{initial algorithm} para determinar el valor de 
 	\texttt{d}, el cual varia entre $0$ y $1$ dependiendo si \texttt{u[2]} ha superado o no el valor de referencia \texttt{level} establecido como parámetro.
 
 \subsection{Protocolo}\label{sec:atom-protocol}
@@ -114,8 +110,7 @@ equation
   der(y[1]) = u[1];
 end QSSIntegrator;
 \end{minted}
-\caption{Modelo qss\_integrator.mo}
-\label{lst:qssintegrator.mo}
+\caption{Modelo qss\_integrator.mo}\label{lst:qssintegrator.mo}
 \end{listing}
 
         El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el listado \ref{lst:qssint.pds}, en este se puede ver 
@@ -131,8 +126,7 @@ end QSSIntegrator;
    }
    ...
 \end{minted}
-\label{lst:qssint.pds}
-\caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}
+\caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}\label{lst:qssint.pds}
 \end{listing}
 
         Luego de remplazar los parámetros en la variable \texttt{p}, se prefijan todas las variables del modelo\footnote{La única variable que no se prefijada 
@@ -151,7 +145,7 @@ equation
   der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
 end QSSIntegrator;
 \end{minted}
-\caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}
+\caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}\label{lst:integradorparametros}
 \end{listing}
 
         Los parámetros son remplazados en el modelo, evaluándolos en Scilab\footnote{Para realizar la evaluación en Scilab se utiliza el mismo mecanismo que 
@@ -165,6 +159,8 @@ end QSSIntegrator;
         Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
         (dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivalentes \quotes{Plano}, mediante la transformación
 	descripta en la siguiente sección.
+
+	Siguiendo con nuestro ejemplo se puede ver el modelo del integrador en Modelica (con parámetros en cero) en el listado \ref{lst:qssintegrator.mo}, los valores de los parámetros encontrados dentro del archivo PDS en el listado \ref{lst:qssint.pds}, y por último el resultado de la sustitución en el listado \ref{lst:integradorparametros}.
 
 \section{Modelos Acoplados Planos}
 
@@ -219,8 +215,7 @@ end QSSIntegrator;
         \begin{minipage}{0.5\textwidth}
         \includegraphics[width=\linewidth]{buck_disk_coupled0}
         \end{minipage}
- \label{fig:coupledsample}
- \caption{Ejemplo de Modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}
+ \caption{Ejemplo de modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
 \end{figure}
 
         En la figura \ref{fig:coupledsample}  se observa a la derecha el modelo de un convertidor de potencia, el cual introduciremos con mayores
@@ -372,9 +367,8 @@ end QSSIntegrator;
        }
 \end{minted}
 \end{minipage}
-\label{lst:connections}
 \caption{Conexiones del modelo acoplado convertidor de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
-        las conexiones, externas de entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}
+        las conexiones, externas de entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}\label{lst:connections}
 \end{listing}
 
         En el modelo aplanado, se modificarán del listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, 
@@ -430,8 +424,7 @@ end QSSIntegrator;
        }
 \end{minted}
         \end{minipage}
-\label{lst:conexiones1}
-\caption{Conexiones internas, como se encontraban originalmente a la izquierda y modificadas a la derecha}
+\caption{Conexiones internas, como se encontraban originalmente a la izquierda y modificadas a la derecha}\label{lst:conexiones1}
 \end{listing}
 
         En el listado \ref{lst:conexiones1} se puede ver a la derecha las conexiones que fueron afectadas y a la izquierda como fueron afectadas, en nuestro ejemplo
@@ -474,8 +467,7 @@ end QSSIntegrator;
        }
 \end{minted}
         \end{minipage}
-        \label{lst:conexiones2}
-        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertados}
+        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertados}\label{lst:conexiones2}
 \end{listing}
 
         En el listado \ref{lst:conexiones2} se pueden ver las conexiones como se encontraban originalmente (izquierda) y como serán insertadas (derecha)
@@ -484,11 +476,10 @@ end QSSIntegrator;
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=.75\textwidth]{text3418}
-\label{fig:aplanado-ports}
 \caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.\
 	\texttt{S1} y \texttt{S2} están conectados a través de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
 	el exterior a través del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
-	}
+	} \label{fig:aplanado-ports}
 \end{figure}
 
 	Se puede ver en la figura \ref{fig:aplanado-ports} un esquema de conexiones, donde el modelo $S2$ es un modelo acoplado que contiene el modelo $S3$.
@@ -544,7 +535,7 @@ end QSSIntegrator;
        }
 \end{minted}
 \end{minipage}
-\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando(derecha).}\label{lst:conexiones3}
+\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando(derecha).}\label{lst:conecOut}
 \end{listing}
 
 \begin{listing}
@@ -587,11 +578,11 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando(derecha).}
-\label{lst:conexiones4}
+\label{lst:conecIn}
 \end{listing}
 \end{itemize}
 
-	Agregando estas conexiones se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el esquema jerárquico de modelos en profundidad, 
+	Agregando las conexiones que aparecen a la derecha de los listados \ref{lst:conecOut} y \ref{lst:conecOut} se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el esquema jerárquico de modelos en profundidad, 
 	aplanando los modelos acoplado más profundos primero, podemos utiliza el algoritmo de forma de aplanar el modelo más profundo únicamente.
 
 \section{Modelos Vectoriales} \label{sec:modelos_vectoriales}
