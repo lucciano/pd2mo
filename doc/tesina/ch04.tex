@@ -74,6 +74,14 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 						\EndFor
   			 			\State La conexión se marca para ser borrada;
 					\EndIf
+\algstore{flattercontext}
+\end{algorithmic}
+\caption{flatter::flat}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\algrestore{flattercontext}
   			 		\If{Si la conexión involucra como origen el modelo acoplado ModeloHijo}
   			 			\Comment{Se crea una nueva conexión (en ModeloResultado) entre los modelos agregado recientemente según la conexión del puerto de salida del ModeloHijo y el destino de la conexión}
 						\For{Conexión Externa Saliente eoc del ModeloHijo}
@@ -101,7 +109,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 \EndFor
 \Return ModeloResultado
 \end{algorithmic}
-\caption{flatter::flat}
+\caption{flatter::flat (cont.)}
 \end{algorithm}
 
 \section{Transformación Principal}
