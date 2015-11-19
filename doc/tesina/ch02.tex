@@ -45,7 +45,7 @@
 	\end{equation}
 
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
-	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta\ref{Cel06}, DASSL\ref{DASSL}, DOPRI\ref{DP80}, etc.
+	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta\cite{Cel06}, DASSL\cite{DASSL}, DOPRI\cite{DP80}, etc.
 
 	A modo de ejemplos introducimos un ejemplo: el sistema de ecuaciones de Lotka-Volterra, también conocidas como ecuaciones predador-presa o presa-predador,
 	son un par de ecuaciones diferenciales de primer orden no lineales que se usan para describir la dinámicas de sistemas biológicos en el que dos 
@@ -84,9 +84,8 @@
 	abierto, todas cuentan con interfaces gráficas para construir los modelos, edición de código y compiladores para generar el código de las simulaciones.
 
 \begin{listing}[H]    
-	\caption{LotkaVolterra.mo}
 	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
-	\label{lst:LotkaVolterra.mo}
+	\caption{LotkaVolterra.mo}\label{lst:LotkaVolterra.mo}
 \end{listing}
 	
 	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el listado \ref{lst:LotkaVolterra.mo} se muestra el equivalente modelo en Modelica, 
@@ -212,9 +211,8 @@
 	fue necesario escribir las equaciones de la forma \texttt{var=f()} para que sean $\mu$-Modelica valido.
 
 	\begin{listing}[H]    
-		\caption{LotkaVolterra.mo}
 		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
-		\label{lst:LotkaVolterra.mo}
+		\caption{LotkaVolterra.mo}\label{lst:LotkaVolterra_qss.mo}
 	\end{listing} 
 
 \section{Formalismo DEVS}

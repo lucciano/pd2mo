@@ -3,7 +3,7 @@
 	Los modelos ejecutados tanto los originales, en PowerDEVS, y los modelos 
 	transformados en $\mu$-Modelilca se encuentran en \url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
 
-\section{Comparación de performance}
+\section{Comparación de desempeño}
 	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de dos gráficas (ambas son generadas con GNUPlot), 
 	a la izquierda se muestra el resultado de la simulación de PowerDEVS y a la derecha el resultado del modelo transformado en el QSS-Solver.
 
@@ -129,8 +129,7 @@ PowerDEVS
 \centering
 QSS-Solver
 \end{minipage}
-\caption{Resultados de la simulación de Inversores}
-\label{graph:inverters}
+\caption{Resultados de la simulación de Inversores}\label{graph:inverters}
 \end{figure}
 
 En la figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomo 25046ms en PowerDEVS en 
@@ -180,43 +179,43 @@ donde
 i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \end{align*}
 
+Las ecuaciones anteriores se ven reflejadas en el circuito eléctrico de la figura \ref{buckdisk-squema}.
 
 \begin{figure}[H]
 \centering
  \includegraphics[width=.60\linewidth]{Buckboost_conventions}
- \label{buckdisk-squema}
- \caption{Esquema eléctrico de convertidor de voltaje en PowerDEVS}
+ \caption{Esquema eléctrico de convertidor de voltaje}\label{buckdisk-squema}
 \end{figure}
+
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{buck_disk}
- \label{model:buckdisk}
-\caption{Modelo Convertidor de voltaje}
+\caption{Modelo Convertidor de voltaje}\label{model:buckdisk}
 \end{figure}
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{buck_disk_coupled0}
-\caption{Coupled0 (Incluido en Convertidor de voltaje)}
-\label{model:buckdisk_coupled0}
+\caption{Coupled0 (Incluido en Convertidor de voltaje)}\label{model:buckdiskcoupled0}
 \end{figure}
+
+El cual es representado en el modelo representado por las figuras \ref{model:buckdisk} y \ref{model:buckdiskcoupled0}.
 
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{buck_disk-pd}
 \centering
 PowerDEVS
-\label{model:buckdisk_coupled0}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
  \includegraphics[width=\linewidth]{buck_disk-qss}
 \centering
 QSS-Solver
-\label{model:buckdisk}
 \end{minipage}
 \caption{Resultados de la simulación de Convertidor de voltaje}
+\label{result:buckdisk}
 \end{figure}
 
-En la figura \ref{model:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01s a la izquierda en PowerDEVS, lo cual tomo 268ms, 
+En la figura \ref{result:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01s a la izquierda en PowerDEVS, lo cual tomo 268ms, 
 mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el cual tomo 10ms.
 
 \section{Resultados}
@@ -224,7 +223,7 @@ mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el 
 	Cada una de las simulaciones fue realizadas en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de
 	 memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
 
-	En el cuadro \ref{tab:result} se sumarizan los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capitulo en  
+	En el cuadro \ref{tab:result} se muestran los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capitulo en  
 	PowerDEVS (P.DEVS) y QSS-Solver (QSS-S), ambas mediciones son reportadas por los motores de simulación, en milisegundos (ms),
 	 todas las simulaciones utilizan el método de integración QSS3 excepto los que se especifica LIQSS2.
 
