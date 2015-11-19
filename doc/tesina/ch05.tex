@@ -143,12 +143,12 @@ La ecuación
 \begin{equation*}
 \frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t)}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
 \end{equation*}
-corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coeficientes de advección, difusión y reacción
+corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coeficientes de advección, difusión y reacción, 
+el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la figura \ref{model:adr}
 
 \begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{adr-pwd}
-\label{model:adr}
-\caption{Modelo PowerDEVS ADR}
+\caption{Modelo PowerDEVS ADR}\label{model:adr}
 \end{figure}
 
 \begin{figure}[H]
