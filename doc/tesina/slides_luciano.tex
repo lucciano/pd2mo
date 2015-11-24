@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{minted}
 
 \mode<presentation> {
 
@@ -179,10 +180,20 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 		\item $t$ representa el tiempo y
 		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
 	\end{itemize}
-
 \end{frame}
 
+%The prey are assumed to have an unlimited food supply, and to reproduce exponentially unless subject to predation; this exponential growth is represented in the equation above by the term αx. The rate of predation upon the prey is assumed to be proportional to the rate at which the predators and the prey meet; this is represented above by βxy. If either x or y is zero then there can be no predation.
+
+%In this equation,  \displaystyle \delta xy represents the growth of the predator population. (Note the similarity to the predation rate; however, a different constant is used as the rate at which the predator population grows is not necessarily equal to the rate at which it consumes the prey). \displaystyle \gamma y represents the loss rate of the predators due to either natural death or emigration; it leads to an exponential decay in the absence of prey.
+
 \section{Modelica}
+\begin{frame}
+\begin{listing}[H]    
+	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
+	\caption{LotkaVolterra.mo}\label{lst:LotkaVolterra.mo}
+\end{listing}
+\end{frame}
+
 \section{Métodos de Integración QSS}
 \section{$\mu$-Modelica}
 \section{Stand-Alone QSS-Solver}
