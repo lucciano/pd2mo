@@ -127,11 +127,61 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 \end{figure}
 \end{frame}
 
+\section{Trabajo relacionado}
+\begin{frame}
+\begin{itemize}
+	\item QSS-Solver
+	\item DESlib
+	\item M/CD++ 
+\end{itemize}
+\end{frame}
 
 \chapter{Conceptos Previos}
 \section{Modelado y Simulación}
 \subsection{Sistemas Continuos y Discretos}
+\begin{frame}
+	\begin{equation} \label{eq:eq1}
+	\dot{x}(t) = f (x(t), u(t))
+	\end{equation}
+
+	Con condiciones iniciales :
+	\begin{equation} \label{eq:eq2}
+	x(t = t_0 ) = x_0
+	\end{equation}
+\end{frame}
+
 \subsection{Métodos de Integración}
+\begin{frame}
+	Sea $x_i (t)$ la trayectoria del estado $i$-esimo expresada como función de tiempo simulado. 
+	Mientras que la ecuación  \ref{eq:eq1} no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. 
+	Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria.
+
+	\begin{equation} \label{eq3}
+		x_i(t^* + h) = x_i(t^*) + \frac{dx_i (t^*)}{dt} \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
+	\end{equation}
+
+	\begin{equation} \label{eq4}
+		x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
+	\end{equation}
+\end{frame}
+
+\subsection{Lotka Volterra}
+\begin{frame}
+	\begin{align*}
+		\frac{dx}{dt} &= x(\alpha - \beta y) \\
+		\frac{dy}{dt} &= - y(\gamma - \delta  x)
+	\end{align*}
+	donde:
+	\begin{itemize}
+		\item $y$ es el número de algún predador (por ejemplo, un lobo)
+		\item $x$ es el número de sus presas (por ejemplo, conejos)
+		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
+		\item $t$ representa el tiempo y
+		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
+	\end{itemize}
+
+\end{frame}
+
 \section{Modelica}
 \section{Métodos de Integración QSS}
 \section{$\mu$-Modelica}
