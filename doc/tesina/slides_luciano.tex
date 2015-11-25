@@ -263,6 +263,28 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 
 \section{Formalismo DEVS}
 \subsection{Modelos Atómicos}
+\begin{frame}
+Un modelo atómico representa la unidad \quotes{indivisible} de especificación, en el sentido que es la pieza fundamental y más básica de un modelo DEVS. 
+	Formalmente un modelo atómico está conformado por la 7-upla:
+
+	\begin{equation} 
+	(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
+	\end{equation}
+
+	\begin{itemize}
+	\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
+	\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
+	\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
+	\item $ta$ es una función $S \to \mathbb{R}^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún 
+	evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
+	\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. 
+	Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
+	\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(\mathbb{R}^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
+	externo, esta es la \emph{Función de Transición Externa}.
+	\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
+	\end{itemize}
+\end{frame}
+
 \subsection{Modelos Acoplados}
 \subsection{Modelos Parametrizados}
 \subsection{Modelos Vectoriales}
