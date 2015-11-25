@@ -1,5 +1,6 @@
 %todo: 
 %	centrar los inputminted
+%	
 \documentclass{beamer}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
@@ -228,7 +229,38 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 
 
 \section{$\mu$-Modelica}
+\begin{frame}
+	\begin{itemize}
+	 \item El modelo es plano, es decir no permite clases.
+	 \item Todas las variables pertenecen al tipo predefinido Real y solo hay tres categorías de variables: estado continuo, estado discreto y variables 
+	algebraicas.
+	 \item Los parámetros también son de tipo Real. 
+	 \item 
+     
+    Solo Arreglos unidimensionales están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
+	donde $\alpha$ y $\beta$ son expresiones enteras e \texttt{i} es el índice de la iteración.
+	 \item La sección de ecuaciones está compuesta de :
+	 \begin{itemize}
+		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
+		\item Definición algebraica : $a_2  = g(a_1);$
+	 \end{itemize}
+	 con la restricción de que cada variable algebraica solo puede depender de variables estado y de variables algebraicas previamente definidas.
+	 
+	 \item Discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos 
+	clausulas solo pueden ser relaciones ($<$, $\leqslant$, $>$ $\geqslant$) y, dentro de la clausula, solo asignaciones de variables discretas y $reinit$ 
+	de estados continuos son permitidos.
+	\end{itemize}
+\end{frame}
+
 \section{Stand-Alone QSS-Solver}
+\begin{frame}
+	\begin{listing}[H]    
+		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
+		\caption{LotkaVolterra.mo}\label{lst:LotkaVolterra_qss.mo}
+	\end{listing} 
+\end{frame}
+
+
 \section{Formalismo DEVS}
 \subsection{Modelos Atómicos}
 \subsection{Modelos Acoplados}
