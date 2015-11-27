@@ -5,6 +5,27 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{minted}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{smartdiagram}
+\usetikzlibrary{trees}
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+
+\newcommand\TBox[2][]{%
+  \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
+
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+
 
 \mode<presentation> {
 
@@ -295,6 +316,38 @@ Un modelo atómico representa la unidad \quotes{indivisible} de especificación,
 
 
 \subsection{Modelos Acoplados}
+\begin{frame}
+	\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+	\centering
+	\TBox{%
+	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}
+	\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+	\centering
+
+	\begin{tikzpicture}[%
+	  grow via three points={one child at (0.5,-0.7) and
+	  two children at (0.5,-0.7) and (0.5,-1.4)},
+	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	  \node {Root-Coordinator}
+	    child { node {Acoplado2}		
+	    child { node {Acoplado1}
+	      child { node {Atómico1}}
+	      child { node {Atómico2}}
+	    }
+	    child [missing] {}				
+	    child [missing] {}				
+	    child [missing] {}				
+	    child { node {Atómico3}}};
+	\end{tikzpicture}
+	\end{minipage}
+
+	\caption{Ejemplo de un modelo jerárquico.}\label{jerarquia}
+
+	\end{figure}
+\end{frame}
+
 \subsection{Modelos Parametrizados}
 \subsection{Modelos Vectoriales}
 \section{PowerDEVS}

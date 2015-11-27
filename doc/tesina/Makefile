@@ -1,3 +1,4 @@
+all: slides_luciano.pdf tesina_luciano.pdf
 slides_luciano.pdf: slides_luciano.tex
 	pdflatex -shell-escape slides_luciano.tex
 
