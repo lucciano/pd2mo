@@ -471,36 +471,33 @@ Un modelo atómico representa la unidad \quotes{indivisible} de especificación,
 \end{itemize}
 \end{frame}
 
-%\begin{frame}
-%\begin{listing}[H]
-%\begin{minted}{modelica}
-%class QSSIntegrator
-%  parameter Real p[4]={0,0,0,0,0,0,0,0};
-%  parameter Real x0 = p[4];
-%  Real u[1];
-%  Real y[1](start = {x0});
-%equation
-%  der(y[1]) = u[1];
-%end QSSIntegrator;
-%\end{minted}
-%\caption{Modelo qss\_integrator.mo}\label{lst:qssintegrator.mo}
-%\end{listing}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{minted}{modelica}
+class QSSIntegrator
+  parameter Real p[4]={0,0,0,0,0,0,0,0};
+  parameter Real x0 = p[4];
+  Real u[1];
+  Real y[1](start = {x0});
+equation
+  der(y[1]) = u[1];
+end QSSIntegrator;
+\end{minted}
+\end{frame}
 
-%\begin{frame}
-%\begin{listing}[H]
-%\begin{minted}{text}
-%  ...
-%  Simulator
-%   {
-%    Path = qss/qss_integrator.h
-%    Parameters = "QSS3","1e-6","1e-3","0.5"
-%   }
-%   ...
-%\end{minted}
-%\caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}\label{lst:qssint.pds}
-%\end{listing}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{listing}[H]
+\begin{minted}{text}
+  ...
+  Simulator
+   {
+    Path = qss/qss_integrator.h
+    Parameters = "QSS3","1e-6","1e-3","0.5"
+   }
+   ...
+\end{minted}
+\caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}\label{lst:qssint.pds}
+\end{listing}
+\end{frame}
 
 %\begin{frame}
 %\begin{listing}[H]
