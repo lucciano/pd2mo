@@ -348,8 +348,83 @@ Un modelo atómico representa la unidad \quotes{indivisible} de especificación,
 	\end{figure}
 \end{frame}
 
-\subsection{Modelos Parametrizados}
+\subsection{Modelos DEVS Parametrizados}
+\begin{frame}
+	\begin{equation}
+	M (p) = \{X, Y, S, \delta_{int}, \delta_{ext} ,\lambda , ta, p\}
+	\end{equation}
+
+	donde $p \in P$ es un parámetro que pertenece a un conjunto de parámetros arbitrario tal que $\delta_{int}$ , $\delta_{ext}$ , $\lambda$ y $ta$ 
+	dependen también de $p$.
+	Notar que dos modelos DEVS $M (p_1 )$, $M (p_2 )$ con $p_1 \neq p_2$ pueden exhibir distintos comportamientos aunque compartan los mismos conjuntos 
+	de entrada, salida y de estados ($X$, $Y$ , y $S$, respectivamente).
+
+\end{frame}
+
+\begin{frame}
+	\begin{equation}
+		M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
+		\end{equation}
+
+		definimos un modelo Vectorial DEVS\cite{BKC12} como la estructura:
+		\begin{equation}
+		V_D = \{N, X_V, Y_V, P, \{M_i\}\},
+		\end{equation}
+		donde:
+		\begin{itemize}
+		\item $N \in \mathbb{N}$ es la dimensión del modelo vectorial.
+
+		\item $X_V = X \times Index \bigcup \{-1\}$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo 
+		escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
+
+		\item $Y_V = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e 
+		$Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
+
+		\item $P$ es un conjunto de parámetros arbitrario.
+
+		\item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
+	\end{itemize}
+\end{frame}
+
 \subsection{Modelos Vectoriales}
+\begin{frame}
+	\begin{equation}
+		M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
+		\end{equation}
+
+		definimos un modelo Vectorial DEVS\cite{BKC12} como la estructura:
+		\begin{equation}
+		V_D = \{N, X_V, Y_V, P, \{M_i\}\},
+		\end{equation}
+		donde:
+		\begin{itemize}
+		\item $N \in \mathbb{N}$ es la dimensión del modelo vectorial.
+
+		\item $X_V = X \times Index \bigcup \{-1\}$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo 
+		escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
+
+		\item $Y_V = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e 
+		$Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
+
+		\item $P$ es un conjunto de parámetros arbitrario.
+
+		\item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Interfaz entre DEVS Vectorial y DEVS}
+\begin{frame}
+	\begin{itemize}
+		\item Escalar a Vector (Scalar to Vector): Este bloque simplemente agrega al indice $i$ al evento escalar que recibe, transformándolo en un 
+			evento vectorial. Este modelo también posee un comportamiento especial para enviar el mismo evento en todas las componentes vectorial 
+			al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
+		\item Vector a escalar (Vector to Scalar): Este bloque tiene un parámetro $i$ que contiene el índice del vector de eventos a retransmitir, 
+			cuando recibe un evento con indice $j=i$, remueve el indice y retransmite el evento escalar.
+		\item Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, emite un evento de salida $(x, i+sh)$, 
+			donde $sh$ es un parámetro entero.
+	\end{itemize}
+\end{frame}
+
 \section{PowerDEVS}
 
 \chapter{Conversión de modelos DEVS}
