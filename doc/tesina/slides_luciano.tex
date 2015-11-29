@@ -959,6 +959,231 @@ back arrow disabled=true,
 \end{frame}
 
 
+\chapter{Resultados}
+\section{Ecuaciones Lotka-Volterra}
+\begin{frame}
+\begin{align*}
+\frac{dx}{dt} & = x(\alpha - \beta y)\\
+\frac{dy}{dt} & =y(\gamma - \delta  x)
+\end{align*}
+
+donde:
+\begin{itemize}
+	\item y es el número de algún predador (por ejemplo, un lobo);
+    \item x es el número de sus presas (por ejemplo, conejos);
+    \item t representa el tiempo; y
+    \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+\caption{Modelo PowerDEVS del Sistema Lotka Volterra}
+\label{model:lotka_volterra}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-pd}
+PowerDEVS \\
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\centering
+ \includegraphics[width=\linewidth]{lotka_voltera-qss}
+QSS-Solver \\
+\end{minipage}
+\label{graph:lotka_voltera}
+\caption{Resultados de la simulación del Modelo Lotka Volterra}
+\end{figure}
+\end{frame}
+
+\section{Líneas de Transmisión}
+\begin{frame}
+\begin{equation}
+\begin{split}
+\frac{d v_{j}}{d t} &= \frac{i_{j} - i_{j+1}}{C} \\
+\frac{d i_{j}}{d t} &= \frac{v_{j-1} - v_{j}}{L} \\	
+\end{split}
+\end{equation}
+
+para $j = 2 \dots N$
+
+Consideramos un pulso de entrada:
+\begin{equation}
+v_0(t) = \left\{ 
+  \begin{array}{l l}
+    1 \text{ si } t < 1 \\
+    0 \text{ en caso contrario }
+  \end{array} \right.
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+ \includegraphics[width=0.75\linewidth]{lclines}
+\label{model:lclines}
+\caption{Modelo PowerDEVS de Líneas de Transmisión}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.5\textwidth}
+\includegraphics[width=\linewidth]{lcline-pd}
+PowerDEVS\\
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{lcline-qss}
+QSS-Solver\\
+\end{minipage}
+\caption{Resultados de la simulación de Líneas de Transmisión}
+\label{graph:lclines}
+\end{figure}
+\end{frame}
+
+
+\section{Inversores Lógicos}
+\begin{frame}
+\begin{align*}
+\frac{d \omega_1}{d t} & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
+\frac{d \omega_j}{d t} & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth]{inverters}
+\label{model:inverters}
+\caption{Modelo PowerDEVS de Inversores Lógicos}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{inversers-pd}
+PowerDEVS
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{inversers-qss}
+QSS-Solver
+\end{minipage}
+\caption{Resultados de la simulación de Inversores}\label{graph:inverters}
+\end{figure}
+\end{frame}
+
+\section{Advection-Diffusion-Reaction}
+\begin{frame}
+\begin{equation*}
+\frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t)}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
+\end{equation*}
+corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coeficientes de advección, difusión y reacción, 
+el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la figura \ref{model:adr}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+ \includegraphics[width=0.75\linewidth]{adr-pwd}
+\caption{Modelo PowerDEVS ADR}\label{model:adr}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{adr-pd}
+\centering
+PowerDEVS
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{adr-qss}
+\centering
+QSS-Solver
+\end{minipage}
+\caption{Resultados de la simulación ADR}\label{graph:adr}
+\end{figure}
+\end{frame}
+
+
+\section{Convertidor de Voltaje}
+\begin{frame}
+\begin{align*}
+\frac{di_{L}}{dt} & = \frac{-u_{C} - R_D i_D }{L}\\
+\frac{du_C}{dt} & =i_D \frac{i_D}{C} - \frac{u_C}{R_L C }
+\end{align*}
+donde
+\begin{align*}
+i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+ \includegraphics[width=.60\linewidth]{Buckboost_conventions}
+ \caption{Esquema eléctrico de convertidor de voltaje}\label{buckdisk-squema}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth]{buck_disk}
+\caption{Modelo Convertidor de voltaje}\label{model:buckdisk}
+\end{figure}
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth]{buck_disk_coupled0}
+\caption{Coupled0 (Incluido en Convertidor de voltaje)}\label{model:buckdiskcoupled0}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{buck_disk-pd}
+\centering
+PowerDEVS
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+ \includegraphics[width=\linewidth]{buck_disk-qss}
+centering
+QSS-Solver
+\end{minipage}
+\caption{Resultados de la simulación de Convertidor de voltaje}
+\label{result:buckdisk}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{table}[H]
+\centering	
+\begin{tabular}{llllll}
+\toprule
+{\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
+\toprule
+Lotka  Voltera 300s      		& 11            & 2.75132         & 81 \\
+Lineas de Transmisión 1200s, N=1000     & 76402         & 34982.5         & 54          \\
+Inversores(LIQSS2) 250s, N=1000   	& 25046         & 7694.44         & 69        \\
+ADR(LIQSS2) 10s, N=1000 		& 6089          & 568.772         & 90        \\
+Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         
+
+% Mejora esta calculada a partir de 1 - qsssolver / pwdevs
+%excepto indicado, se utiliza QSS3
+\end{tabular}
+\caption{Comparación de las diferentes simulaciones y sus mejoras}\label{tab:result}
+\end{table}
+\end{frame}
+
+\begin{frame}
+FIN
+\end{frame}
+
+
 
 
 %	
