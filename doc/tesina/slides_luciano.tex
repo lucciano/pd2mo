@@ -367,7 +367,7 @@ Un modelo atómico representa la unidad \quotes{indivisible} de especificación,
 		M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
 	\end{equation}
 
-	definimos un modelo Vectorial DEVS\cite{BKC12} como la estructura:
+	definimos un modelo Vectorial DEVS\ como la estructura:
 	\begin{equation}
 		V_D = \{N, X_V, Y_V, P, \{M_i\}\},
 	\end{equation}
@@ -625,130 +625,126 @@ end QSSIntegrator;
 \end{figure}
 \end{frame}
 
-%\begin{frame}
-%\begin{listing}
-%\begin{minipage}[t]{0.5\linewidth}
-%\centering
-%\begin{minted}[linenos]{text}
-% IC
-%   {
-%   (13,0);(1,0)
-%    (12,0);(2,0)
-%    (8,0);(4,1)
-%    (4,0);(3,0)
-%    (5,0);(3,1)
-%    (3,1);(11,2)
-%    (11,0);(10,0)
-%    (2,0);(9,0)
-%    (2,0);(12,0)
-%    (2,0);(13,1)
-%    (3,0);(11,0)
-%    (3,0);(13,0)
-%    (10,0);(11,1)
-%    (10,0);(5,1)
-%    (1,0);(3,2)
-%    (1,0);(12,1)
-%    (1,0);(9,1)
-%    (6,0);(5,2)
-%    (6,0);(4,0)
-%    (7,0);(5,0)
-%    (7,0);(4,2)
-%}
-%\end{minted}
-%\end{minipage}
-%\begin{minipage}[t]{0.5\linewidth}
-%\begin{minted}[linenos]{text}
-%     EIC
-%       {
-%        (0,2);(4,1)
-%        (0,0);(2,1)
-%        (0,0);(0,1)
-%        (0,1);(3,1)
-%        (0,1);(5,0)
-%        (0,1);(7,0)
-%        (0,1);(0,0)
-%       }
-%      EOC
-%       {
-%        (6,0);(0,1)
-%        (8,0);(0,0)
-%       }
-%      IC
-%       {
-%        (0,0);(1,0)
-%        (7,0);(8,0)
-%        (2,0);(3,0)
-%        (3,0);(4,0)
-%        (5,0);(6,0)
-%        (4,0);(8,1)
-%        (1,0);(2,0)
-%        (1,0);(7,1)
-%        (8,0);(6,1)
-%       }
-%\end{minted}
-%\end{minipage}
-%\caption{Conexiones del modelo acoplado convertidor de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
-%        las conexiones, externas de entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}\label{lst:connections}
-%\end{listing}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{minipage}[t]{0.5\linewidth}
+\centering
+\begin{minted}[linenos]{text}
+ IC
+   {
+   (13,0);(1,0)
+    (12,0);(2,0)
+    (8,0);(4,1)
+    (4,0);(3,0)
+    (5,0);(3,1)
+    (3,1);(11,2)
+    (11,0);(10,0)
+    (2,0);(9,0)
+    (2,0);(12,0)
+    (2,0);(13,1)
+    (3,0);(11,0)
+    (3,0);(13,0)
+    (10,0);(11,1)
+    (10,0);(5,1)
+    (1,0);(3,2)
+    (1,0);(12,1)
+    (1,0);(9,1)
+    (6,0);(5,2)
+    (6,0);(4,0)
+    (7,0);(5,0)
+    (7,0);(4,2)
+}
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.5\linewidth}
+\begin{minted}[linenos]{text}
+     EIC
+       {
+        (0,2);(4,1)
+        (0,0);(2,1)
+        (0,0);(0,1)
+        (0,1);(3,1)
+        (0,1);(5,0)
+        (0,1);(7,0)
+        (0,1);(0,0)
+       }
+      EOC
+       {
+        (6,0);(0,1)
+        (8,0);(0,0)
+       }
+      IC
+       {
+        (0,0);(1,0)
+        (7,0);(8,0)
+        (2,0);(3,0)
+        (3,0);(4,0)
+        (5,0);(6,0)
+        (4,0);(8,1)
+        (1,0);(2,0)
+        (1,0);(7,1)
+        (8,0);(6,1)
+       }
+\end{minted}
+\end{minipage}
+\end{frame}
 
-%\begin{frame}
-%\begin{itemize}
-%        \item Conexiones que involucran modelos atómicos ubicados después del modelo acoplado y no están relacionadas con el modelo acoplado, 
-%        estas conexiones deben ser modificadas dado que insertaremos los modelos atómicos del modelo acoplado que estamos aplanando, y los modelos 
-%        ubicados después del modelo acoplado serán desplazados.
-%\end{itemize}
-%\end{frame}
+\begin{frame}
+\begin{itemize}
+        \item Conexiones que involucran modelos atómicos ubicados después del modelo acoplado y no están relacionadas con el modelo acoplado, 
+        estas conexiones deben ser modificadas dado que insertaremos los modelos atómicos del modelo acoplado que estamos aplanando, y los modelos 
+        ubicados después del modelo acoplado serán desplazados.
+\end{itemize}
+\end{frame}
 
-%\begin{frame}[fragile]
-%\begin{columns}[T] % align columns
-%\begin{column}{.48\textwidth}
-%\begin{minted}[linenos]{text}
-%      IC
-%        {
-%         (13,0);(1,0)
-%         (12,0);(2,0)
-%         (8,0);(4,1)
-%         (11,0);(10,0)
-%         (2,0);(9,0)
-%         (2,0);(12,0)
-%         (2,0);(13,1)
-%         (10,0);(11,1)
-%         (10,0);(5,1)
-%         (1,0);(12,1)
-%         (1,0);(9,1)
-%         (6,0);(5,2)
-%         (6,0);(4,0)
-%         (7,0);(5,0)
-%         (7,0);(4,2)
-%       }
-%\end{minted}
-%\end{column}%
-%\hfill%
-%\begin{column}{.48\textwidth}
-%\begin{minted}[linenos]{text}
-%      IC
-%        {
-%         (21,0);(1,0)
-%         (20,0);(2,0)
-%         (16,0);(12,1)
-%         (19,0);(18,0)
-%         (2,0);(17,0)
-%         (2,0);(20,0)
-%         (2,0);(21,1)
-%         (18,0);(19,1)
-%         (18,0);(13,1)
-%         (1,0);(20,1)
-%         (1,0);(17,1)
-%         (14,0);(13,2)
-%         (14,0);(12,0)
-%         (15,0);(13,0)
-%         (15,0);(12,2)
-%       }
-%\end{minted}
-%\end{column}%
-%\end{columns}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+\begin{minted}[linenos]{text}
+      IC
+        {
+         (13,0);(1,0)
+         (12,0);(2,0)
+         (8,0);(4,1)
+         (11,0);(10,0)
+         (2,0);(9,0)
+         (2,0);(12,0)
+         (2,0);(13,1)
+         (10,0);(11,1)
+         (10,0);(5,1)
+         (1,0);(12,1)
+         (1,0);(9,1)
+         (6,0);(5,2)
+         (6,0);(4,0)
+         (7,0);(5,0)
+         (7,0);(4,2)
+       }
+\end{minted}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+\begin{minted}[linenos]{text}
+      IC
+        {
+         (21,0);(1,0)
+         (20,0);(2,0)
+         (16,0);(12,1)
+         (19,0);(18,0)
+         (2,0);(17,0)
+         (2,0);(20,0)
+         (2,0);(21,1)
+         (18,0);(19,1)
+         (18,0);(13,1)
+         (1,0);(20,1)
+         (1,0);(17,1)
+         (14,0);(13,2)
+         (14,0);(12,0)
+         (15,0);(13,0)
+         (15,0);(12,2)
+       }
+\end{minted}
+\end{column}%
+\end{columns}
+\end{frame}
 
 \begin{frame}[fragile]
 \begin{itemize}
@@ -757,46 +753,151 @@ end QSSIntegrator;
 \end{itemize}
 \end{frame}
 
-%\begin{frame}[fragile]
-%\begin{listing}
-%\begin{columns}[T] % align columns
-%\begin{column}{.48\textwidth}
-%\begin{minted}{text}
-%      IC
-%       {
-%        (0,0);(1,0)
-%        (7,0);(8,0)
-%        (2,0);(3,0)
-%        (3,0);(4,0)
-%        (5,0);(6,0)
-%        (4,0);(8,1)
-%        (1,0);(2,0)
-%        (1,0);(7,1)
-%        (8,0);(6,1)
-%       }
-%\end{minted}
-%\end{column}%
-%\hfill%
-%\begin{column}{.48\textwidth}
-%\begin{minted}{text}
-%      IC
-%       {
-%        (3,0);(4,0)
-%        (10,0);(11,0)
-%        (5,0);(6,0)
-%        (6,0);(7,0)
-%        (8,0);(9,0)
-%        (7,0);(11,1)
-%        (4,0);(5,0)
-%        (4,0);(10,1)
-%        (11,0);(9,1)
-%       }
-%\end{minted}
-%\end{column}%
-%\end{columns}
-%        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertados}\label{lst:conexiones2}
+\begin{frame}[fragile]
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+\begin{minted}{text}
+      IC
+       {
+        (0,0);(1,0)
+        (7,0);(8,0)
+        (2,0);(3,0)
+        (3,0);(4,0)
+        (5,0);(6,0)
+        (4,0);(8,1)
+        (1,0);(2,0)
+        (1,0);(7,1)
+        (8,0);(6,1)
+       }
+\end{minted}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+\begin{minted}{text}
+      IC
+       {
+        (3,0);(4,0)
+        (10,0);(11,0)
+        (5,0);(6,0)
+        (6,0);(7,0)
+        (8,0);(9,0)
+        (7,0);(11,1)
+        (4,0);(5,0)
+        (4,0);(10,1)
+        (11,0);(9,1)
+       }
+\end{minted}
+\end{column}%
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.75\textwidth]{text3418}
+\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.\
+	\texttt{S1} y \texttt{S2} están conectados a través de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
+	el exterior a través del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
+	} \label{fig:aplanado-ports}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+	\item IC : \texttt{(S1,p1);(S2,p2)}
+	\item EIC : \texttt{(0,p2);(S3,p3)}
+	\end{itemize}
+
+	entonces la conexiones en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado según la cantidad de modelos que contiene $S2$ y 
+	$S3$ deberá ser desplazado según la posición de $S2$.
+
+	Si consideramos que $p2$ es un puerto de salida las conexiones serán:
+
+	\begin{itemize}
+	\item IC : \texttt{(S2,p2);(S1,p1)}
+	\item EOC : \texttt{(S3,p3);(0,p2)}
+	\end{itemize}
+
+	entonces la conexiones en el modelo aplanado es \texttt{($S3$,$p3$);($S1$,$p1$)} e igual que en el caso anterior, $S1$ debe ser desplazado según la 
+	cantidad de modelos que contiene $S2$ y $S3$ deberá ser desplazado según la posición de $S2$.
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (3,1);(11,2)
+        (3,0);(11,0)
+        (3,0);(13,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      EOC
+       {
+        (6,0);(0,1)
+        (8,0);(0,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (9,0);(19,2)
+        (11,0);(19,0)
+        (11,0);(21,0)
+       }
+\end{minted}
+\end{minipage}
+%\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando(derecha).}\label{lst:conecOut}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (4,0);(3,0)
+        (5,0);(3,1)
+        (1,0);(3,2)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      EIC
+       {
+        (0,2);(4,1)
+        (0,0);(2,1)
+        (0,0);(0,1)
+        (0,1);(3,1)
+        (0,1);(5,0)
+        (0,1);(7,0)
+        (0,1);(0,0)
+       }
+\end{minted}
+\end{minipage}
+\begin{minipage}[t]{0.3\linewidth}
+\begin{minted}{text}
+      IC
+       {
+        (12,0);(5,1)
+        (12,0);(3,1)
+        (13,0);(6,1)
+        (13,0);(8,0)
+        (13,0);(10,0)
+        (13,0);(3,0)
+        (1,0);(7,1)
+       }
+\end{minted}
+\end{minipage}
+%\caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando(derecha).}
+%\label{lst:conecIn}
 %\end{listing}
-%\end{frame}
+\end{frame}
 
 
 \section{Modelos Vectoriales}
