@@ -499,131 +499,131 @@ end QSSIntegrator;
 \end{listing}
 \end{frame}
 
-%\begin{frame}
-%\begin{listing}[H]
-%\begin{minted}{modelica}
-%class QSSIntegrator
-%  parameter Real QSSIntegrator_1_p[4]={0,1e-6, 1e-3, 0.5};
-%  parameter Real QSSIntegrator_1_x0 = p[4];
-%  Real QSSIntegrator_1_u[1];
-%  Real QSSIntegrator_1_y[1](start = {QSSIntegrator_1_x0});
-%equation
-%  der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
-%end QSSIntegrator;
-%\end{minted}
-%\caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}\label{lst:integradorparametros}
-%\end{listing}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{listing}[H]
+\begin{minted}{modelica}
+class QSSIntegrator
+  parameter Real QSSIntegrator_1_p[4]={0,1e-6, 1e-3, 0.5};
+  parameter Real QSSIntegrator_1_x0 = p[4];
+  Real QSSIntegrator_1_u[1];
+  Real QSSIntegrator_1_y[1](start = {QSSIntegrator_1_x0});
+equation
+  der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
+end QSSIntegrator;
+\end{minted}
+\caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}\label{lst:integradorparametros}
+\end{listing}
+\end{frame}
 
 \section{Modelos Acoplados Planos}
-%\begin{frame}[fragile]
-%\begin{listing}[H]
-%        \inputminted[linenos]{modelica}{src/lotka_volterra-orig.mo}
-%        \caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
-%        \label{lst:lotka_volterra-orig.mo}
-%\end{listing}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{listing}[H]
+        \inputminted[linenos]{modelica}{src/lotka_volterra-orig.mo}
+        \caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
+        \label{lst:lotka_volterra-orig.mo}
+\end{listing}
+\end{frame}
 
 \section{Modelos Acoplados Jerárquico}
-%\begin{frame}
-%        \begin{itemize}
-%                \item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados 
-%                        sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
-%                \item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
-%        \end{itemize} 
-%\end{frame}
+\begin{frame}
+        \begin{itemize}
+                \item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados 
+                        sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
+                \item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
+        \end{itemize} 
+\end{frame}
 
-%\begin{frame}
-%\begin{figure}[H]
-%        \begin{minipage}{0.5\textwidth}
-%        \includegraphics[width=\linewidth]{buck_disk}
-%        \end{minipage}
-%        \begin{minipage}{0.5\textwidth}
-%        \includegraphics[width=\linewidth]{buck_disk_coupled0}
-%        \end{minipage}
-% \caption{Ejemplo de modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
-%\end{figure}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{figure}[H]
+        \begin{minipage}{0.5\textwidth}
+        \includegraphics[width=\linewidth]{buck_disk}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+        \includegraphics[width=\linewidth]{buck_disk_coupled0}
+        \end{minipage}
+ \caption{Ejemplo de modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
+\end{figure}
+\end{frame}
 
-%\begin{frame}[fragile]
-%\begin{figure}[H]
-%  %\setcapwidth{0.6\textwidth}
-%  \makebox[\textwidth][c]{%
-%        \begin{minipage}[t][][b]{.59\textwidth}
-%        \begin{tikzpicture}[%
-%          grow via three points={one child at (0.5,-0.7) and
-%          two children at (0.5,-0.7) and (0.5,-1.4)},
-%          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-%          \node {Root-Coordinator}
-%            child { node {Scilab Command0 (0)}}             
-%            child { node {QSS Integartor0 (1)}}
-%            child { node {QSS Integartor1 (2)}}             
-%            child { node {Coupled0        (3)}
-%              child { node {WSum0       (0)}}
-%              child { node {Inseverse0  (1)}}
-%              child { node {Multiplier0 (2)}}
-%              child { node {Multiplier1 (3)}}
-%              child { node {Multiplier2 (4)}}
-%              child { node {Inseverse1  (5)}}
-%              child { node {Multiplier3 (6)}}
-%              child { node {Multiplier4 (7)}}
-%              child { node {WSum1       (8)}}
-%            }
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child [missing] {}                          
-%            child { node {Switch0    (4)}}
-%            child { node {Ron        (5)}}
-%            child { node {Roff       (6)}}
-%            child { node {Square0    (7)}}
-%            child { node {GNUPlot0   (8)}}
-%            child { node {Hysteresis0(9)}}
-%            child { node {Switch1    (10)}}
-%            child { node {WSum0      (11)}}
-%            child { node {WSum1      (12)}};
-%        \end{tikzpicture}
-%        \end{minipage} %
-%        \hfill
-%        \begin{minipage}[t][][b]{.59\textwidth}
-%        \begin{tikzpicture}[%
-%          grow via three points={one child at (0.5,-0.7) and
-%          two children at (0.5,-0.7) and (0.5,-1.4)},
-%          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-%          \node {Root-Coordinator}
-%            child { node {Scilab Command0	(0)}}
-%            child { node {QSS Integartor0	(1)}}
-%            child { node {QSS Integartor1	(2)}}             
-%            child { node {WSum0			(3)}}
-%            child { node {Inseverse0		(4)}}
-%            child { node {Multiplier0		(5)}}
-%            child { node {Multiplier1		(6)}}
-%            child { node {Multiplier2		(7)}}
-%            child { node {Inseverse1		(8)}}
-%            child { node {Multiplier3		(9)}}
-%            child { node {Multiplier4		(10)}}
-%            child { node {WSum1			(11)}}
-%            child { node {Switch0		(12)}}
-%            child { node {Ron			(13)}}
-%            child { node {Roff			(14)}}
-%            child { node {Square0		(15)}}
-%            child { node {GNUPlot0		(16)}}
-%            child { node {Hysteresis0		(17)}}
-%            child { node {Switch1		(18)}}
-%            child { node {WSum0			(19)}}
-%            child { node {WSum1			(20)}};
-%        \end{tikzpicture}
-%        \end{minipage}%
-%}
-%        \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
-%        \label{fig:coupled-tree}
-%\end{figure}
-%\end{frame}
+\begin{frame}[fragile]
+\begin{figure}[H]
+  %\setcapwidth{0.6\textwidth}
+  \makebox[\textwidth][c]{%
+        \begin{minipage}[t][][b]{.59\textwidth}
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node {Scilab Command0 (0)}}             
+            child { node {QSS Integartor0 (1)}}
+            child { node {QSS Integartor1 (2)}}             
+            child { node {Coupled0        (3)}
+              child { node {WSum0       (0)}}
+              child { node {Inseverse0  (1)}}
+              child { node {Multiplier0 (2)}}
+              child { node {Multiplier1 (3)}}
+              child { node {Multiplier2 (4)}}
+              child { node {Inseverse1  (5)}}
+              child { node {Multiplier3 (6)}}
+              child { node {Multiplier4 (7)}}
+              child { node {WSum1       (8)}}
+            }
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child { node {Switch0    (4)}}
+            child { node {Ron        (5)}}
+            child { node {Roff       (6)}}
+            child { node {Square0    (7)}}
+            child { node {GNUPlot0   (8)}}
+            child { node {Hysteresis0(9)}}
+            child { node {Switch1    (10)}}
+            child { node {WSum0      (11)}}
+            child { node {WSum1      (12)}};
+        \end{tikzpicture}
+        \end{minipage} %
+        \hfill
+        \begin{minipage}[t][][b]{.59\textwidth}
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node {Scilab Command0	(0)}}
+            child { node {QSS Integartor0	(1)}}
+            child { node {QSS Integartor1	(2)}}             
+            child { node {WSum0			(3)}}
+            child { node {Inseverse0		(4)}}
+            child { node {Multiplier0		(5)}}
+            child { node {Multiplier1		(6)}}
+            child { node {Multiplier2		(7)}}
+            child { node {Inseverse1		(8)}}
+            child { node {Multiplier3		(9)}}
+            child { node {Multiplier4		(10)}}
+            child { node {WSum1			(11)}}
+            child { node {Switch0		(12)}}
+            child { node {Ron			(13)}}
+            child { node {Roff			(14)}}
+            child { node {Square0		(15)}}
+            child { node {GNUPlot0		(16)}}
+            child { node {Hysteresis0		(17)}}
+            child { node {Switch1		(18)}}
+            child { node {WSum0			(19)}}
+            child { node {WSum1			(20)}};
+        \end{tikzpicture}
+        \end{minipage}%
+}
+        \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
+        \label{fig:coupled-tree}
+\end{figure}
+\end{frame}
 
 %\begin{frame}
 %\begin{listing}
