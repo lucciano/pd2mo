@@ -901,7 +901,49 @@ end QSSIntegrator;
 
 
 \section{Modelos Vectoriales}
+\begin{frame}
+\begin{itemize}
+	\item \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
+	\item \texttt{annotation(PD2MO = \{Scalar, Vector\});} entrada escalar y salida vectorial
+	\item \texttt{annotation(PD2MO = \{Vector, Scalar\});} entrada escalar y salida vectorial
+	\item \texttt{annotation(PD2MO = \{Vector, Vector\});} entrada y salida vectoriales.
+\end{itemize}
+\end{frame}
+
+	\begin{itemize}
+	\item Causalización de variables, este es un programa descripto en \cite{Mod15}
+	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad, éste no implementa (al momento de escribir este texto)
+	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform} e involucra las construcciones de Modelica 
+		\texttt{if...then...else}, producto interno de dos vectores y arreglos bidimensionales.
+	\end{itemize}
+
+
 \section{Transformaciones Extra}
+\begin{frame}
+	\begin{itemize}
+	\item Causalización de variables, este es un programa descripto en \cite{Mod15}
+	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad, éste no implementa (al momento de escribir este texto)
+	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform} e involucra las construcciones de Modelica 
+		\texttt{if...then...else}, producto interno de dos vectores y arreglos bidimensionales.
+	\end{itemize}
+\end{frame}
+
+\section{Preservación de la Semántica}
+\begin{frame}
+	En caso de las transformaciones extra, no solo se encuentran dentro del mismo lenguaje, sino que las construcciones, \texttt{if...then...else}, 
+		producto interno de dos vectores y arreglos bidimensionales, son expandidas según su definición, por lo que conservan la misma semántica.
+
+	Con respecto a la estructura del Modelo PowerDEVS, las conexiones entre los modelos atómicos convierten una o $N$ conexiones en PowerDEVS, en una o $N$
+	 igualdades en Modelica, dependiendo si el modelo es escalares o vectoriales. La transformación de conexión a igualdad, es la transformación que más 
+	nos sirve, pues por un lado, estamos tratando de eliminar el pasaje de eventos entre puertos para liberar recursos computacionales y
+	es una estrategia utilizada en el modelado de sistemas en PowerDEVS.
+
+	El procedimiento de aplanado, es por construcción el procedimiento que sigue el evento según esta conectado, es decir si un modelo $a$, esta conectado
+	a un modelo $b$ a través de a un puerto (de entrada o salida), la conexión del modelo aplanado es la conexión entra $a$ y $b$. 
+
+	Por último la traducción entre modelos atómicos como es realizada a mano, y con anticipación a la conversión automática, depende la capacidad de 
+	quien realiza esta traducción.
+\end{frame}
 
 %	
 %	%----------------------------------------------------------------------------------------
