@@ -27,8 +27,9 @@
 
 
 \usepackage{biblatex}
-\bibliography{tesina_luciano}
+\addbibresource{tesina_luciano.bib}
 \nocite{*}
+\newcommand{\customcite}[1]{\citetitle{#1}, \citeyear{#1}}
 
 \mode<presentation> {
 % The Beamer class comes with a number of default slide themes
@@ -150,11 +151,11 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 \section{Trabajo relacionado}
 \begin{frame}{Trabajos relacionados}
 \begin{itemize}
-	\item<1-> En \fullcite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
+	\item<1-> En \customcite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
 
-	\item<2-> ModelicaDEVS \cite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
+	\item<2-> ModelicaDEVS \fullcite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
 
-DESlib \cite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
+DESlib \fullcite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
 La librería contiene cuatro paquetes que pueden ser utilizados para modelar sistemas de eventos discretos:
 \begin{itemize}
 \item RandomLib puede generar números y variables aleatorias, siguiendo distribuciones de probabilidades discretas y continuas.
@@ -166,7 +167,7 @@ Estas dos librerías llevan los formalismos DEVS hacia Modelica, pero no utiliza
 Podríamos desarrollar los modelos utilizando estas librerías y ejecutar la simulación del modelo convertido en $\mu$-Modelica con el QSS-Solver, pero esto no permite re-utilizar los modelos desarrollados en PowerDEVS.
 
 
-M/CD++ \cite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver\cite{Ber12}.
+M/CD++ \fullcite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver\fullcite{Ber12}.
 
 \end{itemize}
 \end{frame}
