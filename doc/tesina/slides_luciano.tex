@@ -153,42 +153,40 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 \begin{itemize}
 	\item<1-> En \customcite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
 
-	\item<2-> ModelicaDEVS \customcite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
+	\item<2-> ModelicaDEVS es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
 
-	\item<3-> DESlib \customcite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
+	\item<3-> DESlib es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
 La librería contiene cuatro paquetes que pueden ser utilizados para modelar sistemas de eventos discretos: RandomLib, DEVSLib, SIMANLib y ARENALib.
 
-	\item<4-> M/CD++ \customcite{conf/mascots/DAbreuW05} es una herramienta para convertir simulaciones en un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver \customcite{Ber12}.
+	\item<4-> M/CD++ es una herramienta para convertir simulaciones de un subconjunto de Modelica, a simulaciones DEVS.
 \end{itemize}
 \end{frame}
 
 \chapter{Conceptos Previos}
 \section{Modelado y Simulación}
 \subsection{Sistemas Continuos y Discretos}
-\begin{frame}
-	\begin{equation} \label{eq:eq1}
-	\dot{x}(t) = f (x(t), u(t))
-	\end{equation}
-
-	Con condiciones iniciales :
-	\begin{equation} \label{eq:eq2}
-	x(t = t_0 ) = x_0
-	\end{equation}
-\end{frame}
-
 \subsection{Métodos de Integración}
-\begin{frame}
-	Sea $x_i (t)$ la trayectoria del estado $i$-esimo expresada como función de tiempo simulado. 
-	Mientras que la ecuación  \ref{eq:eq1} no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. 
-	Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria.
+\begin{frame}{Sistemas Continuos y Discretos}
+	\begin{equation*} \label{eq:eq1}
+	\dot{x}(t) = f (x(t), u(t))
+	\end{equation*}
+	Con condiciones iniciales :
+	\begin{equation*}
+	x(t = t_0 ) = x_0
+	\end{equation*}
 
-	\begin{equation} \label{eq3}
+	%Sea $x_i (t)$ la trayectoria del estado $i$-esimo expresada como función de tiempo simulado. 
+	%Mientras que la ecuación  \ref{eq:eq1} no contenga discontinuidades $x_i (t)$ será una función continua con derivada continua. 
+	%Esta puede ser aproximada con la precisión deseada mediante series de Taylor en cualquier punto de su trayectoria.
+	Si $f$ es continua puede ser aproximada mediante series de Taylor:
+	\begin{equation*}
 		x_i(t^* + h) = x_i(t^*) + \frac{dx_i (t^*)}{dt} \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
-	\end{equation}
+	\end{equation*}
 
-	\begin{equation} \label{eq4}
+	\begin{equation*}
 		x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
-	\end{equation}
+	\end{equation*}
+
 \end{frame}
 
 \subsection{Lotka Volterra}
