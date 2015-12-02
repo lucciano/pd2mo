@@ -200,7 +200,7 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 		\item $y$ es el número de algún predador (por ejemplo, un lobo)
 		\item $x$ es el número de sus presas (por ejemplo, conejos)
 		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
-		\item $t$ representa el tiempo y
+		\item $t$ representa el tiempo 
 		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
 	\end{itemize}
 \end{frame}
@@ -210,7 +210,7 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 %In this equation,  \displaystyle \delta xy represents the growth of the predator population. (Note the similarity to the predation rate; however, a different constant is used as the rate at which the predator population grows is not necessarily equal to the rate at which it consumes the prey). \displaystyle \gamma y represents the loss rate of the predators due to either natural death or emigration; it leads to an exponential decay in the absence of prey.
 
 \section{Modelica}
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Modelica}
 \centering
 \begin{listing}[H]    
 	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
@@ -219,33 +219,35 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 \end{frame}
 
 \section{Métodos de Integración QSS}
-\begin{frame}
-	Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
+\begin{frame}{Métodos de Integración QSS}
+	El método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
 	
-	\begin{equation}
+	\begin{equation*}
 	\dot{x}(t) = f (q(t), v(t))
-	\end{equation}
+	\end{equation*}
 	
 	donde $q$ es el vector de estados cuantificados y sus componentes están relacionadas una a una con las del vector de estados $x$ siguiendo una 
 	función de cuantificación con histéresis:
 	
-	\begin{equation}
+	\begin{equation*}
 	q_j(t) = \left\{ 
 	  \begin{array}{l l}
 	    x_j(t)  \quad \text{si} \mid x_j (t ) - q_j (t^{-} ) \mid \geq \Delta Q_j \\
 	    q_j (t^{-} ) \quad \text{en caso contrario}
 	  \end{array} \right.
-	\end{equation}
+	\end{equation*}
 	
 	donde $q_j (t^{-})$ es el límite por izquierda de $q_j$ en $t$.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Métodos de Integración QSS}
+	  Variables Relacionadas con una Función de Cuantificación con Histéresis de orden cero.
 	\begin{figure}[H]
-	  \includegraphics[scale=0.5]{histeresis1}
-	  \caption{Variables Relacionadas con una Función de Cuantificación con Histéresis de orden cero.} \label{fig:fig2-2}
+	  \includegraphics[scale=0.35]{histeresis1}
 	\end{figure}
 \end{frame}
+
+%XXX
 
 
 \section{$\mu$-Modelica}
