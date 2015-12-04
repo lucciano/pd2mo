@@ -279,7 +279,6 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 	\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
 \end{frame}
 
-%XXX
 
 \section{Formalismo DEVS}
 \subsection{Modelos Atómicos}
@@ -302,26 +301,24 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\begin{figure}[H]
-	  \includegraphics[scale=0.5]{devs-atomic}
-	  \caption{Comportamiento de un modelo DEVS atómico}
-	   \label{fig:fig2-5}
-	\end{figure}
-\end{frame}
+%\begin{frame}
+%	\begin{figure}[H]
+%	  \caption{Comportamiento de un modelo DEVS atómico}
+%	  \includegraphics[width=0.5\textwidth]{devs-atomic}
+%	\end{figure}
+%\end{frame}
 
 
 \subsection{Modelos Acoplados}
-\begin{frame}[fragile]
-	\begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
+\begin{frame}[fragile]{Modelo Acoplados}
+	\begin{minipage}{0.48\textwidth}
 	\centering
+\scalebox{0.75}{%
 	\TBox{%
-	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}
-	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
+	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}}
+	\end{minipage}\hfill\begin{minipage}{0.48\textwidth}
 	\centering
-
+\scalebox{0.75}{%
 	\begin{tikzpicture}[%
 	  grow via three points={one child at (0.5,-0.7) and
 	  two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -337,18 +334,15 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 	    child [missing] {}				
 	    child { node {Atómico3}}};
 	\end{tikzpicture}
+}
 	\end{minipage}
-
-	\caption{Ejemplo de un modelo jerárquico.}\label{jerarquia}
-
-	\end{figure}
 \end{frame}
 
 \subsection{Modelos DEVS Parametrizados}
-\begin{frame}
-	\begin{equation}
+\begin{frame}{Modelos DEVS Parametrizados}
+	\begin{equation*}
 	M (p) = \{X, Y, S, \delta_{int}, \delta_{ext} ,\lambda , ta, p\}
-	\end{equation}
+	\end{equation*}
 
 	donde $p \in P$ es un parámetro que pertenece a un conjunto de parámetros arbitrario tal que $\delta_{int}$ , $\delta_{ext}$ , $\lambda$ y $ta$ 
 	dependen también de $p$.
@@ -358,31 +352,35 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 \end{frame}
 
 \subsection{Modelos Vectoriales}
-\begin{frame}
-	\begin{equation}
+\begin{frame}{Modelos Vectoriales}
+
+	\begin{equation*}
 		M (p) = \{X, Y, S, \lambda_{int} , \lambda_{ext} , \lambda, ta, p\}
-	\end{equation}
+	\end{equation*}
 
 	definimos un modelo Vectorial DEVS\ como la estructura:
-	\begin{equation}
+	\begin{equation*}
 		V_D = \{N, X_V, Y_V, P, \{M_i\}\},
-	\end{equation}
-	donde:
-	\begin{itemize}
-		\item $N \in \mathbb{N}$ es la dimensión del modelo vectorial.
+	\end{equation*}
+\end{frame}
+\begin{frame}{Modelos Vectoriales}
 
-		\item $X_V = X \times Index \bigcup \{-1\}$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo 
+	\begin{itemize}
+		\item<1-> $N \in \mathbb{N}$ es la dimensión del modelo vectorial.
+
+		\item<2-> $X_V = X \times Index \bigcup \{-1\}$ es el conjunto de eventos de entradas vectorial donde $X$ es el conjunto de eventos de entrada del modelo 
 		escalar e $Index = {1, \ldots , N }$ es el conjunto de índices que indican cuál de los modelos DEVS atómicos recibirá el evento.
 
-		\item $Y_V = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e 
+		\item<3-> $Y_V = Y \times Index$ es el conjunto de eventos de salida vectorial donde $Y$ es el conjunto de eventos de salida del modelo escalar e 
 		$Index = {1, \ldots , N }$ es el conjunto de índices que indica que modelo escalar de los $N$ , emitió el evento. 
 
-		\item $P$ es un conjunto de parámetros arbitrario.
+		\item<4-> $P$ es un conjunto de parámetros arbitrario.
 
-		\item Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
+		\item<5-> Para cada índice $i \in Index$, $p(i) \in P$ es un parámetro y $M_i = M (p(i))$ es el modelo DEVS Parametrizado escalar.
 	\end{itemize}
 \end{frame}
 
+%XXX
 
 \subsubsection{Interfaz entre DEVS Vectorial y DEVS}
 \begin{frame}
