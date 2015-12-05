@@ -78,12 +78,12 @@
 	De esta manera, el lenguaje permite asociar cada componente de un sistema a una instancia de una clase.
 	Adicionalmente, los componentes típicos de los sistemas de distintos dominios de la física y de la técnica pueden agruparse en librerías de clases para ser
 	reutilizados. De hecho, existe una librería estándar de clases de Modelica, que contiene los principales componentes básicos de sistemas eléctricos,
-	mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graphs, y diagramas de bloques. 
+	mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graph, y diagramas de bloques. 
 	Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de Petri, etc.
 	Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
 	manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del sistema físico idealizado.
 	Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores
-	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales mientras que OpenModelica es de código
+	que implementan la mayoría del lenguaje Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales mientras que OpenModelica es de código
 	abierto, todas cuentan con interfaces gráficas para construir los modelos, edición de código y compiladores para generar el código de las simulaciones.
 
 \begin{listing}[H]    
@@ -91,10 +91,10 @@
 	\caption{LotkaVolterra.mo}\label{lst:LotkaVolterra.mo}
 \end{listing}
 	
-	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el listado \ref{lst:LotkaVolterra.mo} se muestra el equivalente modelo en Modelica, 
+	Continuando con el ejemplo del sistema de ecuaciones de Lotka-Volterra, en el Listado \ref{lst:LotkaVolterra.mo} se muestra el modelo equivalente en Modelica, 
 	en el se pueden observar algunas particularidades del lenguaje.
 	
-	En la primera linea se puede ver que el modelo, en este caso una \quotes{clase}, y su nombre LotkaVolterra.
+	En la línea 1 se puede ver el modelo, en este caso una \quotes{clase} y su nombre LotkaVolterra.
 	Modelica, utiliza 7 clases restringidas:
 	\textbf{block}, \textbf{connector}, \textbf{function}, \textbf{model}, \textbf{package}, \textbf{record} y \textbf{type}.
 	Cada una de estas clases restringidas permite declarar clases más específicas y cualquiera de ellas puede reemplazarse
@@ -304,7 +304,7 @@
 
 	\end{figure}
 
-	A modo de ejemplo, se puede ver en la figura \ref{jerarquia} una jerarquía mostrando las relaciones entre los modelos acoplados y atómicos.
+	A modo de ejemplo, se puede ver en la Figura \ref{jerarquia} una jerarquía mostrando las relaciones entre los modelos acoplados y atómicos.
 
 	Para abordar este problema, el formalismo DEVS introduce lo que se llaman modelos acoplados, que es una forma de agrupar modelos DEVS y generar 
 	nuevos modelos a partir de este agrupamiento.
@@ -470,8 +470,8 @@
 	\end{itemize}
 
 
-	En la figura \ref{fig:lk-powerdevs} se puede ver el modelo Lotka Volterra que acompaña la instalación de PowerDEVS, este modelo (aunque no visible en la figura)
-	tiene valores iguales a los expresados en el modelo equivalente anteriormente presentado en el listado \ref{lst:LotkaVolterra.mo}. 
+	En la Figura \ref{fig:lk-powerdevs} se puede ver el modelo Lotka Volterra que acompaña la instalación de PowerDEVS, este modelo (aunque no visible en la Figura)
+	tiene valores iguales a los expresados en el modelo equivalente anteriormente presentado en el Listado \ref{lst:LotkaVolterra.mo}. 
 	Las dos conexiones contra el bloque \texttt{GnuPlot 0} representando las variables \texttt{x} e \texttt{y} es decir presa y depredadores, ambas variables 
 	son el resultado de la integración por lo que los integradores \texttt{QSS Integrato 0} y \texttt{QSS Integrato 1} contienen en sus puerto de entrada los 
 	valores \texttt{dx/dt} y \texttt{dy/dt}. 
