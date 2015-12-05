@@ -2,7 +2,7 @@
 	simulación de sistemas, formalismos necesarios para poder comprender este trabajo. 
 
 \section{Modelado y Simulación}
-	El Modelado y Simulación\cite{Zeigler} de un Sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos 
+	El Modelado y Simulación\cite{Zeigler} de un sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos 
 	sobre el comportamiento del sistema.  El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente 
 	más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en sí.
 
@@ -13,13 +13,12 @@
 	En general, los sistemas en estudio serán continuos, pero deberemos utilizar sistemas discretos para simularlo, puésto que la simulación en 
 	computadora así lo requiere, dado que la misma computadora es un sistema discreto.
 
-	\subsection{Métodos de Integración numérica} \label{sec:num_integ}
+	\subsection{Métodos de integración numérica} \label{sec:num_integ}
 	Un sistema continuo puede ser descripto por una ecuación diferencial ordinaria de la forma:
 
 	\begin{equation} \label{eq:eq1}
 	\dot{x}(t) = f (x(t), u(t))
 	\end{equation}
-
 	donde $x \in \mathbb{R}^n$  es el vector de estados, $u \in \mathbb{R}^m$ es una función de entradas conocidas,
 	$t$ representa el tiempo y con sus condiciones iniciales:
 
