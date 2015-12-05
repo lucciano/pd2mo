@@ -20,7 +20,7 @@
 	\dot{x}(t) = f (x(t), u(t))
 	\end{equation}
 	donde $x \in \mathbb{R}^n$  es el vector de estados, $u \in \mathbb{R}^m$ es una función de entradas conocidas,
-	$t$ representa el tiempo y con sus condiciones iniciales:
+	$t$ representa el tiempo, y con sus condiciones iniciales:
 
 	\begin{equation} \label{eq:eq2}
 	x(t = t_0 ) = x_0
@@ -46,7 +46,9 @@
 	Los distintos algoritmos de integración difieren en la manera de aproximar las derivadas superiores de $f$ y en el número de
 	 términos de la serie de Taylor que consideran para la aproximación, entre los principales métodos podemos mencionar Runge-Kutta\cite{Cel06}, DASSL\cite{DASSL}, DOPRI\cite{DP80}, etc.
 
-	A modo de ejemplos introducimos un ejemplo: el sistema de ecuaciones de Lotka-Volterra, también conocidas como ecuaciones predador-presa o presa-predador,
+\section{Un ejemplo}
+	Introducimos un modelo de ejemplo, el cual mostraremos paso a paso, a lo largo de este trabajo, como se lleva adelante la transformación de modelos: 
+	el sistema de ecuaciones de Lotka-Volterra, también conocidas como ecuaciones predador-presa o presa-predador,
 	son un par de ecuaciones diferenciales de primer orden no lineales que se usan para describir la dinámicas de sistemas biológicos en el que dos 
 	especies interactúan, una como presa y otra como depredador.
 	\label{lotka_volterra_ref}
@@ -61,9 +63,11 @@
 		\item $y$ es el número de algún predador (por ejemplo, un lobo)
 		\item $x$ es el número de sus presas (por ejemplo, conejos)
 		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
-		\item $t$ representa el tiempo y
+		\item $t$ representa el tiempo
 		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
 	\end{itemize}
+
+	
 
 \section{Modelica}\label{sec:modelica}
 
@@ -77,7 +81,7 @@
 	mecánicos (traslacionales, rotacionales y multicuerpos), térmicos, state graphs, y diagramas de bloques. 
 	Otras librerías (disponibles en la web) contienen componentes de sistemas hidráulicos, bond graphs, redes de Petri, etc.
 	Por otro lado, las herramientas que provee Modelica para expresar relaciones estructurales de un modelo permiten construir la estructura del mismo de una
-	manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del Sistema Físico Idealizado.
+	manera totalmente gráfica, lo que a su vez permite describir un sistema mediante un diagrama muy similar al del sistema físico idealizado.
 	Como con todo lenguaje, para poder simular un modelo descripto en Modelica es necesario utilizar un compilador. Actualmente existen tres compiladores
 	más o menos completos de Modelica: Dymola, MathModelica y OpenModelica. Los dos primeros son herramientas comerciales mientras que OpenModelica es de código
 	abierto, todas cuentan con interfaces gráficas para construir los modelos, edición de código y compiladores para generar el código de las simulaciones.
@@ -93,7 +97,7 @@
 	En la primera linea se puede ver que el modelo, en este caso una \quotes{clase}, y su nombre LotkaVolterra.
 	Modelica, utiliza 7 clases restringidas:
 	\textbf{block}, \textbf{connector}, \textbf{function}, \textbf{model}, \textbf{package}, \textbf{record} y \textbf{type}.
-	Cada una de estas clases restringidas permite declarar clases más específicas cualquiera de ellas puede reemplazarse
+	Cada una de estas clases restringidas permite declarar clases más específicas y cualquiera de ellas puede reemplazarse
 	por \textbf{class}, pero siempre es mejor especificar de que tipo de clase se trata para mejorar la legibilidad y facilitar la depuración de código.
 
 	Las siguientes dos lineas declaran las variables \texttt{x} e \texttt{y} del tipo \texttt{Real}, ambas con valor de inicio \texttt{0.5}, las lineas 4 a 7, 
