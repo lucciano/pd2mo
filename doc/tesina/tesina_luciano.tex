@@ -114,15 +114,15 @@ Ernesto Kofman
 
 \begin{abstract}
 
-El modelado y simulación se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
+El modelado y simulación se ha convertido en una actividad central de todas las disciplina ingenieriles y científicas y son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del sistema antes de que sea construido.
-El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
+El modelado y simulación es la única técnica disponible que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
 
-PowerDEVS es un entorno integrado para el modelado y simulación basada en el formalismo DEVS, permite definir modelos atómico en C++ que puede ser conectados gráficamente en bloques jerárquicos para crear sistemas más complejos. El entorno automáticamente transforma el modelo a código C++ que ejecuta la simulación.
+PowerDEVS es un entorno integrado para el modelado y simulación basado en el formalismo DEVS, permite definir modelos atómico en C++ que pueden ser conectados gráficamente en bloques jerárquicos para crear sistemas más complejos. El entorno automáticamente transforma el modelo a código C++ que ejecuta la simulación.
 
-QSS-Solver es una implementación independiente de los métodos de integración por cuantificación de estados (Quantized State System) para simulaciones de sistemas continuos e híbridos. Los métodos QSS remplazan la integración por discretización del tiempo por integración por cuantificación de estados del sistema (Quantized State System) y a diferencia de los sitemas DEVS no requiere los mecanismos de sincronización y transmición los eventos de los sistemas DEVS.
+QSS-Solver es una implementación independiente de los métodos de integración por cuantificación de estados (o QSS por sus siglas en ingles Quantized State System) para simulaciones de sistemas continuos e híbridos. En general los métodos QSS son más rápidos que los métodos DEVS.
 
-En este trabajo se presenta una aplicación capaz de convertir modelos, descriptos en PowerDEVS, en código Modelica, más específicamente código $\mu$-Modelica (un subconjunto de Modelica), permitiendo ejecutar este modelo (convertido) con alguno de los compiladores Modelica, OpenModelica o Dymola, o \quotes{QSS Solver}, este último nos permite ganar al menos un orden de magnitud en los tiempos incurridos en la simulación.
+En este trabajo se presenta una aplicación capaz de convertir modelos, descriptos en PowerDEVS en código Modelica, más específicamente código $\mu$-Modelica (un subconjunto de Modelica), permitiendo ejecutar este modelo (convertido) con alguno de los compiladores Modelica, OpenModelica o Dymola, o \quotes{QSS Solver}, este último nos permite ganar al menos un orden de magnitud en los tiempos incurridos en la simulación.
 
 \end{abstract}
 
