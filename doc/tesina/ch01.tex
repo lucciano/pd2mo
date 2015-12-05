@@ -1,22 +1,22 @@
 \section{Motivación}
-El modelado y simulación\cite{Zeigler} se han convertido en una actividad centrales de todas las disciplina ingenieriles y científicas, son utilizados en el análisis de sistemas, ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
+El modelado y simulación\cite{Zeigler} se ha convertido en una actividad central de todas las disciplina ingenieriles y científicas y son utilizados en el análisis de sistemas, ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
 
 Son importantes para el diseño de nuevos sistemas donde podemos predecir el comportamiento del mismo antes de que sea construido.
-El modelado y simulación son las únicas técnicas disponibles que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
+El modelado y simulación es la única técnicas disponible que nos permiten analizar sistemas arbitrarios no lineales bajo una variedad de condiciones experimentales.
 
 Veamos algunas razones por las cuales la utilización de simulaciones es deseable o incluso requerido:
 
 \begin{itemize}
 	\item El sistema físico no se encuentra construido. Por lo que se utilizan simulaciones para determinar si debe construirse o si proveerá los resultados esperados.
 	
-	\item El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotara}, poniendo al experimentador y/o el sistema en peligro de muerte y/o destrucción.
+	\item El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotará}, poniendo al experimentador y/o el sistema en peligro de muerte y/o destrucción.
 
 	\item El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas.
  También es posible que el sistema se encuentra siendo utilizado y tomar el tiempo para realizar el experimento conllevaría un costo inaceptable.
 
 	\item Los tiempos del sistema no son compatibles con los tiempos del experimentador, ya sea porque es demasiado rápido (por ejemplo una explosión) o porque es demasiado lento (por ejemplo la colisión de dos galaxias). Las simulaciones nos permite acelerar o desacelerar el tiempo.
 
-	\item Variables de control, de estado y/o del sistema pueden no ser accesibles. Usualmente simulaciones son utilizadas debido a que nos permite controlar todas las variables de entrada y todos los estados, mientras que el sistema real, algunas entradas ( ruidos, por ejemplo) no son manipulables y algunas variables internas del sistema no son accesibles a la medición directa. Las simulaciones también nos permite manipular el modelo en formas que no podríamos manipular el sistema real, por ejemplo, podemos decidir cambiar la masa de un objeto de 50 kg a 400 kg y repetir la simulación. En un sistema físico, la modificación anterior es imposible o requiere una costosa y larga alteración del sistema.
+	\item Variables de control, de estado y/o del sistema pueden no ser accesibles. Usualmente simulaciones son utilizadas debido a que nos permite controlar todas las variables de entrada y todos los estados, mientras que en el sistema real, algunas entradas ( ruidos, por ejemplo) no son manipulables y algunas variables internas del sistema no son accesibles a la medición directa. Las simulaciones también nos permite manipular el modelo en formas que no podríamos manipular el sistema real, por ejemplo, podemos decidir cambiar la masa de un objeto de 50 kg a 400 kg y repetir la simulación. En un sistema físico, la modificación anterior es imposible o requiere una costosa y larga alteración del sistema.
 
 	\item Eliminación de perturbaciones. Usualmente, se llevan adelante simulaciones que nos permite eliminar perturbaciones que son inevitables en el sistema real. Lo que nos permite aislar efectos particulares, y puede conducir a mejores apreciaciones sobre el comportamiento general del sistema.
 
@@ -27,7 +27,7 @@ Es por esto que cuando simulamos un modelo es deseable que pueda ser simulado de
 
 Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
-El modelo se describe como una Ecuación Diferencial Ordinaria (o ODE, por sus siglas en ingles ordinary differential equations) de la forma
+El modelo se describe como una Ecuación Diferencial Ordinaria (o ODE, por sus siglas en ingles Ordinary Differential Equations) de la forma
 \begin{equation*}
 	\dot{x} = f(x, u, t)
 \end{equation*}
