@@ -100,29 +100,28 @@
 	Cada una de estas clases restringidas permite declarar clases más específicas y cualquiera de ellas puede reemplazarse
 	por \textbf{class}, pero siempre es mejor especificar de que tipo de clase se trata para mejorar la legibilidad y facilitar la depuración de código.
 
-	Las siguientes dos lineas declaran las variables \texttt{x} e \texttt{y} del tipo \texttt{Real}, ambas con valor de inicio \texttt{0.5}, las lineas 4 a 7, 
-	declaran los parámetros \texttt{a}, \texttt{b}, \texttt{c} y \texttt{d} a diferencia de \texttt{x} e \texttt{y}, estos parámetros no pueden cambiar durante la 
+	Las siguientes dos líneas declaran las variables \texttt{x} e \texttt{y} del tipo \texttt{Real}, ambas con valor de inicio \texttt{0.5}, las líneas 4 a 7, 
+	declaran los parámetros \texttt{a}, \texttt{b}, \texttt{c} y \texttt{d} . A diferencia de \texttt{x} e \texttt{y}, estos parámetros no pueden cambiar durante la 
 	simulación, pero pueden cambiar de simulación en simulación.
 
-	Esta primera parte (lineas 2 a 7) del modelo constituye la sección de declaraciones, se encuentra la sección de ecuaciones (luego de la palabra clave 
-	\texttt{equation}), esta sección describe el sistema de ecuaciones de nuestro modelo. Donde la expresión \texttt{der(x)} representa la derivada \texttt{x} 
-	respecto del tiempo y análogamente con \texttt{y}.
+	Esta primera parte (líneas 2 a 7) del modelo constituye la sección de declaraciones a continuación, se encuentra la sección de ecuaciones 
+	(luego de la palabra clave \texttt{equation}), esta sección describe el sistema de ecuaciones de nuestro modelo, donde la expresión \texttt{der(x)} 
+	representa la derivada \texttt{x} respecto del tiempo y análogamente con \texttt{y}.
 	
 	Por supuesto Modelica es un lenguaje mucho más extenso de lo que hemos descripto, pero los conceptos que utilizamos a lo largo de este trabajo son los
 	expresados en la presente sección.
 
 
 \section{Métodos de integración QSS}
-	Los métodos Quantized State System \cite{Fer12}, \cite{Ber12}, \cite{Beltrame06quantisedstate}, \cite{Cel06}, pueden aproximar Ecuaciones 
+	Los métodos Quantized State System \cite{Fer12}\cite{Ber12}\cite{Beltrame06quantisedstate}\cite{Cel06}, pueden aproximar Ecuaciones 
 	Diferenciales Ordinarias (ODE por sus siglas en inglés) mediante modelos de eventos discretos cuantificando los estados del sistema, 
 	a diferencia de los métodos mencionados en la sección \ref{sec:num_integ}, los cuales realizan la integración sobre el tiempo. 
 
-	Formalmente, el método de QSS de primer orden (llamado QSS1) aproxima la ecuación por:
+	Formalmente, el método QSS de primer orden (llamado QSS1) aproxima la ecuación \ref{eq:eq1} por:
 	
 	\begin{equation}
 	\dot{x}(t) = f (q(t), v(t))
 	\end{equation}
-	
 	donde $q$ es el vector de estados cuantificados y sus componentes están relacionadas una a una con las del vector de estados $x$ siguiendo una 
 	función de cuantificación con histéresis:
 	
@@ -143,17 +142,17 @@
 	
 	En la Figura \ref{fig:fig2-2} vemos la relación entrada-salida de una función de cuantificación de orden cero.
 	
-	Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante a trozos de la variable de estado 
-	correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes a trozos de las componentes correspondientes de $u(t)$. 
-	Los pasos de integración en los métodos de QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de 
+	Las variables $q_j$ son llamadas variables cuantificadas y pueden ser vistas como una aproximación constante por trozos de la variable de estado 
+	correspondiente $x_j$. De la misma forma las componentes de $v(t)$ son aproximaciones constantes por trozos de las componentes correspondientes de $u(t)$. 
+	Los pasos de integración en los métodos QSS sólo se producen cuando una variable cuantificada $q_j (t)$ cambia, esto es, cuando la variable de 
 	estado correspondiente $x_j (t)$ difiere de $q_j(t^{-})$ en un quantum. Ese cambio implica también que algunas derivadas de estado (aquellas que 
 	dependen de $x_j$ ) también son modificadas. 
 
 	Luego, cada paso involucra un cambio en sólo una variable cuantificada y en algunas derivadas de estado. 
-	Por lo tanto cuando un gran sistema ralo (o sparse) posee sólo actividad en unos pocos estados mientras que el resto del sistema se mantiene 
-	intacto, los métodos de QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
-	Otra ventaja importante de los métodos de QSS es que tratan las discontinuidades de una manera muy eficiente. Dependiendo del orden del método, 
-	las variables de estado siguen trayectorias lineal a trozos, parabólica a trozos o constante a trozos, la ocurrencia de una discontinuidad implica 
+	Por lo tanto cuando un gran sistema sparse\footnote{Un sistema es sparse si posee sólo actividad en unos pocos estados mientras que el resto del sistema 
+	se mantiene intacto}, los métodos QSS explotan intrínsecamente este hecho realizando cálculos sólo donde y cuando ocurren los cambios.
+	Otra ventaja importante de los métodos QSS es que tratan las discontinuidades de una manera muy eficiente. Dependiendo del orden del método, 
+	las variables de estado siguen trayectorias lineal por trozos, parabólica por trozos o constante por trozos, la ocurrencia de una discontinuidad implica 
 	sólo algunos cálculos locales para re-computar las derivadas de estados que están directamente afectadas por ese evento.
 	Estas ventajas resultan en una aceleración notable en el tiempo de simulación contra los algoritmos de integración numérica clásicos. 
 	En modelos con discontinuidades frecuentes como sistemas de electrónica de potencia, los métodos de alto orden que veremos a continuación, 
@@ -171,16 +170,16 @@
 	 \item Los parámetros también son de tipo Real. 
 	 \item 
      
-    Solo Arreglos unidimensionales están permitidos. Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
+    Solo arreglos unidimensionales están permitidos, mientras que índices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, 
 	donde $\alpha$ y $\beta$ son expresiones enteras e \texttt{i} es el índice de la iteración.
-	 \item La sección de ecuaciones está compuesta de :
+	 \item La sección de ecuaciones está compuesta de:
 	 \begin{itemize}
-		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
+		\item Definición de variables de estados: $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
 		\item Definición algebraica : $a_2  = g(a_1);$
 	 \end{itemize}
 	 con la restricción de que cada variable algebraica solo puede depender de variables estado y de variables algebraicas previamente definidas.
 	 
-	 \item Discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos 
+	 \item Las discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos 
 	clausulas solo pueden ser relaciones ($<$, $\leqslant$, $>$ $\geqslant$) y, dentro de la clausula, solo asignaciones de variables discretas y $reinit$ 
 	de estados continuos son permitidos.
 	\end{itemize}
@@ -189,18 +188,18 @@
 	las variables que explicitamente dependan de ella.
 
 \section{Stand–Alone QSS solver}
-	Como mencionamos antes los métodos QSS de integración remplazan la discretización del tiempo de los métodos clásicos por una cuantificación de las 
+	Como mencionamos antes los métodos QSS de integración reemplazan la discretización del tiempo de los métodos clásicos por una cuantificación de las 
 	variables del sistema. De esta forma, estos métodos generan aproximaciones del sistema continuo y tienen algunas ventajas sobre sus contra partes clásicas.
 	La forma más simple de implementar algoritmos QSS es mediante el uso de un simulador DEVS, de hecho PowerDEVS implementa la totalidad de la familia de 
-	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues ya a diferencia de los sistemas DEVS no requieren de la sincronización y 
+	algoritmos QSS. Estas implementaciones aunque simples, son ineficientes, pues a diferencia de los sistemas DEVS no requieren de la sincronización y 
 	transmisión de eventos, permitiendo liberar parte de la carga computacional.
 
-	Estas desventajas motivó el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementados como un conjunto de módulos en lenguaje C. Este implementa 
+	Estas desventajas motivaron el desarrollo del \emph{Stand–Alone QSS solver}\cite{Ber12}, implementado como un conjunto de módulos en lenguaje C. Este implementa 
 	toda la familia de métodos QSS y permite que los modelos contengan discontinuidades de tiempo y estado.
 
 	Un requerimiento impuesto por los métodos QSS es que hace uso de información estructural del modelo. Cada paso en un método QSS involucra un cambio 
-	en una variable de estado y en la derivada del estado que depende de el. Por lo que el modelo debe proveer no solo la expresión para calcular las 
-	derivadas del estado (como en un clásico ODE solver) pero además un matriz de incidencias para informar al solver que derivadas de estado han cambiado 
+	en una variable de estado y en la derivada del estado que depende de el. Debido a esto el modelo debe proveer no solo la expresión para calcular las 
+	derivadas del estado (como en un clásico ODE solver) sino además una matriz de incidencias para informar al solver las que derivadas de estado han cambiado 
 	luego de cada paso.
 
 	Como sería muy incomodo para el usuario proveer esta información estructural, el solver tiene una interfaz que automáticamente obtiene la matriz de
@@ -210,7 +209,7 @@
 
 	Continuando con nuestro ejemplo sobre el sistema Lotka Volterra, incluimos el modelo anterior, esta vez modificado para que sea $\mu$-Modelica valido.
 	Se puede apreciar un bloque extra \texttt{initial algorithm} el cual inicializa las variables (en lugar de utilizar la inicialización estándar), además 
-	fue necesario escribir las equaciones de la forma \texttt{var=f()} para que sean $\mu$-Modelica valido.
+	fue necesario escribir las equaciones de la forma \texttt{var=f()} para que el modelo sean $\mu$-Modelica valido.
 
 	\begin{listing}[H]    
 		\inputminted[linenos]{modelica}{src/lotka_volterra_qss.mo}
@@ -229,41 +228,38 @@
 	Formalmente un modelo atómico está conformado por la 7-upla:
 
 	\begin{equation} 
-	(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
+	(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) 
 	\end{equation}
-
+Donde:
 	\begin{itemize}
 	\item $X$ es el conjunto de valores de entrada que acepta el modelo atómico, es decir un evento de entrada tiene como valor un elemento del conjunto X.
 	\item $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
-	\item $S$ es el conjunto de estados internos del modelo, en todo momento el atómico está en un estado dado, que es un elemento del conjunto S.
+	\item $S$ es el conjunto de estados internos del modelo, en todo momento el modelo atómico está en un estado dado, que es un elemento del conjunto S.
 	\item $ta$ es una función $S \to \mathbb{R}^{+}_{0}$ , que indica cuánto tiempo el modelo atómico permanecerá en un estado dado, si es que no se recibe ningún 
-	evento de entrada. Esta función es \emph{Función de Avance de Tiempo}.
+	evento de entrada. Esta función se deonmina \emph{Función de Avance de Tiempo}.
 	\item $\delta_{int}$ es una función $S \to S$, que indica la dinámica del sistema en el momento que el modelo atómico realiza una transición interna. 
 	Sería el análogo a una tabla de transición en otros autómatas, es la \emph{Función de Transición Interna}.
-	\item $\delta_{ext}$ es una función $(S \times \mathcal{P}(\mathbb{R}^{+}_{0}) \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
+	\item $\delta_{ext}$ es una función $(S \times \mathbb{R}^{+}_{0} \times X) \to S$, que indica el cambio de estado ante la presencia de un evento 
 	externo, esta es la \emph{Función de Transición Externa}.
-	\item $\lambda$ es una función $S \to Y$ que indica qué evento se debe emitir al salir de un estado dado, es \emph{Función de Salida}.
-	\end{itemize}
+	\item $\lambda$ es una función $S \to Y$ llamada \emph{Función de Salida}, que indica qué evento se debe emitir al salir de un estado por una transición interna. 	\end{itemize}
 
 	Los conjuntos $S$, $X$ e $Y$ son arbitrarios, y en general infinitos. Cada posible estado $s$ ($s \in S$) tiene asociado un Avance de Tiempo calculado 
 	por la Función de Avance de Tiempo $ta(s)$.
-	En la Figura \ref{fig:fig2-5} vemos la evolución de un modelo atómico. Si el estado toma el valor $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de 
-	tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna yendo a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. 
-	La función $\delta_{int}$ se llama Función de Transición Interna.
+	En la Figura \ref{fig:fig2-5} vemos la evolución de un modelo atómico. Si el estado cambia a $s_1$ en el tiempo $t_1$ , tras $ta(s_1)$ unidades de 
+	tiempo (o sea, en tiempo $ta(s_1 ) + t_1 )$ el sistema realizará una transición interna cambiando a un nuevo estado $s_2$ dado por $s_2 = \delta_{int} (s_1 )$. 
 
-	Cuando el estado va de $s_1$ a $s_2$ se produce también un evento de salida con valor $y_1 = \lambda(s_1)$. La función $\lambda (\lambda : S \to Y )$ se 
-	llama Función de Salida. Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
+	Cuando el estado va de $s1$ a $s2$ se produce un evento de salida con valor $y1 = \lambda(s1)$. La función $\lambda (\lambda : S \to Y )$.
+	 Así, las funciones $ta$, $\delta_{int}$ y $\lambda$ definen el comportamiento autónomo de un modelo DEVS.
 
-	Cuando llega un evento de entrada, el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino 
+	Cuando llega un evento de entrada  el estado cambia instantáneamente. El nuevo valor del estado no sólo depende del valor del evento de entrada sino 
 	también del valor anterior del estado y del tiempo transcurrido desde la última transición.
 
-	Si el sistema llega al estado $s_3$ en el instante $t_3$ y luego llega un evento de entrada en el instante $t_3 + e$ con un valor $x_1$ , el nuevo estado 
-	se calcula como $s_4 = \delta_{ext} (s_3 , e, x_1 )$ (notar que $ta(s_3 ) > e$). En este caso se dice que el sistema realiza una transición externa. 
-	La función $\delta_{ext}$ se llama Función de Transición Externa. Durante una transición externa no se produce ningún evento de salida.
-
+	Cuando llega el evento $x1$ en el instante $t3$ mientras se encuentra en el estado $s2$, despues de haber transcurrido el tiempo $e$ 
+	(notar que $ta(s2 ) > e$) se transiciona al estado $s3 = \delta_{ext} (s2 , e, x1 )$ , luego de $ta(s_3)$ se transiciona a $s4$ y se emite el $y2$
 
 	\begin{figure}[H]
-	  \includegraphics[scale=0.5]{devs-atomic}
+	\centering
+	  \includegraphics[scale=0.45]{devs-atomic}
 	  \caption{Comportamiento de un modelo DEVS atómico}
 	   \label{fig:fig2-5}
 	\end{figure}
@@ -413,7 +409,7 @@
 	un bloque necesario para realizar modelos más complejos y conectar los diferentes componentes de un modelo vectorial entre sí.
 
 	\begin{itemize}
-		\item Escalar a Vector (Scalar to Vector): Este bloque simplemente agrega al indice $i$ al evento escalar que recibe, transformándolo en un 
+		\item Escalar a Vector (Scalar to Vector): Este bloque simplemente agrega al índice $i$ al evento escalar que recibe, transformándolo en un 
 			evento vectorial. Este modelo también posee un comportamiento especial para enviar el mismo evento en todas las componentes vectorial 
 			al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
 		\item Vector a escalar (Vector to Scalar): Este bloque tiene un parámetro $i$ que contiene el índice del vector de eventos a retransmitir, 
