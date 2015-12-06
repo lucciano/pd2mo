@@ -266,7 +266,7 @@ Donde:
 
 
 	\subsection{Acoplados}
-	La descripción de un sistema puede ser completamente realizada utilizando modelos atómicos, aunque esto resulta un poco incómodo y confuso. 
+	La descripción de un sistema puede ser completamente realizada utilizando un modelos atómico, aunque esto resulta un poco incómodo y confuso. 
 	Los conjuntos de estados y las funciones de transición se vuelven inmanejables en sistemas complejos, y nunca podemos asegurar haber cubierto todos 
 	los posibles estados.
 
@@ -319,13 +319,14 @@ Donde:
 	 el conjunto de posibles valores para cada puerto. O sea un evento de entrada al modelo acoplado está representado por un par $(p, v)$ donde 
 	$p \in InPorts$ y $v \in X_p$ .
 
-	\item $Y_N$ es el conjunto de eventos que el modelo puede emitir. Es un elemento del producto cartesiano entre el conjunto de puertos de salida $OutPorts$ y
-	 el conjunto de posibles valores para este puerto, o sea un evento de salida del modelo acoplado está representado por un par $(p, v)$ donde 
+	\item $Y_N$ es el conjunto de eventos que el modelo acoplado puede emitir, representado por el producto cartesiano del conjunto de puertos de salida 
+	$OutPorts$ y el conjunto de posibles valores para este puerto, o sea un evento de salida del modelo acoplado está representado por un par $(p, v)$ donde 
 	$p \in OutPorts$ y $v \in Y_p$.
 
 	\item $D$ es el conjunto de los índices a los modelos DEVS (atómicos y acoplados) que conforman este modelo. 
 
-	\item ${M_d}$ es el conjunto de los modelos atómicos y/o acoplados (son justamente los modelos que \quotes{acopla} o \quotes{agrupa} este modelo acoplado).
+	\item ${M_d}$ con $d \in D$, es el conjunto de los modelos atómicos y/o acoplados (son justamente los modelos que \quotes{acopla} o \quotes{agrupa} 
+	este modelo acoplado).
 
 	\item EIC y EOC son el conjuntos de conexiones entre los modelos internos y los puertos del modelo acoplado:
 	      \begin {itemize}
