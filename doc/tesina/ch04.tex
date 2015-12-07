@@ -26,9 +26,12 @@ back arrow disabled=true,
 \begin{algorithmic}[1]
 \State modelCoupled *cm $\gets$ parsePDS(QString::fromStdString(src\_infile));
 \State modelCoupled *qm $\gets$ flatter::flat(cm);
+\State modelname = replace(src\_infile, ".pds", "");
+\State outfile = replace(src\_infile, ".pds", ".mo");
+\State oFlogfile = replace(src\_infile, ".pds", ".log");
 \State Pd2Mo q $\gets$ Pd2Mo();
-\State q.transform(flatted, modelname, \&outfile, \&oFlogfile);
-\State AST\_StoredDefinition sd $\gets$ parseFile(src\_outfile.c\_str(),\&amp;r);
+\State q.transform(qm, modelname, \&outfile, \&oFlogfile);
+\State AST\_StoredDefinition sd $\gets$ parseFile(src\_outfile,\&r);
 \State mda *m $\gets$ new mda();
 \State If *i $\gets$ new If();
 \State outfile $\ll$ m$\rightarrow$\Call{visitClass} 
@@ -56,10 +59,10 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
   			 	\For{Conexión Interna ic del Modelo}
 					\State (x,u);(y,v) $\gets$ ic
   			 		\Comment{Si la conexión involucra un modelo \quotes{aun no procesado}}
-					\If{x > posicionModelo}
+					\If{x \textgreater posicionModelo}
 						\State x $\gets$ x + posicionModelo
 					\EndIf
-					\If{y > posicionModelo}
+					\If{y \textgreater posicionModelo}
 						\State y $\gets$ y + posicionModelo
 					\EndIf
 
@@ -135,12 +138,12 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 \For{ic en Conexión Interna del Modelo}
 	\State (x,u)(y,j) $\gets$ ic
 	\State u $\gets$ u + 1
-	\Comment{ Se incrementa el orden de los puerto, ya que Modelica los arreglos comienzan en 1}
+	\Comment{ Se incrementa el orden de los puertos ya que en Modelica los arreglos comienzan en 1}
 	\State j $\gets$ j + 1
   	\If{los modelos de ic son Escalares}
-  		\State Se agrega la ecuación que representa la conexión entre los modelos x con el puerto u y el modelo y con el puerto j;
+  		\State Se agrega la ecuación que representa la conexión entre el modelo x con el puerto u y el modelo y con el puerto j;
   	\ElsIf{los modelos de ic son Vectoriales}
-  		\State Se agregan $N$ ecuaciones indexadas por $i$ que representa la conexión, vectorial entre los modelos u y j mediante una sentencia \texttt{For};
+  		\State Se agregan $N$ ecuaciones indexadas por $i$ que representan la conexión vectorial entre los modelos u y j mediante una sentencia \texttt{For};
   	\Else
   		\State No se conoce la conexión;
 	\EndIf
