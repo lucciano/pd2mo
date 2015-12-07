@@ -1,4 +1,4 @@
-FROM ubuntu:15.04
+FROM ubuntu:15.10
 
 RUN apt-get update && apt-get install -y wget
 RUN apt-get update && apt-get install -yq subversion git build-essential automake qt4-dev-tools bison++ \
