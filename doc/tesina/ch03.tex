@@ -49,7 +49,7 @@
         
 
 	Dado que cada modelo atómico implementa su propia transición interna, en el caso de PowerDEVS en C++, esta \quotes{transición} debe ser provista para cada tipo de 
-	modelo atómico con anticipación y adherir a las convenciones que describiremos en la sección \ref{sec:atom-protocol}, por supuesto esta actividad requiere el conocimiento del modelo y de Modelica.
+	modelo atómico con anticipación y adherir a las convenciones que se describen en la sección \ref{sec:atom-protocol}, por supuesto esta actividad requiere el conocimiento del modelo atómico PowerDEVS y de Modelica.
 
 \subsection{Modelos Continuos}
 
@@ -66,7 +66,7 @@
 \subsection{Modelos Discontinuos}
 
 	Los modelos discontinuos deben ser modelados con construcciones especiales, en particular se utiliza la construcción \texttt{when...elsewhen}, la cual nos
-	permite definir cuando un conjunto de ecuaciones son validas. También podemos utilizar el bloque \texttt{algorithm} para realizar el calculo necesario
+	permite definir cuando un conjunto de ecuaciones son validas. También podemos utilizar el bloque \texttt{algorithm} para realizar el cálculo necesario
 	para evaluar la condición en la construcción \texttt{when...elsewhen}.
 
 \begin{listing}[H]
@@ -74,30 +74,30 @@
         \caption{Modelo atómico Switch}\label{lst:qss_switch.mo}
 \end{listing}
 
-	En el Listado \ref{lst:qss_switch.mo} se puede ver como las construcciones \texttt{algorithm} e \texttt{initial algorithm} para determinar el valor de 
+	En el Listado \ref{lst:qss_switch.mo} se puede ver las construcciones \texttt{algorithm} e \texttt{initial algorithm} las cuales determinan el valor de 
 	\texttt{d}, el cual varia entre $0$ y $1$ dependiendo si \texttt{u[2]} ha superado o no el valor de referencia \texttt{level} establecido como parámetro.
 
 \subsection{Protocolo}\label{sec:atom-protocol}
 
-        Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS, para realizar la traducción de este modelo se utiliza 
+        Internamente los modelos atómicos son identificados por el parámetro \texttt{Path} en el archivo PDS. Para realizar la traducción de este modelo se utiliza 
         un modelo Modelica el cual debe seguir la siguiente especificación:
 
 \begin{itemize}
         \item El código debe ser Modelica ($\mu$-modelica) válido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
         PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\textbackslash qss\_sum\_vec.h} 
-	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se remplaza \quotes{\textbackslash} por \quotes{/} para permitir 
+	utilizará un modelo \texttt{vector/qss\_sum\_vec.mo} \footnote{El nombre de los archivos se remplaza \quotes{\textbackslash} por \quotes{/} para permitir 
 	algunos modelos cuyos \texttt{Path} contiene ese separadores de directorios}
-        \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
-        \item Los valores de entrada del modelo son asociados a la variable $u$
-        \item Los valores de salida del modelos son asociados a la variable $y$
+        \item Los parámetros del modelo DEVS deben ser pasados en el parámetro $p$, el cual es un arreglo de reales. 
+        \item Los valores de entrada del modelo son asociados a la variable $u$.
+        \item Los valores de salida del modelos son asociados a la variable $y$.
 \end{itemize}
 
 	Tanto $p$, $u$ e $y$ son arreglos de Reales en el caso escalar, si el modelo es vectorial, entonces $u$ e $y$ son arreglos de dos dimensiones (ver la sección \ref{sec:modelos_vectoriales}).
 
         Por ejemplo el código del integrador, originalmente ubicado en el archivo qss\_integrator.h de PowerDEVS, se ubica en el archivo qss\_integrator.mo 
-	mostrado en el Listado \ref{lst:qssintegrator.mo} ambos dentro del directorio qss. En el se puede ver que tiene un puerto de entrada \texttt{Real u[1]} y un puerto de 
-	salida \texttt{Real y[1]}. Si bien el integrador tiene cuatro parámetros, el único utilizable dentro del modelo Modelica es la entrada 4, \texttt{p[4]}, 
-	el cual es el utilizado como valor inicial de integración.
+	mostrado en el Listado \ref{lst:qssintegrator.mo}, ambos dentro del directorio qss. En el se puede ver que tiene un puerto de entrada, \texttt{Real u[1]},
+	y un puerto de salida, \texttt{Real y[1]}. Si bien el integrador tiene cuatro parámetros, el único utilizable dentro del modelo Modelica es la entrada 4, 
+	\texttt{p[4]}, el cual es el utilizado como valor inicial de integración.
 
 \begin{listing}[H]
 \begin{minted}{modelica}
@@ -113,7 +113,7 @@ end QSSIntegrator;
 \caption{Modelo qss\_integrator.mo}\label{lst:qssintegrator.mo}
 \end{listing}
 
-        El modelo Lotka Volterra cuenta con dos integradores (con los mismo parámetros) representados en el Listado \ref{lst:qssint.pds}, en este se puede ver 
+        El modelo Lotka Volterra cuenta con dos integradores (con los mismos parámetros) representados en el Listado \ref{lst:qssint.pds}. En éste se puede ver 
         el valores de \texttt{Path} y \texttt{Parameters} que componen todos los modelos atómicos (por supuesto con los valores diferentes).
 
 \begin{listing}[H]
@@ -152,11 +152,11 @@ end QSSIntegrator;
         provee (y utiliza) PowerDEVS.}, lo que los transforma en \texttt{float}, los cuales son presentados como reales (\texttt{Real}) en el código.
 
         Los modelos (atómicos) no encontrados son ignorados en la traducción y se reportan en el registro (archivo .log) de la conversión, todas
-	las conexiones entrantes y salientes del modelo, esto puede causar problemas si ignoramos (no traducimos) los modelos \quotes{fundamentales},
+	las conexiones entrantes y salientes del modelo son ignoradas. Esto puede causar problemas si ignoramos (no traducimos) los modelos \quotes{fundamentales},
 	aunque si podemos ignorar modelos que funcionan como salida, en nuestro caso ignoramos el modelo que es utilizado para realizar las gráficas
 	en GNUPlot\footnote{http://www.gnuplot.info/}.
 
-        Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}, los modelos acoplados 
+        Esta transformación se repite para todos los modelos atómicos del archivo .PDS dentro del \texttt{Root-Coordinator}. Los modelos acoplados 
         (dentro de un \texttt{Coordinator}) deben ser transformados a un conjunto de atómicos equivalentes \quotes{Plano}, mediante la transformación
 	descripta en la siguiente sección.
 
@@ -167,27 +167,35 @@ end QSSIntegrator;
         Llamamos \emph{Modelos Acoplados Planos} a los Modelos que sólo contienen \emph{Modelos Atómicos}. Es decir que no contienen Modelos acoplados.
 
         Cada uno de los modelos atómicos que incluye se transforma de la misma forma que describimos en la sección anterior y dado que no existen \quotes{colisiones} 
-        de nombres variables, podemos combinar las diferentes secciones en un modelo compuesto el cual tendrá todas las secciones \texttt{equation}, 
+        de nombres de variables, podemos combinar las diferentes secciones en un modelo compuesto el cual tendrá todas las secciones \texttt{equation}, 
 	\texttt{initial equation} y declaraciones de cada uno de los modelos.
-        Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuyo entrada (o salida) 
-	son escalares son conectados con un ecuación del tipo $u = y$ mientras que los modelos vectoriales son conectados con la misma ecuación, 
+        Luego cada conexión entre Modelos Atómicos es replicada en el código de Modelica resultante. Los modelos Atómicos cuya entrada (o salida) 
+	son escalares son conectados con una ecuación del tipo $u = y$, mientras que los modelos vectoriales son conectados con la misma ecuación, 
 	solo que dentro de un \texttt{for}, el cual itera sobre su dimensión.
 
 \begin{listing}[H]
-        \inputminted[linenos]{modelica}{src/lotka_volterra-orig.mo}
-        \caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
+        \inputminted[linenos,lastline=21]{modelica}{src/lotka_volterra-orig.mo}
+        \caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica (continua)}
         \label{lst:lotka_volterra-orig.mo}
 \end{listing}
 
-        En el Listado \ref{lst:lotka_volterra-orig.mo} se puede ver el resultado de la conversión del modelo Lotka Volterra, en el se puede apreciar en las líneas 
-        2 a 21 correspondientes a las declaraciones de las variables de los modelos atómicos y de las líneas 22 a 27 correspondientes a las ecuaciones de estos 
-        modelos y de la línea 28 a 35 son las ecuaciones correspondientes a las conexiones entre modelos atómicos.
+\begin{listing}[H]
+        \inputminted[linenos,firstline=22]{modelica}{src/lotka_volterra-orig.mo}
+        \caption{(continuación) Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
+        \label{lst:lotka_volterra-orig.mo-2}
+\end{listing}
+
+
+
+        En el Listado \ref{lst:lotka_volterra-orig.mo} y  \ref{lst:lotka_volterra-orig.mo-2} se puede ver el resultado de la conversión del modelo Lotka Volterra, 
+	en el se puede apreciar en las líneas 2 a 21 correspondientes a las declaraciones de las variables de los modelos atómicos y de las líneas 22 a 27
+	correspondientes a las ecuaciones de estos modelos y de la línea 28 a 35 son las ecuaciones correspondientes a las conexiones entre modelos atómicos.
 
         En las líneas de conexiones (líneas 28 a 35) se puede ver cómo se utilizan las variables \texttt{u} e \texttt{y} (prefijadas con sus correspondientes nombres 
 	de modelos atómicos y posición). Tanto los puertos de entrada, \texttt{u}, como los puertos de salida, \texttt{y}, son representados en Modelica como arreglos,
-        permitiendo a modelos que cuentan con más de un puerto reflejar este hecho, asociando cada puerto con la posición correspondiente del arreglo. 
+        permitiendo a modelos que cuentan con más de un puerto reflejar este hecho, asociando cada puerto a la posición correspondiente del arreglo. 
         Cabe mencionar que existe un desfase, ya que los puerto en PowerDEVS son enumerados desde el cero, mientras que Modelica inician los arreglos en uno, por lo
-        que el puerto \texttt{n} corresponde a la variable \texttt{u[n+1]} si es un puerto de entrada y \texttt{y[n+1]} si es un puerto de salida.
+        que el puerto \texttt{n} corresponde a la variable \texttt{u[n+1]} si es un puerto de entrada e \texttt{y[n+1]} si es un puerto de salida.
 
         En el ejemplo Lotka Volterra no hay modelos atómicos vectoriales, veremos más adelante un ejemplo vectorial, pero es oportuno mencionar que los modelos
         vectoriales difieren en la forma en que se conectan, dado que la conexión debe realizarse iterando, con un \texttt{for}, sobre la primera dimensión del 
@@ -195,7 +203,7 @@ end QSSIntegrator;
 
 
 \section{Modelos Acoplados Jerárquicos} \label{aplanado}
-        En la sección anterior mostramos cómo son convertidos modelos acoplados planos, para convertir un modelo acoplado jerárquico, es decir un modelos con más 
+        En la sección anterior mostramos cómo son convertidos modelos acoplados planos. Para convertir un modelo acoplado jerárquico, es decir un modelos con más 
         modelos acoplados internos, vamos a generar un modelo acoplado plano, equivalente al modelo jerárquico inicial.
 
         Para realizar el aplanado, se recorre recursivamente los modelos acoplados:
@@ -215,7 +223,7 @@ end QSSIntegrator;
         \begin{minipage}{0.5\textwidth}
         \includegraphics[width=\linewidth]{buck_disk_coupled0}
         \end{minipage}
- \caption{Ejemplo de modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
+ \caption{Ejemplo de modelo acoplado(derecha), junto a un detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
 \end{figure}
 
         En la Figura \ref{fig:coupledsample}  se observa a la derecha el modelo de un convertidor de potencia, el cual introduciremos con mayores
@@ -296,15 +304,15 @@ end QSSIntegrator;
         \end{tikzpicture}
         \end{minipage}%
 }
-        \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
+        \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha). Junto al nombre, está la posición que ocupan dentro del modelo acoplado que los contiene.}
         \label{fig:coupled-tree}
 \end{figure}
 
-	En la Figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquía, se puede ver como se mueven los modelos atómicos 
+	En la Figura \ref{fig:coupled-tree} se puede observar la forma en que se modifican las jerarquías. Se puede ver como se mueven los modelos atómicos 
         a la jerarquía superior y se modifican las conexiones de forma que se mantengan los enlaces, es decir todas las conexiones entre modelos atómicos 
-        listados después del modelo acoplado deben ser ajustados para tomar en cuenta los nuevos modelos atómicos agregados. 
-	En el lado derecho de la Figura \ref{fig:coupled-tree}, se pueden ver como fueron modificados las posiciones de los modelos atómicos en relación a como se
-	encontraran antes de ser aplanados en el lado izquierdo de la Figura \ref{fig:coupled-tree}.
+        listados, después del modelo acoplado, deben ser ajustadas para tomar en cuenta los nuevos modelos atómicos agregados. 
+	En el lado derecho de la Figura \ref{fig:coupled-tree}, se puede ver como fueron modificada las posiciones de los modelos atómicos en relación a como se
+	encontraban antes de ser aplanados en el lado izquierdo de la Figura \ref{fig:coupled-tree}.
 
 \begin{listing}
 \begin{minipage}[t]{0.5\linewidth}
@@ -367,12 +375,12 @@ end QSSIntegrator;
        }
 \end{minted}
 \end{minipage}
-\caption{Conexiones del modelo acoplado convertidor de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la derecha, 
+\caption{Conexiones del modelo acoplado convertidor de potencia, a la derecha, las conexiones del primera nivel (\texttt{Root Coordinator}), a la izquierda, 
         las conexiones, externas de entrada (EIC) y salida (EOC) y las conexiones internas (IC) del modelo acoplado (\texttt{Coupled0}).}\label{lst:connections}
 \end{listing}
 
         En el modelo aplanado, se modificarán del Listado \ref{lst:connections} las conexiones de forma que se respeten las conexiones entre los modelos atómicos, 
-	si pasan por un puerto de salida o de entrada, vemos tres tipos de conexiones que deben ser modificadas:
+	si pasan por un puerto de salida o de entrada. Vemos tres tipos de conexiones que deben ser modificadas:
 
 \begin{itemize}
         \item Conexiones que involucran modelos atómicos ubicados después del modelo acoplado y no están relacionadas con el modelo acoplado, 
@@ -427,14 +435,14 @@ end QSSIntegrator;
 \caption{Conexiones internas, como se encontraban originalmente a la izquierda y modificadas a la derecha}\label{lst:conexiones1}
 \end{listing}
 
-        En el Listado \ref{lst:conexiones1} se puede ver a la derecha las conexiones que fueron afectadas y a la izquierda como fueron afectadas, en nuestro ejemplo
-        se sumo $8$ (ya que insertaremos esa cantidad de modelos) a los modelos mayores que $3$ (ya que el modelos acoplado que estamos aplanando se encuentra en 
-        es posición).
+        En el Listado \ref{lst:conexiones1} se puede ver, a la derecha, las conexiones que fueron afectadas y, a la izquierda como fueron afectadas. En nuestro ejemplo
+        se sumó $8$ al número de puerto (ya que insertaremos esa cantidad de modelos) a los modelos mayores que $3$ (ya que el modelos acoplado que estamos 
+	aplanando se encuentra en esa posición).
 
         \item Agregamos las conexiones internas del modelo acoplado que eliminaremos al modelo acoplado \texttt{Root-Coordinator}, estas conexiones deben ser 
-        modificadas ya que los modelos atómicos insertados son insertados en la posición del modelo acoplado eliminado.
+        modificadas ya que los modelos atómicos son insertados en la posición del modelo acoplado eliminado.
 
-\begin{listing}
+\begin{listing}[H]
 \begin{minipage}[t]{0.5\textwidth}
 \begin{minted}{text}
       IC
@@ -467,31 +475,28 @@ end QSSIntegrator;
        }
 \end{minted}
         \end{minipage}
-        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertados}\label{lst:conexiones2}
+        \caption{Conexiones internas del modelo acoplado a eliminar, a la izquierda como aparecen originalmente, a la derecha como serán insertadas}\label{lst:conexiones2}
 \end{listing}
 
-        En el Listado \ref{lst:conexiones2} se pueden ver las conexiones como se encontraban originalmente (izquierda) y como serán insertadas (derecha)
-        estas son el resultados de desplazar los modelos, en nuestro ejemplo $3$ posiciones, por lo que sumamos ese desplazamiento a los modelos.
+        En el Listado \ref{lst:conexiones2} se pueden ver las conexiones como se encontraban originalmente (izquierda) y como serán insertadas (derecha).
+        Estas son el resultados de desplazar los modelos, en nuestro ejemplo $3$ posiciones, por lo que sumamos ese desplazamiento a los modelos.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=.75\textwidth]{text3418}
-\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.\
-	\texttt{S1} y \texttt{S2} están conectados a través de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
-	el exterior a través del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
-	} \label{fig:aplanado-ports}
+\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.} \label{fig:aplanado-ports}
 \end{figure}
 
 	Se puede ver en la Figura \ref{fig:aplanado-ports} un esquema de conexiones, donde el modelo $S2$ es un modelo acoplado que contiene el modelo $S3$.
 	 El modelo atómico $S1$ se conecta a través del puerto $p2$.
-	 Entonces si consideramos que $p2$ es un puerto de entrada externa, veremos las siguientes conexiones:
+	 Entonces, si consideramos que $p2$ es un puerto de entrada externa, veremos las siguientes conexiones:
 
 	\begin{itemize}
 	\item IC : \texttt{(S1,p1);(S2,p2)}
 	\item EIC : \texttt{(0,p2);(S3,p3)}
 	\end{itemize}
 
-	entonces la conexiones en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado según la cantidad de modelos que contiene $S2$ y 
+	entonces la conexión en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado según la cantidad de modelos que contiene $S2$ y 
 	$S3$ deberá ser desplazado según la posición de $S2$.
 
 	Si consideramos que $p2$ es un puerto de salida las conexiones serán:
@@ -582,19 +587,22 @@ end QSSIntegrator;
 \end{listing}
 \end{itemize}
 
-	Agregando las conexiones que aparecen a la derecha de los Listados \ref{lst:conecOut} y \ref{lst:conecOut} se elimina el modelo acoplado y se preserva las conexiones, y recorriendo el esquema jerárquico de modelos en profundidad, 
-	aplanando los modelos acoplado más profundos primero, podemos utiliza el algoritmo de forma de aplanar el modelo más profundo únicamente.
+	Agregando las conexiones que aparecen a la derecha de los Listados \ref{lst:conecOut} y \ref{lst:conecIn} se eliminan el modelo acoplado y se 
+	preservan las conexiones, y recorriendo el esquema jerárquico de modelos en profundidad, 
+	aplanando los modelos acoplados más profundos primero, podemos utilizar el algoritmo de forma de aplanar el modelo más profundo únicamente.
 
 \section{Modelos Vectoriales} \label{sec:modelos_vectoriales}
-	Como ya mencionamos, los modelos vectoriales son modelos atómicos en el cual las entradas y/o salidas son vectoriales. En los modelos Modelica, 
-	las variables \texttt{u} e \texttt{y} representan los puertos de entrada y salida respectivamente, por lo que serán del tipo arreglo de arreglos de reales,
+	Como ya mencionamos, los modelos vectoriales son modelos atómicos en los cuales las entradas y/o salidas son vectoriales. En los modelos Modelica, 
+	las variables \texttt{u} e \texttt{y} representan, en este trabajo, los puertos de entrada y salida respectivamente, por lo que serán del tipo arreglo de arreglos de reales,
 	mientras que en los modelos atómicos no vectoriales (escalares) tienen variables que representan los puertos de entrada y salida como arreglos de reales. 
 
-	En el momento cuando las estructura del modelo acoplado es transformada a Modelica, es decir cuando se agregan las ecuaciones de igualdad entre las
-	variables de entrada y salida de diferentes modelos, según lo dispongan la estructura del modelo, es decir las conexiones internas, en PowerDEVS 
-	no existe una forma de determinar si un modelo es vectorial o no, por lo que debemos indicarlo dentro del modelo Modelica, ya que si no lo hacemos 
-	agregaremos una ecuación que iguala un arreglo con una entrada de un arreglo, para prevenir este problema los modelos vectoriales deben indicarse 
-	con la anotación (\texttt{annotation}) de Modelica $PD2MO$, por ejemplo:
+	En el momento en que las estructuras del modelo acoplado son transformadas a Modelica, es decir cuando se agregan las ecuaciones de igualdad entre las
+	variables de entrada y salida de diferentes modelos, es decir las conexiones internas, en PowerDEVS, no existe una forma de determinar si un modelo es 
+	vectorial o no, por lo que debemos indicarlo dentro del modelo Modelica. 
+	Si no lo hacemos agregaremos una ecuación que iguala un arreglo con una entrada de un arreglo.
+	Para prevenir este problema utilizamos el mecanismo de anotaciones (\texttt{annotation}), provisto por Modelica para agregar datos sobre el modelo.
+
+	Las posibles combinaciones de entrada y salida son :
 
 \begin{itemize}
 	\item \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
@@ -612,22 +620,22 @@ end QSSIntegrator;
 	\begin{itemize}
 	\item Causalización de variables, este es un programa descripto en \cite{Mod15}
 	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad, éste no implementa (al momento de escribir este texto)
-	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform} e involucra las construcciones de Modelica 
+	las transformaciones que necesitamos, por lo que son descriptas en la sección \ref{sec:transform}. Involucra las construcciones de Modelica 
 		\texttt{if...then...else}, producto interno de dos vectores y arreglos bidimensionales.
 	\end{itemize}
 
 \section{Preservación de la Semántica}
 
-	En caso de las transformaciones extra, no solo se encuentran dentro del mismo lenguaje, sino que las construcciones, \texttt{if...then...else}, 
+	En caso de las transformaciones extras, no solo se encuentran dentro del mismo lenguaje, sino que las construcciones, \texttt{if...then...else}, 
 		producto interno de dos vectores y arreglos bidimensionales, son expandidas según su definición, por lo que conservan la misma semántica.
 
 	Con respecto a la estructura del Modelo PowerDEVS, las conexiones entre los modelos atómicos convierten una o $N$ conexiones en PowerDEVS, en una o $N$
-	 igualdades en Modelica, dependiendo si el modelo es escalares o vectoriales. La transformación de conexión a igualdad, es la transformación que más 
-	nos sirve, pues por un lado, estamos tratando de eliminar el pasaje de eventos entre puertos para liberar recursos computacionales y
+	 igualdades en Modelica, dependiendo si el modelo es escalar o vectorial. La transformación de conexión a igualdad, es la transformación que más 
+	nos sirve pues, por un lado, estamos tratando de eliminar el pasaje de eventos entre puertos para liberar recursos computacionales y, por el otro, 
 	es una estrategia utilizada en el modelado de sistemas en PowerDEVS.
 
-	El procedimiento de aplanado, es por construcción el procedimiento que sigue el evento según esta conectado, es decir si un modelo $a$, esta conectado
-	a un modelo $b$ a través de a un puerto (de entrada o salida), la conexión del modelo aplanado es la conexión entra $a$ y $b$. 
+	El aplanado es, por construcción, el procedimiento que sigue el evento según esta conectado, es decir si un modelo $a$, esta conectado
+	a un modelo $b$ a través de a un puerto (de entrada o salida), la conexión del modelo aplanado es la conexión entre $a$ y $b$. 
 
-	Por último la traducción entre modelos atómicos como es realizada a mano, y con anticipación a la conversión automática, depende la capacidad de 
+	Por último, la traducción entre modelos atómicos, como es realizada a mano y con anticipación a la conversión automática, depende de la capacidad de 
 	quien realiza esta traducción.
