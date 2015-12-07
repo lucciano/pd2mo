@@ -328,7 +328,7 @@ Donde:
 	\item ${M_d}$ con $d \in D$, es el conjunto de los modelos atómicos y/o acoplados (son justamente los modelos que \quotes{acopla} o \quotes{agrupa} 
 	este modelo acoplado).
 
-	\item EIC y EOC son el conjuntos de conexiones entre los modelos internos y los puertos del modelo acoplado:
+	\item EIC y EOC son los conjuntos de conexiones entre los modelos internos y los puertos del modelo acoplado:
 	      \begin {itemize}
 		  \item EIC (o External Input Coupling) son las conexiones de entrada al acoplado, es decir, conecta un puerto de entrada del acoplado con un 
 			puerto de entrada de un modelo perteneciente al acoplado.
@@ -344,12 +344,12 @@ Donde:
 
 	Formalmente:
 	\begin{align*}
-	EIC \in& \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip d \in InPorts_d \} \\
-	EOC \in& \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op d \in OutPorts_d \}
+	EIC \in& \{((N, ip_N ), (d, ip_d )) | ip_N \in InPorts, d \in D, ip_d \in InPorts_d \} \\
+	EOC \in& \{((d, op_d ), (N, op_N ))  | op_N \in OutPorts, d \in D, op_d \in OutPorts_d \}
 	\end{align*}
 	donde N es el modelo acoplado.
 	\begin{equation*}
-	IC \in \{((a, ip_a ), (b, ip_b )) | a, b \in D, ip a \in OutPorts_a , ip_b \in InPorts_b \}
+	IC \in \{((a, ip_a ), (b, ip_b )) | a, b \in D, ip_a \in OutPorts_a , ip_b \in InPorts_b \}
 	\end{equation*}
 	donde no se permite que $a = b$.
 
