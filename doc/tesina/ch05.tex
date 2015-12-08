@@ -1,18 +1,18 @@
 	En este capítulo comparamos los resultados de la ejecución de 5 modelos, los tiempos de ejecución de cada modelo en PowerDEVS comparándolos con 
 	el modelo transformado en QSS-Solver. 
-	Los modelos ejecutados tanto los originales, en PowerDEVS, y los modelos 
-	transformados en $\mu$-Modelilca se encuentran en \url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
+	Los modelos ejecutados, tanto los originales en PowerDEVS como los modelos transformados en $\mu$-Modelilca se encuentran en 
+	\url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
 
 \section{Comparación de desempeño}
-	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de dos gráficas (ambas son generadas con GNUPlot), 
-	a la izquierda se muestra el resultado de la simulación de PowerDEVS y a la derecha el resultado del modelo transformado en el QSS-Solver.
+	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de dos gráficas (ambas son generadas con GNUPlot). 
+	A la izquierda se muestra el resultado de la simulación de PowerDEVS y a la derecha el resultado del modelo transformado en el QSS-Solver.
 
-	Las simulaciones fueron llevadas acabo en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, aun que las mejoras relativas se mantendrán.
+	Las simulaciones fueron llevadas acabo en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, aunque las mejoras relativas se mantendrán.
 
 
 \section{Ecuaciones Lotka-Volterra}
 
-	El sistema de ecuaciones Lotka-Volterra fue presentado en la página \pageref{lotka_volterra_ref}, es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador, se definen como:
+	El sistema de ecuaciones Lotka-Volterra fue presentado en la página \pageref{lotka_volterra_ref}, el cual es un sistema de ecuaciones diferenciales de primer orden, no lineales, utilizadas para describir dinámicas de sistemas biológicos en el cual dos especies interactúan, una como presa y otra como depredador y se definen como:
 
 \begin{align*}
 \frac{dx}{dt} & = x(\alpha - \beta y)\\
@@ -27,7 +27,7 @@ donde:
     \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
 \end{itemize}
 
-	Este sistema es representado en PowerDEVS por el modelo de la figura \ref{model:lotka_volterra}:
+	Este sistema es representado en PowerDEVS por el modelo de la Figura \ref{model:lotka_volterra}:
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
@@ -51,11 +51,11 @@ QSS-Solver \\
 \caption{Resultados de la simulación del Modelo Lotka Volterra}
 \end{figure}
 
-En la figura \ref{graph:lotka_voltera} se pueden ver los dos resultados de la simulación de 300 segundos a la izquierda el resultado en PowerDEVS, el cual tomo 11ms,
-y a la derecha el resultado en QSS-Solver el cual tomo 2.75ms.
+En la Figura \ref{graph:lotka_voltera} se pueden ver los dos resultados de la simulación de 300 segundos. A la izquierda el resultado en PowerDEVS, el cual tomó 11 ms,
+y a la derecha el resultado en QSS-Solver el cual tomó 2.75 ms.
 
 \section{Líneas de Transmisión}
-	El siguiente sistema de ecuaciones representan un modelo de una línea de transmisión formada por $N$ secciones de circuitos LC:
+	El siguiente sistema de ecuaciones representa un modelo de una línea de transmisión formada por $N$ secciones de circuitos LC:
 
 \begin{equation}
 \begin{split}
@@ -75,7 +75,7 @@ v_0(t) = \left\{
   \end{array} \right.
 \end{equation}
 
-En la figura \ref{model:lclines} se puede ver el modelo de PowerDEVS para la simulación del modelo de Líneas de Transmisión.
+En la Figura \ref{model:lclines} se puede ver el modelo de PowerDEVS para la simulación del modelo de Líneas de Transmisión.
 
 \begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{lclines}
@@ -97,9 +97,9 @@ QSS-Solver\\
 \label{graph:lclines}
 \end{figure}
 
-En la figure \ref{graph:lclines} se puede ver el resultado de la simulación de 20 minutos (1200s) del Modelo de Líneas de Transmisión con 1000 segmentos en PowerDEVS,
-	la cual tomo 76402ms a la izquierda, mientras que a la derecha se encuentra el resultado del modelo convertido ejecutado en con los mismo parámetros en
-	QSS-Solver, el cual tomo 34982.5ms.
+En la Figura \ref{graph:lclines} se puede ver el resultado de la simulación de 20 minutos (1200 s) del Modelo de Líneas de Transmisión con 1000 segmentos en PowerDEVS,
+	la cual tomó 76402 ms a la izquierda, mientras que a la derecha se encuentra el resultado del modelo convertido ejecutado en QSS-Solver con los mismos 
+	parámetros, el cual tomó 34982.5 ms.
 
 \section{Inversores Lógicos}
 	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
@@ -109,12 +109,20 @@ En la figure \ref{graph:lclines} se puede ver el resultado de la simulación de 
 \frac{d \omega_j}{d t} & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
 \end{align*}
 
-	la cual es representado por el modelo representado en PowerDEVS por el modelo de la figura \ref{model:inverters}.
+%where:
+%g(u, v) = (max(u − U thres , 0)) 2 − (max (u − v − U thres , 0)) 2
+%(10)
+%We used the set of parameters given in the article: Υ = 100 (which results in a very
+%stiff system), U thres = 1, and U op = 5. The initial conditions are, as in the given reference,
+%ω j = 6.247 · 10 −3 for odd values of j and ω j = 5 for even values of j. The input is a periodic
+%trapezoid signal, with parameters V up = 5V , V low = 0V , T down = 10, T up = 5, T rise = 5, and
+%T f all = 2.
+
+	la cual es representada por el modelo PowerDEVS de la Figura \ref{model:inverters}.
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{inverters}
-\label{model:inverters}
-\caption{Modelo PowerDEVS de Inversores Lógicos}
+\caption{Modelo PowerDEVS de Inversores Lógicos}\label{model:inverters}
 \end{figure}
 
 \begin{figure}[H]
@@ -132,8 +140,8 @@ QSS-Solver
 \caption{Resultados de la simulación de Inversores}\label{graph:inverters}
 \end{figure}
 
-En la figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomo 25046ms en PowerDEVS en 
-	la izquierda, mientras que en QSS-Solver tomo 7694.44ms	
+En la Figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomó 25046 ms en PowerDEVS en 
+	la izquierda, mientras que en QSS-Solver tomó 7694.44 ms	
 
 \section{Advection-Diffusion-Reaction}
 	El modelo de ecuaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenómenos de transferencias de calor y masa, donde la cantidad de interés $u(x,t)$ puede ser temperatura en la conducción de calor o concentración de una sustancia química.
@@ -143,7 +151,7 @@ La ecuación
 \frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t)}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
 \end{equation*}
 corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coeficientes de advección, difusión y reacción, 
-el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la figura \ref{model:adr}
+el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la Figura \ref{model:adr}
 
 \begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{adr-pwd}
@@ -164,8 +172,8 @@ QSS-Solver
 \caption{Resultados de la simulación ADR}\label{graph:adr}
 \end{figure}
 
-En la figura \ref{graph:adr} se puede ver el resultado de la simulación del modelo ADR de 10s para $N=1000$ en PowerDEVS a la izquierda, la cual tomo 6089ms,
-mientras que la simulación QSS-Solver del modelo convertido es 568.772ms, en ambos casos utilizando el método de integración LIQSS2.
+En la Figura \ref{graph:adr} se puede ver el resultado de la simulación del modelo ADR de 10s para $N=1000$ en PowerDEVS a la izquierda, la cual tomó 6089 ms,
+mientras que la simulación QSS-Solver del modelo convertido es 568.772 ms, en ambos casos utilizando el método de integración LIQSS2.
 
 \section{Convertidor de Voltaje}
 	El siguiente modelo es un tipo de convertidor DC - DC que obtiene a su  salida  un  voltaje  continuo  menor  que  a  su entrada, manteniendo una una  alta eficiencia (superior al 95\% con circuitos integrados) y autorregulación.
@@ -179,7 +187,7 @@ donde
 i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \end{align*}
 
-Las ecuaciones anteriores se ven reflejadas en el circuito eléctrico de la figura \ref{buckdisk-squema}.
+Las ecuaciones anteriores se ven reflejadas en el circuito eléctrico de la Figura \ref{buckdisk-squema}.
 
 \begin{figure}[H]
 \centering
@@ -198,7 +206,7 @@ Las ecuaciones anteriores se ven reflejadas en el circuito eléctrico de la figu
 \caption{Coupled0 (Incluido en Convertidor de voltaje)}\label{model:buckdiskcoupled0}
 \end{figure}
 
-El cual es representado en el modelo representado por las figuras \ref{model:buckdisk} y \ref{model:buckdiskcoupled0}.
+El cual es representado en el modelo de la Figuras \ref{model:buckdisk} y \ref{model:buckdiskcoupled0}.
 
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
@@ -215,17 +223,14 @@ QSS-Solver
 \label{result:buckdisk}
 \end{figure}
 
-En la figura \ref{result:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01s a la izquierda en PowerDEVS, lo cual tomo 268ms, 
-mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el cual tomo 10ms.
+En la Figura \ref{result:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01 s a la izquierda en PowerDEVS, lo cual tomó 268 ms, 
+mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el cual tomó 10 ms.
 
 \section{Resultados}
 
-	Cada una de las simulaciones fue realizadas en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de
-	 memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, pero las mejoras relativas en los tiempos de ejecución deberían mantenerse.
-
-	En el cuadro \ref{tab:result} se muestran los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capitulo en  
-	PowerDEVS (P.DEVS) y QSS-Solver (QSS-S), ambas mediciones son reportadas por los motores de simulación, en milisegundos (ms),
-	 todas las simulaciones utilizan el método de integración QSS3 excepto los que se especifica LIQSS2.
+	En el cuadro \ref{tab:result} se muestran los tiempos de ejecución obtenidos de los 5 modelos descriptos en este capítulo en  
+	PowerDEVS (P.DEVS) y QSS-Solver (QSS-S). Ambas mediciones son reportadas por los motores de simulación, en milisegundos (ms).
+	Todas las simulaciones utilizan el método de integración QSS3 excepto los que se especifica LIQSS2.
 
 \begin{table}[H]
 \centering	
@@ -233,11 +238,11 @@ mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el 
 \toprule
 {\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
 \toprule
-Lotka  Voltera 300s      		& 11            & 2.75132         & 81 \\
-Lineas de Transmisión 1200s, N=1000     & 76402         & 34982.5         & 54          \\
-Inversores(LIQSS2) 250s, N=1000   	& 25046         & 7694.44         & 69        \\
-ADR(LIQSS2) 10s, N=1000 		& 6089          & 568.772         & 90        \\
-Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         
+Lotka  Voltera 300 s      		& 11            & 2.75132         & 81 \\
+Lineas de Transmisión 1200 s, N=1000     & 76402         & 34982.5         & 54          \\
+Inversores(LIQSS2) 250 s, N=1000   	& 25046         & 7694.44         & 69        \\
+ADR(LIQSS2) 10 s, N=1000 		& 6089          & 568.772         & 90        \\
+Convertidor de Voltaje 0.01 s,        	& 268           & 10.3802         & 96         
 
 % Mejora esta calculada a partir de 1 - qsssolver / pwdevs
 %excepto indicado, se utiliza QSS3
@@ -245,6 +250,6 @@ Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96
 \caption{Comparación de las diferentes simulaciones y sus mejoras}\label{tab:result}
 \end{table}
 
-	En el cuadro \ref{tab:result} se puede ver una mejora entre 54 y 96\% entre todos los modelos, y entre 54 y 90\% para los modelos vectoriales que son nuestro 
-	principal objetivo, ya que son la forma más simple de describir grandes modelos, lo cual es lo esperado al cambiar de formalismo se evita todo los 
-	mensajes entre modelos característico del formalismo DEVS.
+	En el cuadro \ref{tab:result} se puede ver una mejora entre 54 y 96\% entre todos los modelos.
+	Los modelos vectoriales, son nuestro principal objetivo, ya que es una forma simple de describir grandes modelos y son susceptible a tener grandes mejoras
+	en los tiempos de ejecución.  Entre estos modelos se aprecia una mejora entre entre 54 y 90\%.
