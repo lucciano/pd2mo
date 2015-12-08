@@ -109,16 +109,16 @@ En la Figura \ref{graph:lclines} se puede ver el resultado de la simulación de 
 \frac{d \omega_j}{d t} & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
 \end{align*}
 
-%where:
-%g(u, v) = (max(u − U thres , 0)) 2 − (max (u − v − U thres , 0)) 2
-%(10)
-%We used the set of parameters given in the article: Υ = 100 (which results in a very
-%stiff system), U thres = 1, and U op = 5. The initial conditions are, as in the given reference,
-%ω j = 6.247 · 10 −3 for odd values of j and ω j = 5 for even values of j. The input is a periodic
-%trapezoid signal, with parameters V up = 5V , V low = 0V , T down = 10, T up = 5, T rise = 5, and
-%T f all = 2.
+donde :
+\begin{equation*}
+	g(u, v) = (max(u - U_{thres} , 0))^2 - (max (u - v - U_{thres} , 0))^2
+\end{equation*}
 
-	la cual es representada por el modelo PowerDEVS de la Figura \ref{model:inverters}.
+Se utillizaron los parametros: $\Upsilon = 100$,  $U_{thres} = 1$, y $U_{op} = 5$.
+Las condiciones iniciales son : $w_j = 6.247 \cdot 10^{-3}$ para valores inpares de j y $w_j = 5$ para valores pares de $j$
+La entrada es una señal periodica trapezoidal, con parametros 
+$V_{up} = 5V$ , $V_{low} = 0V$, $T_{down} = 10$, $T_{up} = 5$, $T_{rise} = 5$, y $T_{fall} = 2$.
+El cual es representado por el modelo PowerDEVS de la Figura \ref{model:inverters}.
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{inverters}
