@@ -1,22 +1,22 @@
-	A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo, 
-	el código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerías, Modelica C Compiler 
-	\footnote{http://sourceforge.net/projects/modelicacc/} el cual nos permite manipular la estructura de los modelos y evaluar los parámetros.
+	A continuación se presenta el pseudo código que implementa las transformaciones descriptas en este trabajo.
+	El código completo puede encontrarse en \url{https://github.com/lucciano/pd2mo}, el cual utiliza dos librerías, Modelica C Compiler 
+	\footnote{http://sourceforge.net/projects/modelicacc/} la cual nos permite manipular la estructura de los modelos y evaluar los parámetros,
 	y librería de PowerDEVS \footnote{http://sourceforge.net/projects/powerdevs/} para leer los archivos PDS.
 
 
 \section{Programa Principal}
 
-El Programa principal en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
+El Programa principal esta en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y de lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
 
-La transformación de la simulación se encuentra separada en distintos módulos los cuales funcionan como una linea aplicándose uno detrás del otro, lo cual se intenta
-describir en la figura \ref{fig:pipeline}.
+La transformación de la simulación se encuentra separada en distintos módulos los cuales funcionan como una linea aplicándose uno detrás del otro, ló cual se intenta
+describir en la Figura \ref{fig:pipeline}.
 \begin{figure}[H]
 \centerfloat
 \smartdiagramset{
 uniform color list=gray!60!black for 6 items,
 back arrow disabled=true,
 }
-\smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensionales,Construcciones If,Producto Interno}
+\smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensional,Construcciones If,Producto Interno}
 \caption{Esquema de transformaciones aplicadas}
 \label{fig:pipeline}
 \end{figure}
@@ -154,7 +154,7 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 
  
 \section{Transformaciones para $\mu$-Modelica} \label{sec:transform}
-	Tanto la clase \texttt{mda}, \texttt{prodint} y \texttt{If} son implementadas con el patrón de diseño de visitadores sobre 
+	Tanto la clase \texttt{mda}, \texttt{prodint} e \texttt{If} son implementadas con el patrón de diseño de visitadores sobre 
 	el árbol sintáctico abstracto\footnote{un árbol de sintaxis abstracta (AST), o simplemente un árbol de sintaxis, es una representación 
 	de árbol de la estructura sintáctica abstracta (simplificada) del código fuente escrito en cierto lenguaje de programación.}, por lo que 
 	cada clase es implementada heredando de una clase común (\texttt{Traverser}), la cual retorna una copia del AST y remplaza una parte de este según sea el 
@@ -164,20 +164,24 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 	 
 	  \begin{itemize}
 		\item  \texttt{mda}: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evalúa a una variable que evalúa a una expresión 
-			$\in \mathbb{N}$, es remplazado por \texttt{X\_k[N]} en las secciones \texttt{equation}, \texttt{algorithm}, \texttt{initial algorithm} y 
-		declaraciones para hacer el código Modelica valido. En otras palabras remplaza arreglos bidimensionales por arreglos unidimensionales.
+			$\in \mathbb{N}$. Son remplazados por \texttt{X\_k[N]} en las secciones \texttt{equation}, \texttt{algorithm}, \texttt{initial algorithm} y 
+		declaraciones para hacer el código Modelica válido. En otras palabras remplaza arreglos bidimensionales por arreglos unidimensionales.
+
 
 \begin{figure}[htp]
 \centering
-\begin{cminted}{modelica}
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
 Real IndexShift_2_u[IndexShift_2_N,1];
-\end{cminted}
-
+\end{minted}
+\end{tcolorbox}
 $\Downarrow$
 
-\begin{cminted}{modelica}
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
 Real IndexShift_2_u_1[IndexShift_2_N];
-\end{cminted}
+\end{minted}
+\end{tcolorbox}
 \end{figure}
 
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
@@ -186,35 +190,37 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 
 \begin{figure}[htp]
 \centering
-\begin{minted}{modelica}
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
     VectorSum_3_y_1[VectorSum_3_i] = 
 	VectorSum_3_u[VectorSum_3_i, 1:VectorSum_3_nin] * VectorSum_3_w;
 \end{minted}
+\end{tcolorbox}
 
-	(Donde \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión 4, lo que es necesario para que quede definida el producto de dos 
+	(Donde \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión 4, lo que es necesario para que quede definidó el producto de dos 
 	vectores en modelica.)
 
 $\Downarrow$
 
-\begin{minted}{modelica}
-    VectorSum_3_y[1,VectorSum_3_i] = 
-	VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+
-	VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+
-	VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+
-	VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
+    VectorSum_3_y[1,VectorSum_3_i] = VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+ VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+ VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+ VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
 \end{minted}
+\end{tcolorbox}
 \end{figure}
 
-		\item $If$: Remplaza equaciones de la forma $if(v){eq_1}else{eq_2}$ si $v$ evalúa a un booleano (a partir de parámetros o constantes, 
+\newpage
+
+		\item $If$: Remplaza equaciones de la forma $if(v) \{eq_1\} else \{eq_2\}$ si $v$ evalúa a un booleano (a partir de parámetros o constantes, 
 			es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
 
 \begin{figure}[htp]
 \centering
-\begin{minted}{modelica}
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
   if IndexShift_2_Shift > 0 then
     for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
-      IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = 
-	IndexShift_2_u_1[IndexShift_2_i];
+      IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
     end for;
     for IndexShift_2_i in 1:IndexShift_2_Shift loop
       IndexShift_2_y_1[IndexShift_2_i] = 0;
@@ -229,19 +235,21 @@ $\Downarrow$
     end for;
   end if;
 \end{minted}
+\end{tcolorbox}
 
 (Con \texttt{Shift $> 0$})
 
 $\Downarrow$
 
-\begin{minted}{modelica}
+\begin{tcolorbox}
+\begin{minted}[breaklines=true]{modelica}
   for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
-    IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = 
-	IndexShift_2_u_1[IndexShift_2_i];
+    IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
   end for;
   for IndexShift_2_i in 1:IndexShift_2_Shift loop
     IndexShift_2_y_1[IndexShift_2_i] = 0;
   end for;
 \end{minted}
+\end{tcolorbox}
 \end{figure}
-	  \end{itemize}
+\end{itemize}
