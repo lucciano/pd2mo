@@ -1,5 +1,5 @@
 set title "lotka_volterra"
-#set ylabel "State Variables"
+set ylabel "State Variables"
 set xrange [0:300]
 set yrange [0:2.5]
 set grid
