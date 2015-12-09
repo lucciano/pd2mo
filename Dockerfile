@@ -10,8 +10,8 @@ gfortran gnuplot-x11 build-essential libqtcore4 libqtgui4 libqt4-svg scilab zeni
 RUN svn checkout svn://svn.code.sf.net/p/modelicacc/code/trunk modelicacc-code 
 RUN cd modelicacc-code && autoreconf -f && ./configure && make install
 
-RUN svn checkout -r1437 svn://svn.code.sf.net/p/qssengine/code-0/trunk qssengine-code-0
-RUN cd qssengine-code-0/src && make 
+#RUN svn checkout -r1437 svn://svn.code.sf.net/p/qssengine/code-0/trunk qssengine-code-0
+#RUN cd qssengine-code-0/src && make 
 
 RUN svn checkout svn://svn.code.sf.net/p/powerdevs/code/trunk powerdevs-code 
 RUN cp /usr/include/hdf5/serial/*.h /usr/include/

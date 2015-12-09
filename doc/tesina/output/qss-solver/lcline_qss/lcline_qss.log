@@ -1,0 +1,51 @@
+Simulation time:
+
+----------------
+
+Miliseconds: 35222.1
+
+
+
+CPU time per transition: 0.000878437
+
+-----------------------
+
+
+
+Simulation output:
+
+------------------
+
+Variable VecInt_1_y_1[1] changes: 7359
+
+Variable VecInt_1_y_1[1000] changes: 4217
+
+
+
+Simulation transitions: 40096352
+
+-----------------------
+
+
+
+Init time:
+
+----------
+
+Miliseconds: 1.9681
+
+
+
+Save data time:
+
+---------------
+
+Miliseconds: 16.4854
+
+
+
+Total time:
+
+---------------
+Miliseconds: 35240.6
+
