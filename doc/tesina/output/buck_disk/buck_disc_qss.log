@@ -1,0 +1,51 @@
+Simulation time:
+
+----------------
+
+Miliseconds: 7.88014
+
+
+
+CPU time per transition: 0.00271917
+
+-----------------------
+
+
+
+Simulation output:
+
+------------------
+
+Variable QSSIntegrator_1_y[1] changes: 1292
+
+Variable QSSIntegrator_2_y[1] changes: 400
+
+
+
+Simulation transitions: 2898
+
+-----------------------
+
+
+
+Init time:
+
+----------
+
+Miliseconds: 0.694552
+
+
+
+Save data time:
+
+---------------
+
+Miliseconds: 1.74473
+
+
+
+Total time:
+
+---------------
+Miliseconds: 10.3194
+
