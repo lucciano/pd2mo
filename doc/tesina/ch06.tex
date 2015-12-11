@@ -1,16 +1,18 @@
 
 \section{Conclusiones}
 
-	Nos planteamos el objetivo de realizar una traducción para permitir ejecutar modelos PowerDEVS dentro de la herramienta de simulación QSS-Solver, 
-	para lo cual se generaron de forma manual\footnote{La creación de estos modelos requiere conocimientos de PowerDEVS y de Modelica} los modelos 
-	Modelica equivalentes a los bloques PowerDEVS utilizados en los ejemplos del Capitulo 5\footnote{que se encuentran disponibles en el Apéndice A}.
-        Se desarrollo un algoritmo de traducción para la estructura de archivos PDS de PowerDEVS, el cual incluye la traducción de estructuras planas,
-	 es decir sin jerarquía, y la traducción de una estructura jerárquica a estructuras planas, la cual nos permite encarar cualquier estructura 
-	del archivo PDS, mientras se cuenten con los modelos Modelica generados manualmente. Además se implementaron transformaciones automáticas 
+	Nos planteamos el objetivo de realizar una traducción para permitir ejecutar modelos PowerDEVS dentro de la herramienta de simulación QSS-Solver. 
+	Para lo cual se generaron de forma manual\footnote{La creación de estos modelos requiere conocimientos de PowerDEVS y de Modelica} los modelos 
+	Modelica equivalentes a los bloques PowerDEVS utilizados en los ejemplos del Capítulo 5\footnote{que se encuentran disponibles en el Apéndice A},
+        se desarrolló un algoritmo de traducción para la estructura de archivos PDS de PowerDEVS, el cual incluye la traducción de estructuras planas,
+	 es decir sin jerarquía, y la traducción de una estructura jerárquica a estructura plana, la cual nos permite encarar cualquier estructura 
+	del archivo PDS, mientras se cuenten con los modelos Modelica generados manualmente. 
+	
+	Además se implementaron transformaciones automáticas 
 	sobre el código Modelica generado para soportar construcciones que no habían sido implementadas en QSS-Solver, condicional \texttt{if...then}, 
 	producto escalar y arreglos bidimensionales.
 
-	Se mostró, en detalles, la implementación y ejemplos aplicados junto con las mejoras en el tiempo de simulación, las cuales alcanzan cerca del 90\%
+	Se mostró, en detalle, la implementación y ejemplos aplicados junto con las mejoras en el tiempo de simulación, las cuales alcanzan cerca del 90\%
 	 en modelos grandes. Mostramos además como se mantienen los valores obtenidos de la simulación a través de comparar las gráficas resultantes.
 
 \section{Trabajos Futuros}
@@ -19,11 +21,11 @@
 	 real, lo cual requier modificar el QSS-Solver para soportarlos.
 
 	Durante el desarrollo de este trabajo, la librería modelicacc \footnote{http://sourceforge.net/projects/modelicacc/?source=directory}, ha sido actualizada 
-	con un nuevo parser, el cual deberá ser actualizado en este trabajo.
+	con un nuevo \quotes{parser}, el cual deberá ser actualizado en este trabajo.
 
-	La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno Scilab, es siempre tratado como un valor escalar y no como 
-	uno vectorial. Para determinar cómo se lo debería tratar es necesario realizar un análisis de los tipos de las variables expandidas. 
-	Lo cual podría mejorar los mensajes de error cuando se genera el modelo final.
+	La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno Scilab es siempre tratado como un valor escalar y no como 
+	uno vectorial. Para determinar cómo se lo debería tratar es necesario realizar un análisis de los tipos de las variables expandidas, lo cual podría mejorar
+	los mensajes de error cuando se genera el modelo final.
 
-	Además es deseable que podamos llamar a esta conversión desde el mismo PowerDEVS y ejecutar el modelo resultante en el QSS-Solver.
+	Además, es deseable que podamos llamar a esta conversión desde el mismo PowerDEVS y ejecutar el modelo resultante en el QSS-Solver.
 
