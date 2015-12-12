@@ -4,8 +4,9 @@
 	\url{https://github.com/lucciano/pd2mo/tree/master/doc/tesina/src}
 
 \section{Comparación de desempeño}
-	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de dos gráficas (ambas son generadas con GNUPlot). 
-	A la izquierda se muestra el resultado de la simulación de PowerDEVS y a la derecha el resultado del modelo transformado en el QSS-Solver.
+	A continuación por cada uno de los modelos se muestra su modelo en PowerDEVS seguido de tres gráficas (todas son generadas con GNUPlot). 
+	A la izquierda, arriba, se muestra el resultado de la simulación de PowerDEVS y a la derecha, arriba el resultado del modelo transformado en el QSS-Solver, 
+	por último se muestra una gráfica con ambas curvas superpuestas con el fin de realizar una mejor comparación.
 
 	Las simulaciones fueron llevadas acabo en una PC Intel\textsuperscript{\textregistered} Core\textsuperscript{TM} i7-3632QM CPU @ 2.20GHz con 16 GB de memoria RAM. Los tiempos observados no deben ser considerados como absolutos ya que variarán de un sistema a otro, aunque las mejoras relativas se mantendrán.
 
@@ -30,7 +31,7 @@ donde:
 	Este sistema es representado en PowerDEVS por el modelo de la Figura \ref{model:lotka_volterra}:
 
 \begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+\includegraphics[width=0.75\linewidth]{lotka_volterra_pwd}
 \caption{Modelo PowerDEVS del Sistema Lotka Volterra}
 \label{model:lotka_volterra}
 \end{figure}
@@ -39,20 +40,21 @@ donde:
 \centering
 \begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_voltera-pd.png}
+ \includegraphics[width=\linewidth]{lotka_volterra-pd.png}
 PowerDEVS \\
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_voltera-qss.png}
+ \includegraphics[width=\linewidth]{lotka_volterra-qss.png}
 QSS-Solver \\
 \end{minipage}
-\label{graph:lotka_voltera}
+\includegraphics[width=\textwidth]{output/lotka_volterra/lotka_volterra-all.png}
+\label{graph:lotka_volterra}
 \caption{Resultados de la simulación del Modelo Lotka Volterra}
 \end{figure}
 
-En la Figura \ref{graph:lotka_voltera} se pueden ver los dos resultados de la simulación de 300 segundos. A la izquierda el resultado en PowerDEVS, el cual tomó 11 ms,
-y a la derecha el resultado en QSS-Solver el cual tomó 2.75 ms.
+En la Figura \ref{graph:lotka_volterra} se pueden ver los dos resultados de la simulación de 300 segundos. A la izquierda, arriba, el resultado en PowerDEVS, 
+	el cual tomó 11 ms, y a la derecha, arriba, el resultado en QSS-Solver el cual tomó 2.75 ms. Debajo de estos dos se muestra la comparación de los dos resultados.
 
 \section{Líneas de Transmisión}
 	El siguiente sistema de ecuaciones representa un modelo de una línea de transmisión formada por $N$ secciones de circuitos LC:
@@ -95,13 +97,13 @@ PowerDEVS\\
 \centering
 QSS-Solver\\
 \end{minipage}
+\includegraphics[width=\linewidth]{output/lcline/lcline-all}
 \caption{Resultados de la simulación de Líneas de Transmisión}
 \label{graph:lclines}
 \end{figure}
 
 En la Figura \ref{graph:lclines} se puede ver el resultado de la simulación de 20 minutos (1200 s) del Modelo de Líneas de Transmisión con 1000 segmentos en PowerDEVS,
-	la cual tomó 76402 ms a la izquierda, mientras que a la derecha se encuentra el resultado del modelo convertido ejecutado en QSS-Solver con los mismos 
-	parámetros, el cual tomó 34982.5 ms.
+	la cual tomó 76402 ms a la izquierda arriba, mientras que a la derecha, arriba, se encuentra el resultado del modelo convertido ejecutado en QSS-Solver con los mismos parámetros, el cual tomó 34982.5 ms. Debajo de estos dos se encutra la comparación de los dos resultados.
 
 \section{Inversores Lógicos}
 	El siguiente modelo representa una cadena de $m$ inversores lógicos, 
@@ -139,11 +141,13 @@ PowerDEVS
 \centering
 QSS-Solver
 \end{minipage}
+\includegraphics[width=\linewidth]{output/inverters/inverters-all}
 \caption{Resultados de la simulación de Inversores}\label{graph:inverters}
 \end{figure}
 
-En la Figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomó 25046 ms en PowerDEVS en 
-	la izquierda, mientras que en QSS-Solver tomó 7694.44 ms	
+En la Figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomó 25046 ms en 
+	PowerDEVS arriba a la izquierda, mientras que en QSS-Solver tomó 7694.44 ms y se ve arriba a la derecha. Por ultimo se puede ver la comparación de 
+	ambas gráficas debajo	.	
 
 \section{Advection-Diffusion-Reaction}
 	El modelo de ecuaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenómenos de transferencias de calor y masa, donde la cantidad de interés $u(x,t)$ puede ser temperatura en la conducción de calor o concentración de una sustancia química.
@@ -171,11 +175,12 @@ PowerDEVS
 \centering
 QSS-Solver
 \end{minipage}
+\includegraphics[width=\linewidth]{output/adr/adr-all}
 \caption{Resultados de la simulación ADR}\label{graph:adr}
 \end{figure}
 
-En la Figura \ref{graph:adr} se puede ver el resultado de la simulación del modelo ADR de 10s para $N=1000$ en PowerDEVS a la izquierda, la cual tomó 6089 ms,
-mientras que la simulación QSS-Solver del modelo convertido es 568.772 ms, en ambos casos utilizando el método de integración LIQSS2.
+En la Figura \ref{graph:adr} se puede ver el resultado de la simulación del modelo ADR de 10s para $N=1000$ en PowerDEVS arriba a la izquierda, la cual tomó 6089 ms,
+mientras que la simulación QSS-Solver del modelo convertido tomo 568.772 ms y se puede ver arriba a la derecha, en ambos casos utilizando el método de integración LIQSS2. Debajo de estos dos se puede ver la comparación de ambas gráficas.
 
 \section{Convertidor de Voltaje}
 	El siguiente modelo es un tipo de convertidor DC - DC que obtiene a su  salida  un  voltaje  continuo  menor  que  a  su entrada, manteniendo una una  alta eficiencia (superior al 95\% con circuitos integrados) y autorregulación.
@@ -221,12 +226,14 @@ PowerDEVS
 \centering
 QSS-Solver
 \end{minipage}
+\includegraphics[width=\textwidth]{output/buck_disk/buck_disk-all}
 \caption{Resultados de la simulación de Convertidor de voltaje}
 \label{result:buckdisk}
 \end{figure}
 
-En la Figura \ref{result:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01 s a la izquierda en PowerDEVS, lo cual tomó 268 ms, 
-mientras que a la derecha se encuentra el resultado obtenido del QSS-Solver, el cual tomó 10 ms.
+En la Figura \ref{result:buckdisk} se puede ver el resultado del modelo de Convertidor de voltaje durante 0.01 s a arriba a la izquierda en PowerDEVS, 
+	lo cual tomó 268 ms, mientras que a arriba a la derecha se encuentra el resultado obtenido por el QSS-Solver, el cual tomó 10 ms.  Debajo de esto dos se 
+	puede ver la comparación de ambas gráficas.
 
 \section{Resultados}
 
