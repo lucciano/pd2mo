@@ -25,9 +25,9 @@ Veamos algunas razones por las cuales la utilización de simulaciones es deseabl
 
 Es por esto que cuando simulamos un modelo es deseable que pueda ser simulado de la forma más rápida y eficiente posible.
 
-Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de maquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
+Para realizar la simulación debemos generar el modelo, es decir, la descripción de nuestro sistema de forma que sea posible compilarse en código de máquina para poder ser ejecutado (pasando por un lenguaje de propósito general, usualmente C o C++). 
 
-Una forma de describir el modelo es como una Ecuación Diferencial Ordinaria (o ODE, por sus siglas en ingles Ordinary Differential Equations) de la forma
+Una forma de describir el modelo es como una Ecuación Diferencial Ordinaria (o ODE, por sus siglas en inglés Ordinary Differential Equations) de la forma
 \begin{equation*}
 	\dot{x} = f(x, u, t)
 \end{equation*}
@@ -39,8 +39,8 @@ Nos interesa poder utilizar el entorno PowerDEVS, debido a que no sólo la inter
 
 Contamos además con la herramienta \quotes{QSS-Solver}\cite{Ber12}, la cual nos permitirá ejecutar simulaciones un orden de magnitud más rápido, que otras implementaciones.
 
-Por lo cual en este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver, obteniendo lo mejor de los dos mundos, un entorno de modelado amigable y el menor tiempo de simulación posible.
-
+Por lo cual en este trabajo nos proponemos mostrar una aplicación capaz de convertir modelos descriptos en la herramienta PowerDEVS a modelos en el lenguaje Modelica, más específicamente en $\mu$Modelica\cite{Ber12}, capaz de ser ejecutados en el QSS-Solver. Si bien ambas implementaciones cuentan con capacidad de utilizar métodos
+de integración QSS, la simulación en QSS-Solver no requiere computar el pasaje de mensajes entre los modelos atómicos, lo cual nos permitiría obtener una mejora en los tiempos de simulación, obteniendo lo mejor de los dos mundos, un entorno de modelado amigable y el menor tiempo de simulación posible.  
 
 \begin{figure}[H]
 \centering
@@ -70,7 +70,7 @@ El presente trabajo se organiza en 6 capítulos:
 En \cite{Ber12} se describe una extensión del Compilador OpenModelica el cual traslada modelos regulares Modelica a un subconjunto más simple $\mu$-Modelica, el cual puede ser interpretado directamente por el QSS-Solver.
 
 
-ModelicaDEVS \cite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS, ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
+ModelicaDEVS \cite{Beltrame06quantisedstate} es una librería Modelica que permite describir simulaciones DEVS y ofrece una re-implementación de PowerDEVS dentro del marco de Modelica.
 
 DESlib \cite{Sanz09paralleldevs} es una librería para la descripción de modelos Parallel DEVS y Modelado orientado a proceso en Modelica.
 La librería contiene cuatro paquetes que pueden ser utilizados para modelar sistemas de eventos discretos:

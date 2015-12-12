@@ -148,7 +148,7 @@ QSS-Solver
 En la Figura \ref{graph:inverters} se puede ver el resultado de la simulación del modelo de 1000 inversores durante 250 segundos, lo cual tomó 25046 ms en 
 	PowerDEVS arriba a la izquierda, mientras que en QSS-Solver tomó 7694.44 ms y se ve arriba a la derecha. Por ultimo se puede ver la comparación de 
 	ambas gráficas debajo	.	
-
+%******************************************************************************
 \section{Advection-Diffusion-Reaction}
 	El modelo de ecuaciones Advection-diffusion-reaction (ADR) provee las bases para describir fenómenos de transferencias de calor y masa, donde la cantidad de interés $u(x,t)$ puede ser temperatura en la conducción de calor o concentración de una sustancia química.
 
@@ -157,7 +157,7 @@ La ecuación
 \frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t)}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
 \end{equation*}
 corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coeficientes de advección, difusión y reacción, 
-el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la Figura \ref{model:adr}
+el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la Figura \ref{model:adr} mediante una grilla de $N$ puntos
 
 \begin{figure}[H]
  \includegraphics[width=0.75\linewidth]{adr-pwd}
