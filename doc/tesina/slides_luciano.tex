@@ -380,23 +380,22 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 	\end{itemize}
 \end{frame}
 
-%XXX
 
 \subsubsection{Interfaz entre DEVS Vectorial y DEVS}
-\begin{frame}
+\begin{frame}{Modelos Vectorial}
 	\begin{itemize}
-		\item Escalar a Vector (Scalar to Vector): Este bloque simplemente agrega al indice $i$ al evento escalar que recibe, transformándolo en un 
+		\item<1-> Escalar a Vector (Scalar to Vector): Este bloque simplemente agrega al indice $i$ al evento escalar que recibe, transformándolo en un 
 			evento vectorial. Este modelo también posee un comportamiento especial para enviar el mismo evento en todas las componentes vectorial 
 			al mismo tiempo, cuando $i = -1$, cada evento de entrada es trasmitido para todas las componentes del vector salida.
-		\item Vector a escalar (Vector to Scalar): Este bloque tiene un parámetro $i$ que contiene el índice del vector de eventos a retransmitir, 
+		\item<2-> Vector a escalar (Vector to Scalar): Este bloque tiene un parámetro $i$ que contiene el índice del vector de eventos a retransmitir, 
 			cuando recibe un evento con indice $j=i$, remueve el indice y retransmite el evento escalar.
-		\item Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, emite un evento de salida $(x, i+sh)$, 
+		\item<3-> Index Shift: El modelo más simple es el Index Shift. Cuando se recibe un evento con el valor $(x,i)$, emite un evento de salida $(x, i+sh)$, 
 			donde $sh$ es un parámetro entero.
 	\end{itemize}
 \end{frame}
 
 \section{PowerDEVS}
-\begin{frame}
+\begin{frame}{PowerDEVS}
 	\begin{figure}[H]
 	  \includegraphics[width=\textwidth]{powerdevs}
 	  \caption{Interfaz gráfica de PowerDEVS}
@@ -405,16 +404,24 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 \end{frame}
 
 \chapter{Conversión de modelos DEVS}
-\begin{frame}
-\begin{listing}[H]
-        \inputminted[linenos,breaklines=true,lastline=32]{modelica}{src/lotka_volterra.pds}
-\caption{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua).}\label{lst:pdsstruc}
-\end{listing}
+\begin{frame}[fragile]{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua) 1}
+        \inputminted[linenos,breaklines=true,lastline=12]{modelica}{src/lotka_volterra.pds}
 \end{frame}
+
+\begin{frame}[fragile]{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua) 2}
+        \inputminted[linenos,breaklines=true,firstline=13,lastline=22]{modelica}{src/lotka_volterra.pds}
+\end{frame}
+
+\begin{frame}[fragile]{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua) 3}
+        \inputminted[linenos,breaklines=true,firstline=23,lastline=32]{modelica}{src/lotka_volterra.pds}
+\end{frame}
+
+%XXX
 
 \begin{frame}
 \begin{listing}[H]
         \inputminted[firstline=33,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
+
 \caption{(continuación) conexiones del archivo lotka\_volterra.pds.}\label{lst:pdsstruc-cont}
 \end{listing}
 \end{frame}
@@ -972,7 +979,7 @@ donde:
 
 \begin{frame}
 \begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{lotka_voltera_pwd}
+\includegraphics[width=0.75\linewidth]{lotka_volterra_pwd}
 \caption{Modelo PowerDEVS del Sistema Lotka Volterra}
 \label{model:lotka_volterra}
 \end{figure}
@@ -983,15 +990,15 @@ donde:
 \centering
 \begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_voltera-pd}
+ \includegraphics[width=\linewidth]{lotka_volterra-pd}
 PowerDEVS \\
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_voltera-qss}
+ \includegraphics[width=\linewidth]{lotka_volterra-qss}
 QSS-Solver \\
 \end{minipage}
-\label{graph:lotka_voltera}
+\label{graph:lotka_volterra}
 \caption{Resultados de la simulación del Modelo Lotka Volterra}
 \end{figure}
 \end{frame}
