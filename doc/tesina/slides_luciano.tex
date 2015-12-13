@@ -416,63 +416,45 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
         \inputminted[linenos,breaklines=true,firstline=23,lastline=32]{modelica}{src/lotka_volterra.pds}
 \end{frame}
 
-%XXX
 
-\begin{frame}
-\begin{listing}[H]
-        \inputminted[firstline=33,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
-
-\caption{(continuación) conexiones del archivo lotka\_volterra.pds.}\label{lst:pdsstruc-cont}
-\end{listing}
-\end{frame}
-
-\section{Modelos DEVS}
-\subsection{Archivos PDS}
-\begin{frame}
-\begin{listing}[H]
-        \inputminted[linenos,breaklines=true,lastline=32]{modelica}{src/lotka_volterra.pds}
-\caption{Estructura del archivo lotka\_volterra.pds, modelos atómicos (continua).}\label{lst:pdsstruc}
-\end{listing}
-\end{frame}
-
-\begin{frame}
-\begin{listing}[H]
-        \inputminted[firstline=33,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
-\caption{(continuación) conexiones del archivo lotka\_volterra.pds.}\label{lst:pdsstruc-cont}
-\end{listing}
+\begin{frame}{conexiones del archivo lotka\_volterra.pds. 4}
+\begin{minipage}{0.4\textwidth}
+	\inputminted[firstline=33,lastline=38,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\inputminted[firstline=39,lastline=52,linenos,breaklines=true]{modelica}{src/lotka_volterra.pds}
+        \end{minipage}
 \end{frame}
 
 \section{Modelos Atómicos}
 \subsection{Modelos Continuos}
-\begin{frame}
-\begin{listing}[H]
+\begin{frame}{Modelos Continuos}
         \inputminted[]{modelica}{../../data/qss/qss_wsum.mo}
-        \caption{Modelo atómico sumador}\label{lst:qss_wsum.mo}
-\end{listing}
 \end{frame}
 
 \subsection{Modelos Discontinuos}
-\begin{frame}[fragile]
-\begin{listing}[H]
-        \inputminted[]{modelica}{../../data/qss/qss_switch.mo}
-        \caption{Modelo atómico Switch}\label{lst:qss_switch.mo}
-\end{listing}
+\begin{frame}[fragile]{Modelos Discontinuos - qss\_switch.mo - 1}
+        \inputminted[linenos,lastline=8]{modelica}{../../data/qss/qss_switch.mo}
 \end{frame}
 
+\begin{frame}[fragile]{Modelos Discontinuos - qss\_switch.mo - 2}
+        \inputminted[linenos,firstline=9]{modelica}{../../data/qss/qss_switch.mo}
+\end{frame}
+
+
 \subsection{Protocolo}
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Protocolo}
 \begin{itemize}
-        \item El código debe ser Modelica ($\mu$-modelica) válido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
+        \item<1-> El código debe ser Modelica ($\mu$-modelica) válido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
         PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\textbackslash qss\_sum\_vec.h} 
-	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} \footnote{El nombre de los archivos se remplaza \quotes{\textbackslash} por \quotes{/} para permitir 
-	algunos modelos cuyos \texttt{Path} contiene ese separadores de directorios}
-        \item Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
-        \item Los valores de entrada del modelo son asociados a la variable $u$
-        \item Los valores de salida del modelos son asociados a la variable $y$
+	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} 
+        \item<2-> Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
+        \item<3-> Los valores de entrada son asociados a la variable $u$
+        \item<4-> Los valores de salida son asociados a la variable $y$
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{QSSIntegrator}
 \begin{minted}{modelica}
 class QSSIntegrator
   parameter Real p[4]={0,0,0,0,0,0,0,0};
@@ -485,8 +467,7 @@ end QSSIntegrator;
 \end{minted}
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{listing}[H]
+\begin{frame}[fragile]{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}
 \begin{minted}{text}
   ...
   Simulator
@@ -496,12 +477,9 @@ end QSSIntegrator;
    }
    ...
 \end{minted}
-\caption{Extracto del modelo Lotka Volterra, modelo atómico de un integrator.}\label{lst:qssint.pds}
-\end{listing}
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{listing}[H]
+\begin{frame}[fragile]{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}
 \begin{minted}{modelica}
 class QSSIntegrator
   parameter Real QSSIntegrator_1_p[4]={0,1e-6, 1e-3, 0.5};
@@ -512,27 +490,36 @@ equation
   der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
 end QSSIntegrator;
 \end{minted}
-\caption{Transformación parcial de un modelo atómico de un integrator en el modelo de ejemplo Lotka Volterra.}\label{lst:integradorparametros}
-\end{listing}
 \end{frame}
 
 \section{Modelos Acoplados Planos}
-\begin{frame}[fragile]
-\begin{listing}[H]
-        \inputminted[linenos]{modelica}{src/lotka_volterra-orig.mo}
-        \caption{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica}
-        \label{lst:lotka_volterra-orig.mo}
-\end{listing}
+\begin{frame}[fragile]{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica - 1}
+        \inputminted[linenos,breaklines=true,lastline=9]{modelica}{src/lotka_volterra-orig.mo}
 \end{frame}
 
+\begin{frame}[fragile]{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica - 2}
+        \inputminted[linenos,breaklines=true,firstline=10,lastline=16]{modelica}{src/lotka_volterra-orig.mo}
+\end{frame}
+
+\begin{frame}[fragile]{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica - 3}
+        \inputminted[linenos,breaklines=true,firstline=17,lastline=21]{modelica}{src/lotka_volterra-orig.mo}
+\end{frame}
+
+\begin{frame}[fragile]{Modelo Lotka Volterra convertido de PowerDEVS a $\mu$-Modelica - 4}
+        \inputminted[linenos,breaklines=true,firstline=22]{modelica}{src/lotka_volterra-orig.mo}
+\end{frame}
+
+
 \section{Modelos Acoplados Jerárquico}
-\begin{frame}
+\begin{frame}[fragile]{Modelos Acoplados Jerárquico}
         \begin{itemize}
-                \item por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados 
+                \item<1-> por cada modelo acoplado si solo tiene modelos atómicos, es remplazado por los modelos atómicos internos, los cuales se encuentran conectados 
                         sin modificaciones excepto por las conexiones externas, las cuales son reasignadas de forma de mantener las conexiones.
-                \item si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
+                \item<2-> si el modelo acoplado contiene otros modelos acoplados entonces aplanamos ese modelo recursivamente.
         \end{itemize} 
 \end{frame}
+
+%XXX
 
 \begin{frame}[fragile]
 \begin{figure}[H]
