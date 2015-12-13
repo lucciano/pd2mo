@@ -519,25 +519,22 @@ end QSSIntegrator;
         \end{itemize} 
 \end{frame}
 
+\begin{frame}[fragile]{Ejemplo de modelo acoplado - Convertidor de Voltaje}
+        \includegraphics[width=\linewidth]{buck_disk}
+\end{frame}
+
+\begin{frame}{Ejemplo de modelo acoplado - Convertidor de Voltaje - Coupled0}
+        \includegraphics[width=\linewidth]{buck_disk_coupled0}
+\end{frame}
+
 %XXX
 
 \begin{frame}[fragile]
 \begin{figure}[H]
-        \begin{minipage}{0.5\textwidth}
-        \includegraphics[width=\linewidth]{buck_disk}
-        \end{minipage}
-        \begin{minipage}{0.5\textwidth}
-        \includegraphics[width=\linewidth]{buck_disk_coupled0}
-        \end{minipage}
- \caption{Ejemplo de modelo acoplado(derecha), junto a una detalle del modelo \texttt{Coupled0}}\label{fig:coupledsample}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]
-\begin{figure}[H]
   %\setcapwidth{0.6\textwidth}
-  \makebox[\textwidth][c]{%
-        \begin{minipage}[t][][b]{.59\textwidth}
+  \makebox[\textwidth][t]{%
+        \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.55}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -576,9 +573,11 @@ end QSSIntegrator;
             child { node {WSum0      (11)}}
             child { node {WSum1      (12)}};
         \end{tikzpicture}
+}
         \end{minipage} %
-        \hfill
-        \begin{minipage}[t][][b]{.59\textwidth}
+        \hfill %
+        \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.55}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -606,8 +605,10 @@ end QSSIntegrator;
             child { node {WSum0			(19)}}
             child { node {WSum1			(20)}};
         \end{tikzpicture}
+}
         \end{minipage}%
 }
+
         \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
         \label{fig:coupled-tree}
 \end{figure}
