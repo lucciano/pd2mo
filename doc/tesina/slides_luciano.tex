@@ -92,6 +92,7 @@
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -527,14 +528,12 @@ end QSSIntegrator;
         \includegraphics[width=\linewidth]{buck_disk_coupled0}
 \end{frame}
 
-%XXX
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Convertidor de Voltaje}
 \begin{figure}[H]
   %\setcapwidth{0.6\textwidth}
-  \makebox[\textwidth][t]{%
         \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.55}{%
+\scalebox{0.50}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -577,7 +576,7 @@ end QSSIntegrator;
         \end{minipage} %
         \hfill %
         \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.55}{%
+\scalebox{0.50}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -607,45 +606,21 @@ end QSSIntegrator;
         \end{tikzpicture}
 }
         \end{minipage}%
-}
-
-        \caption{Modelo convertidor de potencia, jerarquía original (izquierda) y aplanada (derecha), junto al nombre, esta la posición que ocupan dentro del modelo acoplado que los contiene.}
-        \label{fig:coupled-tree}
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{minipage}[t]{0.5\linewidth}
-\centering
-\begin{minted}[linenos]{text}
- IC
-   {
-   (13,0);(1,0)
-    (12,0);(2,0)
-    (8,0);(4,1)
-    (4,0);(3,0)
-    (5,0);(3,1)
-    (3,1);(11,2)
-    (11,0);(10,0)
-    (2,0);(9,0)
-    (2,0);(12,0)
-    (2,0);(13,1)
-    (3,0);(11,0)
-    (3,0);(13,0)
-    (10,0);(11,1)
-    (10,0);(5,1)
-    (1,0);(3,2)
-    (1,0);(12,1)
-    (1,0);(9,1)
-    (6,0);(5,2)
-    (6,0);(4,0)
-    (7,0);(5,0)
-    (7,0);(4,2)
-}
-\end{minted}
+\begin{frame}[fragile]{Conexiones del Modelo Convertidor de Voltaje} 
+\begin{minipage}[t]{0.3\linewidth}
+\inputminted[linenos,lastline=13]{text}{conexiones-buck_disk.txt}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.3\linewidth}
+\inputminted[linenos,firstline=14]{text}{conexiones-buck_disk.txt}
 \end{minipage}
-\begin{minipage}[t]{0.5\linewidth}
-\begin{minted}[linenos]{text}
+\end{frame}
+
+\begin{frame}[fragile]{Conexiones del Modelo Convertidor de Voltaje - Modelo Acoplado} 
+\begin{minipage}{0.4\textwidth}
+\begin{minted}{text}
      EIC
        {
         (0,2);(4,1)
@@ -661,6 +636,10 @@ end QSSIntegrator;
         (6,0);(0,1)
         (8,0);(0,0)
        }
+\end{minted}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{minted}{text}
       IC
        {
         (0,0);(1,0)
@@ -676,6 +655,8 @@ end QSSIntegrator;
 \end{minted}
 \end{minipage}
 \end{frame}
+
+%XXX
 
 \begin{frame}
 \begin{itemize}
