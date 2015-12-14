@@ -712,17 +712,15 @@ end QSSIntegrator;
 \end{frame}
 
 
-\begin{frame}[fragile]{Conexiones Internas Acopladas}
+\begin{frame}[fragile]{Conexiones Internas del Modelo Acoplado}
 \begin{itemize}
         \item Agregamos las conexiones internas del modelo acoplado que eliminaremos al modelo acoplado \texttt{Root-Coordinator}, estas conexiones deben ser 
         modificadas ya que los modelos atómicos insertados son insertados en la posición del modelo acoplado eliminado.
 \end{itemize}
 \end{frame}
 
-%XXX
-\begin{frame}[fragile]
-\begin{columns}[T] % align columns
-\begin{column}{.48\textwidth}
+\begin{frame}[fragile]{Conexiones Internas del Modelo Acoplado}
+\begin{minipage}[t]{.48\textwidth}
 \begin{minted}{text}
       IC
        {
@@ -737,9 +735,7 @@ end QSSIntegrator;
         (8,0);(6,1)
        }
 \end{minted}
-\end{column}%
-\hfill%
-\begin{column}{.48\textwidth}
+\end{minipage}\hfill\begin{minipage}[t]{0.48\linewidth}
 \begin{minted}{text}
       IC
        {
@@ -754,11 +750,10 @@ end QSSIntegrator;
         (11,0);(9,1)
        }
 \end{minted}
-\end{column}%
-\end{columns}
+\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Conexiones Externas del Modelo Acoplado}
 \begin{figure}[H]
 \centering
 \includegraphics[width=.75\textwidth]{text3418}
@@ -769,6 +764,7 @@ end QSSIntegrator;
 \end{figure}
 \end{frame}
 
+%XXX
 \begin{frame}
 	\begin{itemize}
 	\item IC : \texttt{(S1,p1);(S2,p2)}
