@@ -1,0 +1,18 @@
+General:
+  * Se corrigieron las figura y listado y figuras por Figura y Listado, respectivamente.
+  * Se corrigieron las discrepancias de genero y realizaciones del número gramatica.
+  * Se corrigio los nros. de pag. del indice
+  * Se corrigieron errores de puntuación
+Cap 1.
+  * Se clarifico un poco más el objetivo de porque pasar a Modelica
+Cap 2.
+  * Se corrigio el ejemplo de modelo atómico (Fig 2.2)
+  * Se achico la fig 2.5.
+  * Se agrego la sección (solo la divisió) 2.2-Ejemplo para separar mejor el contenido
+Cap 3.
+Cap 4.
+  * Se clarifico el procedimiento main 
+Cap 5.
+  * Se agrego una gráfica por cada problema comparando los resultados de las dos simulaciones
+Apéndice
+  * Se agrego una imagen al margen para señalar cual es el modelo equivalente en PowerDEVS

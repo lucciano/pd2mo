@@ -755,20 +755,17 @@ end QSSIntegrator;
 
 \begin{frame}{Conexiones Externas del Modelo Acoplado}
 \begin{figure}[H]
-\centering
 \includegraphics[width=.75\textwidth]{text3418}
-\caption{Esquema de conexiones, el modelo \texttt{S1} y \texttt{S3} son modelo atómico, \texttt{S2} es el modelo acoplado que estamos aplanando.\
-	\texttt{S1} y \texttt{S2} están conectados a través de los puertos \texttt{p1} y \texttt{p2} respectivamente. Luego, el modelo \texttt{S3} conecta con
-	el exterior a través del modelo acoplado que lo contiene por el puerto \texttt{p2} y el puerto  \texttt{p3}.
-	} \label{fig:aplanado-ports}
 \end{figure}
 \end{frame}
 
-%XXX
-\begin{frame}
+\begin{frame}{Conexiones Externas del Modelo Acoplado}
+
+	Si consideramos que $p2$ es un puerto de entrada las conexiones serán:
+
 	\begin{itemize}
 	\item IC : \texttt{(S1,p1);(S2,p2)}
-	\item EIC : \texttt{(0,p2);(S3,p3)}
+	\item EIC : \texttt{(0,p2);(S3,p3)} 
 	\end{itemize}
 
 	entonces la conexiones en el modelo aplanado es \texttt{($S1$,$p1$);($S3$,$p3$)} y $S1$ debe ser desplazado según la cantidad de modelos que contiene $S2$ y 
@@ -785,76 +782,82 @@ end QSSIntegrator;
 	cantidad de modelos que contiene $S2$ y $S3$ deberá ser desplazado según la posición de $S2$.
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Aplanado de Conexiones Externas de Salida}
 \begin{minipage}[t]{0.3\linewidth}
+Acoplado
 \begin{minted}{text}
-      IC
-       {
-        (3,1);(11,2)
-        (3,0);(11,0)
-        (3,0);(13,0)
-       }
+ EOC
+  {
+   (6,0);(0,1)
+   (8,0);(0,0)
+  }
 \end{minted}
 \end{minipage}
 \begin{minipage}[t]{0.3\linewidth}
+Modelo
 \begin{minted}{text}
-      EOC
-       {
-        (6,0);(0,1)
-        (8,0);(0,0)
-       }
+ IC
+  {
+   (3,1);(11,2)
+   (3,0);(11,0)
+   (3,0);(13,0)
+  }
 \end{minted}
 \end{minipage}
 \begin{minipage}[t]{0.3\linewidth}
+Resultado
 \begin{minted}{text}
-      IC
-       {
-        (9,0);(19,2)
-        (11,0);(19,0)
-        (11,0);(21,0)
-       }
+ IC
+  {
+   (9,0);(19,2)
+   (11,0);(19,0)
+   (11,0);(21,0)
+  }
 \end{minted}
 \end{minipage}
 %\caption{Conexiones internas desde el modelo acoplado hacia otro modelo (izquierda), conexiones externas de salida (centro), conexiones internas a agregar al modelo aplanando(derecha).}\label{lst:conecOut}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile]{Aplanado de Conexiones Externas de Entrada}
 \begin{minipage}[t]{0.3\linewidth}
+Modelo
 \begin{minted}{text}
-      IC
-       {
-        (4,0);(3,0)
-        (5,0);(3,1)
-        (1,0);(3,2)
-       }
+ IC
+  {
+   (4,0);(3,0)
+   (5,0);(3,1)
+   (1,0);(3,2)
+  }
 \end{minted}
 \end{minipage}
 \begin{minipage}[t]{0.3\linewidth}
+Acoplado
 \begin{minted}{text}
-      EIC
-       {
-        (0,2);(4,1)
-        (0,0);(2,1)
-        (0,0);(0,1)
-        (0,1);(3,1)
-        (0,1);(5,0)
-        (0,1);(7,0)
-        (0,1);(0,0)
-       }
+ EIC
+  {
+   (0,0);(2,1)
+   (0,0);(0,1)
+   (0,1);(3,1)
+   (0,1);(5,0)
+   (0,1);(7,0)
+   (0,1);(0,0)
+   (0,2);(4,1)
+  }
 \end{minted}
 \end{minipage}
 \begin{minipage}[t]{0.3\linewidth}
+Resultado
 \begin{minted}{text}
-      IC
-       {
-        (12,0);(5,1)
-        (12,0);(3,1)
-        (13,0);(6,1)
-        (13,0);(8,0)
-        (13,0);(10,0)
-        (13,0);(3,0)
-        (1,0);(7,1)
-       }
+ IC
+  {
+   (12,0);(5,1)
+   (12,0);(3,1)
+   (13,0);(6,1)
+   (13,0);(8,0)
+   (13,0);(10,0)
+   (13,0);(3,0)
+   (1,0);(7,1)
+  }
 \end{minted}
 \end{minipage}
 %\caption{Conexiones internas hacia el modelo acoplado (izquierda), conexiones externas de entrada(centro), conexiones internas a agregar al modelo aplanando(derecha).}
@@ -862,65 +865,41 @@ end QSSIntegrator;
 %\end{listing}
 \end{frame}
 
-
 \section{Modelos Vectoriales}
-\begin{frame}
+\begin{frame}{Modelos Vectoriales}
 \begin{itemize}
-	\item \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
-	\item \texttt{annotation(PD2MO = \{Scalar, Vector\});} entrada escalar y salida vectorial
-	\item \texttt{annotation(PD2MO = \{Vector, Scalar\});} entrada escalar y salida vectorial
-	\item \texttt{annotation(PD2MO = \{Vector, Vector\});} entrada y salida vectoriales.
+	\item<1-> \texttt{annotation(PD2MO = \{Scalar, Scalar\});} entrada y salida son escalares, este es el caso por omisión y no es necesario declararlo.
+	\item<2-> \texttt{annotation(PD2MO = \{Scalar, Vector\});} entrada escalar y salida vectorial
+	\item<3-> \texttt{annotation(PD2MO = \{Vector, Scalar\});} entrada escalar y salida vectorial
+	\item<4-> \texttt{annotation(PD2MO = \{Vector, Vector\});} entrada y salida vectoriales.
 \end{itemize}
 \end{frame}
 
-	\begin{itemize}
-	\item Causalización de variables, este es un programa descripto en \customcite{Mod15}
-	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad, éste no implementa (al momento de escribir este texto)
-	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform} e involucra las construcciones de Modelica 
-		\texttt{if...then...else}, producto interno de dos vectores y arreglos bidimensionales.
-	\end{itemize}
-
 
 \section{Transformaciones Extra}
-\begin{frame}
+\begin{frame}{Transformaciones Extra}
 	\begin{itemize}
-	\item Causalización de variables, este es un programa descripto en \cite{Mod15}
-	\item Transformaciones de Modelica a $\mu$-Modelica, si bien existe un programa con esta finalidad, éste no implementa (al momento de escribir este texto)
-	las transformaciones que necesitamos por lo que son descriptas en la sección \ref{sec:transform} e involucra las construcciones de Modelica 
-		\texttt{if...then...else}, producto interno de dos vectores y arreglos bidimensionales.
+	\item<1-> Causalización de variables
+	\item<2-> Transformaciones de Modelica a $\mu$-Modelica
 	\end{itemize}
 \end{frame}
 
-\section{Preservación de la Semántica}
-\begin{frame}
-	En caso de las transformaciones extra, no solo se encuentran dentro del mismo lenguaje, sino que las construcciones, \texttt{if...then...else}, 
-		producto interno de dos vectores y arreglos bidimensionales, son expandidas según su definición, por lo que conservan la misma semántica.
+%\begin{frame}
+%\begin{figure}[H]
+%\centerfloat
+%\scalebox{0.65}{
+%\smartdiagramset{
+%uniform color list=gray!60!black for 6 items,
+%back arrow disabled=true,
+%}
+%\smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensionales,Construcciones If,Producto Interno}
+%}
+%\caption{Esquema de transformaciones aplicadas}
+%\label{fig:pipeline}
+%\end{figure}
+%\end{frame}
 
-	Con respecto a la estructura del Modelo PowerDEVS, las conexiones entre los modelos atómicos convierten una o $N$ conexiones en PowerDEVS, en una o $N$
-	 igualdades en Modelica, dependiendo si el modelo es escalares o vectoriales. La transformación de conexión a igualdad, es la transformación que más 
-	nos sirve, pues por un lado, estamos tratando de eliminar el pasaje de eventos entre puertos para liberar recursos computacionales y
-	es una estrategia utilizada en el modelado de sistemas en PowerDEVS.
-
-	El procedimiento de aplanado, es por construcción el procedimiento que sigue el evento según esta conectado, es decir si un modelo $a$, esta conectado
-	a un modelo $b$ a través de a un puerto (de entrada o salida), la conexión del modelo aplanado es la conexión entra $a$ y $b$. 
-
-	Por último la traducción entre modelos atómicos como es realizada a mano, y con anticipación a la conversión automática, depende la capacidad de 
-	quien realiza esta traducción.
-\end{frame}
-
-\begin{frame}
-\begin{figure}[H]
-\centerfloat
-\smartdiagramset{
-uniform color list=gray!60!black for 6 items,
-back arrow disabled=true,
-}
-\smartdiagram[flow diagram:horizontal]{Parseo,Aplanado,Transformación Principal,Arreglo Bidimensionales,Construcciones If,Producto Interno}
-\caption{Esquema de transformaciones aplicadas}
-\label{fig:pipeline}
-\end{figure}
-\end{frame}
-
+%XXX
 
 \chapter{Resultados}
 \section{Ecuaciones Lotka-Volterra}
