@@ -899,11 +899,9 @@ Resultado
 %\end{figure}
 %\end{frame}
 
-%XXX
-
 \chapter{Resultados}
 \section{Ecuaciones Lotka-Volterra}
-\begin{frame}
+\begin{frame}{Resultados - Lotka-Volterra}
 \begin{align*}
 \frac{dx}{dt} & = x(\alpha - \beta y)\\
 \frac{dy}{dt} & =y(\gamma - \delta  x)
@@ -911,38 +909,39 @@ Resultado
 
 donde:
 \begin{itemize}
-	\item y es el número de algún predador (por ejemplo, un lobo);
+    \item y es el número de algún predador (por ejemplo, un lobo);
     \item x es el número de sus presas (por ejemplo, conejos);
     \item t representa el tiempo; y
     \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados  - Lotka-Volterra PowerDEVS}
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth]{lotka_volterra_pwd}
-\caption{Modelo PowerDEVS del Sistema Lotka Volterra}
 \label{model:lotka_volterra}
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Lotka-Volterra}
 \begin{figure}[H]
-\centering
 \begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_volterra-pd}
 PowerDEVS \\
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
+\includegraphics[width=\linewidth]{lotka_volterra-pd}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
 \centering
- \includegraphics[width=\linewidth]{lotka_volterra-qss}
 QSS-Solver \\
+\includegraphics[width=\linewidth]{lotka_volterra-qss}
 \end{minipage}
-\label{graph:lotka_volterra}
-\caption{Resultados de la simulación del Modelo Lotka Volterra}
 \end{figure}
 \end{frame}
+
+\begin{frame}{Resultados - Lotka-Volterra}
+\includegraphics[width=\textwidth]{output/lotka_volterra/lotka_volterra-all.png}
+\end{frame}
+
+%XXX
 
 \section{Líneas de Transmisión}
 \begin{frame}
