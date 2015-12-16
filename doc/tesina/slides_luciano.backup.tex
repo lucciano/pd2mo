@@ -1,6 +1,3 @@
-%todo: 
-%	centrar los inputminted
-%	
 \documentclass{beamer}
 %\documentclass[12pt,handout]{beamer}
 \usepackage[spanish]{babel}
@@ -550,7 +547,7 @@ end QSSIntegrator;
               child { node {Multiplier2 (4)}}
               child { node {Inseverse1  (5)}}
               child { node {Multiplier3 (6)}}
-              child { node {Multiplier4 (7)}}
+              child { node (D) {Multiplier4 (7)}}
               child { node {WSum1       (8)}}
             }
             child [missing] {}                          
@@ -566,11 +563,13 @@ end QSSIntegrator;
             child { node {Ron        (5)}}
             child { node {Roff       (6)}}
             child { node {Square0    (7)}}
-            child { node {GNUPlot0   (8)}}
-            child { node {Hysteresis0(9)}}
-            child { node {Switch1    (10)}}
-            child { node {WSum0      (11)}}
+            child { node (C) {GNUPlot0   (8)}}
+            child { node (B) {Hysteresis0(9)}}
+            child { node (B) {Switch1    (10)}}
+            child { node (A) {WSum0      (11)}}
             child { node {WSum1      (12)}};
+	    \draw [->] (A.east) edge[bend  right=90] (B.east) (B.east) edge[bend right=90] (C.east) (C.east) edge[bend right=90] (D.east);
+
         \end{tikzpicture}
 }
         \end{minipage} %
