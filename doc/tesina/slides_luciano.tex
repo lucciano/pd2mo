@@ -918,7 +918,7 @@ donde:
 
 \begin{frame}{Resultados  - Lotka-Volterra PowerDEVS}
 \begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{lotka_volterra_pwd}
+\includegraphics[width=\linewidth]{lotka_volterra_pwd}
 \label{model:lotka_volterra}
 \end{figure}
 \end{frame}
@@ -1015,14 +1015,12 @@ QSS-Solver \\
 \end{figure}
 \end{frame}
 
-%XXX
-
 \begin{frame}{Resultados - Inversores Lógicos}
  \includegraphics[width=\linewidth]{output/inverters/inverters-all}
 \end{frame}
 
 \section{Advection-Diffusion-Reaction}
-\begin{frame}
+\begin{frame}{Resultados - Advection-Diffusion-Reaction (ADR)}
 \begin{equation*}
 \frac{du(x,t)}{dt} + a \frac{du(x,t)}{dx} = d\frac{d^2u(x,t)}{d^2x} + r(u(x,t)^2 - u(x,t)^3)
 \end{equation*}
@@ -1030,32 +1028,36 @@ corresponde al modelo ADR, donde $a$,$d$ y $r$ son parámetros expresando coefic
 el cual es aproximado mediante el método de las lineas \cite{BKP13} en el modelo de la figura \ref{model:adr}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Modelo ADR PowerDEVS}
 \begin{figure}[H]
- \includegraphics[width=0.75\linewidth]{adr-pwd}
-\caption{Modelo PowerDEVS ADR}\label{model:adr}
+ \includegraphics[width=\linewidth]{adr-pwd}
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Modelo ADR}
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
- \includegraphics[width=\linewidth]{adr-pd}
 \centering
-PowerDEVS
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
- \includegraphics[width=\linewidth]{adr-qss}
+PowerDEVS \\
+ \includegraphics[width=\linewidth]{output/adr/adr-pd}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
 \centering
-QSS-Solver
+QSS-Solver \\
+ \includegraphics[width=\linewidth]{output/adr/adr-qss}
 \end{minipage}
-\caption{Resultados de la simulación ADR}\label{graph:adr}
 \end{figure}
 \end{frame}
 
+\begin{frame}{Resultados - Modelo ADR}
+\begin{figure}[H]
+ \includegraphics[width=\linewidth]{output/adr/adr-all}
+\end{figure}
+\end{frame}
 
 \section{Convertidor de Voltaje}
-\begin{frame}
+\begin{frame}{Resultados - Convertidor de Voltaje}
+\begin{figure}
+\begin{minipage}{0.5\textwidth}
 \begin{align*}
 \frac{di_{L}}{dt} & = \frac{-u_{C} - R_D i_D }{L}\\
 \frac{du_C}{dt} & =i_D \frac{i_D}{C} - \frac{u_C}{R_L C }
@@ -1064,68 +1066,73 @@ donde
 \begin{align*}
 i_D & = \frac{R_s i_L - u_C - U }{R_D + R_s}
 \end{align*}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
+\centering
+Esquema eléctrico \\
+ \includegraphics[width=\linewidth]{Buckboost_conventions}
+\end{minipage}
+\end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Convertidor de Voltaje}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{buck_disk}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Resultados - Convertidor de Voltaje}
 \begin{figure}[H]
 \centering
- \includegraphics[width=.60\linewidth]{Buckboost_conventions}
- \caption{Esquema eléctrico de convertidor de voltaje}\label{buckdisk-squema}
+Coupled0 \\
+\includegraphics[width=\linewidth]{buck_disk_coupled0}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-\begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{buck_disk}
-\caption{Modelo Convertidor de voltaje}\label{model:buckdisk}
-\end{figure}
-\begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{buck_disk_coupled0}
-\caption{Coupled0 (Incluido en Convertidor de voltaje)}\label{model:buckdiskcoupled0}
-\end{figure}
-\end{frame}
-
-\begin{frame}
+\begin{frame}{Resultados - Convertidor de Voltaje}
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
- \includegraphics[width=\linewidth]{buck_disk-pd}
 \centering
-PowerDEVS
+PowerDEVS \\
+ \includegraphics[width=\linewidth]{buck_disk-pd}
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
+\centering
+QSS-Solver \\
  \includegraphics[width=\linewidth]{buck_disk-qss}
-centering
-QSS-Solver
 \end{minipage}
-\caption{Resultados de la simulación de Convertidor de voltaje}
-\label{result:buckdisk}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-\begin{table}[H]
-\centering	
-\begin{tabular}{llllll}
+\begin{frame}{Resultados - Convertidor de Voltaje}
+ \includegraphics[width=\linewidth]{output/buck_disk/buck_disk-all}
+\end{frame}
+
+
+
+\begin{frame}{Resultados - Resumen}
+\scalebox{0.8}{%
+\begin{tabular}{lrrr}
 \toprule
 {\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
 \toprule
-Lotka  Voltera 300s      		& 11            & 2.75132         & 81 \\
-Lineas de Transmisión 1200s, N=1000     & 76402         & 34982.5         & 54          \\
-Inversores(LIQSS2) 250s, N=1000   	& 25046         & 7694.44         & 69        \\
-ADR(LIQSS2) 10s, N=1000 		& 6089          & 568.772         & 90        \\
-Convertidor de Voltaje 0.01s,        	& 268           & 10.3802         & 96         
+Lotka  Voltera       		& 11            & 2         & 81 \\
+Lineas de Transmisión      & 76402         & 34982         & 54          \\
+Inversores(LIQSS2)    	& 25046         & 7694         & 69        \\
+ADR(LIQSS2)  		& 6089          & 568         & 90        \\
+Convertidor de Voltaje     	& 268           & 10         & 96         
 
-% Mejora esta calculada a partir de 1 - qsssolver / pwdevs
-%excepto indicado, se utiliza QSS3
 \end{tabular}
-\caption{Comparación de las diferentes simulaciones y sus mejoras}\label{tab:result}
-\end{table}
+}
 \end{frame}
 
 \begin{frame}
-FIN
+\Huge{\centerline{¿Preguntas?}}
 \end{frame}
 
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
 
 
 
