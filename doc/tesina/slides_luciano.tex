@@ -941,82 +941,84 @@ QSS-Solver \\
 \includegraphics[width=\textwidth]{output/lotka_volterra/lotka_volterra-all.png}
 \end{frame}
 
-%XXX
-
 \section{Líneas de Transmisión}
-\begin{frame}
-\begin{equation}
+\begin{frame}{Resultados - Líneas de Transmisión}
+\begin{equation*}
 \begin{split}
 \frac{d v_{j}}{d t} &= \frac{i_{j} - i_{j+1}}{C} \\
 \frac{d i_{j}}{d t} &= \frac{v_{j-1} - v_{j}}{L} \\	
 \end{split}
-\end{equation}
+\end{equation*}
 
 para $j = 2 \dots N$
 
 Consideramos un pulso de entrada:
-\begin{equation}
+\begin{equation*}
 v_0(t) = \left\{ 
   \begin{array}{l l}
     1 \text{ si } t < 1 \\
     0 \text{ en caso contrario }
   \end{array} \right.
-\end{equation}
+\end{equation*}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Modelo Líneas de Transmisión en PowerDEVS}
 \begin{figure}[H]
- \includegraphics[width=0.75\linewidth]{lclines}
-\label{model:lclines}
-\caption{Modelo PowerDEVS de Líneas de Transmisión}
+ \includegraphics[width=\linewidth]{lclines}
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Líneas de Transmisión}
 \begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
 \centering
-\begin{minipage}{0.5\textwidth}
-\includegraphics[width=\linewidth]{lcline-pd}
 PowerDEVS\\
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
- \includegraphics[width=\linewidth]{lcline-qss}
+\includegraphics[width=\linewidth]{lcline-pd}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
+\centering
 QSS-Solver\\
+ \includegraphics[width=\linewidth]{lcline-qss}
 \end{minipage}
-\caption{Resultados de la simulación de Líneas de Transmisión}
-\label{graph:lclines}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Resultados - Líneas de Transmisión}
+ \includegraphics[width=\linewidth]{output/lcline/lcline-all}
 \end{frame}
 
 
 \section{Inversores Lógicos}
-\begin{frame}
+\begin{frame}{Resultados - Inversores Lógicos}
 \begin{align*}
 \frac{d \omega_1}{d t} & = U_{op} - \omega_1(t) - \Upsilon g (u_{in}(t), \omega_{1} (t))    \\
 \frac{d \omega_j}{d t} & = U_{op} - \omega_j(t) - \Upsilon g (\omega_{j-1}(t), \omega_{j} (t)) \textrm{ donde $j = 2, 3, .., m$}
 \end{align*}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Inversores Lógicos}
 \begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{inverters}
-\label{model:inverters}
-\caption{Modelo PowerDEVS de Inversores Lógicos}
+\includegraphics[width=\linewidth]{inverters}
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Resultados - Inversores Lógicos}
 \begin{figure}[H]
 \begin{minipage}{0.5\textwidth}
+\centering
+PowerDEVS \\
  \includegraphics[width=\linewidth]{inversers-pd}
-PowerDEVS
-\end{minipage}\hfill
-\begin{minipage}{0.5\textwidth}
+\end{minipage}\hfill \begin{minipage}{0.5\textwidth}
+\centering
+QSS-Solver \\
  \includegraphics[width=\linewidth]{inversers-qss}
-QSS-Solver
 \end{minipage}
-\caption{Resultados de la simulación de Inversores}\label{graph:inverters}
 \end{figure}
+\end{frame}
+
+%XXX
+
+\begin{frame}{Resultados - Inversores Lógicos}
+ \includegraphics[width=\linewidth]{output/inverters/inverters-all}
 \end{frame}
 
 \section{Advection-Diffusion-Reaction}
