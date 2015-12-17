@@ -108,6 +108,14 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 
 \begin{document}
 
+\AtBeginSection[]
+{
+ \begin{frame}<beamer>
+ \frametitle{Plan}
+ \tableofcontents[currentsection]
+ \end{frame}
+}
+
 
 \newcommand{\quotes}[1]{``#1''}
 
