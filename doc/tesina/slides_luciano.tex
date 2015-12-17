@@ -11,29 +11,7 @@
 
 
 
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{selected}=[draw=red,fill=red!30]
-\tikzstyle{optional}=[dashed,fill=gray!50]
-
-\newcommand\TBox[2][]{%
-  \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
-
-\makeatletter
-\newcommand*{\centerfloat}{%
-  \parindent \z@
-  \leftskip \z@ \@plus 1fil \@minus \textwidth
-  \rightskip\leftskip
-  \parfillskip \z@skip}
-\makeatother
-
-\newcommand{\quotes}[1]{``#1''}
-
-\usepackage{biblatex}
-\addbibresource{tesina_luciano.bib}
-\nocite{*}
-\newcommand{\customcite}[1]{\citetitle{#1}, \citeyear{#1}}
-
-\mode<presentation> {
+\mode<presentation>{
 
 \usetheme{default}
 
@@ -41,16 +19,8 @@
 %\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
 
 %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
-}
 
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>
- %   \frametitle{\thesection}
-    \tableofcontents[currentsection]
-  \end{frame}
 }
-
 
 
 %----------------------------------------------------------------------------------------
@@ -75,29 +45,34 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 \end{frame}
 
 \section{Introducción}
-\subsection{Motivación}
-\begin{frame}
-\begin{itemize}
-	\item<1-> El sistema físico no se encuentra construido. 
-	
-	\item<2-> El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotara}.
-
-	\item<3-> El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas.
-
-	\item<4-> Los tiempos del sistema no son compatibles con los tiempos del experimentador, ya sea porque es demasiado rápido o porque es demasiado lento.
-
-	\item<5-> Variables de control, de estado y/o del sistema pueden no ser accesibles. Las simulaciones también nos permite manipular el modelo en formas que no podríamos manipular el sistema real.
-
-	\item<6-> Eliminación de perturbaciones. Lo que nos permite aislar efectos particulares, y puede conducir a mejores apreciaciones sobre el comportamiento general del sistema.
-
-	\item<7-> Eliminación de efectos de segundo orden (como no linealidades de componentes del sistema). 
-\end{itemize}
-\end{frame}
-
+	\subsection{Resumen}
+	\subsection{Motivación}
+	\subsection{Esquema General}
 \section{Conceptos Previos}
-\subsection{Modelado y Simulación}
-\subsubsection{Sistemas Continuos y Discretos}
-\subsubsection{Métodos de Integración}
-
+	\subsection{Modelado y Simulación}
+	\subsection{Métodos de Integración numérica}
+	\subsection{Un ejemplo}
+	\subsection{Modelica}
+	\subsection{Métodos de Integración QSS}
+	\subsection{µ-Modelica}
+	\subsection{Stand–Alone QSS solver}
+	\subsection{Formalismo DEVS}
+		\subsubsection{Modelos Atómicos}
+		\subsubsection{Modelos Acoplados}
+		\subsubsection{Modelos Vectoriales}
+	\subsection{PowerDEVS}
+\section{Conversión de modelos DEVS}
+	\subsection{Modelos DEVS}
+		\subsubsection{Archivos PDS}
+		\subsubsection{Protocolo}
+	\subsection{Modelos Acoplados Planos}
+	\subsection{Modelos Acoplados Jerárquicos }
+	\subsection{Modelos Vectoriales}
+	\subsection{Transformaciones Extras}
+\section{Resultados}
+	\subsection{LK}
+	\subsection{Líneas de Transmisión}
+	\subsection{Comparaciones}
+\section{Conclusiones}
 
 \end{document}
