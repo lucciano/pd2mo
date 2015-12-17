@@ -77,12 +77,10 @@ La librería contiene cuatro paquetes que pueden ser utilizados para modelar sis
 \begin{itemize}
 \item RandomLib puede generar números y variables aleatorias, siguiendo distribuciones de probabilidades discretas y continuas.
 \item DEVSLib puede ser utilizado para modelar sistemas de eventos discretos (DEVS) siguiendo el formalismo de Parallel DEVS.
-\item SIMANLib y ARENALib puede ser utilizado para modelar sistemas de eventos discretos (DEVS) siguiendo el enfoque orientado al proceso.
-\end{itemize}
-
+\item SIMANLib y ARENALib puede ser utilizado para modelar sistemas de eventos discretos (DEVS) siguiendo el enfoque orientado al proceso.  
 Estas dos librerías llevan los formalismos DEVS hacia Modelica, pero no utilizan la herramienta PowerDEVS, ni se ejecutan en QSS-Solver.
 Podríamos desarrollar los modelos utilizando estas librerías y ejecutar la simulación del modelo convertido en $\mu$-Modelica con el QSS-Solver, pero esto no permite re-utilizar los modelos desarrollados en PowerDEVS.
+\end{itemize}
 
-
-M/CD++ \cite{DAbreuW05} es una herramienta para convertir simulaciones de un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver.
+Por otro lado M/CD++ \cite{DAbreuW05} es una herramienta para convertir simulaciones de un subconjunto de Modelica, a simulaciones DEVS, este trabajo funciona en sentido opuesto a nuestro trabajo, es decir convirtiendo modelos Modelica en modelos DEVS, por lo que no utiliza PowerDEVS y no ejecuta la simulación en el QSS-Solver.
 
