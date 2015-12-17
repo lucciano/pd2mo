@@ -8,7 +8,7 @@
 
 El Programa principal esta en el archivo main.cpp, el cual es responsable de la interfaz con el usuario (linea de comando) y de lanzar la transformación de la simulación, así como establecer los archivos desde donde se lee y hacia donde se escriben la simulación de PowerDEVS y Modelica, respectivamente.
 
-La transformación de la simulación se encuentra separada en distintos módulos los cuales funcionan como una linea aplicándose uno detrás del otro, ló cual se intenta
+La transformación de la simulación se encuentra separada en distintos módulos, implementados como clases C++, los cuales funcionan como una linea aplicándose uno detrás del otro, ló cual se intenta
 describir en la Figura \ref{fig:pipeline}.
 \begin{figure}[H]
 \centerfloat
@@ -21,16 +21,23 @@ back arrow disabled=true,
 \label{fig:pipeline}
 \end{figure}
 
+En el Procedimiento \ref{proc:main} se puede ver la creación de un objeto \texttt{modelCoupled} el cual representa la estructura interna del archivo PDS, 
+esta estructura es aplanada y el objeto resultante genera un archivo PDS aplanado, el cual es convertido por la transformación principal en un 
+	\texttt{AST\_StoredDefinition}, el cual representa un AST (por sus siglas en ingles Abstract Sintax Tree) de un modelo Modelica, el cual por último es 
+	modificado por las transformaciones \texttt{If}, \texttt{mda}, \texttt{prod} y escrito a un archivo de salida.
+
 
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
 \State modelCoupled *cm $\gets$ parsePDS(QString::fromStdString(src\_infile));
 \State modelCoupled *qm $\gets$ flatter::flat(cm);
+\State flatted = replace(src\_infile, ".pds", ".flatted.pds");
+\State generateCode(qm, QString::fromStdString(flatted), false, true);
 \State modelname = replace(src\_infile, ".pds", "");
 \State outfile = replace(src\_infile, ".pds", ".mo");
 \State oFlogfile = replace(src\_infile, ".pds", ".log");
 \State Pd2Mo q $\gets$ Pd2Mo();
-\State q.transform(qm, modelname, \&outfile, \&oFlogfile);
+\State q.transform(flatted, modelname, \&outfile, \&oFlogfile);
 \State AST\_StoredDefinition sd $\gets$ parseFile(src\_outfile,\&r);
 \State mda *m $\gets$ new mda();
 \State If *i $\gets$ new If();
@@ -39,11 +46,12 @@ back arrow disabled=true,
 			*sd$\rightarrow$models()$\rightarrow$begin()))} $\ll$ endl;
 
 \end{algorithmic}
-\caption{main(src\_infile)}
+\caption{main(src\_infile)}\label{proc:main}
 \end{algorithm}
 
 \section{Aplanado de modelos acoplados} 
-La clase \emph{flatter} implementa el aplanado de los modelos acoplados descripto en la sección \ref{aplanado}.
+Este módulo se encuentra en una clase llamada \emph{flatter} e implementa el aplanado de los modelos acoplados descripto en la sección \ref{aplanado}. 
+Trabaja con un objeto \texttt{modelCoupled}, el cual como ya mencionamos, cuenta con la estructura del archivo PDS, es decir una lista de modelos y una lista de conexiones.
  
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
@@ -116,7 +124,7 @@ La clase \emph{flatter} implementa el aplanado de los modelos acoplados descript
 \end{algorithm}
 
 \section{Transformación Principal}
-La clase \emph{Pd2Mo} implementa las principales partes de la transformación, la cual incluye abrir el archivo PDS, e invocar el aplanado, obtener los diferentes modelos Modelica que representan los modelos atómico, prevenir la colisión de nombres, crear el modelo final y realizar las conexiones.
+La clase \emph{Pd2Mo} implementa las principales partes de la transformación, la cual incluye abrir el archivo PDS, e invocar el aplanado, obtener los diferentes modelos Modelica que representan los modelos atómico, prevenir la colisión de nombres, crear el modelo final y realizar las conexiones entre los modelos.
 
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
