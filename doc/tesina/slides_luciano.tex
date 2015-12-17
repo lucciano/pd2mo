@@ -108,14 +108,24 @@ Universidad Nacional de Rosario\\ % Your institution for the title page
 
 \begin{document}
 
-\AtBeginSection[]
+% Add support for \subsubsectionpage
+\def\subsubsectionname{\translate{Subsubsection}}
+\def\insertsubsubsectionnumber{\arabic{subsubsection}}
+\setbeamertemplate{subsubsection page}
 {
- \begin{frame}<beamer>
- \frametitle{Plan}
- \tableofcontents[currentsection]
- \end{frame}
+  \begin{centering}
+    {\usebeamerfont{subsubsection name}\usebeamercolor[fg]{subsubsection name}\subsubsectionname~\insertsubsubsectionnumber}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=4pt,center]{part title}
+      \usebeamerfont{subsubsection title}\insertsubsubsection\par
+    \end{beamercolorbox}
+  \end{centering}
 }
+\def\subsubsectionpage{\usebeamertemplate*{subsubsection page}}
 
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+\AtBeginSubsubsection{\frame{\subsubsectionpage}}
 
 \newcommand{\quotes}[1]{``#1''}
 
