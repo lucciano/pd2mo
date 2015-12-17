@@ -174,57 +174,54 @@ La clase \emph{Pd2Mo} implementa las principales partes de la transformación, l
 		\item  \texttt{mda}: Remplaza expresiones de la forma \texttt{X[N,k]}, donde $k \in \mathbb{N}$ o evalúa a una variable que evalúa a una expresión 
 			$\in \mathbb{N}$. Son remplazados por \texttt{X\_k[N]} en las secciones \texttt{equation}, \texttt{algorithm}, \texttt{initial algorithm} y 
 		declaraciones para hacer el código Modelica válido. En otras palabras remplaza arreglos bidimensionales por arreglos unidimensionales.
+	
+		En el Listado \ref{lst:preMda} se puede ver un arreglo bidimensional y en el Listado \ref{lst:posMda} el resultado de aplicar la transformación \texttt{mda}.
 
-
-\begin{figure}[htp]
+\begin{listing}[hcp]
 \centering
-\begin{tcolorbox}
 \begin{minted}[breaklines=true]{modelica}
 Real IndexShift_2_u[IndexShift_2_N,1];
 \end{minted}
-\end{tcolorbox}
-$\Downarrow$
+\caption{Ejemplo de arreglo bidimensional}\label{lst:preMda}
+\end{listing}
 
-\begin{tcolorbox}
+\begin{listing}[hc]
+\centering
 \begin{minted}[breaklines=true]{modelica}
 Real IndexShift_2_u_1[IndexShift_2_N];
 \end{minted}
-\end{tcolorbox}
-\end{figure}
+\caption{Ejemplo de arreglo unidimensional}\label{lst:posMda}
+\end{listing}
 
 		\item $prodint$: Remplaza expresiones de la forma $u[i, 1:nin] * w$ por expresiones de la forma 
 			u[i,1] * w[1] + u[i,2] * w[2] .... + u[i,nin] * w[nin], donde $nin \in \mathbb{N}$ o evalúa a una variable que evalúa a una 
 			expresión $\in \mathbb{N}$, es decir expande la operación de producto interno ($*$) entre los dos vectores.
 
-\begin{figure}[htp]
-\centering
-\begin{tcolorbox}
+		En el Listado \ref{lst:preProdInt}, se puede ver el producto interno entre dos vectores y en el Listado \ref{lst:posProdInt} el resultado de 
+	la transformación $prodint$ cuando \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión $4$.
+
+\begin{listing}[H]
 \begin{minted}[breaklines=true]{modelica}
     VectorSum_3_y_1[VectorSum_3_i] = 
 	VectorSum_3_u[VectorSum_3_i, 1:VectorSum_3_nin] * VectorSum_3_w;
 \end{minted}
-\end{tcolorbox}
+\caption{Ejemplo de producto Interno}\label{lst:preProdInt}
+\end{listing}
 
-	(Donde \texttt{VectorSum\_3\_nin = 4}  y \texttt{VectorSum\_3\_w} tiene dimensión 4, lo que es necesario para que quede definidó el producto de dos 
-	vectores en modelica.)
-
-$\Downarrow$
-
-\begin{tcolorbox}
+	
+\begin{listing}[H]
 \begin{minted}[breaklines=true]{modelica}
     VectorSum_3_y[1,VectorSum_3_i] = VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+ VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+ VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+ VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
 \end{minted}
-\end{tcolorbox}
-\end{figure}
+\caption{Ejemplo de producto interno expandido}\label{lst:posProdInt}
+\end{listing}
 
-\newpage
-
-		\item $If$: Remplaza equaciones de la forma $if(v) \{eq_1\} else \{eq_2\}$ si $v$ evalúa a un booleano (a partir de parámetros o constantes, 
+	\item $If$: Remplaza equaciones de la forma $if(v) \{eq_1\} else \{eq_2\}$ si $v$ evalúa a un booleano (a partir de parámetros o constantes, 
 			es decir en análisis estático) se remplaza por $eq_1$ o $eq_2$ si es $v$ es verdadero o falso respectivamente.
 
-\begin{figure}[htp]
-\centering
-\begin{tcolorbox}
+	En el Listado \ref{lst:preIf} se puede ver un condicional antes de ser transformado y en el Listado \ref{lst:posIf} el resultado con \texttt{Shift $> 0$}).
+
+\begin{listing}[htp]
 \begin{minted}[breaklines=true]{modelica}
   if IndexShift_2_Shift > 0 then
     for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
@@ -243,13 +240,11 @@ $\Downarrow$
     end for;
   end if;
 \end{minted}
-\end{tcolorbox}
+\caption{Ejemplo de condicional}\label{lst:preIf}
+\end{listing}
 
-(Con \texttt{Shift $> 0$})
 
-$\Downarrow$
-
-\begin{tcolorbox}
+\begin{listing}
 \begin{minted}[breaklines=true]{modelica}
   for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
     IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
@@ -258,6 +253,7 @@ $\Downarrow$
     IndexShift_2_y_1[IndexShift_2_i] = 0;
   end for;
 \end{minted}
-\end{tcolorbox}
-\end{figure}
+\caption{Ejemplo de condicional expandido}\label{lst:posIf}
+\end{listing}
+
 \end{itemize}
