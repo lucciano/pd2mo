@@ -1,60 +1,17 @@
-%\title{Conversión de modelos PowerDEVS al lenguaje Modelica} % The short title appears at the bottom of every slide, the full title is only on the title page
-%
-%\author{Luciano Andrade} % Your name
-%\institute[UNR] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
-%{
-%Universidad Nacional de Rosario\\ % Your institution for the title page
-%\medskip
-%\textit{andrade.luciano@gmail.com} % Your email address
-%}
-%\date{\today} % Date, can be changed to a custom date
-%
-%\begin{document}
-%
-%\begin{frame}
-%\titlepage % Print the title page as the first slide
-%\end{frame}
-%
-%\section{Introducción}
-%	\subsection{Resumen}
-%	\subsection{Motivación}
-%	\subsection{Esquema General}
-%\section{Conceptos Previos}
-%	\subsection{Modelado y Simulación}
-%	\subsection{Métodos de Integración numérica}
-%	\subsection{Un ejemplo}
-%	\subsection{Modelica}
-%	\subsection{Métodos de Integración QSS}
-%	\subsection{µ-Modelica}
-%	\subsection{Stand–Alone QSS solver}
-%	\subsection{Formalismo DEVS}
-%		\subsubsection{Modelos Atómicos}
-%		\subsubsection{Modelos Acoplados}
-%		\subsubsection{Modelos Vectoriales}
-%	\subsection{PowerDEVS}
-%\section{Conversión de modelos DEVS}
-%	\subsection{Modelos DEVS}
-%		\subsubsection{Archivos PDS}
-%		\subsubsection{Protocolo}
-%	\subsection{Modelos Acoplados Planos}
-%	\subsection{Modelos Acoplados Jerárquicos }
-%	\subsection{Modelos Vectoriales}
-%	\subsection{Transformaciones Extras}
-%\section{Resultados}
-%	\subsection{LK}
-%	\subsection{Líneas de Transmisión}
-%	\subsection{Comparaciones}
-%\section{Conclusiones}
-%
-%\end{document}
-
 \documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
 
 \AtBeginSection[]
 {
   \begin{frame}<beamer>
-    \frametitle{Outline for section \thesection}
-    \tableofcontents[currentsection]
+    \frametitle{Outline}
+    \tableofcontents[
+  currentsection,
+  sectionstyle=show/show,
+  subsectionstyle=show/shaded/hide
+]
   \end{frame}
 }
 
@@ -85,7 +42,7 @@ Universidad Nacional de Rosario\\
 	\subsection{Un ejemplo}
 	\subsection{Modelica}
 	\subsection{Métodos de Integración QSS}
-	\subsection{µ-Modelica}
+	\subsection{$\mu$-Modelica}
 	\subsection{Stand–Alone QSS solver}
 	\subsection{Formalismo DEVS}
 		\subsubsection{Modelos Atómicos}
@@ -105,7 +62,6 @@ Universidad Nacional de Rosario\\
 	\subsection{Líneas de Transmisión}
 	\subsection{Comparaciones}
 \section{Conclusiones}
-
 
 \end{document}
 
