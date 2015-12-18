@@ -50,6 +50,14 @@
 
 \documentclass{beamer}
 
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline for section \thesection}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
 \title{Conversión de modelos PowerDEVS al lenguaje Modelica} 
 
 \author{Luciano Andrade} 

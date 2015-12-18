@@ -16,3 +16,6 @@ graphs:
 	cd output/inverters/ && gnuplot 18002960.plt && gnuplot inverters_qss.plt && gnuplot combined.plt
 	cd output/lcline/ && gnuplot 21110912.plt && gnuplot lcline_qss.plt && gnuplot combined.plt
 	cd output/lotka_volterra/ && gnuplot 26738368.plt && gnuplot lotka_volterra.plt && gnuplot combined.plt
+
+clean:
+	rm *.aux *.nav *.toc
