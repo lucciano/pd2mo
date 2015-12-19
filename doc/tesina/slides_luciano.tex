@@ -19,6 +19,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{trees}
+\usepackage{smartdiagram}
 
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{selected}=[draw=red,fill=red!30]
@@ -26,8 +27,6 @@
 
 \newcommand\TBox[2][]{%
   \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
-
-
 
 
 \title{Conversión de modelos PowerDEVS al lenguaje Modelica} 
@@ -402,10 +401,298 @@ Nos permiten especificar un vector de Modelos y facilita el modelado de grandes 
 
 \section{Conversión de modelos DEVS}
 	\subsection{Modelos DEVS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conversión de modelos DEVS}
+\begin{block}{PowerDEVS}
+	trabaja principalmente con dos archivos, .PDM y .PDS.
+        Los archivos PDM son utilizados, principalmente, por el editor de modelos, contiene información estructural, de posición de los modelos, sus parámetros, nombre, tipo y valor, descripción de los modelos, la cantidad de puertos de cada modelo y las conexiones entre los modelos, los detalles de cómo esas conexiones son visualizadas por líneas y los detalles del recorrido de esas líneas. 
+        Todos estos elementos son utilizados en primera medida por el editor de modelos, pero también son utilizados para generar el archivo PDS el cual genera el código de la simulación.
+        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación. 
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\subsubsection{Archivos PDS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Archivos PDS}
+\begin{minted}{text}
+...
+  Simulator
+   {
+    Path = qss/qss_integrator.h
+    Parameters = "QSS3","1e-6","1e-3","0.5"
+   }
+ 
+...
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{QSSIntegrator}
+\centering
+    qss/qss\_integrator.mo
+\begin{minted}{modelica}
+class QSSIntegrator
+  parameter Real p[4]={0,0,0,0,0,0,0,0};
+  parameter Real x0 = p[4];
+  Real u[1];
+  Real y[1](start = {x0});
+equation
+  der(y[1]) = u[1];
+end QSSIntegrator;
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Archivos PDS}
+\centering
+\begin{minted}{modelica}
+class QSSIntegrator
+  parameter Real QSSIntegrator_1_p[4]={0,1e-6, 1e-3, 0.5};
+  parameter Real QSSIntegrator_1_x0 = p[4];
+  Real QSSIntegrator_1_u[1];
+  Real QSSIntegrator_1_y[1](start = {QSSIntegrator_1_x0});
+equation
+  der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
+end QSSIntegrator;
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 		\subsubsection{Protocolo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Protocolo}
+\begin{itemize}
+        \item<1-> El código debe ser Modelica ($\mu$-modelica) válido y estar ubicado en el mismo directorio (y nombre del archivo) del código C que el modelo atómico 
+        PowerDEVS, con el mismo nombre que el archivo .h, pero con extensión .mo, es decir un modelo con \texttt{vector\textbackslash qss\_sum\_vec.h} 
+	utilizará un modelo \texttt{vector/qss\_sum\_vec.h} 
+        \item<2-> Los parámetros del modelo DEVS deben ser pasado en el parámetro $p$, el cual es un arreglo de reales. 
+        \item<3-> Los valores de entrada son asociados a la variable $u$
+        \item<4-> Los valores de salida son asociados a la variable $y$
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Modelos Acoplados Planos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Modelos Acoplados Planos}
+\begin{minted}{modelica}
+model lotka_volterra
+...
+  Real QSSIntegrator_1_u[1];
+  Real QSSIntegrator_1_y[1](start = QSSIntegrator_1_x0);
+  Real QSSIntegrator_2_u[1];
+  Real QSSIntegrator_2_y[1](start = QSSIntegrator_2_x0);
+...
+equation
+...
+  qss_multiplier_0_u[1] = QSSIntegrator_1_y[1];
+  qss_multiplier_0_u[2] = QSSIntegrator_2_y[1];
+  WSum_3_u[1] = QSSIntegrator_1_y[1];
+  WSum_4_u[2] = QSSIntegrator_2_y[1];
+  der(QSSIntegrator_2_y[1]) = QSSIntegrator_2_u[1];
+  der(QSSIntegrator_1_y[1]) = QSSIntegrator_1_u[1];
+...
+end lotka_volterra;
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Modelos Acoplados Jerárquicos }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejemplo de modelo acoplado - Convertidor de Voltaje}
+        \includegraphics[width=\linewidth]{buck_disk}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ejemplo de modelo acoplado - Convertidor de Voltaje - Coupled0}
+        \includegraphics[width=\linewidth]{buck_disk_coupled0}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Convertidor de Voltaje}
+\begin{figure}[H]
+  %\setcapwidth{0.6\textwidth}
+        \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.5}{%
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node (R1) {Scilab Command0 (1)}}
+            child { node (R2) {QSS Integartor0 (2)}}
+            child { node (R3) {QSS Integartor1 (3)}}             
+            child { node (R4) {Coupled0        (4)}
+              child { node (C1) {WSum0       (1)}}
+              child { node (C2) {Inseverse0  (2)}}
+              child { node (C3) {Multiplier0 (3)}}
+              child { node (C4) {Multiplier1 (4)}}
+              child { node (C5) {Multiplier2 (5)}}
+              child { node (C6) {Inseverse1  (6)}}
+              child { node (C7) {Multiplier3 (7)}}
+              child { node (C8) {Multiplier4 (8)}}
+              child { node (C9) {WSum1       (9)}}
+            }
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child { node (R5) {Switch0    (5)}}
+            child { node (R6) {Ron        (6)}}
+            child { node (R7) {Roff       (7)}}
+            child { node (R8) {Square0    (8)}}
+            child { node (R9) {GNUPlot0   (9)}}
+            child { node (R10) {Hysteresis0(10)}}
+            child { node (R11) {Switch1    (11)}}
+            child { node (R12) {WSum0      (12)}}
+            child { node (R13) {WSum1      (13)}};
+        \end{tikzpicture}
+}
+        \end{minipage} \hfill \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.5}{%
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node (1) {Scilab Command0	(1)}}
+            child { node (2) {QSS Integartor0	(2)}}
+            child { node (3) {QSS Integartor1	(3)}}             
+            child { node (4) {WSum0			(4)}}
+            child { node (5) {Inseverse0		(5)}}
+            child { node (6) {Multiplier0		(6)}}
+            child { node (7) {Multiplier1		(7)}}
+            child { node (8) {Multiplier2		(8)}}
+            child { node (9) {Inseverse1		(9)}}
+            child { node (10) {Multiplier3		(10)}}
+            child { node (11) {Multiplier4		(11)}}
+            child { node (12) {WSum1			(12)}}
+            child { node (13) {Switch0			(13)}}
+            child { node (14) {Ron			(14)}}
+            child { node (15) {Roff			(15)}}
+            child { node (16) {Square0		(16)}}
+            child { node (17) {GNUPlot0		(17)}}
+            child { node (18) {Hysteresis0		(18)}}
+            child { node (19) {Switch1		(19)}}
+            child { node (20) {WSum0			(20)}}
+            child { node (21) {WSum1			(21)}};
+
+        \end{tikzpicture}
+}
+        \end{minipage}%
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Convertidor de Voltaje}
+\begin{figure}[H]
+  %\setcapwidth{0.6\textwidth}
+        \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.5}{%
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node (R1) {Scilab Command0 (1)}}
+            child { node (R2) {QSS Integartor0 (2)}}
+            child { node (R3) {QSS Integartor1 (3)}}             
+            child { node (R4) {Coupled0        (4)}
+              child { node (C1) {WSum0       (1)}}
+              child { node (C2) {Inseverse0  (2)}}
+              child { node (C3) {Multiplier0 (3)}}
+              child { node (C4) {Multiplier1 (4)}}
+              child { node (C5) {Multiplier2 (5)}}
+              child { node (C6) {Inseverse1  (6)}}
+              child { node (C7) {Multiplier3 (7)}}
+              child { node (C8) {Multiplier4 (8)}}
+              child { node (C9) {WSum1       (9)}}
+            }
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child [missing] {}                          
+            child { node (R5) {Switch0    (5)}}
+            child { node (R6) {Ron        (6)}}
+            child { node (R7) {Roff       (7)}}
+            child { node (R8) {Square0    (8)}}
+            child { node (R9) {GNUPlot0   (9)}}
+            child { node (R10) {Hysteresis0(10)}}
+            child { node (R11) {Switch1    (11)}}
+            child { node (R12) {WSum0      (12)}}
+            child { node (R13) {WSum1      (13)}};
+	    \path[->,line width=1pt,red] (C7.east) edge[bend left=90 ] (C8.east);
+	    \path[->,line width=1pt,red] (R13.east) edge[bend right=90 ] (R1.east);
+
+	    \path[->,line width=1pt,green] (R3.east) edge[bend left=90 ] (R4.east);
+	    \path[->,line width=1pt,green] (R4.east) edge[bend left=90 ] (C4.east);
+
+	    \path[->,line width=1pt,blue] (R6.east) edge[bend right=90] (R4.east);
+	    \path[->,line width=1pt,blue] (R4.east) edge[bend left=90] (C8.east);
+        \end{tikzpicture}
+}
+        \end{minipage} \hfill \begin{minipage}[t][][b]{.40\textwidth}
+\scalebox{0.5}{%
+        \begin{tikzpicture}[%
+          grow via three points={one child at (0.5,-0.7) and
+          two children at (0.5,-0.7) and (0.5,-1.4)},
+          edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+          \node {Root-Coordinator}
+            child { node (1) {Scilab Command0	(1)}}
+            child { node (2) {QSS Integartor0	(2)}}
+            child { node (3) {QSS Integartor1	(3)}}             
+            child { node (4) {WSum0			(4)}}
+            child { node (5) {Inseverse0		(5)}}
+            child { node (6) {Multiplier0		(6)}}
+            child { node (7) {Multiplier1		(7)}}
+            child { node (8) {Multiplier2		(8)}}
+            child { node (9) {Inseverse1		(9)}}
+            child { node (10) {Multiplier3		(10)}}
+            child { node (11) {Multiplier4		(11)}}
+            child { node (12) {WSum1			(12)}}
+            child { node (13) {Switch0			(13)}}
+            child { node (14) {Ron			(14)}}
+            child { node (15) {Roff			(15)}}
+            child { node (16) {Square0		(16)}}
+            child { node (17) {GNUPlot0		(17)}}
+            child { node (18) {Hysteresis0		(18)}}
+            child { node (19) {Switch1		(19)}}
+            child { node (20) {WSum0			(20)}}
+            child { node (21) {WSum1			(21)}};
+
+	    \path[->,line width=1pt,red] (10.east) edge[bend left=90 ] (11.east);
+	    \path[->,line width=1pt,red] (21.east) edge[bend right=90 ] (1.east);
+
+	    \path[->,line width=1pt,green] (3.east) edge[bend left=90 ] (7.east);
+
+	    \path[->,line width=1pt,blue] (14.east) edge[bend right=90] (11.east);
+        \end{tikzpicture}
+}
+        \end{minipage}%
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Modelos Vectoriales}
 	\subsection{Transformaciones Extras}
 \section{Resultados}
