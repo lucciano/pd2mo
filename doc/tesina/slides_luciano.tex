@@ -1,7 +1,9 @@
-\documentclass{beamer}
+\documentclass[10pt,handout]{beamer}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{minted}
 
+\newcommand{\quotes}[1]{``#1''}
 
 \AtBeginSection[]
 {
@@ -14,6 +16,19 @@
 ]
   \end{frame}
 }
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+
+\newcommand\TBox[2][]{%
+  \tikz\node[draw,ultra thick,align=left,#1] {#2};\hskip2pt}
+
+
+
 
 \title{Conversión de modelos PowerDEVS al lenguaje Modelica} 
 
@@ -34,21 +49,357 @@ Universidad Nacional de Rosario\\
 
 \section{Introducción}
 	\subsection{Resumen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resumen}
+\begin{block}{El modelado y simulación}
+son utilizados en el análisis de sistemas  ayudándonos a ganar un mejor entendimiento de su funcionamiento. 
+\end{block}
+
+\begin{block}{PowerDEVS}
+PowerDEVS es un entorno integrado para el modelado y simulación basado en el formalismo DEVS
+\end{block}
+
+\begin{block}{QSS-Solver}
+es una implementación independiente de los métodos de integración QSS para simulaciones de sistemas continuos e híbridos. 
+\end{block}
+
+
+\begin{block}{En este trabajo}
+se presenta una aplicación capaz de convertir modelos, en PowerDEVS en modelos Modelica, más específicamente $\mu$-Modelica, permitiendo ejecutar este en \quotes{QSS Solver}, lo cual esperamos nos permitá ganar al menos un orden de magnitud en los tiempos incurridos en la simulación.
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Motivación}
-	\subsection{Esquema General}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivación}
+\begin{itemize}
+	\item<1-> El sistema físico no se encuentra construido. 
+	
+	\item<2-> El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotara}.
+
+	\item<3-> El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas.
+
+	\item<4-> Los tiempos del sistema no son compatibles con los tiempos del experimentador, ya sea porque es demasiado rápido o porque es demasiado lento.
+
+	\item<5-> Variables de control, de estado y/o del sistema pueden no ser accesibles. Las simulaciones también nos permite manipular el modelo en formas que no podríamos manipular el sistema real.
+
+	\item<6-> Eliminación de perturbaciones. Lo que nos permite aislar efectos particulares, y puede conducir a mejores apreciaciones sobre el comportamiento general del sistema.
+
+	\item<7-> Eliminación de efectos de segundo orden (como no linealidades de componentes del sistema). 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Esquema de conversiones}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Esquema de conversiones}
+\begin{figure}
+\centering
+ \includegraphics[width=.60\linewidth]{esquema}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Conceptos Previos}
 	\subsection{Modelado y Simulación}
-	\subsection{Métodos de Integración numérica}
+\begin{frame}
+\begin{block}{El Modelado y Simulación}
+de un sistema es el proceso por el cual se desarrolla un modelo, el cual es luego ejecutado, de forma de obtener datos sobre el comportamiento del sistema. El modelo debe conservar las principales características del sistema, pero al mismo tiempo ser significativamente más simple, de forma que al momento de simularlo sea más eficaz utilizar la simulación que el sistema en sí.
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sistemas Continuos y Discretos}
+	\begin{equation*} 
+	\dot{x}(t) = f (x(t), u(t))
+	\end{equation*}
+	Con condiciones iniciales :
+	\begin{equation*}
+	x(t = t_0 ) = x_0
+	\end{equation*}
+
+	Si $f$ es continua puede ser aproximada mediante series de Taylor:
+	\begin{equation*}
+		x_i(t^* + h) = x_i(t^*) + \frac{dx_i (t^*)}{dt} \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
+	\end{equation*}
+
+	\begin{equation*}
+		x_i(t^* + h) = x_i(t^*) + f_i(t^*) \cdot h + \frac{d^{2}x_i (t^*)}{dt^2} \cdot \frac{h^2}{2!} + \cdots
+	\end{equation*}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Un ejemplo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Un ejemplo - Lotka Volterra}
+	\begin{align*}
+		\frac{dx}{dt} &= x(\alpha - \beta y) \\
+		\frac{dy}{dt} &= - y(\gamma - \delta  x)
+	\end{align*}
+	donde:
+	\begin{itemize}
+		\item $y$ es el número de algún predador (por ejemplo, un lobo)
+		\item $x$ es el número de sus presas (por ejemplo, conejos)
+		\item $\frac{dy}{dt}$ y $\frac{dx}{dt}$ representa el crecimiento de las dos poblaciones en el tiempo
+		\item $t$ representa el tiempo 
+		\item $\alpha$, $\beta$, $\gamma$ y $\delta$ son parámetros que representan las interacciones de las dos especies.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Modelica}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelica}
+	\begin{block}{Modelica}
+es un lenguaje orientado a objetos desarrollado para describir de manera sencilla modelos de sistemas dinámicos eventualmente muy complejos.
+	
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Modelica - Modelo Lotka Volterra}
+\begin{center}
+\begin{figure}[H]    
+	\inputminted[linenos]{modelica}{src/LotkaVolterra.mo}
+\end{figure}
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Métodos de Integración QSS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Métodos de Integración QSS}
+\begin{block}{El método QSS}
+	de primer orden (llamado QSS1) aproxima la ecuación por:
+	
+	\begin{equation*}
+	\dot{x}(t) = f (q(t), v(t))
+	\end{equation*}
+	
+	donde $q$ es el vector de estados cuantificados y sus componentes están relacionadas una a una con las del vector de estados $x$ siguiendo una 
+	función de cuantificación con histéresis:
+	
+	\begin{equation*}
+	q_j(t) = \left\{ 
+	  \begin{array}{l l}
+	    x_j(t)  \quad \text{si} \mid x_j (t ) - q_j (t^{-} ) \mid \geq \Delta Q_j \\
+	    q_j (t^{-} ) \quad \text{en caso contrario}
+	  \end{array} \right.
+	\end{equation*}
+	
+	donde $q_j (t^{-})$ es el límite por izquierda de $q_j$ en $t$.
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Métodos de Integración QSS}
+	  Variables Relacionadas con una Función de Cuantificación con Histéresis de orden cero.
+	\begin{figure}[H]
+	  \includegraphics[scale=0.35]{histeresis1}
+	\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{$\mu$-Modelica}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$\mu$-Modelica}
+
+\begin{block}{La especificación de }
+$\mu$-Modelica esta basado en la espeficación de Modelica y contiene solo las palabra claves y estructuras necesarias para definir modelos hibridos basados en ODE.
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$\mu$-Modelica}
+	\begin{itemize}
+	 \item<1-> El modelo es plano, es decir no permite clases.
+	 \item<2-> Todas las variables pertenecen al tipo predefinido Real y solo hay tres categorías de variables: estado continuo, estado discreto y variables 
+	algebraicas.
+	 \item<3-> Los parámetros también son de tipo Real. 
+	 \item<4-> Solo Arreglos unidimensionales están permitidos. 
+	 \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$\mu$-Modelica}
+	 \begin{itemize}
+	 \item<1-> Discontinuidades son expresadas solo con las clausulas $when$ y $elsewhen$ dentro de la sección $algorithm$. Las condiciones dentro de las dos 
+	clausulas solo pueden ser relaciones ($<$, $\leqslant$, $>$ $\geqslant$) y, dentro de la clausula, solo asignaciones de variables discretas y $reinit$ 
+	de estados continuos son permitidos.
+
+	\item<2-> Indices en los arreglos dentro de cláusulas \texttt{for} están restringidos a la forma $\alpha \cdot i + \beta$, donde $\alpha$ y $\beta$ son expresiones enteras e \texttt{i} es el índice de la iteración.
+	\item<3-> La sección de ecuaciones está compuesta de :
+	 \begin{itemize}
+		\item Definición de variables de estados : $der(x) =  f (x(t), d, a(t), t);$ ODE en forma explícita
+		\item Definición algebraica : $a_2  = g(a_1);$
+	 \end{itemize}
+	 con la restricción de que cada variable algebraica solo puede depender de variables estado y de variables algebraicas previamente definidas.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$\mu$-Modelica}
+	\inputminted[linenos]{modelica}{slides/lotka_volterra_qss.mo}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Stand–Alone QSS solver}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stand-Alone QSS-Solver}
+
+\begin{block}{El Stand-Alone QSS-Solver}
+es un entorno de modelado y simulación para sistemas hibridos y continuos.
+\end{block}
+
+\begin{block}{Los modelos}
+son  descriptos en $\mu$-Modelica
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Formalismo DEVS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Formalismo DEVS}
+\begin{block}{DEVS}
+	DEVS es un formalismo para modelar y analizar sistemas de eventos discretos 
+\end{block}
+\begin{block}{Un modelo DEVS}
+ puede ser visto como un autómata que procesa una serie de eventos de entrada y genera una serie de eventos de salida y está descripto por dos clases de componentes, modelos atómicos y modelos acoplados.
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\subsubsection{Modelos Atómicos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Formalismo DEVS - Modelos Atómicos}
+\begin{block}{Un modelo Atómico} 
+	representa la unidad \quotes{indivisible} de especificación, en el sentido que es la pieza fundamental y más básica de un modelo DEVS. 
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Formalismo DEVS - Modelos Atómicos}
+	Formalmente un modelo atómico está conformado por la 7-upla:
+
+	\begin{equation*} 
+	(X, Y, S, \delta_{int} , \delta_{ext}, \lambda, t_{a}) \mbox{ donde :}
+	\end{equation*}
+
+	\begin{itemize}
+	\item<1-> $X$ es el conjunto de valores de entrada que acepta el modelo atómico.
+	\item<2-> $Y$ es el conjunto de valores de los eventos de salida que puede emitir el modelo atómico.
+	\item<3-> $S$ es el conjunto de estados internos del modelo.
+	\item<4-> $ta$ es una función $S \to \mathbb{R}^{+}_{0}$ de \emph{Avance de Tiempo}.
+	\item<5-> $\delta_{int}$ es una función $S \to S$ de \emph{Transición Interna}.
+	\item<6-> $\delta_{ext}$ es una función $(S \times \mathbb{R}^{+}_{0} \times X) \to S$ de \emph{Transición Externa}.
+	\item<7-> $\lambda$ es una función $S \to Y$ de \emph{Salida}.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Formalismo DEVS - Modelos Atómicos}
+	\begin{figure}[H]
+	  \includegraphics[width=0.6\textwidth]{devs-atomic}
+	\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 		\subsubsection{Modelos Acoplados}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Modelo Acoplados}
+	\begin{minipage}{0.48\textwidth}
+	\centering
+\scalebox{0.75}{%
+	\TBox{%
+	  \TBox[]{Acoplado2 \\ \TBox{Acoplado1 \\ \TBox[]{Atómico1}\TBox{Atómico2} } \TBox{Atómico3} }}}
+	\end{minipage}\hfill\begin{minipage}{0.48\textwidth}
+	\centering
+\scalebox{0.75}{%
+	\begin{tikzpicture}[%
+	  grow via three points={one child at (0.5,-0.7) and
+	  two children at (0.5,-0.7) and (0.5,-1.4)},
+	  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	  \node {Root-Coordinator}
+	    child { node {Acoplado2}		
+	    child { node {Acoplado1}
+	      child { node {Atómico1}}
+	      child { node {Atómico2}}
+	    }
+	    child [missing] {}				
+	    child [missing] {}				
+	    child [missing] {}				
+	    child { node {Atómico3}}};
+	\end{tikzpicture}
+}
+	\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 		\subsubsection{Modelos Vectoriales}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelos Vectoriales}
+\begin{block}{Modelos Vectoriales}
+Nos permiten especificar un vector de Modelos y facilita el modelado de grandes sistemas.
+\end{block}
+\centering
+\begin{block}{StateChart de un modelo Vectorial}
+\begin{center}
+\begin{figure}
+\includegraphics[width=.40\linewidth]{img/statechart.png}
+\end{figure}
+\end{center}
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{PowerDEVS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PowerDEVS}
+\begin{block}{PowerDEVS} 
+ es un programa, concebido para ser utilizado por expertos programadores DEVS, así como usuarios finales que solo quieren 
+	conectar bloques y simular.
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PowerDEVS}
+	\begin{figure}[H]
+	  \includegraphics[width=\textwidth]{powerdevs}
+	\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PowerDEVS - Modelo Lotka Volterra}
+\centering
+\begin{figure}[H]
+	  \includegraphics[width=0.7\textwidth]{lk-powerdevs}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Conversión de modelos DEVS}
 	\subsection{Modelos DEVS}
 		\subsubsection{Archivos PDS}
