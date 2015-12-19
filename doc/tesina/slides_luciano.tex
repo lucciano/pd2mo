@@ -694,6 +694,42 @@ end lotka_volterra;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Modelos Vectoriales}
+\begin{frame}[fragile]{Modelos Vectoriales}
+\begin{minted}{modelica}
+  for i in 1:1000 loop
+    IndexShift_2_u[1][i] = VecInt_1_y[1][i];
+  end for;
+  for i in 1:1000 loop
+    Vec2Scalar_5_u[1][i] = VecInt_1_y[1][i];
+  end for;
+  for i in 1:1000 loop
+    vector_pow2_6_u[1][i] = VecInt_1_y[1][i];
+  end for;
+  for i in 1:1000 loop
+    VectorSum_8_u[2][i] = VecInt_1_y[1][i];
+  end for;
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Modelos Vectoriales}
+\begin{minted}{modelica}
+  for i in 1:1000 loop
+    IndexShift_2_u_1[i] = VecInt_1_y_1[i];
+  end for;
+  Scalar2Vector_3_u[1] = Constant_4_y[1];
+  for i in 1:1000 loop
+    Vec2Scalar_5_u_1[i] = VecInt_1_y_1[i];
+  end for;
+  for i in 1:1000 loop
+    vector_pow2_6_u_1[i] = VecInt_1_y_1[i];
+  end for;
+  for i in 1:1000 loop
+    VectorSum_8_u_2[i] = VecInt_1_y_1[i];
+  end for;
+\end{minted}
+\end{frame}
+
+
 	\subsection{Transformaciones Extras}
 \section{Resultados}
 	\subsection{LK}
