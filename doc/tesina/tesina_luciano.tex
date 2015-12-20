@@ -2,11 +2,16 @@
 \documentclass[a4paper,	11pt]{report}
 %-----------Paquetes-------------------------
 \usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[chapter]{minted}
 \usepackage{todonotes}
 \usepackage{marginnote}
+
+\usepackage{datetime}
+\newdate{date}{21}{12}{2015}
+\date{\displaydate{date}}
 
 \usepackage{xpatch,letltxmacro}
 \LetLtxMacro{\cminted}{\minted}
@@ -34,7 +39,6 @@
 
 \usepackage{mdframed}
 
-\usepackage[spanish]{babel}
 \usepackage{tcolorbox}
 \usepackage{etoolbox}
 
@@ -108,7 +112,7 @@ Ernesto Kofman
 
 \vfill
 
-{\large \today}
+{\large \displaydate{date}}
 \end{center}
 \end{titlepage}
 

@@ -2,6 +2,9 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{minted}
+\usepackage{datetime}
+\newdate{date}{21}{12}{2015}
+\date{\displaydate{date}}
 
 \usepackage{booktabs} 
 \newcommand{\quotes}[1]{``#1''}
@@ -39,7 +42,7 @@ Universidad Nacional de Rosario\\
 \medskip
 \textit{andrade.luciano@gmail.com}
 }
-\date{\today}
+\date{\displaydate{date}}
 
 \begin{document}
 
