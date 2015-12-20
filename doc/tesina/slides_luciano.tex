@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{minted}
 
+\usepackage{booktabs} 
 \newcommand{\quotes}[1]{``#1''}
 
 \AtBeginSection[]
@@ -520,7 +521,8 @@ end lotka_volterra;
 \begin{figure}[H]
   %\setcapwidth{0.6\textwidth}
         \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.5}{%
+\centering	Jerárquico \\
+\scalebox{0.45}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -561,7 +563,8 @@ end lotka_volterra;
         \end{tikzpicture}
 }
         \end{minipage} \hfill \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.5}{%
+\centering Plano \\
+\scalebox{0.45}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -602,7 +605,8 @@ end lotka_volterra;
 \begin{figure}[H]
   %\setcapwidth{0.6\textwidth}
         \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.5}{%
+\centering	Jerárquico \\
+\scalebox{0.45}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -651,7 +655,8 @@ end lotka_volterra;
         \end{tikzpicture}
 }
         \end{minipage} \hfill \begin{minipage}[t][][b]{.40\textwidth}
-\scalebox{0.5}{%
+\centering Plano \\
+\scalebox{0.45}{%
         \begin{tikzpicture}[%
           grow via three points={one child at (0.5,-0.7) and
           two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -694,6 +699,8 @@ end lotka_volterra;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Modelos Vectoriales}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Modelos Vectoriales}
 \begin{minted}{modelica}
   for i in 1:1000 loop
@@ -710,7 +717,9 @@ end lotka_volterra;
   end for;
 \end{minted}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Modelos Vectoriales}
 \begin{minted}{modelica}
   for i in 1:1000 loop
@@ -728,14 +737,244 @@ end lotka_volterra;
   end for;
 \end{minted}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 	\subsection{Transformaciones Extras}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transformaciones Extras}
+\begin{itemize}
+	\item<1-> Producto Interno
+	\item<2-> Arreglos Bidimensionales
+	\item<3-> Condicional
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejemplo Arreglos Bidimensionales}
+\begin{block}{Antes}
+\begin{minted}[breaklines=true]{modelica}
+Real IndexShift_2_u[IndexShift_2_N,1];
+\end{minted}
+\end{block}
+
+\begin{block}{Despues}
+\begin{minted}[breaklines=true]{modelica}
+Real IndexShift_2_u_1[IndexShift_2_N];
+\end{minted}
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejemplo de producto Interno}
+\begin{block}{Antes}
+\begin{minted}[breaklines=true]{modelica}
+    VectorSum_3_y_1[VectorSum_3_i] = VectorSum_3_u[VectorSum_3_i, 1:VectorSum_3_nin] * VectorSum_3_w;
+\end{minted}
+\end{block}
+	
+\begin{block}{Despues}
+\begin{minted}[breaklines=true]{modelica}
+    VectorSum_3_y[1,VectorSum_3_i] = VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+ VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+ VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+ VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
+\end{minted}
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejemplo Condicional - Antes}
+\begin{minted}[breaklines=true]{modelica}
+  if IndexShift_2_Shift > 0 then
+    for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
+    end for;
+    for IndexShift_2_i in 1:IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i] = 0;
+    end for;
+  else
+    for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+      IndexShift_2_y_1[IndexShift_2_i] = 
+		IndexShift_2_u_1[IndexShift_2_i - +IndexShift_2_Shift];
+    end for;
+    for IndexShift_2_i in IndexShift_2_N + IndexShift_2_Shift : IndexShift_2_N loop
+      IndexShift_2_y_1[IndexShift_2_i] = 0;
+    end for;
+  end if;
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejemplo Condicional - Despues}
+\begin{minted}[breaklines=true]{modelica}
+  for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
+    IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
+  end for;
+  for IndexShift_2_i in 1:IndexShift_2_Shift loop
+    IndexShift_2_y_1[IndexShift_2_i] = 0;
+  end for;
+\end{minted}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Resultados}
-	\subsection{LK}
+	\subsection{Lotka Volterra}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Lotka-Volterra}
+\begin{align*}
+\frac{dx}{dt} & = x(\alpha - \beta y)\\
+\frac{dy}{dt} & =y(\gamma - \delta  x)
+\end{align*}
+
+donde:
+\begin{itemize}
+    \item y es el número de algún predador (por ejemplo, un lobo);
+    \item x es el número de sus presas (por ejemplo, conejos);
+    \item t representa el tiempo; y
+    \item $\alpha$, $\beta$, $\gamma$, $\delta$ son parámetros que representan las interacciones de las dos especies.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Lotka-Volterra}
+\begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
+\centering
+PowerDEVS \\
+\includegraphics[width=\linewidth]{lotka_volterra-pd}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
+\centering
+QSS-Solver \\
+\includegraphics[width=\linewidth]{lotka_volterra-qss}
+\end{minipage}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Lotka-Volterra}
+\includegraphics[width=\textwidth]{output/lotka_volterra/lotka_volterra-all.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Líneas de Transmisión}
 	\subsection{Comparaciones}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Líneas de Transmisión}
+\begin{equation*}
+\begin{split}
+\frac{d v_{j}}{d t} &= \frac{i_{j} - i_{j+1}}{C} \\
+\frac{d i_{j}}{d t} &= \frac{v_{j-1} - v_{j}}{L} \\	
+\end{split}
+\end{equation*}
+
+para $j = 2 \dots N$
+
+Consideramos un pulso de entrada:
+\begin{equation*}
+v_0(t) = \left\{ 
+  \begin{array}{l l}
+    1 \text{ si } t < 1 \\
+    0 \text{ en caso contrario }
+  \end{array} \right.
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Modelo Líneas de Transmisión en PowerDEVS}
+\begin{figure}[H]
+ \includegraphics[width=\linewidth]{lclines}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Resultados - Líneas de Transmisión}
+\begin{figure}[H]
+\begin{minipage}{0.5\textwidth}
+\centering
+PowerDEVS\\
+\includegraphics[width=\linewidth]{lcline-pd}
+\end{minipage}\hfill\begin{minipage}{0.5\textwidth}
+\centering
+QSS-Solver\\
+ \includegraphics[width=\linewidth]{lcline-qss}
+\end{minipage}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Líneas de Transmisión}
+ \includegraphics[width=\linewidth]{output/lcline/lcline-all}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados - Resumen}
+\scalebox{0.8}{%
+\begin{tabular}{lrrr}
+\toprule
+{\bf Modelos}            &  {\bf P.DEVS(ms)} & {\bf QSS-S. (ms)} & {\bf Mejora (\%)} \\
+\toprule
+Lotka  Voltera       		& 11            & 2         & 81 \\
+Lineas de Transmisión      & 76402         & 34982         & 54          \\
+Inversores(LIQSS2)    	& 25046         & 7694         & 69        \\
+ADR(LIQSS2)  		& 6089          & 568         & 90        \\
+Convertidor de Voltaje     	& 268           & 10         & 96         
+
+\end{tabular}
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Conclusiones}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusiones}
+\begin{itemize}
+\item<1-> Realizamos una traducción para permitir ejecutar modelos PowerDEVS dentro de la herramienta de simulación QSS-Solver. 
+\item<2-> Para lo cual se generaron de forma manual los modelos Modelica equivalentes a los bloques PowerDEVS utilizados en los ejemplos.
+\item<3-> Se desarrolló un algoritmo de traducción para la estructura de archivos PDS de PowerDEVS sin modelos acoplados.
+\item<4-> Se desarrolló un algoritmo para el aplanado de modelos PowerDEVS.
+\item<5-> Se implementaron transformaciones automáticas sobre el código Modelica para utilizar QSS-Solver.
+\item<6-> Se logro una mejora del tiempo de simulación las cuales alcanzan cerca del 90 \% en modelos grandes.
+\item<7-> Mostramos además como se mantienen los valores obtenidos de la simulación.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Trabajos Futuros}
+\begin{itemize}
+\item Para poder convertir una mayor variedad de modelos de PowerDEVS, es necesario escribir más modelos en Modelica equivalentes a los modelos atómicos.
+\item Algunos modelo atómicos necesitan expandir el QSS-Solver para poder ser ejecutados, por ejemplo los modelos de tiempo real.
+\item La librería modelicacc , ha sido actualizada con un nuevo \quotes{parser}.
+\item La expansión de variables vectoriales, donde los valores provienen de expresiones del entorno Scilab es siempre tratado como un valor escalar y no como uno vectorial. 
+\item Es deseable que podamos llamar a esta conversión desde el mismo PowerDEVS y ejecutar el modelo resultante en el QSS-Solver.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\Huge{\centerline{¿Preguntas?}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \end{document}
 
