@@ -79,7 +79,7 @@ se presenta una aplicación capaz de convertir modelos, en PowerDEVS en modelos 
 \begin{itemize}
 	\item<1-> El sistema físico no se encuentra construido. 
 	
-	\item<2-> El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotara}.
+	\item<2-> El experimento puede ser peligroso. Se realizan simulaciones para determinar si el experimento real \quotes{explotará}.
 
 	\item<3-> El costo del experimento es demasiado alto o las herramientas necesarias no se encuentran disponibles o son muy costosas.
 
@@ -219,7 +219,7 @@ es un lenguaje orientado a objetos desarrollado para describir de manera sencill
 \begin{frame}{$\mu$-Modelica}
 
 \begin{block}{La especificación de }
-$\mu$-Modelica esta basado en la espeficación de Modelica y contiene solo las palabra claves y estructuras necesarias para definir modelos hibridos basados en ODE.
+$\mu$-Modelica está basado en la espeficación de Modelica y contiene solo las palabra claves y estructuras necesarias para definir modelos híbridos basados en ODE.
 \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,7 +266,7 @@ $\mu$-Modelica esta basado en la espeficación de Modelica y contiene solo las p
 \begin{frame}{Stand-Alone QSS-Solver}
 
 \begin{block}{El Stand-Alone QSS-Solver}
-es un entorno de modelado y simulación para sistemas hibridos y continuos.
+es un entorno de modelado y simulación para sistemas híbridos y continuos.
 \end{block}
 
 \begin{block}{Los modelos}
@@ -408,11 +408,12 @@ Nos permiten especificar un vector de Modelos y facilita el modelado de grandes 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conversión de modelos DEVS}
 \begin{block}{PowerDEVS}
-	trabaja principalmente con dos archivos, .PDM y .PDS.
-        Los archivos PDM son utilizados, principalmente, por el editor de modelos, contiene información estructural, de posición de los modelos, sus parámetros, nombre, tipo y valor, descripción de los modelos, la cantidad de puertos de cada modelo y las conexiones entre los modelos, los detalles de cómo esas conexiones son visualizadas por líneas y los detalles del recorrido de esas líneas. 
-        Todos estos elementos son utilizados en primera medida por el editor de modelos, pero también son utilizados para generar el archivo PDS el cual genera el código de la simulación.
-        El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación. 
+	Trabaja principalmente con dos archivos, .PDM y .PDS.
 \end{block}
+\begin{itemize}
+        \item<1-> Los archivos PDM son utilizados por el editor de PowerDEVS.
+        \item<2-> El archivo PDS contiene información estructural del modelo necesaria para realizar la simulación. 
+\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\subsubsection{Archivos PDS}
@@ -438,7 +439,7 @@ Nos permiten especificar un vector de Modelos y facilita el modelado de grandes 
     qss/qss\_integrator.mo
 \begin{minted}{modelica}
 class QSSIntegrator
-  parameter Real p[4]={0,0,0,0,0,0,0,0};
+  parameter Real p[4]={0,0,0,0};
   parameter Real x0 = p[4];
   Real u[1];
   Real y[1](start = {x0});
@@ -705,12 +706,12 @@ end lotka_volterra;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Modelos Vectoriales}
+Las conexiones entre modelos vectoriales, deben ser tratadas de forma diferente,
+ya que representan un vector de conexiones en lugar de una conexion.
+
 \begin{minted}{modelica}
   for i in 1:1000 loop
     IndexShift_2_u[1][i] = VecInt_1_y[1][i];
-  end for;
-  for i in 1:1000 loop
-    Vec2Scalar_5_u[1][i] = VecInt_1_y[1][i];
   end for;
   for i in 1:1000 loop
     vector_pow2_6_u[1][i] = VecInt_1_y[1][i];
@@ -721,27 +722,6 @@ end lotka_volterra;
 \end{minted}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Modelos Vectoriales}
-\begin{minted}{modelica}
-  for i in 1:1000 loop
-    IndexShift_2_u_1[i] = VecInt_1_y_1[i];
-  end for;
-  Scalar2Vector_3_u[1] = Constant_4_y[1];
-  for i in 1:1000 loop
-    Vec2Scalar_5_u_1[i] = VecInt_1_y_1[i];
-  end for;
-  for i in 1:1000 loop
-    vector_pow2_6_u_1[i] = VecInt_1_y_1[i];
-  end for;
-  for i in 1:1000 loop
-    VectorSum_8_u_2[i] = VecInt_1_y_1[i];
-  end for;
-\end{minted}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 	\subsection{Transformaciones Extras}
 
@@ -759,13 +739,14 @@ end lotka_volterra;
 \begin{frame}[fragile]{Ejemplo Arreglos Bidimensionales}
 \begin{block}{Antes}
 \begin{minted}[breaklines=true]{modelica}
-Real IndexShift_2_u[IndexShift_2_N,1];
+Real IndexShift_2_u[IndexShift_2_N,2];
 \end{minted}
 \end{block}
 
-\begin{block}{Despues}
+\begin{block}{Después}
 \begin{minted}[breaklines=true]{modelica}
 Real IndexShift_2_u_1[IndexShift_2_N];
+Real IndexShift_2_u_2[IndexShift_2_N];
 \end{minted}
 \end{block}
 \end{frame}
@@ -781,7 +762,7 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 \end{minted}
 \end{block}
 	
-\begin{block}{Despues}
+\begin{block}{Después}
 \begin{minted}[breaklines=true]{modelica}
     VectorSum_3_y[1,VectorSum_3_i] = VectorSum_3_u[1,VectorSum_3_i]*VectorSum_3_w[1]+ VectorSum_3_u[2,VectorSum_3_i]*VectorSum_3_w[2]+ VectorSum_3_u[3,VectorSum_3_i]*VectorSum_3_w[3]+ VectorSum_3_u[4,VectorSum_3_i]*VectorSum_3_w[4];
 \end{minted}
@@ -813,7 +794,7 @@ Real IndexShift_2_u_1[IndexShift_2_N];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Ejemplo Condicional - Despues}
+\begin{frame}[fragile]{Ejemplo Condicional - Después}
 \begin{minted}[breaklines=true]{modelica}
   for IndexShift_2_i in 1:IndexShift_2_N-IndexShift_2_Shift loop
     IndexShift_2_y_1[IndexShift_2_i+IndexShift_2_Shift] = IndexShift_2_u_1[IndexShift_2_i];
@@ -942,13 +923,13 @@ Convertidor de Voltaje     	& 268           & 10         & 96
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusiones}
 \begin{itemize}
-\item<1-> Realizamos una traducción para permitir ejecutar modelos PowerDEVS dentro de la herramienta de simulación QSS-Solver. 
+\item<1-> Realizamos una herramienta que traduce modelos PowerDEVS a modelos $\mu$-Modelica, que pueden ser ejecutados en QSS-Solver. 
 \item<2-> Para lo cual se generaron de forma manual los modelos Modelica equivalentes a los bloques PowerDEVS utilizados en los ejemplos.
 \item<3-> Se desarrolló un algoritmo de traducción para la estructura de archivos PDS de PowerDEVS sin modelos acoplados.
 \item<4-> Se desarrolló un algoritmo para el aplanado de modelos PowerDEVS.
 \item<5-> Se implementaron transformaciones automáticas sobre el código Modelica para utilizar QSS-Solver.
-\item<6-> Se logro una mejora del tiempo de simulación las cuales alcanzan cerca del 90 \% en modelos grandes.
-\item<7-> Mostramos además como se mantienen los valores obtenidos de la simulación.
+\item<6-> Se logró una mejora del tiempo de simulación las cuales alcanzan cerca del 90 \% en modelos grandes.
+\item<7-> Mostramos además cómo se mantienen los valores obtenidos de la simulación.
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
